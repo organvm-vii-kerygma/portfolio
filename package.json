@@ -84,6 +84,7 @@
 		"quality:parallel:post": "run-p test validate test:a11y",
 		"quality:fast": "npm run quality:parallel:pre && npm run build && npm run quality:parallel:post",
 		"preflight": "npm run lint && npm run typecheck:strict && npm run build && npm run validate && npm run sync:a11y-routes && npm run check:runtime-route-manifest && npm run test",
+		"preflight:psp-p06": "node scripts/validate-psp-p06-preflight.mjs && node --test scripts/__tests__/psp-p06-preflight.test.mjs",
 		"test:ci": "npm run quality:local"
 	},
 	"dependencies": {
