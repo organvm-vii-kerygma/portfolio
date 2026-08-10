@@ -7,6 +7,8 @@
 	"formalPredicateRun": false,
 	"formalIssueClosed": false,
 	"activeRoute": false,
+	"renderedSurfaceChanged": false,
+	"pageOrComponentCreated": false,
 	"navigationChanged": false,
 	"published": false,
 	"deployed": false,
@@ -14,7 +16,6 @@
 	"intakeSent": false,
 	"externalEffects": [],
 	"paths": [
-		"src/pages/psp-c09/agentic-delivery-audit.astro.preflight",
 		"src/content/psp-c09/agentic-delivery-audit.preflight.json",
 		"src/intake/psp-c09/audit-intake.ts",
 		"src/intake/psp-c09/__tests__/audit-intake.test.ts"

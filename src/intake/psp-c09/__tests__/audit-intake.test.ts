@@ -1,13 +1,13 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import offer from '../../../content/psp-c09/agentic-delivery-audit.preflight.json';
 import manifest from '../../../content/psp-c09/preflight-manifest.json';
 import {
-	PSP_C09_SOURCE_LOCK,
 	buildSyntheticConversionEvent,
 	createAuditIntakeDraft,
+	PSP_C09_SOURCE_LOCK,
 	targetReaderComprehension,
 } from '../audit-intake';
 
@@ -39,15 +39,20 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 		expect(PSP_C09_SOURCE_LOCK.commercialContract.head).toBe(
 			'b5bc01585a10615e85e1ef5b31a2356c24fb9bc9',
 		);
-		expect(PSP_C09_SOURCE_LOCK.deliveryOs.head).toBe(
-			'4ae8e81665e35e6a5d403a3e13935021ce6544ec',
-		);
+		expect(PSP_C09_SOURCE_LOCK.deliveryOs.head).toBe('4ae8e81665e35e6a5d403a3e13935021ce6544ec');
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(
 			'36bf386c22e64785db8e7843899bf9aabf85bf89',
 		);
 		expect(PSP_C09_SOURCE_LOCK.experienceContract.head).toBe(
 			'fa86b67a7283c15ab801302ffac655c30898b6a1',
 		);
+		expect(PSP_C09_SOURCE_LOCK.publicSurfaces).toMatchObject({
+			head: '7283219f98053aabfede5c41467c7cc1010165c3',
+			limenRelayHead: 'f5c5a03749a3ec44cf7eab278735b07f841bf60a',
+			legacyDeadLinkCount: 11,
+			visualDirectionSelected: false,
+			renderedSurfaceChangesAuthorized: false,
+		});
 	});
 
 	it('builds a tagged local intake draft with no contact data, transport, or external effect', () => {
@@ -103,19 +108,23 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 		});
 	});
 
-	it('keeps the sales template inactive, unindexed, no-send, and free of numeric price claims', () => {
-		const pagePath = resolve(
-			root,
-			'src/pages/psp-c09/agentic-delivery-audit.astro.preflight',
-		);
-		expect(existsSync(pagePath)).toBe(true);
-		const page = readFileSync(pagePath, 'utf8');
-		expect(page).toContain('noindex,nofollow');
-		expect(page).toContain('data-active-route="false"');
-		expect(page).toContain('No contact field or send action exists');
+	it('keeps W04 contract-only with no page, route, component, visual, or numeric price claim', () => {
+		const pagePath = resolve(root, 'src/pages/psp-c09/agentic-delivery-audit.astro.preflight');
+		expect(existsSync(pagePath)).toBe(false);
+		expect(manifest.paths.some((path) => path.startsWith('src/pages/'))).toBe(false);
+		expect(manifest.renderedSurfaceChanged).toBe(false);
+		expect(manifest.pageOrComponentCreated).toBe(false);
 		expect(JSON.stringify(offer)).not.toMatch(/[$£€]|\b(?:USD|GBP|EUR)\b/);
 		expect(offer.activeRoute).toBe(false);
 		expect(offer.published).toBe(false);
+		expect(offer.publicSurfaceBoundary).toEqual({
+			visualDirectionSelected: false,
+			visualImplementationAuthorized: false,
+			renderedRouteOrComponentAuthorized: false,
+			legacyDeadLinkCount: 11,
+			linkHealthState: 'recorded_not_repaired',
+			canonicalRepository: 'organvm-vii-kerygma/portfolio',
+		});
 	});
 
 	it('homes the W04 artifacts and preserves its exact formal assignment for later execution', () => {

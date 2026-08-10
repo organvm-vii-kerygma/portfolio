@@ -19,6 +19,17 @@ export const PSP_C09_SOURCE_LOCK = {
 		pullRequest: 220,
 		head: 'fa86b67a7283c15ab801302ffac655c30898b6a1',
 	},
+	publicSurfaces: {
+		repository: 'organvm-vii-kerygma/portfolio',
+		pullRequest: 221,
+		head: '7283219f98053aabfede5c41467c7cc1010165c3',
+		limenRelayPullRequest: 2317,
+		limenRelayHead: 'f5c5a03749a3ec44cf7eab278735b07f841bf60a',
+		legacyDeadLinkCount: 11,
+		canonicalRepository: 'organvm-vii-kerygma/portfolio',
+		visualDirectionSelected: false,
+		renderedSurfaceChangesAuthorized: false,
+	},
 } as const;
 
 export type AuditIntakeRoute = 'audit' | 'human_review' | 'decline';
@@ -58,7 +69,10 @@ const secretPattern =
 	/(?:password|secret|api[_ -]?key|access[_ -]?token|refresh[_ -]?token|private[_ -]?key|session[_ -]?cookie|credential)/i;
 
 export function createAuditIntakeDraft(input: AuditIntakeInput): AuditIntakeDraft {
-	if (!input.opportunityId.startsWith('synthetic_') || !input.partitionId.startsWith('synthetic_')) {
+	if (
+		!input.opportunityId.startsWith('synthetic_') ||
+		!input.partitionId.startsWith('synthetic_')
+	) {
 		throw new Error('preflight intake accepts synthetic opaque identifiers only');
 	}
 	if (input.qualification.workId !== 'PSP-P10-W01' || !input.qualification.sourceHead) {

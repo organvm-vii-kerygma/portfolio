@@ -10,7 +10,9 @@
 		"headlineClaimRef": "C03-HEADLINE-001",
 		"boundaryClaimRef": "C03-COMMERCIAL-BOUNDARY-001",
 		"deliveryOs": "organvm-iii-ergon/collaboration-operations-platform#135@4ae8e81665e35e6a5d403a3e13935021ce6544ec",
-		"proofLedContent": "organvm/limen#2316@36bf386c22e64785db8e7843899bf9aabf85bf89"
+		"proofLedContent": "organvm/limen#2316@36bf386c22e64785db8e7843899bf9aabf85bf89",
+		"publicSurfaces": "organvm-vii-kerygma/portfolio#221@7283219f98053aabfede5c41467c7cc1010165c3",
+		"publicSurfacesRelay": "organvm/limen#2317@f5c5a03749a3ec44cf7eab278735b07f841bf60a"
 	},
 	"readerContract": {
 		"audience": "A leader who owns one stalled or risky agentic/software delivery decision.",
@@ -60,6 +62,14 @@
 			"intake_routed",
 			"draft_decision_recorded"
 		]
+	},
+	"publicSurfaceBoundary": {
+		"visualDirectionSelected": false,
+		"visualImplementationAuthorized": false,
+		"renderedRouteOrComponentAuthorized": false,
+		"legacyDeadLinkCount": 11,
+		"linkHealthState": "recorded_not_repaired",
+		"canonicalRepository": "organvm-vii-kerygma/portfolio"
 	},
 	"humanGates": ["HG-PUBLIC-IDENTITY", "HG-PUBLICATION-SEND", "HG-CONTRACT"],
 	"externalEffects": []
