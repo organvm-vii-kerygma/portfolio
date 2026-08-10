@@ -1,0 +1,40 @@
+---
+// INACTIVE PREPARED TEMPLATE. The .astro.preflight suffix is deliberately non-routable.
+// Integration must resolve claim IDs from organvm/limen#2312, refresh proof state, obtain the
+// applicable human gates, and rename this file under a separately reviewed public-release change.
+import offer from '../../content/psp-c09/agentic-delivery-audit.preflight.json';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="robots" content="noindex,nofollow" />
+		<title>Agentic Delivery Audit — PREPARED preview</title>
+	</head>
+	<body data-status={offer.status} data-active-route="false">
+		<header>
+			<p>PREPARED preview — not published, not an offer, and not a client outcome.</p>
+			<h1>Make one stalled delivery decision governable.</h1>
+			<p>{offer.readerContract.expensiveProblem}</p>
+		</header>
+		<main>
+			<section aria-labelledby="fit-heading">
+				<h2 id="fit-heading">Fit</h2>
+				<ul>{offer.readerContract.fitSignals.map((signal) => <li>{signal}</li>)}</ul>
+			</section>
+			<section aria-labelledby="exclusions-heading">
+				<h2 id="exclusions-heading">Not included</h2>
+				<ul>{offer.readerContract.exclusions.map((item) => <li>{item}</li>)}</ul>
+			</section>
+			<section aria-labelledby="proof-heading">
+				<h2 id="proof-heading">Proof boundary</h2>
+				<p>Resolve claim IDs at integration; provisional proof is never a commercial outcome.</p>
+			</section>
+			<section aria-labelledby="next-heading">
+				<h2 id="next-heading">Bounded next step</h2>
+				<p>{offer.readerContract.nextStep}</p>
+				<p>No contact field or send action exists in this preflight.</p>
+			</section>
+		</main>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+{
+	"schemaVersion": "portfolio.psp-c09.preflight-manifest.v1",
+	"workId": "PSP-P10-W04",
+	"assignedModel": "gpt-5.6-terra",
+	"assignedEffort": "high",
+	"status": "prepared_preflight",
+	"formalPredicateRun": false,
+	"formalIssueClosed": false,
+	"activeRoute": false,
+	"navigationChanged": false,
+	"published": false,
+	"deployed": false,
+	"analyticsSent": false,
+	"intakeSent": false,
+	"externalEffects": [],
+	"paths": [
+		"src/pages/psp-c09/agentic-delivery-audit.astro.preflight",
+		"src/content/psp-c09/agentic-delivery-audit.preflight.json",
+		"src/intake/psp-c09/audit-intake.ts",
+		"src/intake/psp-c09/__tests__/audit-intake.test.ts"
+	]
+}

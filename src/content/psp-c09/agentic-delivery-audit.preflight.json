@@ -1,0 +1,66 @@
+{
+	"schemaVersion": "portfolio.psp-c09.audit-offer-preflight.v1",
+	"status": "prepared_preflight",
+	"activeRoute": false,
+	"indexed": false,
+	"published": false,
+	"source": {
+		"commercialContract": "organvm/limen#2312@b5bc01585a10615e85e1ef5b31a2356c24fb9bc9",
+		"identityClaimRef": "C03-IDENTITY-001",
+		"headlineClaimRef": "C03-HEADLINE-001",
+		"boundaryClaimRef": "C03-COMMERCIAL-BOUNDARY-001",
+		"deliveryOs": "organvm-iii-ergon/collaboration-operations-platform#135@4ae8e81665e35e6a5d403a3e13935021ce6544ec",
+		"proofLedContent": "organvm/limen#2316@36bf386c22e64785db8e7843899bf9aabf85bf89"
+	},
+	"readerContract": {
+		"audience": "A leader who owns one stalled or risky agentic/software delivery decision.",
+		"expensiveProblem": "Activity exists, but the team cannot yet judge value, risk, cost, verified done, or the handoff owner.",
+		"proofRefs": ["C02-PROOF-LIMEN"],
+		"nextStep": "Review fit and prepare a no-send intake draft for one bounded initiative.",
+		"fitSignals": [
+			"one named sponsor and decision owner",
+			"one bounded initiative, workflow, team, or pipeline",
+			"read-only evidence can support the decision",
+			"a real decision window and willingness to stop or narrow"
+		],
+		"exclusions": [
+			"production mutation or deployment",
+			"organization redesign or executive substitution",
+			"unlimited repository, team, or vendor scope",
+			"on-call response or outcome guarantee",
+			"security, legal, privacy, or approval bypass"
+		]
+	},
+	"claims": {
+		"proofStatus": "provisional_preflight",
+		"forbidden": [
+			"client outcome",
+			"revenue",
+			"adoption",
+			"ranking",
+			"unsupported executive title",
+			"numeric public price"
+		]
+	},
+	"intake": {
+		"mode": "local_draft_only",
+		"transport": "none",
+		"contactFields": [],
+		"doorTag": "client",
+		"offerTag": "agentic_delivery_audit",
+		"qualificationOwner": "PSP-P10-W01"
+	},
+	"instrumentation": {
+		"syntheticOnly": true,
+		"transport": "none",
+		"events": [
+			"offer_viewed",
+			"fit_reviewed",
+			"intake_started",
+			"intake_routed",
+			"draft_decision_recorded"
+		]
+	},
+	"humanGates": ["HG-PUBLIC-IDENTITY", "HG-PUBLICATION-SEND", "HG-CONTRACT"],
+	"externalEffects": []
+}
