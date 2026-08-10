@@ -1,0 +1,134 @@
+{
+  "schema_version": "portfolio.psp_p07_public_surface_preflight.v1",
+  "status": "PREPARED/PREFLIGHT",
+  "prepared_at": "2026-08-10",
+  "scope": "PSP-C06 / PSP-P07-W01 through W09",
+  "read_only_inputs": {
+    "portfolio_repository": {
+      "id": 1155412125,
+      "slug": "organvm-vii-kerygma/portfolio",
+      "main_head": "85bfaa84287e4a3b90b49187caa4313c4edda1aa",
+      "current_public_url": "https://organvm-vii-kerygma.github.io/portfolio/"
+    },
+    "c04_preflight": {
+      "pull_request": "https://github.com/organvm/limen/pull/2313",
+      "exact_head": "e9c2db2360acd5fd57a48d063e64990dc8f3a768"
+    },
+    "p06_experience_preflight": {
+      "pull_request": "https://github.com/organvm-vii-kerygma/portfolio/pull/220",
+      "exact_head": "fa86b67a7283c15ab801302ffac655c30898b6a1"
+    },
+    "c00_p00": {
+      "status": "closed",
+      "merged_pull_request": "https://github.com/organvm/limen/pull/2300",
+      "rule": "The historic non-Codex/Agy identity gate is superseded and is not a C06 blocker."
+    }
+  },
+  "surface_inventory": [
+    {
+      "work_id": "PSP-P07-W01",
+      "surface": "personal_github_profile",
+      "url": "https://github.com/4444J99",
+      "source": "https://github.com/4444J99/4444J99",
+      "observed_at": "2026-08-10",
+      "state": "observed_no_change",
+      "release_owner": "HG-PUBLIC-IDENTITY",
+      "guardrails": ["generated README remains source-derived", "claim and link gates required before publication", "retain prior rendered README for rollback"]
+    },
+    {
+      "work_id": "PSP-P07-W02",
+      "surface": "organization_estate_map",
+      "url": "https://github.com/organvm",
+      "source": "https://github.com/organvm/.github",
+      "observed_at": "2026-08-10",
+      "state": "observed_no_change",
+      "release_owner": "HG-PUBLIC-IDENTITY",
+      "guardrails": ["individual buyers route to the personal front door", "estate description cannot substitute for evidence", "private boundaries remain explicit"]
+    },
+    {
+      "work_id": "PSP-P07-W03",
+      "surface": "canonical_portfolio",
+      "url": "https://organvm-vii-kerygma.github.io/portfolio/",
+      "state": "rollback_baseline_captured",
+      "blocked_by": ["PSP-P06-W07", "visual_selection_receipt", "HG-PUBLIC-IDENTITY"],
+      "rollback": "retain the current GitHub Pages release as the known-green public baseline"
+    },
+    {
+      "work_id": "PSP-P07-W04",
+      "surface": "resume_and_interview_packet",
+      "url": "https://organvm-vii-kerygma.github.io/portfolio/resume/",
+      "state": "inventory_only",
+      "blocked_by": ["PSP-P03-W05", "PSP-P05-W02", "HG-PUBLIC-IDENTITY"],
+      "guardrails": ["web/PDF parity must be tested", "no unsupported scope or current-date claim", "previous approved packet is rollback"]
+    },
+    {
+      "work_id": "PSP-P07-W05",
+      "surface": "flagship_proof_destinations",
+      "state": "candidate_inventory_only",
+      "candidates": ["Limen", "UCC Public-Records Intelligence Platform", "AI Chat Exporter"],
+      "rule": "Names are candidate proof destinations from C04 only; no claim, status, or repository metadata is promoted by this contract."
+    },
+    {
+      "work_id": "PSP-P07-W06",
+      "surface": "off_platform_identity_package",
+      "state": "staging_only",
+      "blocked_by": ["PSP-P03-W03", "PSP-P03-W05", "HG-LINKEDIN", "HG-PUBLIC-IDENTITY"],
+      "rule": "No platform copy is applied, sent, or represented as live by this preflight."
+    },
+    {
+      "work_id": "PSP-P07-W07",
+      "surface": "custom_domain_hierarchy",
+      "state": "url_truth_inventory_only",
+      "authority": "institutio/identity/url-map.yaml in organvm/limen",
+      "blocked_by": ["PSP-P07-W03", "HG-URL-MAP"],
+      "rule": "No DNS, custom-domain, redirect, or TLS mutation is authorized."
+    },
+    {
+      "work_id": "PSP-P07-W08",
+      "surface": "privacy_respecting_analytics",
+      "state": "schema_only_no_collection",
+      "rule": "A later implementation may emit only the allowlisted synthetic-safe event fields below."
+    },
+    {
+      "work_id": "PSP-P07-W09",
+      "surface": "link_health_rollback_surface_parity",
+      "state": "preflight_checklist_only",
+      "authority": "organvm/limen link-surfaces.json and scripts/link-health.py",
+      "rule": "No release drill runs against production from this preflight."
+    }
+  ],
+  "analytics_schema": {
+    "privacy": {
+      "collection_default": "disabled",
+      "prohibited_fields": ["name", "email", "phone", "ip", "user_agent", "referrer_url", "free_text", "query_parameters", "content_body", "repository_private_identifier", "cross_site_identifier"],
+      "retention_rule": "aggregate-only after implementation; raw event retention requires a separate approved policy"
+    },
+    "events": [
+      {"name": "psp_door_opened", "required_fields": ["schema_version", "surface_id", "audience", "door", "event_version"], "allowed_values": {"audience": ["client", "recruiter_executive"], "door": ["client", "recruiter_executive"]}},
+      {"name": "psp_proof_opened", "required_fields": ["schema_version", "surface_id", "proof_id", "disclosure_level", "evidence_state", "event_version"], "allowed_values": {"disclosure_level": ["L1", "L2", "L3"], "evidence_state": ["ready", "empty", "stale", "error", "withheld"]}},
+      {"name": "psp_index_opened", "required_fields": ["schema_version", "surface_id", "disclosure_level", "event_version"], "allowed_values": {"disclosure_level": ["L3"]}}
+    ],
+    "test_cases": ["reject prohibited fields", "reject unrecognized event names", "reject a partner door", "differentiate client from recruiter_executive", "allow withheld evidence without a claim value"]
+  },
+  "release_and_rollback_contract": {
+    "preflight_link_health": {
+      "observed_at": "2026-08-10",
+      "command": "python3 scripts/link-health.py --verify",
+      "result": "failed",
+      "dead_links": 11,
+      "affected_surfaces": ["personal_github_profile", "canonical_portfolio", "resume_and_interview_packet"],
+      "cause": "legacy organvm.github.io portfolio paths return 404 while the canonical organvm-vii-kerygma.github.io portfolio paths resolve",
+      "safe_next_step": "Repair each source-owned link in an approved profile/portfolio change, then rerun link health; do not redirect or mutate DNS from this preflight."
+    },
+    "required_pre_release_receipt": ["exact commit", "build predicate", "rendered desktop and mobile captures", "link-health report", "privacy analytics test", "rollback target"],
+    "rollback_order": ["stop the candidate release", "restore the previously captured known-green release", "re-check public routes and evidence links", "record restored release id and timestamps"],
+    "parity_surfaces": ["personal_github_profile", "organization_estate_map", "canonical_portfolio", "resume_and_interview_packet", "flagship_proof_destinations", "off_platform_identity_package", "custom_domain_hierarchy"],
+    "hard_boundary": "This contract does not authorize a deploy, a DNS change, a send, an identity-surface mutation, a release drill, or phase/leaf closure."
+  },
+  "visual_selection": {
+    "directions_generated": 3,
+    "selection_owner": "operator",
+    "implementation_rule": "No visual target, component, route, server, deployment, or analytics instrumentation proceeds until a durable selection receipt exists.",
+    "rollback": "The current public portfolio captured on 2026-08-10 remains the rollback baseline."
+  }
+}
