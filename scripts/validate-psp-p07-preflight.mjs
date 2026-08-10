@@ -1,10 +1,14 @@
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 const contractPath = fileURLToPath(
 	new URL('../src/data/psp-p07-public-surface-contract.json', import.meta.url),
 );
+const visualDirectory = new URL('../docs/positioning/visual-directions/psp-c06/', import.meta.url);
+const manifestPath = fileURLToPath(new URL('manifest.json', visualDirectory));
 const contract = JSON.parse(await readFile(contractPath, 'utf8'));
+const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 const failures = [];
 
 const assert = (condition, message) => {
@@ -67,6 +71,21 @@ assert(
 	contract.release_and_rollback_contract.preflight_link_health.dead_links === 11,
 	'link-health finding must retain its observed denominator',
 );
+assert(manifest.selection_status === 'UNSELECTED', 'visual directions must remain unselected');
+assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
+assert(
+	/No direction may be regenerated/.test(manifest.no_build_boundary),
+	'visual manifest must preserve the no-build boundary',
+);
+
+for (const direction of manifest.directions) {
+	const bytes = await readFile(new URL(direction.path, visualDirectory));
+	const digest = createHash('sha256').update(bytes).digest('hex');
+	assert(
+		digest === direction.sha256,
+		`visual direction ${direction.option} must retain its exact digest`,
+	);
+}
 
 if (failures.length > 0) {
 	throw new Error(`PSP-C06 preflight invalid:\n- ${failures.join('\n- ')}`);
