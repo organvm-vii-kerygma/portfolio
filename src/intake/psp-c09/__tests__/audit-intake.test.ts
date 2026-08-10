@@ -37,7 +37,7 @@ function syntheticDraft() {
 describe('PSP-P10-W04 sales and intake preflight', () => {
 	it('locks exact upstream preflight heads without copying their contracts', () => {
 		expect(PSP_C09_SOURCE_LOCK.commercialContract.head).toBe(
-			'b5bc01585a10615e85e1ef5b31a2356c24fb9bc9',
+			'e440f5b96b7baa67ebc45868e327b5ce62579142',
 		);
 		expect(PSP_C09_SOURCE_LOCK.deliveryOs.head).toBe('4ae8e81665e35e6a5d403a3e13935021ce6544ec');
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(

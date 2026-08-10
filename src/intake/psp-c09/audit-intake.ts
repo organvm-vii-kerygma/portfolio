@@ -2,7 +2,7 @@ export const PSP_C09_SOURCE_LOCK = {
 	commercialContract: {
 		repository: 'organvm/limen',
 		pullRequest: 2312,
-		head: 'b5bc01585a10615e85e1ef5b31a2356c24fb9bc9',
+		head: 'e440f5b96b7baa67ebc45868e327b5ce62579142',
 	},
 	deliveryOs: {
 		repository: 'organvm-iii-ergon/collaboration-operations-platform',
