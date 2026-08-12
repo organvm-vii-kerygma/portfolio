@@ -12,11 +12,35 @@
     },
     "c04_preflight": {
       "pull_request": "https://github.com/organvm/limen/pull/2313",
-      "exact_head": "e9c2db2360acd5fd57a48d063e64990dc8f3a768"
+      "exact_head": "23712398c6586e005c303eff632604985cd0a25c"
     },
     "p06_experience_preflight": {
       "pull_request": "https://github.com/organvm-vii-kerygma/portfolio/pull/220",
-      "exact_head": "fa86b67a7283c15ab801302ffac655c30898b6a1"
+      "exact_head": "9bcc4606b68da83dc0878b060989d35c3b649d7f"
+    },
+    "c03_upstream": {
+      "pull_request": "https://github.com/organvm/limen/pull/2312",
+      "current_preflight_head": "c7c932205faa405e291f8030235a73cedeaa219e",
+      "accepted_w01_w06_head": "c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
+      "closed_work_ids": [
+        "PSP-P03-W01",
+        "PSP-P03-W02",
+        "PSP-P03-W03",
+        "PSP-P03-W04",
+        "PSP-P03-W05",
+        "PSP-P03-W06"
+      ],
+      "w06_receipt": {
+        "url": "https://github.com/organvm/limen/issues/2187#issuecomment-5271254820",
+        "sha256": "260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617"
+      },
+      "sole_unresolved_dependency": {
+        "work_id": "PSP-P03-W07",
+        "issue": "https://github.com/organvm/limen/issues/2188",
+        "state": "open_five_reader_evidence_gate",
+        "tracked_protocol_head": "c7c932205faa405e291f8030235a73cedeaa219e",
+        "rule": "Five genuine independent target-like reader records are required; W06 reviews and synthetic or model responses cannot substitute."
+      }
     },
     "c00_p00": {
       "status": "closed",
