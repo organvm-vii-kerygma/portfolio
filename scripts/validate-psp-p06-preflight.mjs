@@ -12,6 +12,8 @@ export async function loadContract(url = defaultContractUrl) {
 
 export function validateContract(contract) {
 	const errors = [];
+	if (contract.schema_version !== 'portfolio.psp_p06_experience_preflight.v2')
+		errors.push('unsupported PSP-P06 contract schema');
 	if (contract.status !== 'PREPARED/PREFLIGHT')
 		errors.push('status must remain PREPARED/PREFLIGHT');
 	if (contract.repository?.repository_id !== 1155412125)
@@ -62,6 +64,24 @@ export function validateContract(contract) {
 		errors.push('C03 W06 receipt SHA mismatch');
 	if (contract.identity_contract?.authority_boundary?.scope !== 'sponsor-granted and written')
 		errors.push('accepted W06 authority boundary mismatch');
+	const expectedLeaves = Array.from({ length: 7 }, (_, index) => `PSP-P06-W0${index + 1}`);
+	if (contract.program_binding?.source_path !== 'institutio/positioning/program.yaml')
+		errors.push('program binding must name the canonical manifest');
+	if (
+		JSON.stringify((contract.program_binding?.leaf_bindings ?? []).map((row) => row.id)) !==
+		JSON.stringify(expectedLeaves)
+	)
+		errors.push('program binding must cover PSP-P06-W01 through W07');
+	for (const row of contract.program_binding?.leaf_bindings ?? []) {
+		if (!row.targets?.length || !row.executable || !row.residual)
+			errors.push(`${row.id} binding is incomplete`);
+	}
+	if (
+		contract.integration_harness?.public_effect !== false ||
+		!contract.integration_harness?.runner ||
+		!contract.integration_harness?.fixture
+	)
+		errors.push('integration harness must be complete and non-public');
 
 	const routeOwners = new Map();
 	for (const route of contract.canonical_routes ?? []) {

@@ -1,7 +1,27 @@
 {
-  "schema_version": "portfolio.psp_p06_experience_preflight.v1",
+  "schema_version": "portfolio.psp_p06_experience_preflight.v2",
   "status": "PREPARED/PREFLIGHT",
   "prepared_at": "2026-08-10",
+  "program_binding": {
+    "source_path": "institutio/positioning/program.yaml",
+    "registry_authority": "PSP-P06 outcomes, acceptance, and target_paths",
+    "leaf_bindings": [
+      {"id": "PSP-P06-W01", "targets": ["docs/design", "design"], "executable": "design_context", "residual": "approval"},
+      {"id": "PSP-P06-W02", "targets": ["docs", "content"], "executable": "route_content_projection", "residual": "ratified_content"},
+      {"id": "PSP-P06-W03", "targets": ["design", "docs/design"], "executable": "audience_flows", "residual": "selected_direction_usability"},
+      {"id": "PSP-P06-W04", "targets": ["src/components", "src/content", "docs"], "executable": "evidence_states", "residual": "selected_direction_components"},
+      {"id": "PSP-P06-W05", "targets": ["src/styles", "web/tokens"], "executable": "locked_visual_gate", "residual": "HG-DESIGN-TOKENS"},
+      {"id": "PSP-P06-W06", "targets": ["src", "tests"], "executable": "quality_budgets", "residual": "measured_browser_receipts"},
+      {"id": "PSP-P06-W07", "targets": ["docs/receipts", "tests"], "executable": "visual_comprehension_qa", "residual": "target_like_reviewers"}
+    ]
+  },
+  "integration_harness": {
+    "runner": "node scripts/run-psp-p06-integration.mjs",
+    "fixture": "scripts/__tests__/fixtures/psp-p06-integration.json",
+    "test": "node --test scripts/__tests__/psp-p06-preflight.test.mjs scripts/__tests__/psp-p06-integration.test.mjs",
+    "public_effect": false,
+    "fixture_rule": "Synthetic fixtures prove contract behavior only; they are not release, visual, accessibility, performance, or reader evidence."
+  },
   "repository": {
     "owner": "organvm-vii-kerygma",
     "name": "portfolio",
