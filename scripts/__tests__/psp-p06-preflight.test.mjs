@@ -23,6 +23,26 @@ test('private routes fail closed', async () => {
 	);
 });
 
+test('accepted C03 progress leaves only W07 open', async () => {
+	const contract = await loadContract();
+	assert.equal(contract.dependencies.c02.status, 'closed');
+	assert.equal(
+		contract.dependencies.registry_owner_resolution.canonical_target,
+		'organvm-vii-kerygma/portfolio',
+	);
+	assert.deepEqual(contract.dependencies.c03.closed_leaves, [
+		'PSP-P03-W01',
+		'PSP-P03-W02',
+		'PSP-P03-W03',
+		'PSP-P03-W04',
+		'PSP-P03-W05',
+		'PSP-P03-W06',
+	]);
+	assert.equal(contract.dependencies.c03.sole_unsatisfied_leaf.work_id, 'PSP-P03-W07');
+	assert.equal(contract.dependencies.c03.sole_unsatisfied_leaf.outbound_from_c04, false);
+	assert.equal(contract.identity_contract.authority_boundary.scope, 'sponsor-granted and written');
+});
+
 test('early visual selection and partnership promotion fail closed', async () => {
 	const contract = copy(await loadContract());
 	contract.visual_ideation_gate.selected_direction = 'direction_a';

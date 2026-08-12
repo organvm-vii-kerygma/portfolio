@@ -3,15 +3,18 @@
 Status: **PREPARED/PREFLIGHT**. This is an information-architecture and quality contract, not a
 visual redesign. The current public release remains the rollback baseline.
 
-The live owner is `organvm-vii-kerygma/portfolio` (repository id `1155412125`). The
-`organvm/portfolio` owner still present in the Limen program registry is a C02 adjudication
-dependency and is not rewritten here.
+The canonical owner is `organvm-vii-kerygma/portfolio` (repository id `1155412125`), as accepted
+by PSP-P02 and the current Limen program registry. This portfolio contract remains non-publishing
+and does not rewrite Limen registry state.
 
 ## Bound identity and commercial context
 
 This package consumes the current fetched C03 checkpoint at
-`b5bc01585a10615e85e1ef5b31a2356c24fb9bc9`, including the registry-alignment commit
-`986ebb41778cf082e01ede0cb6d268cebf54a106`, without claiming C03 closure:
+`c94bc3748fcf2d1dc802a4bae972df23d9a9fbec`, including formally closed W01-W06, the W06
+authority-language receipt at
+https://github.com/organvm/limen/issues/2187#issuecomment-5271254820, and receipt SHA-256
+`260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617`, without claiming
+C03 closure:
 
 - canonical identity: **Production-systems architect**;
 - headline: **I build production systems that solve expensive problems.**;
@@ -23,11 +26,16 @@ This package consumes the current fetched C03 checkpoint at
   a finite retainer when prerequisites exist;
 - recruiter path: a named senior systems mandate mapped to inspectable proof, without executive
   title inflation;
+- authority boundary: sponsor-granted written scope, collaborative and reversible work,
+  current-owner visibility, and explicit handoff;
 - partnership path: secondary, qualified L3 diligence only—never an L1 or L2 door;
 - no public price, implied agreement, send, production access, or organization-takeover promise.
 
-C02 proof statements remain provisional. They must refresh from merged, dated evidence before any
-copy is approved for implementation.
+PSP-P02 is formally closed. Evidence-sensitive copy still resolves through dated claim sources and
+remains withheld when stale, contradictory, private, or unsupported.
+
+C03 W07 remains the sole unsatisfied dependency. Its genuine five-reader evidence cannot be
+solicited by this lane or replaced by W06 model review.
 
 ## Taste brief
 
@@ -98,8 +106,8 @@ parallax, autoplay, and reveal dependencies while keeping state changes immediat
 
 ## Locked three-direction gate
 
-Visual ideation starts only after C02 evidence is merged and C03 formally integrates. Product
-Design then produces exactly three materially distinct visual targets from this same content and
+Visual ideation starts only after W07 closes and C03 formally integrates. Product Design then
+produces exactly three materially distinct visual targets from this same content and
 interaction contract, showing desktop/mobile L1 and one L2 evidence state. The human selection
 receipt records the chosen and rejected directions, rationale, identity/proof fit, accessibility
 and performance risks, and rollback. Until that receipt exists: no UI code, new routes, mock server,
