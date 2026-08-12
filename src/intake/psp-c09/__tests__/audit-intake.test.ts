@@ -44,27 +44,27 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 			readerEvidenceSatisfied: false,
 		});
 		expect(PSP_C09_SOURCE_LOCK.deliveryOs).toMatchObject({
-			head: '6ff7d4e6bd9003213e2675f4e8d59c41a3726b3b',
-			limenRelayHead: 'a72a05d917bf14d53221c7d02ec52d3786b4f88e',
+			head: '2c4efce84082f344fd5e0d90cc110662a379435f',
+			limenRelayHead: 'fdd41da45bdf5909e7b782a03dbaedf85e105c25',
 		});
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(
-			'a7937bb1e122574edc5d9e9cb74e18538d2b86c5',
+			'ef6e4df64f97c11dba2c159752d5a13b50a96c10',
 		);
 		expect(PSP_C09_SOURCE_LOCK.proofExperience.head).toBe(
-			'23712398c6586e005c303eff632604985cd0a25c',
+			'5bf686f6ceba200c6157bd87eb6e5298750a4ffb',
 		);
 		expect(PSP_C09_SOURCE_LOCK.experienceContract.head).toBe(
-			'9bcc4606b68da83dc0878b060989d35c3b649d7f',
+			'8974543ba9675ed0504141895812476efef5dd80',
 		);
 		expect(PSP_C09_SOURCE_LOCK.publicSurfaces).toMatchObject({
-			head: '6cb7f291ef758d26d136620398c6e9c09f74d0ea',
-			limenRelayHead: 'b3c8dcb8ee461fad7be971efc0fc60ca27726668',
+			head: '6cb1abf0bf08e71341476886385eba5499c51bb7',
+			limenRelayHead: '4eb50463b7f4136b47a103c9792c1ded5caf7873',
 			legacyDeadLinkCount: 11,
 			visualDirectionSelected: false,
 			renderedSurfaceChangesAuthorized: false,
 		});
 		expect(PSP_C09_SOURCE_LOCK.privateInbound).toMatchObject({
-			head: '6ee6bd7d546a56474cf3bd38e06fad794ab7bc45',
+			head: 'c3b92707a0f6d0ea3076680d100d60d0217f8fe9',
 			state: 'prepared_preflight',
 			externalEffects: [],
 		});

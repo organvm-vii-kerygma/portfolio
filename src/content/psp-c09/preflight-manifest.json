@@ -30,6 +30,8 @@
 	"paths": [
 		"src/content/psp-c09/agentic-delivery-audit.preflight.json",
 		"src/intake/psp-c09/audit-intake.ts",
-		"src/intake/psp-c09/__tests__/audit-intake.test.ts"
+		"src/intake/psp-c09/conversion-controls.ts",
+		"src/intake/psp-c09/__tests__/audit-intake.test.ts",
+		"src/intake/psp-c09/__tests__/conversion-controls.test.ts"
 	]
 }

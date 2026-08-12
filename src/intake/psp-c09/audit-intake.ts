@@ -11,34 +11,34 @@ export const PSP_C09_SOURCE_LOCK = {
 	deliveryOs: {
 		repository: 'organvm-iii-ergon/collaboration-operations-platform',
 		pullRequest: 135,
-		head: '6ff7d4e6bd9003213e2675f4e8d59c41a3726b3b',
+		head: '2c4efce84082f344fd5e0d90cc110662a379435f',
 		limenRelayPullRequest: 2315,
-		limenRelayHead: 'a72a05d917bf14d53221c7d02ec52d3786b4f88e',
+		limenRelayHead: 'fdd41da45bdf5909e7b782a03dbaedf85e105c25',
 	},
 	proofLedContent: {
 		repository: 'organvm/limen',
 		pullRequest: 2316,
-		head: 'a7937bb1e122574edc5d9e9cb74e18538d2b86c5',
+		head: 'ef6e4df64f97c11dba2c159752d5a13b50a96c10',
 		state: 'prepared_preflight',
 	},
 	proofExperience: {
 		repository: 'organvm/limen',
 		pullRequest: 2313,
-		head: '23712398c6586e005c303eff632604985cd0a25c',
+		head: '5bf686f6ceba200c6157bd87eb6e5298750a4ffb',
 		state: 'prepared_preflight',
 	},
 	experienceContract: {
 		repository: 'organvm-vii-kerygma/portfolio',
 		pullRequest: 220,
-		head: '9bcc4606b68da83dc0878b060989d35c3b649d7f',
+		head: '8974543ba9675ed0504141895812476efef5dd80',
 		state: 'prepared_preflight',
 	},
 	publicSurfaces: {
 		repository: 'organvm-vii-kerygma/portfolio',
 		pullRequest: 221,
-		head: '6cb7f291ef758d26d136620398c6e9c09f74d0ea',
+		head: '6cb1abf0bf08e71341476886385eba5499c51bb7',
 		limenRelayPullRequest: 2317,
-		limenRelayHead: 'b3c8dcb8ee461fad7be971efc0fc60ca27726668',
+		limenRelayHead: '4eb50463b7f4136b47a103c9792c1ded5caf7873',
 		state: 'prepared_preflight',
 		legacyDeadLinkCount: 11,
 		canonicalRepository: 'organvm-vii-kerygma/portfolio',
@@ -48,13 +48,13 @@ export const PSP_C09_SOURCE_LOCK = {
 	privateInbound: {
 		repository: 'organvm/limen',
 		pullRequest: 2318,
-		head: '6ee6bd7d546a56474cf3bd38e06fad794ab7bc45',
+		head: 'c3b92707a0f6d0ea3076680d100d60d0217f8fe9',
 		state: 'prepared_preflight',
 		externalEffects: [],
 	},
 } as const;
 
-export type AuditIntakeRoute = 'audit' | 'human_review' | 'decline';
+export type AuditIntakeRoute = 'audit' | 'one_bounded_follow_up' | 'human_review' | 'decline';
 
 export interface RegistryQualificationRef {
 	workId: 'PSP-P10-W01';
