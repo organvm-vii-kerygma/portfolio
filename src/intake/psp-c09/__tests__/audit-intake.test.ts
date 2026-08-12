@@ -36,22 +36,42 @@ function syntheticDraft() {
 
 describe('PSP-P10-W04 sales and intake preflight', () => {
 	it('locks exact upstream preflight heads without copying their contracts', () => {
-		expect(PSP_C09_SOURCE_LOCK.commercialContract.head).toBe(
-			'e440f5b96b7baa67ebc45868e327b5ce62579142',
-		);
-		expect(PSP_C09_SOURCE_LOCK.deliveryOs.head).toBe('4ae8e81665e35e6a5d403a3e13935021ce6544ec');
+		expect(PSP_C09_SOURCE_LOCK.commercialContract).toMatchObject({
+			head: 'c94bc3748fcf2d1dc802a4bae972df23d9a9fbec',
+			acceptedThrough: 'PSP-P03-W06',
+			readerGate: 'PSP-P03-W07',
+			readerIssue: 2188,
+			readerEvidenceSatisfied: false,
+		});
+		expect(PSP_C09_SOURCE_LOCK.deliveryOs).toMatchObject({
+			head: '6ff7d4e6bd9003213e2675f4e8d59c41a3726b3b',
+			limenRelayHead: 'a72a05d917bf14d53221c7d02ec52d3786b4f88e',
+		});
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(
-			'36bf386c22e64785db8e7843899bf9aabf85bf89',
+			'a7937bb1e122574edc5d9e9cb74e18538d2b86c5',
+		);
+		expect(PSP_C09_SOURCE_LOCK.proofExperience.head).toBe(
+			'23712398c6586e005c303eff632604985cd0a25c',
 		);
 		expect(PSP_C09_SOURCE_LOCK.experienceContract.head).toBe(
-			'fa86b67a7283c15ab801302ffac655c30898b6a1',
+			'9bcc4606b68da83dc0878b060989d35c3b649d7f',
 		);
 		expect(PSP_C09_SOURCE_LOCK.publicSurfaces).toMatchObject({
-			head: '7283219f98053aabfede5c41467c7cc1010165c3',
-			limenRelayHead: 'f5c5a03749a3ec44cf7eab278735b07f841bf60a',
+			head: '6cb7f291ef758d26d136620398c6e9c09f74d0ea',
+			limenRelayHead: 'b3c8dcb8ee461fad7be971efc0fc60ca27726668',
 			legacyDeadLinkCount: 11,
 			visualDirectionSelected: false,
 			renderedSurfaceChangesAuthorized: false,
+		});
+		expect(PSP_C09_SOURCE_LOCK.privateInbound).toMatchObject({
+			head: '6ee6bd7d546a56474cf3bd38e06fad794ab7bc45',
+			state: 'prepared_preflight',
+			externalEffects: [],
+		});
+		expect(manifest.upstreamState).toMatchObject({
+			c03AcceptedThrough: 'PSP-P03-W06',
+			c03ReaderEvidenceSatisfied: false,
+			c08State: 'prepared_preflight',
 		});
 	});
 

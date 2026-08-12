@@ -15,6 +15,18 @@
 	"analyticsSent": false,
 	"intakeSent": false,
 	"externalEffects": [],
+	"upstreamState": {
+		"p02Closed": true,
+		"c03AcceptedThrough": "PSP-P03-W06",
+		"c03ReaderGate": "PSP-P03-W07",
+		"c03ReaderIssue": 2188,
+		"c03ReaderEvidenceSatisfied": false,
+		"c04State": "prepared_preflight",
+		"c05State": "prepared_preflight",
+		"c06State": "prepared_preflight",
+		"c07State": "prepared_preflight",
+		"c08State": "prepared_preflight"
+	},
 	"paths": [
 		"src/content/psp-c09/agentic-delivery-audit.preflight.json",
 		"src/intake/psp-c09/audit-intake.ts",
