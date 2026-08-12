@@ -3,6 +3,15 @@
 Status: **PREPARED/PREFLIGHT**. This is a reversible inventory, privacy contract, and release
 readiness contract. It changes no public surface and does not close a P07 leaf or phase.
 
+## Direction-neutral implementation substrate
+
+The preflight now validates the claim/disclosure boundary, two approved public doors, canonical
+URL truth, schema-only analytics, declared accessibility/performance budgets, and a non-contacting
+rollback dry run. These are contracts for a later selected implementation, not a visual build or
+evidence that the unselected directions pass a live release. Selection still requires the operator;
+any later effect remains gated on that receipt, C03 W07's genuine five-reader evidence, claim
+reconciliation, P06 visual/comprehension QA, and public-identity approval.
+
 ## Fixed inputs
 
 - Canonical portfolio: `organvm-vii-kerygma/portfolio` (repository id `1155412125`), public at

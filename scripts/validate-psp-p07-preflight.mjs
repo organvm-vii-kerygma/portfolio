@@ -93,6 +93,43 @@ assert(
 	),
 	'analytics must not create a partner door',
 );
+const content = contract.public_content_contract;
+assert(
+	JSON.stringify(content.public_claim_statuses.renderable) ===
+		JSON.stringify(['verified', 'derived_reviewed']),
+	'only verified or reviewed-derived claims may render publicly',
+);
+assert(
+	content.public_claim_statuses.withhold_required.includes('private') &&
+		content.public_claim_statuses.withhold_required.includes('unverified'),
+	'private and unverified claims must be withheld',
+);
+assert(
+	content.route_rules.public_front_doors.every((door) =>
+		['client', 'recruiter_executive'].includes(door),
+	) && content.route_rules.forbidden_public_doors.includes('product_operating_partner'),
+	'only the two approved public doors may be exposed',
+);
+assert(
+	contract.url_domain_contract.canonical_public_url ===
+		'https://organvm-vii-kerygma.github.io/portfolio/',
+	'canonical portfolio URL must remain pinned',
+);
+assert(
+	/does not mutate DNS/.test(contract.url_domain_contract.mutation_rule),
+	'URL truth must not authorize a DNS mutation',
+);
+assert(
+	contract.quality_contract.accessibility.standard === 'WCAG 2.2 AA' &&
+		JSON.stringify(contract.quality_contract.accessibility.viewports) ===
+			JSON.stringify([320, 768, 1280]),
+	'accessibility contract must retain declared standard and viewports',
+);
+assert(
+	contract.quality_contract.performance.budgets.lcp_ms === 2500 &&
+		contract.quality_contract.performance.budgets.inp_ms === 200,
+	'performance contract must retain baseline interaction budgets',
+);
 assert(
 	/does not authorize a deploy/.test(contract.release_and_rollback_contract.hard_boundary),
 	'preflight must not authorize a deploy',
@@ -105,11 +142,43 @@ assert(
 	contract.release_and_rollback_contract.preflight_link_health.dead_links === 11,
 	'link-health finding must retain its observed denominator',
 );
+assert(
+	contract.release_and_rollback_contract.dry_run.allowed === true,
+	'dry-run must remain allowed',
+);
+assert(
+	contract.release_and_rollback_contract.dry_run.prohibited_effects.includes('deployment') &&
+		contract.release_and_rollback_contract.dry_run.prohibited_effects.includes('DNS mutation'),
+	'dry-run must prohibit deployment and DNS mutation',
+);
+assert(
+	contract.post_selection_integration_gate.before_effect.includes('operator_selection_receipt') &&
+		contract.post_selection_integration_gate.before_effect.includes(
+			'PSP-P03-W07_five_reader_receipt',
+		) &&
+		contract.post_selection_integration_gate.before_effect.includes('HG-PUBLIC-IDENTITY'),
+	'post-selection gate must retain operator, W07, and public-identity prerequisites',
+);
+assert(
+	contract.post_selection_integration_gate.rule ===
+		'Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase.',
+	'selection alone must not authorize implementation',
+);
 assert(manifest.selection_status === 'UNSELECTED', 'visual directions must remain unselected');
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
 	/No direction may be regenerated/.test(manifest.no_build_boundary),
 	'visual manifest must preserve the no-build boundary',
+);
+const expectedVisualDigests = [
+	'0446be226d12bc108f8120f7a656a79345e043eae7d45c65ee6f2dd099bfbf05',
+	'586a5761ed5a17bae7aaa3e5b164e573e105c7d810bb748c0432ba94d59b935d',
+	'305387a3b833cccfcd6d73f0554eb1625062f6ddd4a6d61dadd8b3f2a8bd17a1',
+];
+assert(
+	JSON.stringify(manifest.directions.map((direction) => direction.sha256)) ===
+		JSON.stringify(expectedVisualDigests),
+	'visual manifest must retain the three original direction digests',
 );
 
 for (const direction of manifest.directions) {

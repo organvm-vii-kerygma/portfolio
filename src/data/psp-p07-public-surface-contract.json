@@ -134,6 +134,42 @@
     ],
     "test_cases": ["reject prohibited fields", "reject unrecognized event names", "reject a partner door", "differentiate client from recruiter_executive", "allow withheld evidence without a claim value"]
   },
+  "public_content_contract": {
+    "disclosure_levels": ["L1", "L2", "L3"],
+    "public_claim_statuses": {
+      "renderable": ["verified", "derived_reviewed"],
+      "withhold_required": ["candidate", "repository_asserted", "stale", "conflicted", "unverified", "withheld", "private"]
+    },
+    "evidence_card": {
+      "required_fields_when_renderable": ["claim_id", "evidence_state", "disclosure_level", "source_ref"],
+      "safe_states": ["ready", "empty", "stale", "error", "withheld", "private"],
+      "rule": "A card renders a public claim only when its claim status is renderable and its evidence state is ready; every other state remains visibly bounded without disclosing private material."
+    },
+    "route_rules": {
+      "public_front_doors": ["client", "recruiter_executive"],
+      "forbidden_public_doors": ["product_operating_partner"],
+      "l1_forbidden": ["client_name", "engagement_identifier", "private_repository_identifier", "unredacted_evidence"],
+      "l3_rule": "L3 content may be reachable only through a selected, disclosed route after the claim, evidence, and public-identity predicates pass."
+    }
+  },
+  "url_domain_contract": {
+    "canonical_public_url": "https://organvm-vii-kerygma.github.io/portfolio/",
+    "authority": "organvm/limen institutio/identity/url-map.yaml and link-surfaces.json",
+    "legacy_urls_observed_failed": ["https://organvm.github.io/portfolio/", "https://organvm.github.io/portfolio/resume/"],
+    "mutation_rule": "This preflight records URL truth only; it does not mutate DNS, redirects, TLS, custom domains, or traffic routing.",
+    "pre_release_probe": ["canonical route resolves", "approved hostnames have valid TLS", "legacy redirects preserve the declared canonical path", "every published route appears in link-surfaces.json"]
+  },
+  "quality_contract": {
+    "accessibility": {
+      "standard": "WCAG 2.2 AA",
+      "viewports": [320, 768, 1280],
+      "requirements": ["keyboard traversal", "visible focus", "semantic landmarks", "text alternatives", "reduced-motion support"]
+    },
+    "performance": {
+      "budgets": {"lcp_ms": 2500, "inp_ms": 200, "cls": 0.1, "javascript_kb_gzip": 200, "css_kb_gzip": 60, "initial_media_kb": 500},
+      "rule": "These are post-selection implementation acceptance budgets, not evidence that the unselected directions or current public release pass them."
+    }
+  },
   "release_and_rollback_contract": {
     "preflight_link_health": {
       "observed_at": "2026-08-10",
@@ -147,7 +183,18 @@
     "required_pre_release_receipt": ["exact commit", "build predicate", "rendered desktop and mobile captures", "link-health report", "privacy analytics test", "rollback target"],
     "rollback_order": ["stop the candidate release", "restore the previously captured known-green release", "re-check public routes and evidence links", "record restored release id and timestamps"],
     "parity_surfaces": ["personal_github_profile", "organization_estate_map", "canonical_portfolio", "resume_and_interview_packet", "flagship_proof_destinations", "off_platform_identity_package", "custom_domain_hierarchy"],
+    "dry_run": {
+      "allowed": true,
+      "prohibited_effects": ["deployment", "DNS mutation", "traffic routing", "analytics collection", "public identity mutation"],
+      "required_fixture_fields": ["candidate_commit", "known_green_commit", "route_manifest_digest", "link_report", "analytics_schema_result", "rollback_command", "expected_restored_commit"],
+      "pass_condition": "A synthetic candidate identifies its rollback target and expected restored commit without contacting a deployment, DNS, routing, or analytics service."
+    },
     "hard_boundary": "This contract does not authorize a deploy, a DNS change, a send, an identity-surface mutation, a release drill, or phase/leaf closure."
+  },
+  "post_selection_integration_gate": {
+    "before_effect": ["operator_selection_receipt", "PSP-P03-W07_five_reader_receipt", "PSP-P05-W02_claim_reconciliation_receipt", "PSP-P06-W07_visual_and_comprehension_QA_receipt", "HG-PUBLIC-IDENTITY"],
+    "before_release": ["public_content_contract_validation", "analytics_schema_tests", "accessibility_and_performance_checks", "url_domain_probe", "release_dry_run", "link_health_report"],
+    "rule": "Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase."
   },
   "visual_selection": {
     "directions_generated": 3,
