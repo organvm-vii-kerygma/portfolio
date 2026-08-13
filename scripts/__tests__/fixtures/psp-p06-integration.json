@@ -1,0 +1,55 @@
+{
+	"schema_version": "portfolio.psp_p06_integration_fixture.v1",
+	"evidence_kind": "synthetic_contract_fixture",
+	"accessibility": {
+		"standard": "WCAG 2.2 AA",
+		"automated_critical": 0,
+		"keyboard_blockers": 0,
+		"focus_blockers": 0,
+		"reflow_blockers": 0,
+		"heading_structure_pass": true,
+		"zoom_200_pass": true
+	},
+	"performance": {
+		"mobile": {
+			"lcp_ms_p75": 2400,
+			"inp_ms_p75": 190,
+			"cls_p75": 0.09,
+			"initial_js_gzip_kb": 190,
+			"initial_css_gzip_kb": 55,
+			"l1_media_kb": 480
+		},
+		"desktop": {
+			"lcp_ms_p75": 1800,
+			"inp_ms_p75": 140,
+			"cls_p75": 0.05,
+			"initial_js_gzip_kb": 190,
+			"initial_css_gzip_kb": 55,
+			"l1_media_kb": 480
+		}
+	},
+	"reduced_motion": {
+		"media_query_present": true,
+		"nonessential_motion_disabled": true,
+		"content_dependency": false
+	},
+	"responsive": {
+		"viewports_css_px": [320, 768, 1280],
+		"horizontal_scroll_failures": 0,
+		"reading_order_pass": true
+	},
+	"visual_quality": {
+		"floor": 4,
+		"critical_failures": [],
+		"scores": {
+			"identity clarity": 4,
+			"proof credibility": 4,
+			"audience routing": 4,
+			"progressive disclosure": 4,
+			"trust and limitations": 4,
+			"visual intention": 4,
+			"accessibility": 4,
+			"performance": 4
+		}
+	}
+}

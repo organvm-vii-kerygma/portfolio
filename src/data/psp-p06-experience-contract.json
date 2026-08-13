@@ -1,0 +1,218 @@
+{
+  "schema_version": "portfolio.psp_p06_experience_preflight.v2",
+  "status": "PREPARED/PREFLIGHT",
+  "prepared_at": "2026-08-10",
+  "program_binding": {
+    "source_path": "institutio/positioning/program.yaml",
+    "registry_authority": "PSP-P06 outcomes, acceptance, and target_paths",
+    "leaf_bindings": [
+      {"id": "PSP-P06-W01", "targets": ["docs/design", "design"], "executable": "design_context", "residual": "approval"},
+      {"id": "PSP-P06-W02", "targets": ["docs", "content"], "executable": "route_content_projection", "residual": "ratified_content"},
+      {"id": "PSP-P06-W03", "targets": ["design", "docs/design"], "executable": "audience_flows", "residual": "selected_direction_usability"},
+      {"id": "PSP-P06-W04", "targets": ["src/components", "src/content", "docs"], "executable": "evidence_states", "residual": "selected_direction_components"},
+      {"id": "PSP-P06-W05", "targets": ["src/styles", "web/tokens"], "executable": "locked_visual_gate", "residual": "HG-DESIGN-TOKENS"},
+      {"id": "PSP-P06-W06", "targets": ["src", "tests"], "executable": "quality_budgets", "residual": "measured_browser_receipts"},
+      {"id": "PSP-P06-W07", "targets": ["docs/receipts", "tests"], "executable": "visual_comprehension_qa", "residual": "target_like_reviewers"}
+    ]
+  },
+  "integration_harness": {
+    "runner": "node scripts/run-psp-p06-integration.mjs",
+    "fixture": "scripts/__tests__/fixtures/psp-p06-integration.json",
+    "test": "node --test scripts/__tests__/psp-p06-preflight.test.mjs scripts/__tests__/psp-p06-integration.test.mjs",
+    "public_effect": false,
+    "fixture_rule": "Synthetic fixtures prove contract behavior only; they are not release, visual, accessibility, performance, or reader evidence."
+  },
+  "repository": {
+    "owner": "organvm-vii-kerygma",
+    "name": "portfolio",
+    "repository_id": 1155412125,
+    "canonical_public_base": "https://organvm-vii-kerygma.github.io/portfolio/"
+  },
+  "dependencies": {
+    "c02": {
+      "chunk": "PSP-C02",
+      "phase": "PSP-P02",
+      "status": "closed",
+      "accepted_outputs": ["flagship selection", "evidence packets", "claim policy", "dated exact-head anchors"]
+    },
+    "c03": {
+      "chunk": "PSP-C03",
+      "status": "w01_w06_closed_w07_open",
+      "source_branch": "codex/psp-c03-identity-offers-preflight",
+      "exact_head": "c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
+      "registry_alignment_commit": "986ebb41778cf082e01ede0cb6d268cebf54a106",
+      "source_path": "institutio/positioning/commercial-contract.yaml",
+      "closed_leaves": ["PSP-P03-W01", "PSP-P03-W02", "PSP-P03-W03", "PSP-P03-W04", "PSP-P03-W05", "PSP-P03-W06"],
+      "sole_unsatisfied_leaf": {
+        "work_id": "PSP-P03-W07",
+        "issue": "https://github.com/organvm/limen/issues/2188",
+        "gate": "five blinded target-like readers",
+        "outbound_from_c04": false
+      },
+      "w06_receipt": {
+        "url": "https://github.com/organvm/limen/issues/2187#issuecomment-5271254820",
+        "sha256": "260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617"
+      },
+      "formal_closure_required": true
+    },
+    "registry_owner_resolution": {
+      "status": "closed",
+      "canonical_target": "organvm-vii-kerygma/portfolio",
+      "repository_id": 1155412125,
+      "source": "accepted PSP-P02 adjudication"
+    }
+  },
+  "identity_contract": {
+    "source": "C03 accepted W01-W06 head c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
+    "canonical_title": "Production-systems architect",
+    "headline": "I build production systems that solve expensive problems.",
+    "operating_thesis": "I design the operating system around complex software delivery: decision rights, work routing, verification, cost boundaries, evidence, and handoff.",
+    "authorship_disclosure": "Architected and directed by one person through a governed, multi-agent production system.",
+    "commercial_boundary": "The commercial promise is a bounded decision and operating system, not control of the buyer's organization.",
+    "authority_boundary": {
+      "scope": "sponsor-granted and written",
+      "working_mode": "collaborative and reversible",
+      "owner_visibility": "current owners remain visible",
+      "completion": "evidence, rollback information, and handoff"
+    },
+    "claim_refs": ["C03-IDENTITY-001", "C03-HEADLINE-001", "C03-AUTHORSHIP-001", "C03-COMMERCIAL-BOUNDARY-001"]
+  },
+  "offer_boundary": {
+    "primary_sequence": ["agentic_delivery_audit", "governance_install", "bounded_governance_retainer"],
+    "secondary_only": "product_operating_partnership_review",
+    "public_pricing": "prohibited",
+    "rules": ["The audit is read-only and fixed-scope.", "The install is bounded to one team or pipeline.", "The retainer has finite cadence and no on-call implication.", "Partnership appears only at L3 after qualification and never as a public front-door CTA."]
+  },
+  "disclosure_levels": [
+    {
+      "id": "L1",
+      "label": "Ten seconds",
+      "purpose": "Identify role, expensive problem, strongest proof, authorship boundary, and one audience-specific next step.",
+      "allowed": ["ratified identity", "bounded problem", "Limen proof pointer", "client door", "recruiter door", "authorship disclosure"],
+      "forbidden": ["estate-volume lead", "rankings or percentiles", "secondary partnership door", "dense architecture", "private material"]
+    },
+    {
+      "id": "L2",
+      "label": "Five minutes",
+      "purpose": "Explain method, bounded interventions, three proof roles, limitations, and relevant evidence.",
+      "allowed": ["method narrative", "flagship summaries", "offer boundaries", "role-to-proof mapping", "limitations", "dated evidence status"],
+      "forbidden": ["numeric public pricing", "unqualified partnership CTA", "private evidence", "unsupported adoption or impact"]
+    },
+    {
+      "id": "L3",
+      "label": "Diligence",
+      "purpose": "Expose the public claim register, exact-head receipts, failure modes, change history, and qualified next decisions.",
+      "allowed": ["public evidence register", "failure and limitation history", "public architecture", "qualification rules", "gated partnership review pointer"],
+      "forbidden": ["routable private addendum", "customer or partner data", "private repository identity", "price anchors", "implied agreement"]
+    },
+    {
+      "id": "PRIVATE_WITHHELD",
+      "label": "Not routable",
+      "purpose": "Keep private diligence, pricing, customer, partner, and custody material in its sanctioned owner.",
+      "allowed": ["public statement that gated evidence may exist"],
+      "forbidden": ["route", "navigation item", "client-side payload", "search index", "build artifact", "analytics label"]
+    }
+  ],
+  "content_types": [
+    {
+      "id": "identity_block",
+      "required_fields": ["claim_refs", "title", "headline", "problem", "proof_pointer", "authorship_disclosure", "audience_actions"],
+      "allowed_levels": ["L1"]
+    },
+    {
+      "id": "audience_door",
+      "required_fields": ["audience_id", "job", "question", "proof_need", "cta_label", "cta_route", "claim_refs"],
+      "allowed_levels": ["L1", "L2"]
+    },
+    {
+      "id": "proof_object",
+      "required_fields": ["id", "name", "story_role", "claim_refs", "evidence_ids", "status", "observed_at", "limitations", "canonical_route"],
+      "allowed_levels": ["L1", "L2", "L3"]
+    },
+    {
+      "id": "evidence_card",
+      "required_fields": ["evidence_id", "claim_id", "source_url", "observed_at", "exact_head", "state", "summary", "limitations", "withdrawal_action"],
+      "allowed_levels": ["L2", "L3"]
+    },
+    {
+      "id": "offer_summary",
+      "required_fields": ["offer_id", "entry_condition", "bounded_promise", "authority", "exclusions", "acceptance", "handoff", "cta_route"],
+      "allowed_levels": ["L2", "L3"]
+    },
+    {
+      "id": "diligence_index",
+      "required_fields": ["claim_register", "proof_receipts", "failure_modes", "change_history", "qualification", "privacy_boundary"],
+      "allowed_levels": ["L3"]
+    }
+  ],
+  "canonical_routes": [
+    {"route": "/", "status": "existing", "level": "L1", "artifact_ids": ["front_door"], "audiences": ["direct_client", "recruiter_executive"]},
+    {"route": "/projects/limen/", "status": "planned_no_scaffold", "level": "L2", "artifact_ids": ["proof_limen"], "audiences": ["direct_client", "recruiter_executive"]},
+    {"route": "/projects/public-record-data-scrapper/", "status": "existing_to_reconcile", "level": "L2", "artifact_ids": ["proof_public_records"], "audiences": ["direct_client", "recruiter_executive"]},
+    {"route": "/projects/a-i-chat--exporter/", "status": "planned_no_scaffold", "level": "L2", "artifact_ids": ["proof_ai_chat_exporter"], "audiences": ["direct_client", "recruiter_executive"]},
+    {"route": "/architecture/", "status": "existing_to_reconcile", "level": "L2", "artifact_ids": ["governed_delivery_method"], "audiences": ["direct_client", "recruiter_executive"]},
+    {"route": "/resume/", "status": "existing_to_reconcile", "level": "L1", "artifact_ids": ["recruiter_door"], "audiences": ["recruiter_executive"]},
+    {"route": "/consult/", "status": "existing_to_reconcile", "level": "L1", "artifact_ids": ["client_door"], "audiences": ["direct_client"]},
+    {"route": "/validation/", "status": "existing_to_reconcile", "level": "L3", "artifact_ids": ["public_evidence_register"], "audiences": ["direct_client", "recruiter_executive", "product_operating_partner"]},
+    {"route": "/directory/", "status": "existing_to_reconcile", "level": "L3", "artifact_ids": ["estate_diligence_index"], "audiences": ["direct_client", "recruiter_executive", "product_operating_partner"]}
+  ],
+  "audience_flows": [
+    {
+      "audience_id": "direct_client",
+      "public_door": true,
+      "L1": {"question": "Can this person make one risky initiative governable without taking over the organization?", "required": ["expensive problem", "bounded authority", "Limen pointer", "Audit CTA"]},
+      "L2": {"question": "What is the method, proof, scope, exclusion, and handoff?", "required": ["method", "three proof roles", "Audit then Install boundary", "limitations"]},
+      "L3": {"question": "Can I verify the claims and approve, narrow, or decline a written scope?", "required": ["claim register", "exact-head receipts", "failure modes", "qualification"]},
+      "max_actions_from_L1_to_L3": 2
+    },
+    {
+      "audience_id": "recruiter_executive",
+      "public_door": true,
+      "L1": {"question": "Does the production-systems identity match a real senior mandate?", "required": ["canonical title", "systems problem", "Limen pointer", "role CTA"]},
+      "L2": {"question": "What scope and judgment are demonstrated without title inflation?", "required": ["role-to-proof map", "authorship disclosure", "bounded authority", "handoff evidence"]},
+      "L3": {"question": "Can I inspect architecture, failures, receipts, and limitations before continuing?", "required": ["evidence register", "architecture", "change history", "limitations"]},
+      "max_actions_from_L1_to_L3": 2
+    },
+    {
+      "audience_id": "product_operating_partner",
+      "public_door": false,
+      "L1": {"required": []},
+      "L2": {"required": []},
+      "L3": {"question": "Is a specific product and operator ready for gated diligence?", "required": ["readiness floor", "custody and rights boundary", "operator accountability", "return path", "no implied terms"]},
+      "max_actions_from_L1_to_L3": 0
+    }
+  ],
+  "evidence_card_states": [
+    {"id": "loading", "public_render": "neutral skeleton plus status text; no claim value", "action": "wait or open source"},
+    {"id": "ready", "public_render": "bounded claim, source, observation date, exact head, limitations", "action": "inspect evidence"},
+    {"id": "empty", "public_render": "evidence not yet supplied; claim withheld", "action": "none"},
+    {"id": "stale", "public_render": "last observation and expired status; numeric or liveness claim hidden", "action": "request refresh"},
+    {"id": "error", "public_render": "evidence temporarily unavailable; last known state is not promoted", "action": "open durable source"},
+    {"id": "withheld", "public_render": "claim unavailable because its evidence or policy gate is unsatisfied", "action": "none"},
+    {"id": "private", "public_render": "public boundary only; no private title, value, path, or identifier", "action": "gated diligence outside the router"}
+  ],
+  "design_context": {
+    "reuse": ["Astro layouts and route conventions", "existing semantic color and spacing tokens", "Header and Footer navigation behavior", "current project-card and depth-control patterns", "existing theme and reduced-motion hooks"],
+    "principles": ["proof before volume", "calm hierarchy", "precision without sterility", "failure evidence has equal legitimacy", "two public doors only", "density appears on demand", "current release is the rollback baseline"],
+    "anti_patterns": ["repository or test counts as hero proof", "percentile/ranking badges", "dashboard wall at L1", "three or more competing front-door CTAs", "partner or equity language at L1/L2", "hover-only evidence", "motion required to understand hierarchy", "private material in client payloads", "invented visual language before the three-direction gate"]
+  },
+  "quality_budgets": {
+    "accessibility": {"target": "WCAG 2.2 AA", "keyboard": "all actions operable with visible focus", "structure": "one h1 and sequential headings per route", "zoom": "usable at 200 percent", "target_size_css_px": 24, "contrast": "AA for text and meaningful graphics"},
+    "performance": {"measurement": "mobile and desktop production build", "lcp_ms_p75_max": 2500, "inp_ms_p75_max": 200, "cls_p75_max": 0.1, "initial_js_gzip_kb_max": 200, "initial_css_gzip_kb_max": 60, "l1_media_kb_max": 500},
+    "reduced_motion": {"required": true, "rule": "prefers-reduced-motion removes nonessential transforms, parallax, autoplay, and reveal dependencies; state changes remain immediate and legible"},
+    "responsive": {"required_viewports_css_px": [320, 768, 1280], "rules": ["no horizontal page scroll", "L1 identity and audience doors remain in reading order", "evidence metadata wraps without truncation"]}
+  },
+  "qa_rubric": {
+    "critical_failures": ["reader cannot identify role, buyer problem, Limen proof, and CTA at L1", "client and recruiter doors are ambiguous", "partner door appears at L1 or L2", "unsupported or stale claim appears as current", "private value or identifier enters a route", "keyboard, focus, contrast, reflow, or reduced-motion blocker", "performance budget exceeded without an approved exception"],
+    "scored_dimensions": ["identity clarity", "proof credibility", "audience routing", "progressive disclosure", "trust and limitations", "visual intention", "accessibility", "performance"],
+    "acceptance": "No critical failure and every scored dimension meets the later declared quality floor with current evidence."
+  },
+  "visual_ideation_gate": {
+    "status": "LOCKED_UNTIL_C03_W07_AND_FORMAL_INTEGRATION",
+    "option_slots": ["direction_a", "direction_b", "direction_c"],
+    "requirements": ["exactly three materially distinct visual targets", "same approved content and route contract", "desktop and mobile L1 plus one L2 evidence state", "real portfolio assets and existing token context", "accessibility and performance risk note", "no production code or deployment"],
+    "selection_owner": "human",
+    "selection_receipt_fields": ["chosen_direction", "rejected_directions", "rationale", "identity_fit", "proof_hierarchy_fit", "accessibility_risk", "performance_risk", "rollback"],
+    "implementation_rule": "No UI scaffolding, component implementation, route creation, server, or deployment before a selection receipt exists."
+  }
+}
