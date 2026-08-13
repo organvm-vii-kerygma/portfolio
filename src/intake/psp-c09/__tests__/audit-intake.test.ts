@@ -52,7 +52,8 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 		expect(PSP_C09_SOURCE_LOCK.deliveryOs).toMatchObject({
 			head: '432c31ea6bcaf2c175b0fde08b6e1733fe4c2926',
 			mergeCommit: '9172619633bb9a09ea3a05eae9f48e987f2b3e7d',
-			limenRelayHead: '1f884631f7472552a038cef6cb85468cec618f35',
+			limenRelayHead: 'd31ce37a85adf5d2e448dab8273a61e388f1e589',
+			limenRelayMergeCommit: '7a0682722185d17095a0b44de17d4bd5cf3284dd',
 		});
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(
 			'78736b8133c98e59d85069ea54eba2f20ed7b0a2',
@@ -67,8 +68,10 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 			'a01b6d85f78d2d744c0c994f7220081bb54a85c5',
 		);
 		expect(PSP_C09_SOURCE_LOCK.publicSurfaces).toMatchObject({
-			head: 'cacb53c1b2514ed52f926b64f0944d35526fbbf1',
+			head: '7c150fc81184df1715824be28b32472baadbb3b6',
+			mergeCommit: '797cda3fb903b07d4152e5bbde9f468beeeab3e0',
 			limenRelayHead: '4eb50463b7f4136b47a103c9792c1ded5caf7873',
+			state: 'merged_preflight_contract',
 			legacyDeadLinkCount: 11,
 			visualDirectionSelected: false,
 			renderedSurfaceChangesAuthorized: false,
@@ -77,6 +80,13 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 			head: '947921af6c1101acda6b1085d45381a393f3b20a',
 			state: 'prepared_preflight',
 			externalEffects: [],
+		});
+		expect(offer.source).toMatchObject({
+			deliveryOsRelay: 'organvm/limen#2315@d31ce37a85adf5d2e448dab8273a61e388f1e589',
+			deliveryOsRelayIntegrated: 'organvm/limen@7a0682722185d17095a0b44de17d4bd5cf3284dd',
+			publicSurfaces: 'organvm-vii-kerygma/portfolio#221@7c150fc81184df1715824be28b32472baadbb3b6',
+			publicSurfacesIntegrated:
+				'organvm-vii-kerygma/portfolio@797cda3fb903b07d4152e5bbde9f468beeeab3e0',
 		});
 		expect(manifest.upstreamState).toMatchObject({
 			c03AcceptedThrough: 'PSP-P03-W06',
@@ -202,11 +212,18 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 		});
 	});
 
-	it('homes the W04 artifacts and preserves its exact formal assignment for later execution', () => {
+	it('homes the W04 artifacts and preserves runtime assignment requirements for later execution', () => {
 		expect(manifest).toMatchObject({
 			workId: 'PSP-P10-W04',
-			assignedModel: 'gpt-5.6-terra',
-			assignedEffort: 'high',
+			assignment: {
+				selection: 'runtime_catalog',
+				registryWorkId: 'PSP-P10-W04',
+				reasoning: 'deep',
+				effect: 'write',
+				effort: 'high',
+				capabilities: ['sales_copy', 'frontend', 'conversion_design'],
+				unavailableAction: 'fail_blocked_no_silent_substitution',
+			},
 			status: 'prepared_preflight',
 			formalPredicateRun: false,
 			formalIssueClosed: false,

@@ -15,7 +15,8 @@ export const PSP_C09_SOURCE_LOCK = {
 		head: '432c31ea6bcaf2c175b0fde08b6e1733fe4c2926',
 		mergeCommit: '9172619633bb9a09ea3a05eae9f48e987f2b3e7d',
 		limenRelayPullRequest: 2315,
-		limenRelayHead: '1f884631f7472552a038cef6cb85468cec618f35',
+		limenRelayHead: 'd31ce37a85adf5d2e448dab8273a61e388f1e589',
+		limenRelayMergeCommit: '7a0682722185d17095a0b44de17d4bd5cf3284dd',
 	},
 	proofLedContent: {
 		repository: 'organvm/limen',
@@ -39,10 +40,11 @@ export const PSP_C09_SOURCE_LOCK = {
 	publicSurfaces: {
 		repository: 'organvm-vii-kerygma/portfolio',
 		pullRequest: 221,
-		head: 'cacb53c1b2514ed52f926b64f0944d35526fbbf1',
+		head: '7c150fc81184df1715824be28b32472baadbb3b6',
+		mergeCommit: '797cda3fb903b07d4152e5bbde9f468beeeab3e0',
 		limenRelayPullRequest: 2317,
 		limenRelayHead: '4eb50463b7f4136b47a103c9792c1ded5caf7873',
-		state: 'prepared_preflight',
+		state: 'merged_preflight_contract',
 		legacyDeadLinkCount: 11,
 		canonicalRepository: 'organvm-vii-kerygma/portfolio',
 		visualDirectionSelected: false,

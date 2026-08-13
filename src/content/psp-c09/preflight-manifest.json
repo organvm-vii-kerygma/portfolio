@@ -1,8 +1,15 @@
 {
 	"schemaVersion": "portfolio.psp-c09.preflight-manifest.v1",
 	"workId": "PSP-P10-W04",
-	"assignedModel": "gpt-5.6-terra",
-	"assignedEffort": "high",
+	"assignment": {
+		"selection": "runtime_catalog",
+		"registryWorkId": "PSP-P10-W04",
+		"reasoning": "deep",
+		"effect": "write",
+		"effort": "high",
+		"capabilities": ["sales_copy", "frontend", "conversion_design"],
+		"unavailableAction": "fail_blocked_no_silent_substitution"
+	},
 	"status": "prepared_preflight",
 	"formalPredicateRun": false,
 	"formalIssueClosed": false,
