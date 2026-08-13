@@ -24,8 +24,9 @@ const hasExactUniqueStrings = (actual, expected) =>
 
 assert(contract.status === 'PREPARED/PREFLIGHT', 'contract must remain a preflight');
 assert(contract.scope === 'PSP-C06 / PSP-P07-W01 through W09', 'contract must cover W01–W09');
-const expectedSurfaceWorkIds = Array.from({ length: 9 }, (_, index) =>
-	`PSP-P07-W${String(index + 1).padStart(2, '0')}`,
+const expectedSurfaceWorkIds = Array.from(
+	{ length: 9 },
+	(_, index) => `PSP-P07-W${String(index + 1).padStart(2, '0')}`,
 );
 assert(
 	hasExactUniqueStrings(
