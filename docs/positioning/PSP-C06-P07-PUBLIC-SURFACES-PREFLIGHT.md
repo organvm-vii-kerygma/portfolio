@@ -16,13 +16,15 @@ reconciliation, P06 visual/comprehension QA, and public-identity approval.
 
 - Canonical portfolio: `organvm-vii-kerygma/portfolio` (repository id `1155412125`), public at
   `https://organvm-vii-kerygma.github.io/portfolio/`; main baseline
-  `85bfaa84287e4a3b90b49187caa4313c4edda1aa`.
+  `a01b6d85f78d2d744c0c994f7220081bb54a85c5`.
 - C04 preflight: Limen [PR #2313](https://github.com/organvm/limen/pull/2313), exact head
-  `23712398c6586e005c303eff632604985cd0a25c`.
+  `543fa28df52c9db7be3b7307019dcf209361d0b9`.
 - P06 experience preflight: portfolio [PR #220](https://github.com/organvm-vii-kerygma/portfolio/pull/220),
-  exact head `9bcc4606b68da83dc0878b060989d35c3b649d7f`.
-- C03 [PR #2312](https://github.com/organvm/limen/pull/2312) is currently staged at
-  `c7c932205faa405e291f8030235a73cedeaa219e`. W01-W06 remain accepted at
+  merged from exact head `8974543ba9675ed0504141895812476efef5dd80` as
+  `a01b6d85f78d2d744c0c994f7220081bb54a85c5` on `main`.
+- C03 [PR #2312](https://github.com/organvm/limen/pull/2312) merged from exact head
+  `b6af8086c9050634313f519c29a6dfcb922c3721` as
+  `8f89ad16ca1df84b00cb8227c88f368d0d64631a`. W01-W06 remain accepted at
   `c94bc3748fcf2d1dc802a4bae972df23d9a9fbec`; the W06 marked receipt is
   [durable](https://github.com/organvm/limen/issues/2187#issuecomment-5271254820) with canonical
   SHA-256 `260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617`.

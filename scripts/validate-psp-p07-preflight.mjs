@@ -23,18 +23,23 @@ assert(
 	'canonical portfolio id must match',
 );
 assert(
-	contract.read_only_inputs.c04_preflight.exact_head === '23712398c6586e005c303eff632604985cd0a25c',
+	contract.read_only_inputs.c04_preflight.exact_head === '543fa28df52c9db7be3b7307019dcf209361d0b9',
 	'C04 exact head must be pinned',
 );
 assert(
 	contract.read_only_inputs.p06_experience_preflight.exact_head ===
-		'9bcc4606b68da83dc0878b060989d35c3b649d7f',
+		'8974543ba9675ed0504141895812476efef5dd80' &&
+		contract.read_only_inputs.p06_experience_preflight.merge_commit ===
+			'a01b6d85f78d2d744c0c994f7220081bb54a85c5' &&
+		contract.read_only_inputs.p06_experience_preflight.state === 'merged',
 	'P06 exact head must be pinned',
 );
 const c03 = contract.read_only_inputs.c03_upstream;
 assert(
-	c03.current_preflight_head === 'c7c932205faa405e291f8030235a73cedeaa219e',
-	'C03 current preflight head must include the tracked W07 intake package',
+	c03.accepted_pr_head === 'b6af8086c9050634313f519c29a6dfcb922c3721' &&
+		c03.merge_commit === '8f89ad16ca1df84b00cb8227c88f368d0d64631a' &&
+		c03.state === 'merged',
+	'C03 merged head must include the tracked W07 intake package',
 );
 assert(
 	c03.accepted_w01_w06_head === 'c94bc3748fcf2d1dc802a4bae972df23d9a9fbec',

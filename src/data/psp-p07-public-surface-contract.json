@@ -7,20 +7,24 @@
     "portfolio_repository": {
       "id": 1155412125,
       "slug": "organvm-vii-kerygma/portfolio",
-      "main_head": "85bfaa84287e4a3b90b49187caa4313c4edda1aa",
+      "main_head": "a01b6d85f78d2d744c0c994f7220081bb54a85c5",
       "current_public_url": "https://organvm-vii-kerygma.github.io/portfolio/"
     },
     "c04_preflight": {
       "pull_request": "https://github.com/organvm/limen/pull/2313",
-      "exact_head": "23712398c6586e005c303eff632604985cd0a25c"
+      "exact_head": "543fa28df52c9db7be3b7307019dcf209361d0b9"
     },
     "p06_experience_preflight": {
       "pull_request": "https://github.com/organvm-vii-kerygma/portfolio/pull/220",
-      "exact_head": "9bcc4606b68da83dc0878b060989d35c3b649d7f"
+      "state": "merged",
+      "exact_head": "8974543ba9675ed0504141895812476efef5dd80",
+      "merge_commit": "a01b6d85f78d2d744c0c994f7220081bb54a85c5"
     },
     "c03_upstream": {
       "pull_request": "https://github.com/organvm/limen/pull/2312",
-      "current_preflight_head": "c7c932205faa405e291f8030235a73cedeaa219e",
+      "state": "merged",
+      "accepted_pr_head": "b6af8086c9050634313f519c29a6dfcb922c3721",
+      "merge_commit": "8f89ad16ca1df84b00cb8227c88f368d0d64631a",
       "accepted_w01_w06_head": "c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
       "closed_work_ids": [
         "PSP-P03-W01",
@@ -38,7 +42,7 @@
         "work_id": "PSP-P03-W07",
         "issue": "https://github.com/organvm/limen/issues/2188",
         "state": "open_five_reader_evidence_gate",
-        "tracked_protocol_head": "c7c932205faa405e291f8030235a73cedeaa219e",
+        "tracked_protocol_head": "b6af8086c9050634313f519c29a6dfcb922c3721",
         "rule": "Five genuine independent target-like reader records are required; W06 reviews and synthetic or model responses cannot substitute."
       }
     },
