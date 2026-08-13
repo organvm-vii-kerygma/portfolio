@@ -2,9 +2,10 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
-const contractPath = fileURLToPath(
+const defaultContractPath = fileURLToPath(
 	new URL('../src/data/psp-p07-public-surface-contract.json', import.meta.url),
 );
+const contractPath = process.env.PSP_P07_CONTRACT_PATH || defaultContractPath;
 const visualDirectory = new URL('../docs/positioning/visual-directions/psp-c06/', import.meta.url);
 const manifestPath = fileURLToPath(new URL('manifest.json', visualDirectory));
 const contract = JSON.parse(await readFile(contractPath, 'utf8'));
@@ -15,9 +16,24 @@ const assert = (condition, message) => {
 	if (!condition) failures.push(message);
 };
 
+const hasExactUniqueStrings = (actual, expected) =>
+	Array.isArray(actual) &&
+	actual.length === expected.length &&
+	new Set(actual).size === actual.length &&
+	expected.every((value) => actual.includes(value));
+
 assert(contract.status === 'PREPARED/PREFLIGHT', 'contract must remain a preflight');
 assert(contract.scope === 'PSP-C06 / PSP-P07-W01 through W09', 'contract must cover W01–W09');
-assert(contract.surface_inventory.length === 9, 'contract must have exactly nine surface entries');
+const expectedSurfaceWorkIds = Array.from({ length: 9 }, (_, index) =>
+	`PSP-P07-W${String(index + 1).padStart(2, '0')}`,
+);
+assert(
+	hasExactUniqueStrings(
+		contract.surface_inventory.map((surface) => surface.work_id),
+		expectedSurfaceWorkIds,
+	),
+	'contract must contain each unique W01-W09 surface entry exactly once',
+);
 assert(
 	contract.read_only_inputs.portfolio_repository.id === 1155412125,
 	'canonical portfolio id must match',
@@ -84,21 +100,42 @@ assert(
 	'visual implementation must remain selection-gated',
 );
 
-const prohibited = new Set(contract.analytics_schema.privacy.prohibited_fields);
-for (const field of ['email', 'ip', 'free_text', 'content_body', 'cross_site_identifier']) {
-	assert(prohibited.has(field), `analytics must prohibit ${field}`);
-}
+const expectedProhibitedFields = [
+	'name',
+	'email',
+	'phone',
+	'ip',
+	'user_agent',
+	'referrer_url',
+	'free_text',
+	'query_parameters',
+	'content_body',
+	'repository_private_identifier',
+	'cross_site_identifier',
+];
+assert(
+	hasExactUniqueStrings(
+		contract.analytics_schema.privacy.prohibited_fields,
+		expectedProhibitedFields,
+	),
+	'analytics must retain the complete prohibited-field set',
+);
 assert(
 	contract.analytics_schema.privacy.collection_default === 'disabled',
 	'collection must default to disabled',
 );
-assert(
-	contract.analytics_schema.events.every(
-		(event) => !event.allowed_values?.audience?.includes('partner'),
-	),
-	'analytics must not create a partner door',
-);
 const content = contract.public_content_contract;
+const expectedPublicDoors = ['client', 'recruiter_executive'];
+assert(
+	contract.analytics_schema.events.every((event) =>
+		['audience', 'door'].every((dimension) =>
+			(event.allowed_values?.[dimension] ?? []).every((value) =>
+				expectedPublicDoors.includes(value),
+			),
+		),
+	),
+	'analytics audience and door values must remain within the two approved public doors',
+);
 assert(
 	JSON.stringify(content.public_claim_statuses.renderable) ===
 		JSON.stringify(['verified', 'derived_reviewed']),
@@ -110,9 +147,8 @@ assert(
 	'private and unverified claims must be withheld',
 );
 assert(
-	content.route_rules.public_front_doors.every((door) =>
-		['client', 'recruiter_executive'].includes(door),
-	) && content.route_rules.forbidden_public_doors.includes('product_operating_partner'),
+	hasExactUniqueStrings(content.route_rules.public_front_doors, expectedPublicDoors) &&
+		content.route_rules.forbidden_public_doors.includes('product_operating_partner'),
 	'only the two approved public doors may be exposed',
 );
 assert(
@@ -152,17 +188,24 @@ assert(
 	'dry-run must remain allowed',
 );
 assert(
-	contract.release_and_rollback_contract.dry_run.prohibited_effects.includes('deployment') &&
-		contract.release_and_rollback_contract.dry_run.prohibited_effects.includes('DNS mutation'),
-	'dry-run must prohibit deployment and DNS mutation',
+	hasExactUniqueStrings(contract.release_and_rollback_contract.dry_run.prohibited_effects, [
+		'deployment',
+		'DNS mutation',
+		'traffic routing',
+		'analytics collection',
+		'public identity mutation',
+	]),
+	'dry-run must retain every production-facing effect prohibition',
 );
 assert(
-	contract.post_selection_integration_gate.before_effect.includes('operator_selection_receipt') &&
-		contract.post_selection_integration_gate.before_effect.includes(
-			'PSP-P03-W07_five_reader_receipt',
-		) &&
-		contract.post_selection_integration_gate.before_effect.includes('HG-PUBLIC-IDENTITY'),
-	'post-selection gate must retain operator, W07, and public-identity prerequisites',
+	hasExactUniqueStrings(contract.post_selection_integration_gate.before_effect, [
+		'operator_selection_receipt',
+		'PSP-P03-W07_five_reader_receipt',
+		'PSP-P05-W02_claim_reconciliation_receipt',
+		'PSP-P06-W07_visual_and_comprehension_QA_receipt',
+		'HG-PUBLIC-IDENTITY',
+	]),
+	'post-selection gate must retain every pre-implementation prerequisite',
 );
 assert(
 	contract.post_selection_integration_gate.rule ===

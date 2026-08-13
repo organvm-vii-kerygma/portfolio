@@ -100,6 +100,8 @@ jobs:
         run: npm run test:e2e:smoke
       - name: Unit Tests
         run: npm run test:coverage
+      - name: PSP P07 public-surface contract
+        run: npm run preflight:psp-p07
       - name: Package Fixture Tests
         run: npm run test:github-pages-core
       - name: Quality Ratchet Kit Tests
