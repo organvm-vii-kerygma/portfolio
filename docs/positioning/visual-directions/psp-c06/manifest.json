@@ -1,0 +1,31 @@
+{
+	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v1",
+	"status": "PREPARED_FOR_OPERATOR_SELECTION",
+	"source_capture": {
+		"url": "https://organvm-vii-kerygma.github.io/portfolio/",
+		"captured_at": "2026-08-10",
+		"basis": "rendered public portfolio surface and PSP-P06 design-context brief"
+	},
+	"selection_status": "UNSELECTED",
+	"no_build_boundary": "No direction may be regenerated, selected implicitly, implemented, deployed, or used to enable analytics instrumentation until an operator records a durable selection receipt.",
+	"directions": [
+		{
+			"option": 1,
+			"name": "Evidence Ledger",
+			"path": "option-1-evidence-ledger.png",
+			"sha256": "0446be226d12bc108f8120f7a656a79345e043eae7d45c65ee6f2dd099bfbf05"
+		},
+		{
+			"option": 2,
+			"name": "Systems Field Guide",
+			"path": "option-2-systems-field-guide.png",
+			"sha256": "586a5761ed5a17bae7aaa3e5b164e573e105c7d810bb748c0432ba94d59b935d"
+		},
+		{
+			"option": 3,
+			"name": "Decision Brief",
+			"path": "option-3-decision-brief.png",
+			"sha256": "305387a3b833cccfcd6d73f0554eb1625062f6ddd4a6d61dadd8b3f2a8bd17a1"
+		}
+	]
+}
