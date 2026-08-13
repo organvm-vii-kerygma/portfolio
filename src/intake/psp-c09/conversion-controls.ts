@@ -45,13 +45,17 @@ const graph: Record<Stage, Stage[]> = {
 	declined: [],
 };
 
+const ctaByRoute: Record<AuditIntakeRoute, Cta> = {
+	audit: 'audit_draft',
+	one_bounded_follow_up: 'bounded_follow_up',
+	human_review: 'human_review',
+	decline: 'decline',
+};
+
 export function routeCta(route: AuditIntakeRoute): Cta {
-	return {
-		audit: 'audit_draft',
-		one_bounded_follow_up: 'bounded_follow_up',
-		human_review: 'human_review',
-		decline: 'decline',
-	}[route] as Cta;
+	const cta = ctaByRoute[route];
+	if (!cta) throw new Error('invalid_qualification_route');
+	return cta;
 }
 
 export function createProjection(draft: AuditIntakeDraft, authority: Authority): Projection {
@@ -100,6 +104,14 @@ export function transition(record: Projection, to: Stage, reason: string): Proje
 	if (!reason.trim()) throw new Error('reason_required');
 	if (record.authority.conversationConsent === 'withdrawn' && to !== 'declined') {
 		throw new Error('withdrawn_consent');
+	}
+	if (
+		record.cta === 'bounded_follow_up' &&
+		record.authority.followUpConsent === 'withdrawn' &&
+		to !== 'declined' &&
+		to !== 'human_review'
+	) {
+		throw new Error('follow_up_consent_withdrawn');
 	}
 	if (record.cta === 'decline' && to !== 'declined') throw new Error('decline_only');
 	if (record.cta === 'human_review' && to !== 'human_review') {

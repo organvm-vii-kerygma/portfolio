@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import offer from '../../../content/psp-c09/agentic-delivery-audit.preflight.json';
 import manifest from '../../../content/psp-c09/preflight-manifest.json';
 import {
+	type AuditIntakeInput,
 	buildSyntheticConversionEvent,
 	createAuditIntakeDraft,
 	PSP_C09_SOURCE_LOCK,
@@ -13,8 +14,8 @@ import {
 
 const root = resolve(import.meta.dirname, '../../../..');
 
-function syntheticDraft() {
-	return createAuditIntakeDraft({
+function syntheticInput(): AuditIntakeInput {
+	return {
 		opportunityId: 'synthetic_portfolio_audit_01',
 		partitionId: 'synthetic_partition_audit_01',
 		decision: 'Keep, narrow, stop, or govern one synthetic delivery initiative.',
@@ -31,7 +32,11 @@ function syntheticDraft() {
 			route: 'audit',
 			uncertainty: 'low',
 		},
-	});
+	};
+}
+
+function syntheticDraft() {
+	return createAuditIntakeDraft(syntheticInput());
 }
 
 describe('PSP-P10-W04 sales and intake preflight', () => {
@@ -98,19 +103,48 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 	it('rejects secret-shaped material and incomplete authority boundaries', () => {
 		expect(() =>
 			createAuditIntakeDraft({
-				...syntheticDraft(),
+				...syntheticInput(),
 				constraints: ['paste access_token for review'],
 			}),
 		).toThrow('secret-shaped material prohibited');
 		expect(() =>
 			createAuditIntakeDraft({
-				...syntheticDraft(),
+				...syntheticInput(),
 				sponsorRole: '',
 			}),
 		).toThrow('bounded sponsor');
+		expect(() =>
+			createAuditIntakeDraft({
+				...syntheticInput(),
+				constraints: ['Authorization: Bearer synthetic_bearer_value'],
+			}),
+		).toThrow('secret-shaped material prohibited');
+		expect(() =>
+			createAuditIntakeDraft({
+				...syntheticInput(),
+				constraints: ['ghp_synthetic_token_value'],
+			}),
+		).toThrow('secret-shaped material prohibited');
+		const undeclared = { ...syntheticInput(), email: 'synthetic@example.invalid' };
+		expect(() => createAuditIntakeDraft(undeclared as AuditIntakeInput)).toThrow(
+			'undeclared_intake_fields:email',
+		);
 	});
 
 	it('records conversion instrumentation as synthetic local events only', () => {
+		const preIntakeEvent = buildSyntheticConversionEvent({
+			eventId: 'synthetic_event_pre_01',
+			event: 'offer_viewed',
+			journeyId: 'synthetic_journey_01',
+		});
+		expect(preIntakeEvent).toMatchObject({
+			stageContext: 'pre_intake',
+			journeyId: 'synthetic_journey_01',
+			transport: 'none',
+			externalEffects: [],
+		});
+		expect(preIntakeEvent).not.toHaveProperty('route');
+		expect(preIntakeEvent).not.toHaveProperty('opportunityId');
 		const event = buildSyntheticConversionEvent({
 			eventId: 'synthetic_event_01',
 			event: 'intake_routed',
@@ -118,6 +152,7 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 		});
 		expect(event).toMatchObject({
 			route: 'audit',
+			stageContext: 'draft',
 			synthetic: true,
 			personalData: false,
 			transport: 'none',
@@ -131,11 +166,26 @@ describe('PSP-P10-W04 sales and intake preflight', () => {
 			pass: false,
 			missing: ['proof'],
 		});
+		expect(
+			targetReaderComprehension({
+				audience: ' ',
+				expensiveProblem: '\t',
+				proofRefs: ['', ' '],
+				nextStep: '\n',
+				fitSignals: [''],
+				exclusions: ['  '],
+			}),
+		).toEqual({
+			pass: false,
+			missing: ['audience', 'expensive_problem', 'proof', 'next_step', 'fit', 'exclusions'],
+		});
 	});
 
 	it('keeps W04 contract-only with no page, route, component, visual, or numeric price claim', () => {
-		const pagePath = resolve(root, 'src/pages/psp-c09/agentic-delivery-audit.astro.preflight');
-		expect(existsSync(pagePath)).toBe(false);
+		for (const extension of ['astro', 'md', 'mdx', 'html', 'js', 'ts', 'jsx', 'tsx']) {
+			const pagePath = resolve(root, `src/pages/psp-c09/agentic-delivery-audit.${extension}`);
+			expect(existsSync(pagePath)).toBe(false);
+		}
 		expect(manifest.paths.some((path) => path.startsWith('src/pages/'))).toBe(false);
 		expect(manifest.renderedSurfaceChanged).toBe(false);
 		expect(manifest.pageOrComponentCreated).toBe(false);

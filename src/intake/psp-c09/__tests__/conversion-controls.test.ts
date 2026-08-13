@@ -59,6 +59,24 @@ describe('portfolio local conversion controls', () => {
 				followUpConsent: 'not_recorded',
 			}),
 		).toThrow('follow_up_consent_required');
+		const invalidRouteDraft = {
+			...draft('audit'),
+			qualification: { ...draft('audit').qualification, route: 'unexpected' },
+		};
+		expect(() =>
+			createProjection(invalidRouteDraft as ReturnType<typeof draft>, authority),
+		).toThrow('invalid_qualification_route');
+	});
+
+	it('fails closed when bounded follow-up consent is withdrawn after projection', () => {
+		const record = createProjection(draft('one_bounded_follow_up'), authority);
+		const withdrawn = {
+			...record,
+			authority: { ...record.authority, followUpConsent: 'withdrawn' as const },
+		};
+		expect(() => transition(withdrawn, 'fit', 'follow up')).toThrow('follow_up_consent_withdrawn');
+		expect(transition(withdrawn, 'human_review', 'manual review').stage).toBe('human_review');
+		expect(transition(withdrawn, 'declined', 'consent withdrawn').stage).toBe('declined');
 	});
 
 	it('reaches a human gate without transport or rendered effect', () => {
