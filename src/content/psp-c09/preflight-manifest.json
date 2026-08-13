@@ -1,0 +1,44 @@
+{
+	"schemaVersion": "portfolio.psp-c09.preflight-manifest.v1",
+	"workId": "PSP-P10-W04",
+	"assignment": {
+		"selection": "runtime_catalog",
+		"registryWorkId": "PSP-P10-W04",
+		"reasoning": "deep",
+		"effect": "write",
+		"effort": "high",
+		"capabilities": ["sales_copy", "frontend", "conversion_design"],
+		"unavailableAction": "fail_blocked_no_silent_substitution"
+	},
+	"status": "prepared_preflight",
+	"formalPredicateRun": false,
+	"formalIssueClosed": false,
+	"activeRoute": false,
+	"renderedSurfaceChanged": false,
+	"pageOrComponentCreated": false,
+	"navigationChanged": false,
+	"published": false,
+	"deployed": false,
+	"analyticsSent": false,
+	"intakeSent": false,
+	"externalEffects": [],
+	"upstreamState": {
+		"p02Closed": true,
+		"c03AcceptedThrough": "PSP-P03-W06",
+		"c03ReaderGate": "PSP-P03-W07",
+		"c03ReaderIssue": 2188,
+		"c03ReaderEvidenceSatisfied": false,
+		"c04State": "prepared_preflight",
+		"c05State": "prepared_preflight",
+		"c06State": "prepared_preflight",
+		"c07State": "prepared_preflight",
+		"c08State": "prepared_preflight"
+	},
+	"paths": [
+		"src/content/psp-c09/agentic-delivery-audit.preflight.json",
+		"src/intake/psp-c09/audit-intake.ts",
+		"src/intake/psp-c09/conversion-controls.ts",
+		"src/intake/psp-c09/__tests__/audit-intake.test.ts",
+		"src/intake/psp-c09/__tests__/conversion-controls.test.ts"
+	]
+}

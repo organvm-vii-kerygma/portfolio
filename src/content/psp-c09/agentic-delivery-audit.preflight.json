@@ -1,0 +1,84 @@
+{
+	"schemaVersion": "portfolio.psp-c09.audit-offer-preflight.v1",
+	"status": "prepared_preflight",
+	"activeRoute": false,
+	"indexed": false,
+	"published": false,
+	"source": {
+		"commercialContract": "organvm/limen#2312@b6af8086c9050634313f519c29a6dfcb922c3721",
+		"commercialContractAcceptedThrough": "PSP-P03-W06",
+		"commercialContractReaderGate": "PSP-P03-W07/#2188:open",
+		"identityClaimRef": "C03-IDENTITY-001",
+		"headlineClaimRef": "C03-HEADLINE-001",
+		"boundaryClaimRef": "C03-COMMERCIAL-BOUNDARY-001",
+		"deliveryOs": "organvm-iii-ergon/collaboration-operations-platform#135@432c31ea6bcaf2c175b0fde08b6e1733fe4c2926",
+		"deliveryOsRelay": "organvm/limen#2315@d31ce37a85adf5d2e448dab8273a61e388f1e589",
+		"deliveryOsRelayIntegrated": "organvm/limen@7a0682722185d17095a0b44de17d4bd5cf3284dd",
+		"proofExperience": "organvm/limen#2313@543fa28df52c9db7be3b7307019dcf209361d0b9",
+		"portfolioExperience": "organvm-vii-kerygma/portfolio#220@8974543ba9675ed0504141895812476efef5dd80",
+		"proofLedContent": "organvm/limen#2316@78736b8133c98e59d85069ea54eba2f20ed7b0a2",
+		"publicSurfaces": "organvm-vii-kerygma/portfolio#221@7c150fc81184df1715824be28b32472baadbb3b6",
+		"publicSurfacesIntegrated": "organvm-vii-kerygma/portfolio@797cda3fb903b07d4152e5bbde9f468beeeab3e0",
+		"publicSurfacesRelay": "organvm/limen#2317@4eb50463b7f4136b47a103c9792c1ded5caf7873",
+		"privateInbound": "organvm/limen#2318@947921af6c1101acda6b1085d45381a393f3b20a"
+	},
+	"readerContract": {
+		"audience": "A leader who owns one stalled or risky agentic/software delivery decision.",
+		"expensiveProblem": "Activity exists, but the team cannot yet judge value, risk, cost, verified done, or the handoff owner.",
+		"proofRefs": ["C02-PROOF-LIMEN"],
+		"nextStep": "Review fit and prepare a no-send intake draft for one bounded initiative.",
+		"fitSignals": [
+			"one named sponsor and decision owner",
+			"one bounded initiative, workflow, team, or pipeline",
+			"read-only evidence can support the decision",
+			"a real decision window and willingness to stop or narrow"
+		],
+		"exclusions": [
+			"production mutation or deployment",
+			"organization redesign or executive substitution",
+			"unlimited repository, team, or vendor scope",
+			"on-call response or outcome guarantee",
+			"security, legal, privacy, or approval bypass"
+		]
+	},
+	"claims": {
+		"proofStatus": "provisional_preflight",
+		"forbidden": [
+			"client outcome",
+			"revenue",
+			"adoption",
+			"ranking",
+			"unsupported executive title",
+			"numeric public price"
+		]
+	},
+	"intake": {
+		"mode": "local_draft_only",
+		"transport": "none",
+		"contactFields": [],
+		"doorTag": "client",
+		"offerTag": "agentic_delivery_audit",
+		"qualificationOwner": "PSP-P10-W01"
+	},
+	"instrumentation": {
+		"syntheticOnly": true,
+		"transport": "none",
+		"events": [
+			"offer_viewed",
+			"fit_reviewed",
+			"intake_started",
+			"intake_routed",
+			"draft_decision_recorded"
+		]
+	},
+	"publicSurfaceBoundary": {
+		"visualDirectionSelected": false,
+		"visualImplementationAuthorized": false,
+		"renderedRouteOrComponentAuthorized": false,
+		"legacyDeadLinkCount": 11,
+		"linkHealthState": "recorded_not_repaired",
+		"canonicalRepository": "organvm-vii-kerygma/portfolio"
+	},
+	"humanGates": ["HG-PUBLIC-IDENTITY", "HG-PUBLICATION-SEND", "HG-CONTRACT"],
+	"externalEffects": []
+}
