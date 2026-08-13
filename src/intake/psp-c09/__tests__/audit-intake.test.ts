@@ -37,34 +37,39 @@ function syntheticDraft() {
 describe('PSP-P10-W04 sales and intake preflight', () => {
 	it('locks exact upstream preflight heads without copying their contracts', () => {
 		expect(PSP_C09_SOURCE_LOCK.commercialContract).toMatchObject({
-			head: 'c94bc3748fcf2d1dc802a4bae972df23d9a9fbec',
+			head: 'b6af8086c9050634313f519c29a6dfcb922c3721',
+			mergeCommit: '8f89ad16ca1df84b00cb8227c88f368d0d64631a',
 			acceptedThrough: 'PSP-P03-W06',
 			readerGate: 'PSP-P03-W07',
 			readerIssue: 2188,
 			readerEvidenceSatisfied: false,
 		});
 		expect(PSP_C09_SOURCE_LOCK.deliveryOs).toMatchObject({
-			head: '2c4efce84082f344fd5e0d90cc110662a379435f',
-			limenRelayHead: 'fdd41da45bdf5909e7b782a03dbaedf85e105c25',
+			head: '432c31ea6bcaf2c175b0fde08b6e1733fe4c2926',
+			mergeCommit: '9172619633bb9a09ea3a05eae9f48e987f2b3e7d',
+			limenRelayHead: '1f884631f7472552a038cef6cb85468cec618f35',
 		});
 		expect(PSP_C09_SOURCE_LOCK.proofLedContent.head).toBe(
-			'ef6e4df64f97c11dba2c159752d5a13b50a96c10',
+			'78736b8133c98e59d85069ea54eba2f20ed7b0a2',
 		);
 		expect(PSP_C09_SOURCE_LOCK.proofExperience.head).toBe(
-			'5bf686f6ceba200c6157bd87eb6e5298750a4ffb',
+			'543fa28df52c9db7be3b7307019dcf209361d0b9',
 		);
 		expect(PSP_C09_SOURCE_LOCK.experienceContract.head).toBe(
 			'8974543ba9675ed0504141895812476efef5dd80',
 		);
+		expect(PSP_C09_SOURCE_LOCK.experienceContract.mergeCommit).toBe(
+			'a01b6d85f78d2d744c0c994f7220081bb54a85c5',
+		);
 		expect(PSP_C09_SOURCE_LOCK.publicSurfaces).toMatchObject({
-			head: '6cb1abf0bf08e71341476886385eba5499c51bb7',
+			head: 'cacb53c1b2514ed52f926b64f0944d35526fbbf1',
 			limenRelayHead: '4eb50463b7f4136b47a103c9792c1ded5caf7873',
 			legacyDeadLinkCount: 11,
 			visualDirectionSelected: false,
 			renderedSurfaceChangesAuthorized: false,
 		});
 		expect(PSP_C09_SOURCE_LOCK.privateInbound).toMatchObject({
-			head: 'c3b92707a0f6d0ea3076680d100d60d0217f8fe9',
+			head: '947921af6c1101acda6b1085d45381a393f3b20a',
 			state: 'prepared_preflight',
 			externalEffects: [],
 		});

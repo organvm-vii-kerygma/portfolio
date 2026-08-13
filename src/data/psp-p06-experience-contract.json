@@ -1,7 +1,27 @@
 {
-  "schema_version": "portfolio.psp_p06_experience_preflight.v1",
+  "schema_version": "portfolio.psp_p06_experience_preflight.v2",
   "status": "PREPARED/PREFLIGHT",
   "prepared_at": "2026-08-10",
+  "program_binding": {
+    "source_path": "institutio/positioning/program.yaml",
+    "registry_authority": "PSP-P06 outcomes, acceptance, and target_paths",
+    "leaf_bindings": [
+      {"id": "PSP-P06-W01", "targets": ["docs/design", "design"], "executable": "design_context", "residual": "approval"},
+      {"id": "PSP-P06-W02", "targets": ["docs", "content"], "executable": "route_content_projection", "residual": "ratified_content"},
+      {"id": "PSP-P06-W03", "targets": ["design", "docs/design"], "executable": "audience_flows", "residual": "selected_direction_usability"},
+      {"id": "PSP-P06-W04", "targets": ["src/components", "src/content", "docs"], "executable": "evidence_states", "residual": "selected_direction_components"},
+      {"id": "PSP-P06-W05", "targets": ["src/styles", "web/tokens"], "executable": "locked_visual_gate", "residual": "HG-DESIGN-TOKENS"},
+      {"id": "PSP-P06-W06", "targets": ["src", "tests"], "executable": "quality_budgets", "residual": "measured_browser_receipts"},
+      {"id": "PSP-P06-W07", "targets": ["docs/receipts", "tests"], "executable": "visual_comprehension_qa", "residual": "target_like_reviewers"}
+    ]
+  },
+  "integration_harness": {
+    "runner": "node scripts/run-psp-p06-integration.mjs",
+    "fixture": "scripts/__tests__/fixtures/psp-p06-integration.json",
+    "test": "node --test scripts/__tests__/psp-p06-preflight.test.mjs scripts/__tests__/psp-p06-integration.test.mjs",
+    "public_effect": false,
+    "fixture_rule": "Synthetic fixtures prove contract behavior only; they are not release, visual, accessibility, performance, or reader evidence."
+  },
   "repository": {
     "owner": "organvm-vii-kerygma",
     "name": "portfolio",
@@ -11,32 +31,50 @@
   "dependencies": {
     "c02": {
       "chunk": "PSP-C02",
-      "status": "open",
-      "required_outputs": ["merged flagship selection", "merged evidence packets", "merged claim policy", "dated exact-head anchors"]
+      "phase": "PSP-P02",
+      "status": "closed",
+      "accepted_outputs": ["flagship selection", "evidence packets", "claim policy", "dated exact-head anchors"]
     },
     "c03": {
       "chunk": "PSP-C03",
-      "status": "preflight_dependency_blocked",
+      "status": "w01_w06_closed_w07_open",
       "source_branch": "codex/psp-c03-identity-offers-preflight",
-      "exact_head": "b5bc01585a10615e85e1ef5b31a2356c24fb9bc9",
+      "exact_head": "c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
       "registry_alignment_commit": "986ebb41778cf082e01ede0cb6d268cebf54a106",
       "source_path": "institutio/positioning/commercial-contract.yaml",
+      "closed_leaves": ["PSP-P03-W01", "PSP-P03-W02", "PSP-P03-W03", "PSP-P03-W04", "PSP-P03-W05", "PSP-P03-W06"],
+      "sole_unsatisfied_leaf": {
+        "work_id": "PSP-P03-W07",
+        "issue": "https://github.com/organvm/limen/issues/2188",
+        "gate": "five blinded target-like readers",
+        "outbound_from_c04": false
+      },
+      "w06_receipt": {
+        "url": "https://github.com/organvm/limen/issues/2187#issuecomment-5271254820",
+        "sha256": "260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617"
+      },
       "formal_closure_required": true
     },
-    "registry_owner_mismatch": {
-      "stale_owner": "organvm/portfolio",
-      "live_owner": "organvm-vii-kerygma/portfolio",
-      "resolution_owner": "PSP-C02 adjudication",
-      "rule": "Do not rewrite program.yaml from this repository."
+    "registry_owner_resolution": {
+      "status": "closed",
+      "canonical_target": "organvm-vii-kerygma/portfolio",
+      "repository_id": 1155412125,
+      "source": "accepted PSP-P02 adjudication"
     }
   },
   "identity_contract": {
-    "source": "C03 exact head b5bc01585a10615e85e1ef5b31a2356c24fb9bc9",
+    "source": "C03 accepted W01-W06 head c94bc3748fcf2d1dc802a4bae972df23d9a9fbec",
     "canonical_title": "Production-systems architect",
     "headline": "I build production systems that solve expensive problems.",
     "operating_thesis": "I design the operating system around complex software delivery: decision rights, work routing, verification, cost boundaries, evidence, and handoff.",
     "authorship_disclosure": "Architected and directed by one person through a governed, multi-agent production system.",
     "commercial_boundary": "The commercial promise is a bounded decision and operating system, not control of the buyer's organization.",
+    "authority_boundary": {
+      "scope": "sponsor-granted and written",
+      "working_mode": "collaborative and reversible",
+      "owner_visibility": "current owners remain visible",
+      "completion": "evidence, rollback information, and handoff"
+    },
     "claim_refs": ["C03-IDENTITY-001", "C03-HEADLINE-001", "C03-AUTHORSHIP-001", "C03-COMMERCIAL-BOUNDARY-001"]
   },
   "offer_boundary": {
@@ -170,7 +208,7 @@
     "acceptance": "No critical failure and every scored dimension meets the later declared quality floor with current evidence."
   },
   "visual_ideation_gate": {
-    "status": "LOCKED_UNTIL_C02_AND_C03_FORMAL_INTEGRATION",
+    "status": "LOCKED_UNTIL_C03_W07_AND_FORMAL_INTEGRATION",
     "option_slots": ["direction_a", "direction_b", "direction_c"],
     "requirements": ["exactly three materially distinct visual targets", "same approved content and route contract", "desktop and mobile L1 plus one L2 evidence state", "real portfolio assets and existing token context", "accessibility and performance risk note", "no production code or deployment"],
     "selection_owner": "human",

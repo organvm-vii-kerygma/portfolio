@@ -12,11 +12,20 @@ export async function loadContract(url = defaultContractUrl) {
 
 export function validateContract(contract) {
 	const errors = [];
+	if (contract.schema_version !== 'portfolio.psp_p06_experience_preflight.v2')
+		errors.push('unsupported PSP-P06 contract schema');
 	if (contract.status !== 'PREPARED/PREFLIGHT')
 		errors.push('status must remain PREPARED/PREFLIGHT');
 	if (contract.repository?.repository_id !== 1155412125)
 		errors.push('canonical repository id mismatch');
-	if (contract.dependencies?.c03?.exact_head !== 'b5bc01585a10615e85e1ef5b31a2356c24fb9bc9') {
+	if (contract.dependencies?.c02?.status !== 'closed')
+		errors.push('PSP-P02 must be recorded closed');
+	if (
+		contract.dependencies?.registry_owner_resolution?.canonical_target !==
+		'organvm-vii-kerygma/portfolio'
+	)
+		errors.push('canonical registry target mismatch');
+	if (contract.dependencies?.c03?.exact_head !== 'c94bc3748fcf2d1dc802a4bae972df23d9a9fbec') {
 		errors.push('C03 exact-head checkpoint mismatch');
 	}
 	if (
@@ -27,6 +36,52 @@ export function validateContract(contract) {
 	}
 	if (contract.dependencies?.c03?.formal_closure_required !== true)
 		errors.push('C03 closure must remain required');
+	if (
+		JSON.stringify(contract.dependencies?.c03?.closed_leaves) !==
+		JSON.stringify([
+			'PSP-P03-W01',
+			'PSP-P03-W02',
+			'PSP-P03-W03',
+			'PSP-P03-W04',
+			'PSP-P03-W05',
+			'PSP-P03-W06',
+		])
+	)
+		errors.push('C03 closed leaves must be W01-W06');
+	if (contract.dependencies?.c03?.sole_unsatisfied_leaf?.work_id !== 'PSP-P03-W07')
+		errors.push('C03 sole unsatisfied leaf must be PSP-P03-W07');
+	if (contract.dependencies?.c03?.sole_unsatisfied_leaf?.outbound_from_c04 !== false)
+		errors.push('C04 must not solicit W07 readers');
+	if (
+		contract.dependencies?.c03?.w06_receipt?.url !==
+		'https://github.com/organvm/limen/issues/2187#issuecomment-5271254820'
+	)
+		errors.push('C03 W06 receipt URL mismatch');
+	if (
+		contract.dependencies?.c03?.w06_receipt?.sha256 !==
+		'260081dfbffc75d55824c0e6ed7d7718a7e397763afb689c94d2230963d79617'
+	)
+		errors.push('C03 W06 receipt SHA mismatch');
+	if (contract.identity_contract?.authority_boundary?.scope !== 'sponsor-granted and written')
+		errors.push('accepted W06 authority boundary mismatch');
+	const expectedLeaves = Array.from({ length: 7 }, (_, index) => `PSP-P06-W0${index + 1}`);
+	if (contract.program_binding?.source_path !== 'institutio/positioning/program.yaml')
+		errors.push('program binding must name the canonical manifest');
+	if (
+		JSON.stringify((contract.program_binding?.leaf_bindings ?? []).map((row) => row.id)) !==
+		JSON.stringify(expectedLeaves)
+	)
+		errors.push('program binding must cover PSP-P06-W01 through W07');
+	for (const row of contract.program_binding?.leaf_bindings ?? []) {
+		if (!row.targets?.length || !row.executable || !row.residual)
+			errors.push(`${row.id} binding is incomplete`);
+	}
+	if (
+		contract.integration_harness?.public_effect !== false ||
+		!contract.integration_harness?.runner ||
+		!contract.integration_harness?.fixture
+	)
+		errors.push('integration harness must be complete and non-public');
 
 	const routeOwners = new Map();
 	for (const route of contract.canonical_routes ?? []) {
