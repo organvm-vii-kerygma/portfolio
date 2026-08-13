@@ -7,7 +7,8 @@ const defaultContractPath = fileURLToPath(
 );
 const contractPath = process.env.PSP_P07_CONTRACT_PATH || defaultContractPath;
 const visualDirectory = new URL('../docs/positioning/visual-directions/psp-c06/', import.meta.url);
-const manifestPath = fileURLToPath(new URL('manifest.json', visualDirectory));
+const defaultManifestPath = fileURLToPath(new URL('manifest.json', visualDirectory));
+const manifestPath = process.env.PSP_P07_MANIFEST_PATH || defaultManifestPath;
 const contract = JSON.parse(await readFile(contractPath, 'utf8'));
 const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 const failures = [];
@@ -22,6 +23,35 @@ const hasExactUniqueStrings = (actual, expected) =>
 	new Set(actual).size === actual.length &&
 	expected.every((value) => actual.includes(value));
 
+const canonicalJson = (value) => {
+	if (Array.isArray(value)) return value.map(canonicalJson);
+	if (value && typeof value === 'object') {
+		return Object.fromEntries(
+			Object.entries(value)
+				.sort(([left], [right]) => left.localeCompare(right))
+				.map(([key, child]) => [key, canonicalJson(child)]),
+		);
+	}
+	return value;
+};
+
+const deepExact = (actual, expected) =>
+	JSON.stringify(canonicalJson(actual)) === JSON.stringify(canonicalJson(expected));
+
+const collectKeys = (value) => {
+	if (Array.isArray(value)) return value.flatMap(collectKeys);
+	if (!value || typeof value !== 'object') return [];
+	return Object.entries(value).flatMap(([key, child]) => [key, ...collectKeys(child)]);
+};
+
+assert(
+	contract.schema_version === 'portfolio.psp_p07_public_surface_preflight.v1',
+	'contract schema version must be supported exactly',
+);
+assert(
+	manifest.schema_version === 'portfolio.psp_c06_visual_direction_manifest.v1',
+	'visual manifest schema version must be supported exactly',
+);
 assert(contract.status === 'PREPARED/PREFLIGHT', 'contract must remain a preflight');
 assert(contract.scope === 'PSP-C06 / PSP-P07-W01 through W09', 'contract must cover W01–W09');
 const expectedSurfaceWorkIds = Array.from(
@@ -36,8 +66,10 @@ assert(
 	'contract must contain each unique W01-W09 surface entry exactly once',
 );
 assert(
-	contract.read_only_inputs.portfolio_repository.id === 1155412125,
-	'canonical portfolio id must match',
+	contract.read_only_inputs.portfolio_repository.id === 1155412125 &&
+		contract.read_only_inputs.portfolio_repository.main_head ===
+			'a01b6d85f78d2d744c0c994f7220081bb54a85c5',
+	'canonical portfolio id and captured rollback baseline must match',
 );
 assert(
 	contract.read_only_inputs.c04_preflight.exact_head === '543fa28df52c9db7be3b7307019dcf209361d0b9',
@@ -128,14 +160,37 @@ assert(
 const content = contract.public_content_contract;
 const expectedPublicDoors = ['client', 'recruiter_executive'];
 assert(
-	contract.analytics_schema.events.every((event) =>
-		['audience', 'door'].every((dimension) =>
-			(event.allowed_values?.[dimension] ?? []).every((value) =>
-				expectedPublicDoors.includes(value),
-			),
-		),
-	),
-	'analytics audience and door values must remain within the two approved public doors',
+	deepExact(contract.analytics_schema.events, [
+		{
+			name: 'psp_door_opened',
+			required_fields: ['schema_version', 'surface_id', 'audience', 'door', 'event_version'],
+			allowed_values: {
+				audience: expectedPublicDoors,
+				door: expectedPublicDoors,
+			},
+		},
+		{
+			name: 'psp_proof_opened',
+			required_fields: [
+				'schema_version',
+				'surface_id',
+				'proof_id',
+				'disclosure_level',
+				'evidence_state',
+				'event_version',
+			],
+			allowed_values: {
+				disclosure_level: ['L1', 'L2', 'L3'],
+				evidence_state: ['ready', 'empty', 'stale', 'error', 'withheld'],
+			},
+		},
+		{
+			name: 'psp_index_opened',
+			required_fields: ['schema_version', 'surface_id', 'disclosure_level', 'event_version'],
+			allowed_values: { disclosure_level: ['L3'] },
+		},
+	]),
+	'analytics event dictionary must match the complete privacy-safe contract',
 );
 assert(
 	JSON.stringify(content.public_claim_statuses.renderable) ===
@@ -146,6 +201,15 @@ assert(
 	content.public_claim_statuses.withhold_required.includes('private') &&
 		content.public_claim_statuses.withhold_required.includes('unverified'),
 	'private and unverified claims must be withheld',
+);
+assert(
+	hasExactUniqueStrings(content.evidence_card.required_fields_when_renderable, [
+		'claim_id',
+		'evidence_state',
+		'disclosure_level',
+		'source_ref',
+	]),
+	'renderable evidence cards must retain every traceability field',
 );
 assert(
 	hasExactUniqueStrings(content.route_rules.public_front_doors, expectedPublicDoors) &&
@@ -163,14 +227,26 @@ assert(
 );
 assert(
 	contract.quality_contract.accessibility.standard === 'WCAG 2.2 AA' &&
-		JSON.stringify(contract.quality_contract.accessibility.viewports) ===
-			JSON.stringify([320, 768, 1280]),
-	'accessibility contract must retain declared standard and viewports',
+		deepExact(contract.quality_contract.accessibility.viewports, [320, 768, 1280]) &&
+		hasExactUniqueStrings(contract.quality_contract.accessibility.requirements, [
+			'keyboard traversal',
+			'visible focus',
+			'semantic landmarks',
+			'text alternatives',
+			'reduced-motion support',
+		]),
+	'accessibility contract must retain its standard, viewports, and complete requirements',
 );
 assert(
-	contract.quality_contract.performance.budgets.lcp_ms === 2500 &&
-		contract.quality_contract.performance.budgets.inp_ms === 200,
-	'performance contract must retain baseline interaction budgets',
+	deepExact(contract.quality_contract.performance.budgets, {
+		lcp_ms: 2500,
+		inp_ms: 200,
+		cls: 0.1,
+		javascript_kb_gzip: 200,
+		css_kb_gzip: 60,
+		initial_media_kb: 500,
+	}),
+	'performance contract must retain every declared budget',
 );
 assert(
 	/does not authorize a deploy/.test(contract.release_and_rollback_contract.hard_boundary),
@@ -209,11 +285,30 @@ assert(
 	'post-selection gate must retain every pre-implementation prerequisite',
 );
 assert(
+	hasExactUniqueStrings(contract.post_selection_integration_gate.before_release, [
+		'public_content_contract_validation',
+		'analytics_schema_tests',
+		'accessibility_and_performance_checks',
+		'url_domain_probe',
+		'release_dry_run',
+		'link_health_report',
+	]),
+	'post-selection gate must retain every pre-release prerequisite',
+);
+assert(
 	contract.post_selection_integration_gate.rule ===
 		'Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase.',
 	'selection alone must not authorize implementation',
 );
 assert(manifest.selection_status === 'UNSELECTED', 'visual directions must remain unselected');
+assert(
+	collectKeys(manifest).every(
+		(key) =>
+			key === 'selection_status' ||
+			!/(?:^selected|^chosen|^choice|selectionreceipt|selection_receipt)/i.test(key),
+	),
+	'visual manifest must not contain a selection-bearing field',
+);
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
 	/No direction may be regenerated/.test(manifest.no_build_boundary),

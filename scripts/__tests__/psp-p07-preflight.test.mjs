@@ -13,17 +13,23 @@ assert.match(output, /PSP-C06 public-surfaces preflight: PASS/);
 const sourceContract = JSON.parse(
 	readFileSync('src/data/psp-p07-public-surface-contract.json', 'utf8'),
 );
+const sourceManifest = JSON.parse(
+	readFileSync('docs/positioning/visual-directions/psp-c06/manifest.json', 'utf8'),
+);
 
-function assertRejected(mutator, expectedMessage) {
+function assertRejected(mutator, expectedMessage, target = 'contract') {
 	const directory = mkdtempSync(join(tmpdir(), 'psp-p07-preflight-'));
 	try {
-		const candidate = structuredClone(sourceContract);
+		const candidate = structuredClone(target === 'manifest' ? sourceManifest : sourceContract);
 		mutator(candidate);
-		const contractPath = join(directory, 'contract.json');
-		writeFileSync(contractPath, `${JSON.stringify(candidate, null, 2)}\n`);
+		const candidatePath = join(directory, `${target}.json`);
+		writeFileSync(candidatePath, `${JSON.stringify(candidate, null, 2)}\n`);
 		const result = spawnSync('node', ['scripts/validate-psp-p07-preflight.mjs'], {
 			encoding: 'utf8',
-			env: { ...process.env, PSP_P07_CONTRACT_PATH: contractPath },
+			env: {
+				...process.env,
+				[target === 'manifest' ? 'PSP_P07_MANIFEST_PATH' : 'PSP_P07_CONTRACT_PATH']: candidatePath,
+			},
 		});
 		assert.notEqual(result.status, 0);
 		assert.match(result.stderr, expectedMessage);
@@ -38,7 +44,7 @@ assertRejected((candidate) => {
 
 assertRejected((candidate) => {
 	candidate.analytics_schema.events[0].allowed_values.door = ['product_operating_partner'];
-}, /two approved public doors/);
+}, /complete privacy-safe contract/);
 
 assertRejected((candidate) => {
 	candidate.analytics_schema.privacy.prohibited_fields =
@@ -62,3 +68,39 @@ assertRejected((candidate) => {
 			(value) => value !== 'traffic routing',
 		);
 }, /every production-facing effect prohibition/);
+
+assertRejected((candidate) => {
+	candidate.analytics_schema.events[0].required_fields.push('email');
+}, /complete privacy-safe contract/);
+
+assertRejected((candidate) => {
+	candidate.quality_contract.performance.budgets.css_kb_gzip = 600;
+}, /every declared budget/);
+
+assertRejected((candidate) => {
+	candidate.post_selection_integration_gate.before_release.pop();
+}, /every pre-release prerequisite/);
+
+assertRejected((candidate) => {
+	candidate.quality_contract.accessibility.requirements.pop();
+}, /complete requirements/);
+
+assertRejected(
+	(candidate) => {
+		candidate.selected_direction = 1;
+	},
+	/selection-bearing field/,
+	'manifest',
+);
+
+assertRejected((candidate) => {
+	candidate.read_only_inputs.portfolio_repository.main_head = '0'.repeat(40);
+}, /captured rollback baseline/);
+
+assertRejected((candidate) => {
+	candidate.public_content_contract.evidence_card.required_fields_when_renderable.pop();
+}, /every traceability field/);
+
+assertRejected((candidate) => {
+	candidate.schema_version = 'portfolio.psp_p07_public_surface_preflight.v2';
+}, /schema version must be supported exactly/);
