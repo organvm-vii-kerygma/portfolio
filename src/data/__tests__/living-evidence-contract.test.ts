@@ -8,6 +8,14 @@ import vitals from '../vitals.json';
 function walk(directory: string): string[] {
 	return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
 		const path = resolve(directory, entry.name);
+		if (
+			entry.isDirectory() &&
+			['node_modules', '.git', 'dist', '.quality', '.a11y', 'coverage', 'playwright-report', 'test-results'].includes(
+				entry.name,
+			)
+		) {
+			return [];
+		}
 		return entry.isDirectory() ? walk(path) : [path];
 	});
 }
@@ -22,9 +30,6 @@ describe('Living Evidence Field contracts', () => {
 		const failedLegacyHost = ['https://organvm', '.github.io/portfolio'].join('');
 		const files = walk(resolve('.')).filter(
 			(path) =>
-				!path.includes('/node_modules/') &&
-				!path.includes('/.git/') &&
-				!path.includes('/dist/') &&
 				!path.endsWith('.pdf') &&
 				!path.endsWith('src/data/psp-p07-public-surface-contract.json'),
 		);
