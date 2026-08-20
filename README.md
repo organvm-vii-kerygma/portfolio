@@ -5,7 +5,7 @@ Personal portfolio showcasing 19 case studies, p5.js generative art, and a live 
 <div align="center">
   <img src="public/favicon.svg" width="120" height="120" alt="ORGANVM Logo" />
   
-  [![Live Site](https://img.shields.io/badge/Live-organvm.github.io/portfolio-00BCD4?style=for-the-badge&logo=github)](https://organvm.github.io/portfolio/)
+  [![Live Site](https://img.shields.io/badge/Live-organvm--vii--kerygma.github.io/portfolio-00BCD4?style=for-the-badge&logo=github)](https://organvm-vii-kerygma.github.io/portfolio/)
   [![CI](https://github.com/organvm/portfolio/actions/workflows/ci.yml/badge.svg?style=for-the-badge)](https://github.com/organvm/portfolio/actions/workflows/ci.yml)
   [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 </div>
@@ -16,7 +16,7 @@ Personal portfolio showcasing 19 case studies, p5.js generative art, and a live 
 
 The project is organized around the **ORGANVM** system—a polymathic framework spanning 171 repositories and 8 GitHub organizations.
 
-*   **Live Hub:** [organvm.github.io/portfolio](https://organvm.github.io/portfolio/)
+*   **Live Hub:** [organvm-vii-kerygma.github.io/portfolio](https://organvm-vii-kerygma.github.io/portfolio/)
 *   **Architecture:** [The Eight-Organ System](https://github.com/meta-organvm)
 
 ![Portfolio Preview](docs/assets/homepage-full.png)

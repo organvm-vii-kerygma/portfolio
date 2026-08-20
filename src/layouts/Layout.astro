@@ -39,7 +39,7 @@ interface Props {
 }
 
 const slug = Astro.url.pathname.replace(/^\/portfolio\//, '').replace(/\/$/, '') || 'index';
-const defaultOG = `${canonicalBase}/og/${slug}.png`;
+const defaultOG = `${canonicalBase}og/${slug}.png`;
 const {
 	title,
 	description = 'Creative technologist building autonomous creative systems and treating governance as artistic medium.',

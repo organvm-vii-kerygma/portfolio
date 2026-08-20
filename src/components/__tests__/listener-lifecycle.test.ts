@@ -14,11 +14,10 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
-	it('footer theme toggles are rebound via AbortController and singleton media listener', () => {
+	it('footer carries no duplicate theme controller', () => {
 		const source = read('components/Footer.astro');
-		expect(source).toContain('new AbortController()');
-		expect(source).toContain('state.controller?.abort()');
-		expect(source).toContain('if (!state.mediaListener)');
+		expect(source).not.toContain('theme-toggle');
+		expect(source).not.toContain('<script>');
 	});
 
 	it('gallery controls clean up fullscreen and click listeners per navigation', () => {

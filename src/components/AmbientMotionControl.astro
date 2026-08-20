@@ -1,0 +1,49 @@
+<button type="button" class="ambient-motion" data-ambient-motion-control aria-label="Ambient motion: system preference">
+	<svg aria-hidden="true" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5">
+		<path d="M3 10c2-5 4 5 7 0s5 5 7 0" />
+	</svg>
+	<span data-ambient-motion-label>Motion: System</span>
+</button>
+
+<style>
+	.ambient-motion { min-height: 44px; display: inline-flex; align-items: center; gap: var(--space-xs); color: var(--text-secondary); border: 1px solid var(--border); background: var(--surface-strong); border-radius: var(--radius-sm); padding: 0 var(--space-sm); cursor: pointer; font: 0.68rem/1 var(--font-mono); }
+</style>
+
+<script is:inline>
+	(function () {
+		var key = 'ambient-motion';
+		var query = window.matchMedia('(prefers-reduced-motion: reduce)');
+		function read() {
+			try { var value = localStorage.getItem(key); if (value === 'running' || value === 'paused' || value === 'system') return value; } catch {}
+			return 'system';
+		}
+		function resolved(preference) { return preference === 'system' ? (query.matches ? 'paused' : 'running') : preference; }
+		function apply(preference) {
+			var state = resolved(preference);
+			document.documentElement.dataset.ambientMotionPreference = preference;
+			document.documentElement.dataset.ambientMotion = state;
+			document.querySelectorAll('[data-ambient-motion-control]').forEach(function (button) {
+				button.setAttribute('aria-label', 'Ambient motion: ' + preference + '; currently ' + state);
+				var label = button.querySelector('[data-ambient-motion-label]');
+				if (label) label.textContent = 'Motion: ' + preference.charAt(0).toUpperCase() + preference.slice(1);
+			});
+			window.dispatchEvent(new CustomEvent('ambient-motion-change', { detail: { preference: preference, state: state } }));
+		}
+		function initialize() {
+			apply(read());
+			document.querySelectorAll('[data-ambient-motion-control]').forEach(function (button) {
+				if (button.dataset.motionBound) return;
+				button.dataset.motionBound = 'true';
+				button.addEventListener('click', function () {
+					var current = read();
+					var next = current === 'system' ? 'paused' : current === 'paused' ? 'running' : 'system';
+					try { localStorage.setItem(key, next); } catch {}
+					apply(next);
+				});
+			});
+		}
+		query.addEventListener('change', function () { if (read() === 'system') apply('system'); });
+		document.addEventListener('astro:page-load', initialize);
+		initialize();
+	})();
+</script>

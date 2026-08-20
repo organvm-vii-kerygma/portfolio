@@ -249,14 +249,14 @@ jobs:
           { value: `${wordsK}K`, label: 'Words' },
           { value: '31', label: 'Dependency Edges' },
           { value: '228', label: 'Validation Checks' },
-          { value: String(vitals.substance.ci_passing), label: 'CI Workflows' },
+          { value: String(vitals.substance.repos_with_ci), label: 'Repositories with CI' },
           { value: '130+', label: 'Decision Records' },
           { value: '115', label: 'Contract Edges' },
         ]} />
       </Figure>
 
       <p>
-        {vitals.substance.ci_passing} repositories carry CI workflows. 130 architectural decision records document key design choices. Every repo has a CHANGELOG and documentation tier assignment (8 flagship, 70 standard, 5 archive, 8 infrastructure).<Cite id={14} author="Nygard, Michael T." title="Release It! Design and Deploy Production-Ready Software" source="Pragmatic Bookshelf" year={2018} />
+        {vitals.substance.repos_with_ci} repositories carry CI workflows. Workflow presence is an adoption measure, not evidence that a run passed. 130 architectural decision records document key design choices. Every repo has a CHANGELOG and documentation tier assignment (8 flagship, 70 standard, 5 archive, 8 infrastructure).<Cite id={14} author="Nygard, Michael T." title="Release It! Design and Deploy Production-Ready Software" source="Pragmatic Bookshelf" year={2018} />
       </p>
 
       <p>
@@ -290,7 +290,7 @@ jobs:
       	</span>
       	<span slot="elevated">
       		<p>
-        Every repository meets a defined quality floor that functions as a contract between the system and its audiences. READMEs require 2,000+ words minimum (flagships: 3,000+), written for dual audiences of grant reviewers and hiring managers. {vitals.substance.ci_passing} repositories carry CI/CD workflows. 130+ architectural decision records document key design choices — technology selections, dependency declarations, naming decisions, and tradeoff analyses.<Cite id={16} author="Shneiderman, Ben" title="Human-Centered AI" source="Oxford University Press" year={2022} /> The Platinum validation suite adds checks for CI workflow presence, CHANGELOG files, ADRs, badge rows, and implementation status fields — 228 checks passing across the full suite.
+        Every repository meets a defined quality floor that functions as a contract between the system and its audiences. READMEs require 2,000+ words minimum (flagships: 3,000+), written for dual audiences of grant reviewers and hiring managers. {vitals.substance.repos_with_ci} repositories carry CI/CD workflows. 130+ architectural decision records document key design choices — technology selections, dependency declarations, naming decisions, and tradeoff analyses.<Cite id={16} author="Shneiderman, Ben" title="Human-Centered AI" source="Oxford University Press" year={2022} /> The Platinum validation suite adds checks for CI workflow presence, CHANGELOG files, ADRs, badge rows, and implementation status fields — 228 checks passing across the full suite.
       		</p>
       	</span>
       </ShibuiContent>

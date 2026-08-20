@@ -10,8 +10,8 @@ const impactMetrics = [
 	{ value: vitals.repos.total.toString(), label: 'Repos Managed' },
 	{ value: vitals.substance.test_files.toLocaleString(), label: 'Test Files' },
 	{ value: `${Math.round(vitals.logos.words / 1000)}K+`, label: 'Words Written' },
-	{ value: vitals.substance.ci_passing.toString(), label: 'CI Workflows Passing' },
-	{ value: `${vitals.substance.ci_coverage_pct}%`, label: 'Avg. Coverage' },
+	{ value: vitals.substance.ci_workflow_count.toString(), label: 'CI Workflow Files' },
+	{ value: `${vitals.substance.ci_adoption_pct}%`, label: 'Repository CI Adoption' },
 	{ value: omegaData.soak.streak_days.toString(), label: 'Soak Days' },
 ];
 

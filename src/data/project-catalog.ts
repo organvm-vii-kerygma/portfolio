@@ -14,11 +14,27 @@ export interface ProjectCatalogEntry {
 	organ: OrganKey;
 	tags: string[];
 	summary: string;
+	route: string;
+	audienceRelevance: Array<'client' | 'recruiter'>;
 	sourceRepoName?: string;
 	publishedAt?: string;
+	evidenceReference?: string;
 }
 
-export const projectCatalog: ProjectCatalogEntry[] = [
+const projectCatalogEntries: Array<
+	Omit<ProjectCatalogEntry, 'route' | 'audienceRelevance'> &
+		Partial<Pick<ProjectCatalogEntry, 'audienceRelevance'>>
+> = [
+	{
+		slug: 'limen',
+		title: 'Limen',
+		organ: 'META-ORGANVM',
+		tags: ['Systems', 'Governance', 'Multi-agent'],
+		summary:
+			'A governed production system that turns multi-agent work into bounded, verifiable delivery with explicit authority and handoff.',
+		sourceRepoName: 'limen',
+		evidenceReference: 'https://github.com/organvm/limen',
+	},
 	{
 		slug: 'narratological-lenses',
 		title: 'Narratological Algorithmic Lenses',
@@ -188,6 +204,12 @@ export const projectCatalog: ProjectCatalogEntry[] = [
 		summary: 'Meta-governance architecture spanning eight organs and shared infrastructure.',
 	},
 ];
+
+export const projectCatalog: ProjectCatalogEntry[] = projectCatalogEntries.map((project) => ({
+	...project,
+	route: `/projects/${project.slug}/`,
+	audienceRelevance: project.audienceRelevance ?? ['client', 'recruiter'],
+}));
 
 export const projectCatalogBySlug = new Map(
 	projectCatalog.map((project) => [project.slug, project]),

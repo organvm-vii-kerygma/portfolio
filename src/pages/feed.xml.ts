@@ -3,6 +3,7 @@ import type { APIContext } from 'astro';
 import essaysData from '../data/essays.json';
 import { projectCatalog } from '../data/project-catalog';
 import { projectIndex } from '../data/project-index';
+import { canonicalBase } from '../utils/paths';
 
 interface EssayItem {
 	title: string;
@@ -11,7 +12,7 @@ interface EssayItem {
 }
 
 export function GET(context: APIContext) {
-	const siteBase = 'https://organvm.github.io/portfolio/';
+	const siteBase = canonicalBase;
 	const fallbackProjectDate = new Date('2026-02-10T00:00:00.000Z');
 	const indexSlugs = new Set(projectIndex.map((p) => p.slug));
 
@@ -39,7 +40,7 @@ export function GET(context: APIContext) {
 	return rss({
 		title: 'Anthony James Padavano — Portfolio',
 		description:
-			'Creative technologist building autonomous creative systems and treating governance as artistic medium.',
+			'Production-systems architecture for governed software delivery, verification, evidence, and handoff.',
 		site: context.site?.toString() || siteBase,
 		items: [...projectItems, ...essayItems].sort(
 			(a, b) => b.pubDate.getTime() - a.pubDate.getTime(),

@@ -59,19 +59,38 @@ export type SketchId = keyof typeof sketchModules;
 const sketchModuleIds = new Set(Object.keys(sketchModules) as SketchId[]);
 
 const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-let prefersReducedMotion = motionQuery.matches;
-motionQuery.addEventListener('change', (e: MediaQueryListEvent): void => {
-	prefersReducedMotion = e.matches;
-	// Re-apply to already-running instances — the persistent #bg-canvas survives
-	// navigations and would otherwise keep animating after reduced-motion is enabled.
+type AmbientMotionPreference = 'system' | 'running' | 'paused';
+type AmbientMotionState = 'running' | 'paused';
+
+function readAmbientPreference(): AmbientMotionPreference {
+	try {
+		const value = window.localStorage.getItem('ambient-motion');
+		if (value === 'system' || value === 'running' || value === 'paused') return value;
+	} catch {}
+	return 'system';
+}
+
+function resolveAmbientState(preference = readAmbientPreference()): AmbientMotionState {
+	return preference === 'system' ? (motionQuery.matches ? 'paused' : 'running') : preference;
+}
+
+let ambientMotionState = resolveAmbientState();
+
+function applyAmbientState(state: AmbientMotionState): void {
+	ambientMotionState = state;
 	for (const inst of instances.values()) {
-		if (!inst.draw) continue;
-		if (prefersReducedMotion) {
-			inst.noLoop();
-		} else {
-			inst.loop();
-		}
+		if (state === 'paused') inst.noLoop();
+		else inst.loop();
 	}
+}
+
+motionQuery.addEventListener('change', (event: MediaQueryListEvent): void => {
+	if (readAmbientPreference() === 'system') applyAmbientState(event.matches ? 'paused' : 'running');
+});
+
+window.addEventListener('ambient-motion-change', (event): void => {
+	const state = (event as CustomEvent<{ state?: AmbientMotionState }>).detail?.state;
+	if (state === 'running' || state === 'paused') applyAmbientState(state);
 });
 
 // Defer background sketch boot on the heaviest interactive routes.
@@ -175,25 +194,13 @@ function doInitSketch(container: HTMLElement): void {
 				const instance = new P5((p: p5): void => {
 					sketchFn(p, container);
 
-					// For reduced motion: render a fully-grown static frame then stop
-					if (prefersReducedMotion && p.draw) {
+					// Paused ambient motion renders exactly one complete frame.
+					if (ambientMotionState === 'paused' && p.draw) {
 						const originalDraw = p.draw.bind(p);
-						let warmupFrames = 60;
 						p.draw = (): void => {
 							originalDraw();
-							warmupFrames--;
-							if (warmupFrames <= 0) {
-								p.noLoop();
-							}
+							if (ambientMotionState === 'paused') p.noLoop();
 						};
-
-						const originalMousePressed = p.mousePressed?.bind(p);
-						if (originalMousePressed) {
-							p.mousePressed = (): void => {
-								originalMousePressed();
-								p.redraw();
-							};
-						}
 					}
 				}, container);
 				instances.set(container, instance);
@@ -272,15 +279,11 @@ function initBackground(): void {
 				const instance = new P5((p: p5): void => {
 					sketchFn(p, bg);
 
-					if (prefersReducedMotion && p.draw) {
+					if (ambientMotionState === 'paused' && p.draw) {
 						const originalDraw = p.draw.bind(p);
-						let warmupFrames = 60;
 						p.draw = (): void => {
 							originalDraw();
-							warmupFrames--;
-							if (warmupFrames <= 0) {
-								p.noLoop();
-							}
+							if (ambientMotionState === 'paused') p.noLoop();
 						};
 					}
 				}, bg);

@@ -28,7 +28,7 @@ describe('buildArchitectureNavigatorData', () => {
 			'ORGAN-V': 2,
 			'ORGAN-VI': 1,
 			'ORGAN-VII': 1,
-			'META-ORGANVM': 1,
+			'META-ORGANVM': 2,
 		});
 	});
 

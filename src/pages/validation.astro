@@ -73,7 +73,7 @@ const totalOrgans =
 const ciCoverage =
 	(registry?.ci_coverage as number) ??
 	(computed.ci_workflows as number) ??
-	vitals.substance.ci_passing;
+	vitals.substance.repos_with_ci;
 const depEdges =
 	(registry?.dependency_edges as number) ?? (computed.dependency_edges as number) ?? 50;
 const activeRepos =

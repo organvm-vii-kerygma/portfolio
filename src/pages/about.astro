@@ -4,10 +4,10 @@ import ShibuiTerm from '../components/shibui/ShibuiTerm.astro';
 import SketchContainer from '../components/sketches/SketchContainer.astro';
 import vitals from '../data/vitals.json';
 import Layout from '../layouts/Layout.astro';
-import { base } from '../utils/paths';
+import { base, canonicalBase, siteConfig } from '../utils/paths';
 ---
 
-<Layout title="About — Anthony James Padavano" description="Creative technologist building autonomous creative systems. Professional bio, practice statement, and contact information." >
+<Layout title={`About — ${siteConfig.identity.name}`} description="Production-systems architect designing governed software delivery, evidence, and handoff." >
     <div class="sketch-accent">
       <SketchContainer
         sketchId="particle-field"
@@ -25,8 +25,8 @@ import { base } from '../utils/paths';
       <div class="container container--narrow">
         <h1>About</h1>
         <span class="sr-only p-name">Anthony James Padavano</span>
-        <span class="sr-only p-job-title">Creative Technologist</span>
-        <a class="sr-only u-url" href="https://organvm.github.io/portfolio/">Portfolio</a>
+        <span class="sr-only p-job-title">{siteConfig.identity.role}</span>
+        <a class="sr-only u-url" href={canonicalBase}>Portfolio</a>
         <span class="sr-only p-locality">New York City</span>
 
         <section class="about__bio prose" data-reveal>
@@ -35,7 +35,7 @@ import { base } from '../utils/paths';
               I'm Anthony James Padavano — I design systems where AI and humans work together to build things at scale. Based in New York City, I combine 15 years of production, education, and engineering into large-scale technical projects.
             </p>
             <p slot="elevated">
-              I'm Anthony James Padavano — an AI Orchestration Architect and strategic producer based in New York City. I bridge the gap between high-level <ShibuiTerm term="rhetorical theory" definition="The study of how communication persuades and constructs meaning — here applied to system architecture as a form of argumentation" /> and production-grade system design.
+              I'm Anthony James Padavano — a production-systems architect based in New York City. I design the operating system around complex software delivery: decision rights, routing, verification, cost boundaries, evidence, and handoff.
             </p>
           </ShibuiContent>
           <button class="shibui-bridge" type="button" data-shibui-bridge-label="evidence">This section goes deeper</button>
@@ -55,7 +55,7 @@ import { base } from '../utils/paths';
               MFA in Creative Writing (FAU), BA in English Literature (CUNY). Meta-certified Full-Stack Developer. Google-certified in Project Management, UX Design, and Digital Marketing. I specialize in directing AI to build and maintain large technical systems — not writing every line by hand, but designing the systems that write and test themselves.
             </p>
             <p slot="elevated">
-              I hold an MFA in Creative Writing from Florida Atlantic University and a BA in English Literature from CUNY. I am a Meta-certified Full-Stack Developer and hold Google Professional Certificates in Project Management, UX Design, and Digital Marketing. Today, I direct the orchestration of <ShibuiTerm term="autonomous agent swarms" definition="Groups of AI agents that coordinate to complete tasks without human intervention for each step" /> and the automated governance of massive technical ecosystems. I am not a manual coder; I am an AI-Native Architect who directs machines to build the safe, scalable creative infrastructure of the future.
+              I hold an MFA in Creative Writing from Florida Atlantic University and a BA in English Literature from CUNY. I am a Meta-certified Full-Stack Developer and hold Google Professional Certificates in Project Management, UX Design, and Digital Marketing. Today, I work as a production-systems architect: I direct <ShibuiTerm term="autonomous agent swarms" definition="Groups of AI agents that coordinate to complete tasks without human intervention for each step" /> through explicit authority, verification, cost, evidence, and handoff boundaries.
             </p>
           </ShibuiContent>
           <button class="shibui-bridge" type="button" data-shibui-bridge-label="evidence">This section goes deeper</button>

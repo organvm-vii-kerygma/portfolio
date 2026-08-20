@@ -1,0 +1,83 @@
+---
+import { projectCatalog } from '../../data/project-catalog';
+import Layout from '../../layouts/Layout.astro';
+import { base, siteConfig } from '../../utils/paths';
+
+const tags = [...new Set(projectCatalog.flatMap((project) => project.tags))].sort();
+---
+
+<Layout title={`Projects — ${siteConfig.identity.name}`} description="A canonical catalog of production systems, software products, creative systems, and public methodology.">
+	<section class="projects-shell">
+		<header class="projects-header">
+			<p class="eyebrow">Canonical project catalog</p>
+			<h1>Projects</h1>
+			<p>Every case study is one route from the same catalog. Filter by relevance or subject without changing the underlying work.</p>
+		</header>
+		<div class="project-filters" role="group" aria-label="Filter projects">
+			<button type="button" aria-pressed="true" data-project-filter="all">All</button>
+			<button type="button" aria-pressed="false" data-project-filter="client">Client-relevant</button>
+			<button type="button" aria-pressed="false" data-project-filter="recruiter">Role-relevant</button>
+			{tags.map((tag) => <button type="button" aria-pressed="false" data-project-filter={tag.toLowerCase()}>{tag}</button>)}
+		</div>
+		<p class="project-count" aria-live="polite"><span data-project-count>{projectCatalog.length}</span> projects shown</p>
+		<div class="project-catalog">
+			{projectCatalog.map((project) => (
+				<article data-project-card data-filters={[...project.audienceRelevance, ...project.tags.map((tag) => tag.toLowerCase())].join(' ')}>
+					<p class="eyebrow">{project.organ.replace('-', ' ')}</p>
+					<h2>{project.title}</h2>
+					<p>{project.summary}</p>
+					<ul>{project.tags.map((tag) => <li>{tag}</li>)}</ul>
+					<a href={`${base}${project.route.replace(/^\//, '')}`}>View case study<span aria-hidden="true"> →</span></a>
+				</article>
+			))}
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.projects-shell { width: min(1200px, calc(100% - 2rem)); margin: 0 auto; padding: var(--space-3xl) 0; }
+	.projects-header { max-width: 70ch; background: var(--surface-strong); border: 1px solid var(--border); padding: var(--space-xl); }
+	.eyebrow { color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	h1 { font: clamp(2.5rem, 7vw, 5rem)/1 var(--font-heading); margin: var(--space-sm) 0 var(--space-lg); }
+	.projects-header > p:last-child { color: var(--text-secondary); line-height: 1.6; }
+	.project-filters { display: flex; gap: var(--space-xs); overflow-x: auto; padding: var(--space-xl) 0 var(--space-sm); }
+	.project-filters button { min-height: 44px; flex: 0 0 auto; color: var(--text-secondary); border: 1px solid var(--border); background: var(--surface-strong); border-radius: 999px; padding: 0 var(--space-md); cursor: pointer; }
+	.project-filters button[aria-pressed='true'] { color: var(--text-on-accent); background: var(--accent); border-color: var(--accent); }
+	.project-count { color: var(--text-muted); font: 0.75rem/1.4 var(--font-mono); margin-bottom: var(--space-lg); }
+	.project-catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
+	.project-catalog article { display: flex; flex-direction: column; min-height: 300px; background: var(--surface-strong); border: 1px solid var(--border); padding: var(--space-lg); }
+	.project-catalog article[hidden] { display: none; }
+	.project-catalog h2 { font: 1.25rem/1.2 var(--font-heading); margin: var(--space-md) 0; }
+	.project-catalog article > p:not(.eyebrow) { color: var(--text-secondary); line-height: 1.55; }
+	.project-catalog ul { display: flex; flex-wrap: wrap; gap: var(--space-xs); list-style: none; margin: var(--space-lg) 0; }
+	.project-catalog li { color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); }
+	.project-catalog a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; font-weight: 700; }
+	@media (max-width: 900px) { .project-catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+	@media (max-width: 560px) { .project-catalog { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+	let projectFilterController: AbortController | undefined;
+	function initProjectFilters() {
+		projectFilterController?.abort();
+		projectFilterController = new AbortController();
+		const { signal } = projectFilterController;
+		const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-project-filter]')];
+		const cards = [...document.querySelectorAll<HTMLElement>('[data-project-card]')];
+		const count = document.querySelector<HTMLElement>('[data-project-count]');
+		for (const button of buttons) {
+			button.addEventListener('click', () => {
+				const filter = button.dataset.projectFilter ?? 'all';
+				for (const candidate of buttons) candidate.setAttribute('aria-pressed', String(candidate === button));
+				let visible = 0;
+				for (const card of cards) {
+					const show = filter === 'all' || (card.dataset.filters ?? '').split(' ').includes(filter);
+					card.hidden = !show;
+					if (show) visible++;
+				}
+				if (count) count.textContent = String(visible);
+			}, { signal });
+		}
+	}
+	document.addEventListener('astro:page-load', initProjectFilters);
+</script>

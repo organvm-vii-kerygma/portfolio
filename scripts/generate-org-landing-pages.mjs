@@ -17,6 +17,7 @@
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { siteUrl } from '../site.config.mjs';
 
 const PAGES_JSON = resolve('src/data/github-pages.json');
 const OUTPUT_DIR = resolve('dist-org-pages');
@@ -98,17 +99,17 @@ const ORGANS = {
 const HUB_LINKS = [
 	{
 		label: 'Portfolio',
-		url: 'https://organvm.github.io/portfolio/',
+		url: siteUrl(),
 		desc: 'Main portfolio hub',
 	},
 	{
 		label: 'System Directory',
-		url: 'https://organvm.github.io/portfolio/directory/',
+		url: siteUrl('directory/'),
 		desc: 'All 92 sites indexed',
 	},
 	{
 		label: 'Knowledge Base',
-		url: 'https://organvm.github.io/portfolio/projects/knowledge-base/',
+		url: siteUrl('projects/knowledge-base/'),
 		desc: 'Research library',
 	},
 	{
@@ -213,10 +214,10 @@ ${hubLinks}
     <main>
         <header>
             <h1>${escapeHtml(organ.fullName)}</h1>
-            <p>Part of the <a href="https://organvm.github.io/portfolio/directory/" style="color:var(--primary);text-decoration:none;font-weight:600">ORGANVM eight-organ system</a></p>
+            <p>Part of the <a href="${siteUrl('directory/')}" style="color:var(--primary);text-decoration:none;font-weight:600">ORGANVM eight-organ system</a></p>
         </header>
         <div class="hub-banner">
-            Explore the full system: <a href="https://organvm.github.io/portfolio/">Portfolio</a> · <a href="https://organvm.github.io/portfolio/directory/">Directory</a> · <a href="https://organvm.github.io/public-process/">${essaysLabel}</a>
+            Explore the full system: <a href="${siteUrl()}">Portfolio</a> · <a href="${siteUrl('directory/')}">Directory</a> · <a href="https://organvm.github.io/public-process/">${essaysLabel}</a>
         </div>
         <p class="count">${repos.length} repositories with GitHub Pages</p>
         <div class="repo-grid">

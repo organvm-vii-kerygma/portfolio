@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import pagesDirectory from '../data/github-pages.json';
+import { canonicalBase } from '../utils/paths';
 
 interface PagesRepo {
 	owner: string;
@@ -21,7 +22,7 @@ const directory = pagesDirectory as {
 };
 
 export function GET(context: APIContext) {
-	const siteBase = 'https://organvm.github.io/portfolio/';
+	const siteBase = canonicalBase;
 	const fallbackDate = Number.isFinite(Date.parse(directory.generatedAt))
 		? new Date(directory.generatedAt)
 		: new Date();

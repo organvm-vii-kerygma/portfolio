@@ -16,6 +16,7 @@ import { execSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
+import { siteUrl } from '../site.config.mjs';
 
 const WORKSPACE = resolve(homedir(), 'Workspace');
 const PAGES_JSON = resolve('src/data/github-pages.json');
@@ -33,7 +34,7 @@ if (existsSync(projectPagesDir)) {
 	for (const file of readdirSync(projectPagesDir)) {
 		if (file.endsWith('.astro')) {
 			const slug = file.replace('.astro', '');
-			CASE_STUDY_MAP[slug] = `https://organvm.github.io/portfolio/projects/${slug}/`;
+			CASE_STUDY_MAP[slug] = siteUrl(`projects/${slug}/`);
 		}
 	}
 }
@@ -73,8 +74,8 @@ function makeFooter(owner, repoName) {
 	const caseStudy = findCaseStudy(repoName);
 
 	const links = [
-		`[Portfolio](https://organvm.github.io/portfolio/)`,
-		`[System Directory](https://organvm.github.io/portfolio/directory/)`,
+		`[Portfolio](${siteUrl()})`,
+		`[System Directory](${siteUrl('directory/')})`,
 		`[ORGAN ${organName}](${organUrl})`,
 	];
 
@@ -87,7 +88,7 @@ function makeFooter(owner, repoName) {
 		'',
 		'---',
 		'',
-		`<sub>${links.join(' \u00B7 ')} \u00B7 Part of the <a href="https://organvm.github.io/portfolio/directory/">ORGANVM eight-organ system</a></sub>`,
+		`<sub>${links.join(' \u00B7 ')} \u00B7 Part of the <a href="${siteUrl('directory/')}">ORGANVM eight-organ system</a></sub>`,
 		'',
 		'<!-- SYSTEM-NAV-END -->',
 	].join('\n');

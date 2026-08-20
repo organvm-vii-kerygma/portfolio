@@ -1,0 +1,25 @@
+---
+interface Props {
+	eyebrow: string;
+	title: string;
+	description: string;
+	href: string;
+	action: string;
+}
+const { eyebrow, title, description, href, action } = Astro.props;
+---
+
+<article class="bento-cell audience-door">
+	<p class="audience-door__eyebrow">{eyebrow}</p>
+	<h2>{title}</h2>
+	<p>{description}</p>
+	<a href={href}>{action}<span aria-hidden="true"> →</span></a>
+</article>
+
+<style>
+	.audience-door { display: flex; flex-direction: column; min-height: 100%; border-top: 2px solid var(--accent); }
+	.audience-door__eyebrow { color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	h2 { font: 1.3rem/1.2 var(--font-heading); margin: var(--space-md) 0; }
+	p:not(.audience-door__eyebrow) { color: var(--text-secondary); line-height: 1.55; }
+	a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; padding-top: var(--space-lg); font-weight: 700; }
+</style>

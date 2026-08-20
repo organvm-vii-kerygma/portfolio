@@ -1,3 +1,5 @@
+import { siteConfig } from '../../site.config.mjs';
+
 /**
  * Schema.org Person structured data for the site owner.
  * Consumed by SchemaOrg.astro to generate JSON-LD on every page.
@@ -84,4 +86,3 @@ export const schemaPerson = {
 		url: 'https://github.com/meta-organvm',
 	},
 };
-import { siteConfig } from '../../site.config.mjs';

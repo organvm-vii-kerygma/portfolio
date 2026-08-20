@@ -1,9 +1,9 @@
 {
-  "generated": "2026-07-02T15:32:17.059Z",
+  "generated": "2026-08-20T19:22:33.990Z",
   "tests": {
-    "total": null,
-    "passed": null,
-    "files": 35
+    "total": 570,
+    "passed": 358,
+    "files": 39
   },
   "security": {
     "critical": null,
@@ -46,7 +46,7 @@
     "seo": null
   },
   "a11y": {
-    "status": "unknown",
+    "status": "pass",
     "static": {
       "pagesAudited": null,
       "critical": null,
@@ -54,35 +54,1327 @@
       "status": "unknown"
     },
     "runtime": {
-      "pagesAudited": null,
-      "critical": null,
-      "serious": null,
-      "focusChecks": null,
-      "focusFailures": null,
+      "pagesAudited": 106,
+      "critical": 0,
+      "serious": 0,
+      "focusChecks": 2,
+      "focusFailures": 0,
       "routesCovered": null,
       "totalRoutes": null,
       "coveragePct": null,
-      "status": "unknown"
+      "status": "pass"
     }
   },
   "performance": {
-    "routeBudgetsStatus": "unknown",
-    "chunkBudgetsStatus": "unknown",
-    "interactionBudgetsStatus": "unknown",
-    "routeBudgetCheckpoint": null,
-    "chunkBudgetCheckpoint": null,
-    "interactionBudgetCheckpoint": null,
-    "largestChunks": [],
-    "interactiveRouteJsTotals": {},
-    "routeJsTotals": {},
-    "source": null
+    "routeBudgetsStatus": "pass",
+    "chunkBudgetsStatus": "fail",
+    "interactionBudgetsStatus": "fail",
+    "routeBudgetCheckpoint": {
+      "date": "2026-04-01"
+    },
+    "chunkBudgetCheckpoint": {
+      "date": "2026-04-01"
+    },
+    "interactionBudgetCheckpoint": {
+      "date": "2026-04-01"
+    },
+    "largestChunks": [
+      {
+        "chunk": "_astro/vendor-mermaid.CdGOsC0y.js",
+        "gzipBytes": 655248
+      },
+      {
+        "chunk": "_astro/vendor-p5.sYByuOGP.js",
+        "gzipBytes": 323629
+      },
+      {
+        "chunk": "_astro/vendor-cytoscape.DFz5IMpz.js",
+        "gzipBytes": 194892
+      },
+      {
+        "chunk": "_astro/OmegaGalaxy.astro_astro_type_script_index_0_lang.CE6TuZoj.js",
+        "gzipBytes": 134159
+      },
+      {
+        "chunk": "_astro/vendor-katex.HP8lGamR.js",
+        "gzipBytes": 76744
+      },
+      {
+        "chunk": "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+        "gzipBytes": 4682
+      },
+      {
+        "chunk": "_astro/consult.astro_astro_type_script_index_0_lang.Cda4P_eZ.js",
+        "gzipBytes": 4234
+      },
+      {
+        "chunk": "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+        "gzipBytes": 2781
+      },
+      {
+        "chunk": "_astro/sketch-loader.Di6pXuFF.js",
+        "gzipBytes": 2664
+      },
+      {
+        "chunk": "_astro/pipeline-sketch.qvHsjEQG.js",
+        "gzipBytes": 1872
+      }
+    ],
+    "interactiveRouteJsTotals": {
+      "/portfolio/architecture": {
+        "scenario": "architecture-interaction",
+        "rawBytes": 4312912,
+        "gzipBytes": 1187120,
+        "assetCount": 12,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/architecture.astro_astro_type_script_index_0_lang.Bb687AdZ.js",
+          "_astro/network-graph-sketch.Dq2ZfapZ.js",
+          "_astro/palette.CGBEHDds.js",
+          "_astro/paths.CzD8lGmr.js",
+          "_astro/sketch-loader.Di6pXuFF.js",
+          "_astro/vendor-cytoscape.DFz5IMpz.js",
+          "_astro/vendor-mermaid.CdGOsC0y.js",
+          "_astro/vendor-p5.sYByuOGP.js"
+        ]
+      },
+      "/portfolio/gallery": {
+        "scenario": "gallery-interaction",
+        "rawBytes": 4337659,
+        "gzipBytes": 1198637,
+        "assetCount": 22,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/atoms-sketch.D6IkJvJT.js",
+          "_astro/conductor-sketch.s2QwHkgu.js",
+          "_astro/counterpoint-sketch.CieY2tbD.js",
+          "_astro/gallery.astro_astro_type_script_index_0_lang.CtsOc9LI.js",
+          "_astro/hero-sketch.jh_s2DSj.js",
+          "_astro/lenses-sketch.C7_EMjGQ.js",
+          "_astro/network-graph-sketch.Dq2ZfapZ.js",
+          "_astro/organ-system-sketch.RflMG_rV.js",
+          "_astro/palette.CGBEHDds.js",
+          "_astro/paths.CzD8lGmr.js",
+          "_astro/pipeline-sketch.qvHsjEQG.js",
+          "_astro/recursive-tree-sketch.BJf4ekI6.js",
+          "_astro/sketch-loader.Di6pXuFF.js",
+          "_astro/spiral-sketch.BbJ7-baG.js",
+          "_astro/token-stream-sketch.DivcR-kb.js",
+          "_astro/vendor-cytoscape.DFz5IMpz.js",
+          "_astro/vendor-mermaid.CdGOsC0y.js",
+          "_astro/vendor-p5.sYByuOGP.js"
+        ]
+      }
+    },
+    "routeJsTotals": {
+      "/portfolio/404.html": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/about": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/architecture": {
+        "rawBytes": 23611,
+        "gzipBytes": 9105,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/architecture.astro_astro_type_script_index_0_lang.Bb687AdZ.js"
+        ]
+      },
+      "/portfolio/community": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/consult": {
+        "rawBytes": 31438,
+        "gzipBytes": 12312,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/consult.astro_astro_type_script_index_0_lang.Cda4P_eZ.js"
+        ]
+      },
+      "/portfolio/dashboard": {
+        "rawBytes": 24600,
+        "gzipBytes": 9291,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/dashboard.astro_astro_type_script_index_0_lang.B43hhXvO.js"
+        ]
+      },
+      "/portfolio/directory": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/essays": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/for/anthropic": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/for/openai": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/for/palantir": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/for/vercel": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/gallery": {
+        "rawBytes": 23538,
+        "gzipBytes": 8832,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js",
+          "_astro/gallery.astro_astro_type_script_index_0_lang.CtsOc9LI.js"
+        ]
+      },
+      "/portfolio/github-pages": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/impact": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/aesthetic-nervous-system": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/aetheria-rpg-post-mortem": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/ai-conductor-methodology": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/archive-paradox": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/bootstrap-to-scale": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/bronze-to-platinum": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/building-in-public": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/choreographic-interface": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/coaching-platform-metrics": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/community-infrastructure-for-one": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/constraint-alchemy-workshop": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/construction-addiction": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/dependency-graph": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/deploying-the-portfolio": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/documentation-implementation-gap": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/epistemic-tuning-explained": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/five-years-autonomous-creative": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/generative-music-case-study": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/governance-as-creative-practice": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/governance-frameworks-for-artists": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/how-this-was-built": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/how-to-think-about-autonomous-systems": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/how-we-orchestrate-eight-organs": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/meta-system-as-portfolio-asset": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/performance-platform-methodology": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/precision-over-volume-doctoral-thesis": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/promotion-pipeline": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/promotions-in-practice": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/provenance-as-practice": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/recursive-engines-at-scale": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/registry-driven-development": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/seed-contracts": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/testing-the-meta-system": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-autonomous-sprint": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-convergence": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-distribution-problem": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-organ-chain-reset": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-parallel-launch": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-promotion-pipeline": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/the-solo-auteur-method": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/twelve-decisions": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/twenty-six-sprints-in-six-days": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/two-weeks-and-forty-six-essays": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/uniform-quality-at-scale": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/what-it-takes-to-ship-a-product-from-inside-an-organ-system": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/what-ive-done-is-what-i-am": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/why-ai-function-calling-needs-ontological-grounding": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/why-the-organ-model-separates-commerce-from-theory": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/logos/writing-as-system-architecture": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/omega": {
+        "rawBytes": 561296,
+        "gzipBytes": 142237,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/OmegaGalaxy.astro_astro_type_script_index_0_lang.CE6TuZoj.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/pathos": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/pathos/trash-and-church": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/philosophy": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/press": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/products": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/a-mavs-olevm": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/aetheria-rpg": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/agentic-titan": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/ai-conductor": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/ai-council": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/block-warfare": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/collective-persona-operations": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/community-infrastructure": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/distribution-strategy": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/eight-organ-system": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/generative-music": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/knowledge-base": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/life-my-midst-in": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/limen": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/linguistic-atomization": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/metasystem-master": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/narratological-lenses": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/orchestration-hub": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/org-architecture": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/public-process": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/public-record-data-scrapper": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/recursive-engine": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/the-actual-news": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/projects/your-fit-tailored": {
+        "rawBytes": 25327,
+        "gzipBytes": 9357,
+        "assetCount": 5,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/MermaidDiagram.astro_astro_type_script_index_0_lang.BqKNqluh.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume/ai-systems-engineer": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume/creative-technologist": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume/polymath": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume/systems-architect": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/resume/technical-pm": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/roadmap": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/testimonials": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      },
+      "/portfolio/validation": {
+        "rawBytes": 21650,
+        "gzipBytes": 8078,
+        "assetCount": 4,
+        "assets": [
+          "_astro/ClientBootstrap.astro_astro_type_script_index_0_lang.DDxPl7DF.js",
+          "_astro/ClientRouter.astro_astro_type_script_index_0_lang.DuNWGQFe.js",
+          "_astro/SketchLifecycle.astro_astro_type_script_index_0_lang.ByU2ejHs.js",
+          "_astro/WebVitals.astro_astro_type_script_index_0_lang.C9gV3TJS.js"
+        ]
+      }
+    },
+    "source": ".quality/perf-summary.json + .quality/perf-budget-summary.json"
   },
   "runtimeErrors": {
-    "status": "unknown",
-    "total": null,
-    "uncategorized": null,
-    "allowlisted": null,
-    "source": null
+    "status": "pass",
+    "total": 0,
+    "uncategorized": 0,
+    "allowlisted": 0,
+    "source": ".quality/runtime-errors-summary.json"
   },
   "stability": {
     "status": "unknown",
@@ -96,8 +1388,8 @@
     "snapshots": []
   },
   "build": {
-    "pages": 104,
-    "bundleFiles": 66
+    "pages": 106,
+    "bundleFiles": 68
   },
   "sources": {
     "tests": ".quality/vitest-report.json",

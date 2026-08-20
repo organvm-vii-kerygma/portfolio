@@ -106,7 +106,7 @@ def compute_vitals(canonical: dict, snapshot: dict | None = None) -> dict:
 
     total_repos = c["total_repos"]
     ci_workflows = c.get("ci_workflows", 0)
-    ci_coverage_pct = round(ci_workflows / total_repos * 100) if total_repos else 0
+    ci_adoption_pct = round(ci_workflows / total_repos * 100) if total_repos else 0
 
     # Substance metrics derive from the corpus's live file census — never estimated.
     # The corpus now emits computed.code_files / test_files (file_count_basis=
@@ -133,8 +133,9 @@ def compute_vitals(canonical: dict, snapshot: dict | None = None) -> dict:
             "code_files": code_files,
             "test_files": test_files,
             "automated_tests": auto_tests,
-            "ci_passing": ci_workflows,
-            "ci_coverage_pct": ci_coverage_pct,
+            "ci_workflow_count": ci_workflows,
+            "repos_with_ci": ci_workflows,
+            "ci_adoption_pct": ci_adoption_pct,
         },
         "logos": {
             "essays": c.get("published_essays", 0),

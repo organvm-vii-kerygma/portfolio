@@ -6,6 +6,7 @@ import { projectIndex } from '../../data/project-index';
 import { targets } from '../../data/targets.json';
 import vitals from '../../data/vitals.json';
 import { generateOGImage } from '../../utils/og-image';
+import { siteConfig } from '../../utils/paths';
 
 interface OGPage extends Record<string, unknown> {
 	slug: string;
@@ -19,18 +20,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		// Top-level pages
 		{
 			slug: 'index',
-			title: 'Anthony James Padavano',
-			subtitle: 'Creative technologist building autonomous creative systems',
+			title: siteConfig.identity.name,
+			subtitle: siteConfig.identity.role,
 		},
 		{
 			slug: 'about',
 			title: 'About',
-			subtitle: 'Artist-engineer treating governance as artistic medium',
+			subtitle: 'Governed software delivery, evidence, and handoff',
 		},
 		{
 			slug: 'resume',
 			title: 'Resume',
-			subtitle: 'Creative Technologist — Systems, AI, Generative Art',
+			subtitle: `${siteConfig.identity.role} — role-fit views`,
 		},
 		{
 			slug: 'dashboard',
