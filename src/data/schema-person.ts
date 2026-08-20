@@ -4,8 +4,8 @@
  */
 export const schemaPerson = {
 	'@type': 'Person' as const,
-	name: 'Anthony James Padavano',
-	jobTitle: 'Creative Technologist',
+	name: siteConfig.identity.name,
+	jobTitle: siteConfig.identity.role,
 	address: {
 		'@type': 'PostalAddress' as const,
 		addressLocality: 'New York City',
@@ -13,8 +13,8 @@ export const schemaPerson = {
 		addressCountry: 'US',
 	},
 	sameAs: [
-		'https://www.linkedin.com/in/anthony-james-padavano-98a40a186/',
-		'https://github.com/4444j99',
+		siteConfig.profiles.linkedin,
+		siteConfig.profiles.github,
 		'https://github.com/meta-organvm',
 		'https://github.com/organvm-i-theoria',
 		'https://github.com/organvm-ii-poiesis',
@@ -84,3 +84,4 @@ export const schemaPerson = {
 		url: 'https://github.com/meta-organvm',
 	},
 };
+import { siteConfig } from '../../site.config.mjs';

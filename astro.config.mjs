@@ -5,11 +5,12 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import astroShibuiLens from './plugins/astro-shibui-lens.mjs';
 import rehypeShibuiLens from './plugins/rehype-shibui-lens.mjs';
+import { siteConfig } from './site.config.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://organvm.github.io',
-	base: '/portfolio',
+	site: siteConfig.origin,
+	base: siteConfig.basePath,
 	// Keep navigation transitions but avoid eager cross-route prefetch bursts on heavy pages.
 	prefetch: false,
 	markdown: {

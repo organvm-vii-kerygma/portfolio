@@ -1,13 +1,23 @@
 {
 	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v1",
-	"status": "PREPARED_FOR_OPERATOR_SELECTION",
+	"status": "OPERATOR_SELECTED",
 	"source_capture": {
 		"url": "https://organvm-vii-kerygma.github.io/portfolio/",
 		"captured_at": "2026-08-10",
 		"basis": "rendered public portfolio surface and PSP-P06 design-context brief"
 	},
-	"selection_status": "UNSELECTED",
-	"no_build_boundary": "No direction may be regenerated, selected implicitly, implemented, deployed, or used to enable analytics instrumentation until an operator records a durable selection receipt.",
+	"selection_status": "SELECTED",
+	"selection_receipt": {
+		"recorded_at": "2026-08-20",
+		"chosen_direction": "Living Evidence Field",
+		"rejected_directions": ["Evidence Ledger", "Systems Field Guide", "Decision Brief"],
+		"rationale": "Converge the living pixel field, bento spatial language, and evidence-ledger content logic without adopting any static mockup wholesale.",
+		"identity_fit": "Production-systems architect is the sole primary identity; creative practice remains visible through work and resume lenses.",
+		"proof_hierarchy_fit": "L1 leads with the expensive problem, two equal audience doors, and selected work; quantitative evidence is bounded by source, date, state, and limitations.",
+		"accessibility_risk": "Moving environmental color can reduce legibility unless every text region uses an opaque surface and motion is governed globally.",
+		"performance_risk": "Keep the existing 24fps canvas constants and replace the image-based laurels with semantic HTML and a lightweight CSS rail.",
+		"rollback": "Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f."
+	},
 	"directions": [
 		{
 			"option": 1,

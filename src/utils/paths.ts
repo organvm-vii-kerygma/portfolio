@@ -9,5 +9,4 @@
 /** Base path with a guaranteed trailing slash, e.g. `/portfolio/`. */
 export const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
-/** Full canonical origin + base, e.g. `https://organvm.github.io/portfolio`. */
-export const canonicalBase = 'https://organvm.github.io/portfolio';
+export { canonicalBase, siteConfig, siteUrl } from '../../site.config.mjs';
