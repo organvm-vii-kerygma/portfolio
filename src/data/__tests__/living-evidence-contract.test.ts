@@ -10,9 +10,16 @@ function walk(directory: string): string[] {
 		const path = resolve(directory, entry.name);
 		if (
 			entry.isDirectory() &&
-			['node_modules', '.git', 'dist', '.quality', '.a11y', 'coverage', 'playwright-report', 'test-results'].includes(
-				entry.name,
-			)
+			[
+				'node_modules',
+				'.git',
+				'dist',
+				'.quality',
+				'.a11y',
+				'coverage',
+				'playwright-report',
+				'test-results',
+			].includes(entry.name)
 		) {
 			return [];
 		}
@@ -30,8 +37,7 @@ describe('Living Evidence Field contracts', () => {
 		const failedLegacyHost = ['https://organvm', '.github.io/portfolio'].join('');
 		const files = walk(resolve('.')).filter(
 			(path) =>
-				!path.endsWith('.pdf') &&
-				!path.endsWith('src/data/psp-p07-public-surface-contract.json'),
+				!path.endsWith('.pdf') && !path.endsWith('src/data/psp-p07-public-surface-contract.json'),
 		);
 		const offenders = files.filter((path) => {
 			try {
