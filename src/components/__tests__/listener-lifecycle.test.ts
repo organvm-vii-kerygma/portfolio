@@ -93,5 +93,7 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain('let resizeHandler');
 		expect(source).toContain("window.addEventListener('resize', resizeHandler)");
 		expect(source).toContain("window.removeEventListener('resize', resizeHandler)");
+		expect(source).toContain('window.__ambientMotionFallback?.preference');
+		expect(source).toContain("if (ambientMotionState === 'paused') p.redraw()");
 	});
 });

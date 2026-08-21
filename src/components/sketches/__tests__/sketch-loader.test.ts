@@ -16,6 +16,7 @@ type MockP5Shape = {
 	loop: ReturnType<typeof vi.fn>;
 	redraw: ReturnType<typeof vi.fn>;
 	draw: ReturnType<typeof vi.fn>;
+	mousePressed?: ReturnType<typeof vi.fn>;
 };
 
 type TestIntersectionEntry = Pick<IntersectionObserverEntry, 'isIntersecting' | 'target'>;
@@ -45,7 +46,11 @@ vi.mock('p5', () => {
 });
 
 // Mock all sketch modules
-vi.mock('../hero-sketch', () => ({ default: vi.fn() }));
+vi.mock('../hero-sketch', () => ({
+	default: (p: MockP5Shape) => {
+		p.mousePressed = vi.fn();
+	},
+}));
 vi.mock('../background-sketch', () => ({ default: vi.fn() }));
 
 describe('sketch registry (static)', () => {
@@ -129,6 +134,7 @@ describe('sketch-loader runtime', () => {
 		vi.resetModules();
 		vi.clearAllMocks();
 		document.body.innerHTML = '';
+		delete (window as Window & { __ambientMotionFallback?: unknown }).__ambientMotionFallback;
 	});
 
 	it('can be imported and exports teardown', async () => {
@@ -229,6 +235,67 @@ describe('sketch-loader runtime', () => {
 
 		resumeSketch(container);
 		expect(container.hasAttribute('data-paused')).toBe(false);
+	});
+
+	it('redraws exactly once after pointer interaction while ambient motion is paused', async () => {
+		(
+			window as Window & {
+				__ambientMotionFallback?: { preference: 'system' | 'running' | 'paused' };
+			}
+		).__ambientMotionFallback = {
+			preference: 'paused',
+		};
+		const container = document.createElement('div');
+		container.className = 'sketch-container';
+		container.dataset.sketch = 'hero';
+		document.body.appendChild(container);
+
+		const { initSketches, getSketchInstance } = await import('../sketch-loader');
+		initSketches();
+		observerCallback([{ isIntersecting: true, target: container }]);
+		for (let index = 0; index < 10; index++) {
+			await new Promise((resolve) => setTimeout(resolve, 10));
+		}
+
+		const instance = getSketchInstance(container) as unknown as MockP5Shape;
+		instance.mousePressed?.();
+		expect(instance.redraw).toHaveBeenCalledTimes(1);
+	});
+
+	it('preserves an explicit in-memory ambient preference across OS changes', async () => {
+		let changeHandler: ((event: { matches: boolean }) => void) | undefined;
+		vi.stubGlobal(
+			'matchMedia',
+			vi.fn().mockReturnValue({
+				matches: false,
+				addEventListener: vi.fn((type: string, handler: (event: { matches: boolean }) => void) => {
+					if (type === 'change') changeHandler = handler;
+				}),
+				removeEventListener: vi.fn(),
+			}),
+		);
+		(
+			window as Window & {
+				__ambientMotionFallback?: { preference: 'system' | 'running' | 'paused' };
+			}
+		).__ambientMotionFallback = {
+			preference: 'paused',
+		};
+		const container = document.createElement('div');
+		container.className = 'sketch-container';
+		container.dataset.sketch = 'hero';
+		document.body.appendChild(container);
+
+		const { initSketches, getSketchInstance } = await import('../sketch-loader');
+		initSketches();
+		observerCallback([{ isIntersecting: true, target: container }]);
+		for (let index = 0; index < 10; index++) {
+			await new Promise((resolve) => setTimeout(resolve, 10));
+		}
+
+		const instance = getSketchInstance(container) as unknown as MockP5Shape;
+		changeHandler?.({ matches: false });
+		expect(instance.loop).not.toHaveBeenCalled();
 	});
 
 	it('handles window resize events to update sketch container heights', async () => {

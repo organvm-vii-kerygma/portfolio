@@ -25,7 +25,7 @@
 		"test:sketches": "node --test packages/sketches/test/sketches.test.mjs",
 		"test:laurea": "node --test scripts/__tests__/laurea-snapshot.test.mjs",
 		"sync:workspace-health": "node scripts/sync-workspace-health.mjs --output src/data/workspace-health.json",
-		"build": "npm run generate-badges && npm run sync:vitals && npm run sync:omega && npm run sync:identity && astro build && npx pagefind --site dist --glob '**/*.html'",
+		"build": "npm run sync:laurea && npm run generate-badges && npm run sync:vitals && npm run sync:omega && npm run sync:identity && astro build && npx pagefind --site dist --glob '**/*.html'",
 		"build:resume": "node scripts/orchestrate-resume-pdfs.mjs",
 		"build:qr": "node scripts/generate-qr-codes.mjs",
 		"consult:worker:dev": "npx wrangler dev --config workers/consult-api/wrangler.jsonc --remote",

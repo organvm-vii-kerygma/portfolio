@@ -138,6 +138,11 @@ describe('Living Evidence Field contracts', () => {
 			expect(card).toContain(field);
 		}
 		expect(card).toContain("['verified', 'derived_reviewed'].includes");
+		expect(normalizer).toContain('raw.schema_version !== REQUIRED_SCHEMA');
+		expect(normalizer).toContain("!Object.hasOwn(finding, 'tier')");
+		expect(card).toContain('Measured GitHub activity profile');
+		expect(card).toContain('publishes no population ranking');
+		expect(card).not.toContain('snapshot.composite');
 	});
 
 	it('keeps reduced-motion proof rails static until the user explicitly resumes', () => {

@@ -72,9 +72,6 @@ jobs:
             echo "::warning::Corpus metrics fetch failed — building with committed src/data (last-known-good)."
           fi
 
-      - name: Sync LAVREA JSON evidence
-        run: npm run sync:laurea
-
       # --- Lint & Typecheck ---
       - name: Lint
         run: npm run lint

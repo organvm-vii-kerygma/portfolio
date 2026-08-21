@@ -300,7 +300,10 @@ assert(
 		'Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase.',
 	'selection alone must not authorize implementation',
 );
-assert(manifest.status === 'OPERATOR_SELECTED', 'visual manifest must record operator selection');
+assert(
+	manifest.status === 'OPERATOR_DIRECTED_CORRECTIVE_CLOSEOUT',
+	'visual manifest must record the current operator-directed closeout',
+);
 assert(manifest.selection_status === 'SELECTED', 'visual manifest must record selected state');
 assert(
 	manifest.selection_receipt?.chosen_direction === 'Living Evidence Field',
@@ -313,6 +316,20 @@ assert(
 		'Decision Brief',
 	]),
 	'visual manifest must reject all three prepared static directions',
+);
+assert(
+	manifest.selection_receipt?.recorded_at === '2026-08-21' &&
+		manifest.selection_receipt?.authority === 'Direct human instruction in the current session' &&
+		manifest.selection_receipt?.instruction === 'this needs to be walked to the end',
+	'visual manifest must retain the traceable current-session authority',
+);
+assert(
+	/Living Evidence Field was a proposal/.test(manifest.selection_receipt?.prior_state) &&
+		/PR #223 merged without an earlier selection receipt/.test(
+			manifest.selection_receipt?.prior_state,
+		) &&
+		/does not retroactively validate/.test(manifest.selection_receipt?.nonretroactivity),
+	'visual manifest must correct the fabricated prior selection receipt',
 );
 assert(
 	manifest.selection_receipt?.rollback ===
@@ -329,8 +346,9 @@ assert(
 );
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
-	/without adopting any static mockup wholesale/.test(manifest.selection_receipt?.rationale),
-	'visual manifest must preserve the static-direction rejection boundary',
+	/removing false claims/.test(manifest.selection_receipt?.scope) &&
+		/verified merge and deployment evidence/.test(manifest.selection_receipt?.scope),
+	'visual manifest must retain the corrective closeout scope',
 );
 const expectedVisualDigests = [
 	'0446be226d12bc108f8120f7a656a79345e043eae7d45c65ee6f2dd099bfbf05',

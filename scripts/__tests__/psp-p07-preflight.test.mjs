@@ -111,6 +111,30 @@ assertRejected(
 
 assertRejected(
 	(candidate) => {
+		candidate.selection_receipt.instruction = 'select the proposal';
+	},
+	/traceable current-session authority/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.selection_receipt.prior_state = 'Selected on 2026-08-20.';
+	},
+	/correct the fabricated prior selection receipt/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.selection_receipt.nonretroactivity = 'PR #223 was already authorized.';
+	},
+	/correct the fabricated prior selection receipt/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
 		candidate.selection_receipt.rollback = 'Restore main.';
 	},
 	/retain the exact rollback head/,
