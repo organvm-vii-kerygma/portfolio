@@ -21,6 +21,8 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain("panel?.toggleAttribute('data-open', detail.open)");
 		expect(source).toContain("document.body.classList.add('site-header-menu-open')");
 		expect(source).toContain("signal.addEventListener('abort', () => closeMenu()");
+		expect(source).toContain("document.querySelector('.search-dialog[open]')");
+		expect(source).toContain('(max-width: 1280px)');
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
@@ -68,6 +70,7 @@ describe('client listener lifecycle guards', () => {
 		const source = read('components/Search.astro');
 		expect(source).toContain('new AbortController()');
 		expect(source).toContain('state.controller.abort()');
+		expect(source).toContain("dialog.addEventListener('cancel'");
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
