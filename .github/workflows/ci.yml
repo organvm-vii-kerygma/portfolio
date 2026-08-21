@@ -112,6 +112,8 @@ jobs:
         run: npm run test:sketches
       - name: Validate Build
         run: npm run validate
+      - name: Verify resume artifact links
+        run: npm run verify:resume-links
 
       # --- Deploy (main branch only, not PRs) ---
       - name: Upload Pages artifact

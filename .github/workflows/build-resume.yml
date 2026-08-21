@@ -22,7 +22,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install RenderCV
-        run: pip install "rendercv[full]==2.6"
+        run: pip install "rendercv[full]==2.6" "pypandoc_binary==1.15"
 
       - name: Render Creative Technologist resume
         run: |
@@ -35,7 +35,8 @@ jobs:
         run: |
           mkdir -p resume/rendercv_output_multimedia
           rendercv render resume/Anthony_James_Padavano_Multimedia.yaml \
-            --pdf-path rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.pdf
+            --pdf-path rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.pdf \
+            -md rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.md
 
       - name: Render Developer resume
         run: |
@@ -44,18 +45,21 @@ jobs:
             --pdf-path rendercv_output_developer/Anthony_James_Padavano_Developer.pdf \
             -md rendercv_output_developer/Anthony_James_Padavano_Developer.md
 
-      - name: Install pandoc
-        run: sudo apt-get install -y pandoc
-
       - name: Generate DOCX from Creative Technologist Markdown
-        run: |
-          pandoc resume/rendercv_output/Anthony_James_Padavano_CV.md \
-            -o resume/rendercv_output/Anthony_James_Padavano_CV.docx
+        env:
+          SOURCE_DATE_EPOCH: '1787270400'
+        run: python scripts/render-resume-docx.py resume/rendercv_output/Anthony_James_Padavano_CV.md resume/rendercv_output/Anthony_James_Padavano_CV.docx
 
       - name: Generate DOCX from Developer Markdown
+        env:
+          SOURCE_DATE_EPOCH: '1787270400'
+        run: python scripts/render-resume-docx.py resume/rendercv_output_developer/Anthony_James_Padavano_Developer.md resume/rendercv_output_developer/Anthony_James_Padavano_Developer.docx
+
+      - name: Normalize DOCX hyperlinks
         run: |
-          pandoc resume/rendercv_output_developer/Anthony_James_Padavano_Developer.md \
-            -o resume/rendercv_output_developer/Anthony_James_Padavano_Developer.docx
+          python scripts/normalize-resume-docx-links.py \
+            resume/rendercv_output/Anthony_James_Padavano_CV.docx \
+            resume/rendercv_output_developer/Anthony_James_Padavano_Developer.docx
 
       - name: Copy outputs to public for Astro deployment
         run: |
@@ -66,7 +70,31 @@ jobs:
           cp resume/rendercv_output/Anthony_James_Padavano_CV.docx public/resume/Anthony_James_Padavano_CV.docx
           cp resume/rendercv_output_developer/Anthony_James_Padavano_Developer.docx public/resume/Anthony_James_Padavano_Developer.docx
 
+      - name: Verify committed resume artifacts
+        run: |
+          python scripts/normalize-resume-docx-links.py --check \
+            public/resume/Anthony_James_Padavano_CV.docx \
+            public/resume/Anthony_James_Padavano_Developer.docx
+          git diff --exit-code -- \
+            public/resume/Anthony_James_Padavano_CV.pdf \
+            public/resume/Anthony_James_Padavano_Multimedia.pdf \
+            public/resume/Anthony_James_Padavano_Developer.pdf \
+            public/resume/Anthony_James_Padavano_CV.docx \
+            public/resume/Anthony_James_Padavano_Developer.docx
+
+      - name: Upload rendered resume artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-${{ github.sha }}
+          path: |
+            public/resume/Anthony_James_Padavano_CV.pdf
+            public/resume/Anthony_James_Padavano_Multimedia.pdf
+            public/resume/Anthony_James_Padavano_Developer.pdf
+            public/resume/Anthony_James_Padavano_CV.docx
+            public/resume/Anthony_James_Padavano_Developer.docx
+
       - name: Create GitHub Release with PDFs
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: resume-${{ github.sha }}
@@ -80,14 +108,6 @@ jobs:
           body: |
             Auto-generated resume PDFs from RenderCV YAML sources.
 
-            - [Creative Technologist PDF](https://github.com/4444J99/portfolio/releases/latest/download/Anthony_James_Padavano_CV.pdf)
-            - [Multimedia Specialist PDF](https://github.com/4444J99/portfolio/releases/latest/download/Anthony_James_Padavano_Multimedia.pdf)
-            - [Developer PDF](https://github.com/4444J99/portfolio/releases/latest/download/Anthony_James_Padavano_Developer.pdf)
-
-      - name: Commit PDFs to public/ for site deployment
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f public/resume/Anthony_James_Padavano_CV.pdf public/resume/Anthony_James_Padavano_Multimedia.pdf public/resume/Anthony_James_Padavano_Developer.pdf public/resume/Anthony_James_Padavano_CV.docx public/resume/Anthony_James_Padavano_Developer.docx
-          git diff --cached --quiet || git commit -m "chore: update rendered resume PDFs [skip ci]"
-          git push
+            - [Creative Technologist PDF](https://github.com/organvm-vii-kerygma/portfolio/releases/latest/download/Anthony_James_Padavano_CV.pdf)
+            - [Multimedia Specialist PDF](https://github.com/organvm-vii-kerygma/portfolio/releases/latest/download/Anthony_James_Padavano_Multimedia.pdf)
+            - [Developer PDF](https://github.com/organvm-vii-kerygma/portfolio/releases/latest/download/Anthony_James_Padavano_Developer.pdf)

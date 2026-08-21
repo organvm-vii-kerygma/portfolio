@@ -116,7 +116,21 @@ describe('Living Evidence Field contracts', () => {
 			const source = readFileSync(resolve(path), 'utf8');
 			expect(source).toContain(canonicalBase);
 			expect(source).not.toContain('https://4444j99.github.io/portfolio/');
+			expect(source).toContain('  email: padavano.anthony@gmail.com');
+			expect(source).toContain(`  website: ${canonicalBase}`);
+			expect(source).not.toMatch(/^ {2}(email|website):\s*\n\s+-/m);
 		}
+		const converter = readFileSync(resolve('resume/yaml_to_jsonresume.py'), 'utf8');
+		expect(converter).not.toContain('cv["email"][0]');
+		expect(converter).not.toContain('cv["website"][0]');
+		const workflow = readFileSync(resolve('.github/workflows/build-resume.yml'), 'utf8');
+		expect(workflow).toContain('pypandoc_binary==1.15');
+		expect(workflow).toContain('SOURCE_DATE_EPOCH');
+		expect(workflow).toContain(
+			'-md rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.md',
+		);
+		expect(workflow).not.toContain('sudo apt-get install -y pandoc');
+		expect(workflow).not.toContain('git push');
 	});
 
 	it('generates a dedicated social image for the projects catalog', () => {

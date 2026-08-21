@@ -42,6 +42,7 @@
 		"check:freshness": "node scripts/check-data-freshness.mjs",
 		"check:fit": "node scripts/check-market-fit.mjs",
 		"audit:ats": "node scripts/audit-resume-ats.mjs",
+		"verify:resume-links": "python3 scripts/normalize-resume-docx-links.py --check public/resume/Anthony_James_Padavano_CV.docx public/resume/Anthony_James_Padavano_Developer.docx",
 		"advance-ratchet-phase": "node scripts/advance-ratchet-phase.mjs",
 		"analyze:strikes": "node scripts/analyze-operative-data.mjs",
 		"lint": "biome check .",
