@@ -34,6 +34,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 			subtitle: `${siteConfig.identity.role} — role-fit views`,
 		},
 		{
+			slug: 'projects',
+			title: 'Projects',
+			subtitle: 'Production systems, evidence-led platforms, and creative technology',
+		},
+		{
 			slug: 'dashboard',
 			title: 'Dashboard',
 			subtitle: `System metrics across ${vitals.repos.total} repositories and 8 organs`,

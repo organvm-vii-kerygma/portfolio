@@ -37,6 +37,12 @@ describe('client listener lifecycle guards', () => {
 		expect(source).not.toContain('<script>');
 	});
 
+	it('ambient motion retains an in-memory preference when storage is unavailable', () => {
+		const source = read('components/AmbientMotionControl.astro');
+		expect(source).toContain('__ambientMotionFallback');
+		expect(source).toContain('fallback.preference = next');
+	});
+
 	it('gallery controls clean up fullscreen and click listeners per navigation', () => {
 		const source = read('pages/gallery.astro');
 		expect(source).toContain('new AbortController()');

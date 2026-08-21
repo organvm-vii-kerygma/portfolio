@@ -21,6 +21,7 @@ function baseSnapshot(state, generatedAt = null) {
 		source_repository: REQUIRED_REPOSITORY,
 		source_sha: null,
 		state,
+		public_claim: null,
 		composite: null,
 		limitations: [PUBLIC_LIMITATION],
 		metrics: withheldMetrics(),
@@ -80,6 +81,13 @@ export function normalizeLaureaSnapshot(raw, now = new Date()) {
 		return {
 			...baseSnapshot('ready', generatedAt),
 			source_sha: sourceSha,
+			public_claim: {
+				claim_id: `laurea.github-output-profile.${REQUIRED_SUBJECT}.${sourceSha.slice(0, 12)}`,
+				claim_status: 'derived_reviewed',
+				evidence_state: 'ready',
+				disclosure_level: 'L1',
+				source_ref: `${REQUIRED_REPOSITORY}@${sourceSha}`,
+			},
 			composite: {
 				tier: composite.tier,
 				claim: `${composite.tier.replace(/^./, (char) => char.toUpperCase())} GitHub output profile`,

@@ -25,6 +25,13 @@ test('fresh source normalizes only the public evidence contract', () => {
 	const result = normalizeLaureaSnapshot(fixture(), NOW);
 	assert.equal(result.state, 'ready');
 	assert.equal(result.composite.claim, 'Top 1% GitHub output profile');
+	assert.deepEqual(result.public_claim, {
+		claim_id: 'laurea.github-output-profile.4444J99.abcdef123456',
+		claim_status: 'derived_reviewed',
+		evidence_state: 'ready',
+		disclosure_level: 'L1',
+		source_ref: 'organvm/laurea@abcdef1234567890',
+	});
 	assert.deepEqual(Object.values(result.metrics), [321, 2, 45, 2]);
 	assert.deepEqual(result.limitations, [PUBLIC_LIMITATION]);
 });
@@ -33,6 +40,7 @@ test('stale source withholds all numeric and percentile claims', () => {
 	const result = normalizeLaureaSnapshot(fixture({ generated_at: '2026-08-18T00:00:00Z' }), NOW);
 	assert.equal(result.state, 'stale');
 	assert.equal(result.composite, null);
+	assert.equal(result.public_claim, null);
 	assert.ok(Object.values(result.metrics).every((value) => value === null));
 });
 

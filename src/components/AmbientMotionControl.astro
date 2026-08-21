@@ -13,12 +13,18 @@
 	(function () {
 		var key = 'ambient-motion';
 		var query = window.matchMedia('(prefers-reduced-motion: reduce)');
+		var fallback = window.__ambientMotionFallback || { preference: 'system' };
+		window.__ambientMotionFallback = fallback;
 		function read() {
-			try { var value = localStorage.getItem(key); if (value === 'running' || value === 'paused' || value === 'system') return value; } catch {}
-			return 'system';
+			try {
+				var value = localStorage.getItem(key);
+				if (value === 'running' || value === 'paused' || value === 'system') fallback.preference = value;
+			} catch {}
+			return fallback.preference;
 		}
 		function resolved(preference) { return preference === 'system' ? (query.matches ? 'paused' : 'running') : preference; }
 		function apply(preference) {
+			fallback.preference = preference;
 			var state = resolved(preference);
 			document.documentElement.dataset.ambientMotionPreference = preference;
 			document.documentElement.dataset.ambientMotion = state;
@@ -37,6 +43,7 @@
 				button.addEventListener('click', function () {
 					var current = read();
 					var next = current === 'system' ? 'paused' : current === 'paused' ? 'running' : 'system';
+					fallback.preference = next;
 					try { localStorage.setItem(key, next); } catch {}
 					apply(next);
 				});

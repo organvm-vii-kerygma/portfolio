@@ -93,6 +93,9 @@ describe('Living Evidence Field contracts', () => {
 		const generator = readFileSync(resolve('scripts/generate-system-data.py'), 'utf8');
 		expect(generator).toContain('count_repositories_with_ci(registry)');
 		expect(generator).not.toContain('"repos_with_ci": ci_workflows');
+		const sync = readFileSync(resolve('scripts/sync-trust-metrics.mjs'), 'utf8');
+		expect(sync).toContain('const reposWithCi = c.repos_with_ci');
+		expect(sync).not.toContain('repos_with_ci: c.ci_workflows');
 	});
 
 	it('declares one canonical public contact', () => {
@@ -114,5 +117,32 @@ describe('Living Evidence Field contracts', () => {
 			expect(source).toContain(canonicalBase);
 			expect(source).not.toContain('https://4444j99.github.io/portfolio/');
 		}
+	});
+
+	it('generates a dedicated social image for the projects catalog', () => {
+		const source = readFileSync(resolve('src/pages/og/[...slug].png.ts'), 'utf8');
+		expect(source).toContain("slug: 'projects'");
+	});
+
+	it('requires traceable renderable fields before publishing a LAVREA claim', () => {
+		const normalizer = readFileSync(resolve('scripts/lib/laurea-snapshot.mjs'), 'utf8');
+		const card = readFileSync(resolve('src/components/home/LaurelsBentoCell.astro'), 'utf8');
+		for (const field of [
+			'claim_id',
+			'claim_status',
+			'evidence_state',
+			'disclosure_level',
+			'source_ref',
+		]) {
+			expect(normalizer).toContain(field);
+			expect(card).toContain(field);
+		}
+		expect(card).toContain("['verified', 'derived_reviewed'].includes");
+	});
+
+	it('keeps reduced-motion proof rails static until the user explicitly resumes', () => {
+		const source = readFileSync(resolve('src/components/home/LaurelsBentoCell.astro'), 'utf8');
+		expect(source).toContain('.laurea__proof-rail i { animation: none; opacity: 1; }');
+		expect(source).toContain("html[data-ambient-motion='running']");
 	});
 });

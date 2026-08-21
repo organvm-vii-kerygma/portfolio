@@ -7,6 +7,13 @@ interface LaureaSnapshot {
 	state: 'ready' | 'stale' | 'error' | 'withheld';
 	generated_at: string | null;
 	composite: { tier: string; claim: string } | null;
+	public_claim: {
+		claim_id: string;
+		claim_status: 'verified' | 'derived_reviewed';
+		evidence_state: 'ready';
+		disclosure_level: 'L1' | 'L2' | 'L3';
+		source_ref: string;
+	} | null;
 	limitations: string[];
 	metrics: Record<string, number | null> & {
 		contributions_trailing_12_months: number | null;
@@ -19,7 +26,17 @@ const snapshot = rawSnapshot as LaureaSnapshot;
 const generatedMs = snapshot.generated_at ? Date.parse(snapshot.generated_at) : Number.NaN;
 const hasValidTimestamp = Number.isFinite(generatedMs);
 const evidenceState = effectiveEvidenceState(snapshot.state, snapshot.generated_at);
-const isReady = evidenceState === 'ready' && snapshot.composite;
+const publicClaim = snapshot.public_claim;
+const isReady = Boolean(
+	evidenceState === 'ready' &&
+		snapshot.composite &&
+		publicClaim &&
+		['verified', 'derived_reviewed'].includes(publicClaim.claim_status) &&
+		publicClaim.evidence_state === 'ready' &&
+		publicClaim.claim_id &&
+		publicClaim.disclosure_level &&
+		publicClaim.source_ref,
+);
 const verifiedDate = hasValidTimestamp
 	? new Date(generatedMs).toLocaleDateString('en-US', {
 			month: 'short',
@@ -40,7 +57,15 @@ const metrics = [
 ];
 ---
 
-<section class="bento-cell bento-cell--span-full laurea" aria-labelledby="laurea-title" data-evidence-state={evidenceState}>
+<section
+	class="bento-cell bento-cell--span-full laurea"
+	aria-labelledby="laurea-title"
+	data-evidence-state={evidenceState}
+	data-claim-id={isReady ? publicClaim?.claim_id : undefined}
+	data-claim-status={isReady ? publicClaim?.claim_status : undefined}
+	data-disclosure-level={isReady ? publicClaim?.disclosure_level : undefined}
+	data-source-ref={isReady ? publicClaim?.source_ref : undefined}
+>
 	<div class="laurea__meta">
 		<p class="laurea__eyebrow">LAVREA / Computed evidence</p>
 		<p>
@@ -73,6 +98,16 @@ const metrics = [
 		)
 	}
 	<p class="laurea__limitation">{snapshot.limitations[0]}</p>
+	{
+		isReady && publicClaim && (
+			<dl class="laurea__trace">
+				<div><dt>Claim</dt><dd>{publicClaim.claim_id}</dd></div>
+				<div><dt>Status</dt><dd>{publicClaim.claim_status.replace('_', ' ')}</dd></div>
+				<div><dt>Disclosure</dt><dd>{publicClaim.disclosure_level}</dd></div>
+				<div><dt>Source</dt><dd>{publicClaim.source_ref}</dd></div>
+			</dl>
+		)
+	}
 	<div class="laurea__links">
 		<a href={`${siteConfig.repositories.laurea}/blob/main/METHODOLOGY.md`}>Methodology</a>
 		<a href={`${siteConfig.repositories.laurea}/blob/main/assets/SUPERLATIVES.md`}>Full report</a>
@@ -92,6 +127,10 @@ const metrics = [
 	.laurea dt, .laurea__qualifier { display: block; color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); }
 	.laurea dd { color: var(--text-primary); font: 700 clamp(1.5rem, 3vw, 2.4rem)/1.2 var(--font-heading); margin: var(--space-xs) 0; }
 	.laurea__limitation { font-size: 0.82rem; margin-top: var(--space-lg); }
+	.laurea__trace { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); margin: var(--space-md) 0 0; color: var(--text-muted); font: 0.66rem/1.5 var(--font-mono); }
+	.laurea__trace div { display: flex; gap: var(--space-xs); }
+	.laurea__trace dt { color: var(--text-secondary); }
+	.laurea__trace dd { margin: 0; overflow-wrap: anywhere; }
 	.laurea__links { display: flex; gap: var(--space-lg); margin-top: var(--space-md); }
 	.laurea__links a { min-height: 44px; display: inline-flex; align-items: center; }
 	.laurea__proof-rail { display: grid; grid-template-columns: repeat(3, 1fr); height: 3px; position: absolute; inset: auto 0 0; }
@@ -101,6 +140,7 @@ const metrics = [
 	@keyframes proof-shimmer { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
 	:global(html[data-ambient-motion='paused']) .laurea__proof-rail i { animation-play-state: paused; }
 	@media (prefers-reduced-motion: reduce) {
+		.laurea__proof-rail i { animation: none; opacity: 1; }
 		:global(html[data-ambient-motion='running']) .laurea__proof-rail i { animation: proof-shimmer 6s ease-in-out infinite !important; }
 	}
 	@media (max-width: 900px) { .laurea__metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

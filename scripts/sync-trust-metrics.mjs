@@ -103,6 +103,7 @@ async function syncVitals() {
 		const existingVitals = fs.existsSync(VITALS_PATH)
 			? JSON.parse(fs.readFileSync(VITALS_PATH, 'utf8'))
 			: {};
+		const reposWithCi = c.repos_with_ci ?? existingVitals.substance?.repos_with_ci ?? 0;
 
 		const vitals = {
 			repos: {
@@ -120,11 +121,9 @@ async function syncVitals() {
 				// equal to it (surfaces relabel to "test files") instead of a fabrication.
 				automated_tests: c.test_files ?? existingVitals.substance?.automated_tests ?? 0,
 				ci_workflow_count: c.ci_workflows ?? existingVitals.substance?.ci_workflow_count ?? 0,
-				repos_with_ci: c.ci_workflows ?? existingVitals.substance?.repos_with_ci ?? 0,
+				repos_with_ci: reposWithCi,
 				ci_adoption_pct: Math.round(
-					((c.ci_workflows ?? existingVitals.substance?.repos_with_ci ?? 0) /
-						Math.max(c.total_repos ?? existingVitals.repos?.total ?? 1, 1)) *
-						100,
+					(reposWithCi / Math.max(c.total_repos ?? existingVitals.repos?.total ?? 1, 1)) * 100,
 				),
 			},
 			logos: {
