@@ -49,7 +49,7 @@ assert(
 	'contract schema version must be supported exactly',
 );
 assert(
-	manifest.schema_version === 'portfolio.psp_c06_visual_direction_manifest.v1',
+	manifest.schema_version === 'portfolio.psp_c06_visual_direction_manifest.v2',
 	'visual manifest schema version must be supported exactly',
 );
 assert(contract.status === 'PREPARED/PREFLIGHT', 'contract must remain a preflight');
@@ -304,50 +304,61 @@ assert(
 	manifest.status === 'OPERATOR_DIRECTED_CORRECTIVE_CLOSEOUT',
 	'visual manifest must record the current operator-directed closeout',
 );
-assert(manifest.selection_status === 'SELECTED', 'visual manifest must record selected state');
 assert(
-	manifest.selection_receipt?.chosen_direction === 'Living Evidence Field',
-	'visual manifest must select Living Evidence Field exactly',
+	manifest.selection_status === 'UNSELECTED',
+	'visual manifest must retain the truthful unselected state',
 );
 assert(
-	hasExactUniqueStrings(manifest.selection_receipt?.rejected_directions, [
+	!Object.hasOwn(manifest, 'selection_receipt'),
+	'unselected visual manifest must not contain a selection receipt',
+);
+assert(
+	manifest.corrective_closeout_receipt?.surface_under_correction === 'Living Evidence Field',
+	'visual manifest must identify Living Evidence Field as the surface under correction',
+);
+assert(
+	hasExactUniqueStrings(manifest.corrective_closeout_receipt?.prepared_directions_rejected, [
 		'Evidence Ledger',
 		'Systems Field Guide',
 		'Decision Brief',
 	]),
-	'visual manifest must reject all three prepared static directions',
+	'visual manifest must retain the rejection of all three prepared static directions',
 );
 assert(
-	manifest.selection_receipt?.recorded_at === '2026-08-21' &&
-		manifest.selection_receipt?.authority === 'Direct human instruction in the current session' &&
-		manifest.selection_receipt?.instruction === 'this needs to be walked to the end',
+	manifest.corrective_closeout_receipt?.recorded_at === '2026-08-21' &&
+		manifest.corrective_closeout_receipt?.authority ===
+			'Direct human instruction in the current session' &&
+		manifest.corrective_closeout_receipt?.instruction === 'this needs to be walked to the end',
 	'visual manifest must retain the traceable current-session authority',
 );
 assert(
-	/Living Evidence Field was a proposal/.test(manifest.selection_receipt?.prior_state) &&
+	/Living Evidence Field was a proposal/.test(manifest.corrective_closeout_receipt?.prior_state) &&
 		/PR #223 merged without an earlier selection receipt/.test(
-			manifest.selection_receipt?.prior_state,
+			manifest.corrective_closeout_receipt?.prior_state,
 		) &&
-		/does not retroactively validate/.test(manifest.selection_receipt?.nonretroactivity),
+		/is not an operator selection receipt/.test(
+			manifest.corrective_closeout_receipt?.nonretroactivity,
+		) &&
+		/does not retroactively validate/.test(manifest.corrective_closeout_receipt?.nonretroactivity),
 	'visual manifest must correct the fabricated prior selection receipt',
 );
 assert(
-	manifest.selection_receipt?.rollback ===
+	manifest.corrective_closeout_receipt?.rollback ===
 		'Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f.',
 	'visual manifest must retain the exact rollback head',
 );
 assert(
 	collectKeys(manifest).every(
 		(key) =>
-			['selection_status', 'selection_receipt', 'chosen_direction'].includes(key) ||
+			key === 'selection_status' ||
 			!/(?:^selected|^chosen|^choice|selectionreceipt|selection_receipt)/i.test(key),
 	),
 	'visual manifest must not contain an unrecognized selection-bearing field',
 );
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
-	/removing false claims/.test(manifest.selection_receipt?.scope) &&
-		/verified merge and deployment evidence/.test(manifest.selection_receipt?.scope),
+	/removing false claims/.test(manifest.corrective_closeout_receipt?.scope) &&
+		/verified merge and deployment evidence/.test(manifest.corrective_closeout_receipt?.scope),
 	'visual manifest must retain the corrective closeout scope',
 );
 const expectedVisualDigests = [

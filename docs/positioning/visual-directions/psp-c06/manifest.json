@@ -1,21 +1,21 @@
 {
-	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v1",
+	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v2",
 	"status": "OPERATOR_DIRECTED_CORRECTIVE_CLOSEOUT",
 	"source_capture": {
 		"url": "https://organvm-vii-kerygma.github.io/portfolio/",
 		"captured_at": "2026-08-10",
 		"basis": "rendered public portfolio surface and PSP-P06 design-context brief"
 	},
-	"selection_status": "SELECTED",
-	"selection_receipt": {
+	"selection_status": "UNSELECTED",
+	"corrective_closeout_receipt": {
 		"recorded_at": "2026-08-21",
-		"chosen_direction": "Living Evidence Field",
-		"rejected_directions": ["Evidence Ledger", "Systems Field Guide", "Decision Brief"],
+		"surface_under_correction": "Living Evidence Field",
+		"prepared_directions_rejected": ["Evidence Ledger", "Systems Field Guide", "Decision Brief"],
 		"authority": "Direct human instruction in the current session",
 		"instruction": "this needs to be walked to the end",
 		"prior_state": "Living Evidence Field was a proposal after the operator rejected all three prepared directions with None of the above; PR #223 merged without an earlier selection receipt.",
-		"scope": "Complete the existing Living Evidence Field corrective lane while removing false claims and requiring verified merge and deployment evidence.",
-		"nonretroactivity": "This receipt authorizes the current corrective closeout; it does not retroactively validate the selection claim recorded in merged PR #223.",
+		"scope": "Correct the already-merged Living Evidence Field surface while removing false claims and requiring verified merge and deployment evidence.",
+		"nonretroactivity": "This receipt authorizes corrections to the already-merged surface only; it is not an operator selection receipt and does not retroactively validate the selection claim recorded in merged PR #223.",
 		"rollback": "Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f."
 	},
 	"directions": [
