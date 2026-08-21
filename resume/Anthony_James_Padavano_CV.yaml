@@ -2,10 +2,8 @@ cv:
   name: Anthony James Padavano
   headline: Software Engineer — Backend, Platform & AI Infrastructure
   location: New York City
-  email:
-    - padavano.anthony@gmail.com
-  website:
-    - https://organvm-vii-kerygma.github.io/portfolio/
+  email: padavano.anthony@gmail.com
+  website: https://organvm-vii-kerygma.github.io/portfolio/
   social_networks:
     - network: GitHub
       username: 4444j99

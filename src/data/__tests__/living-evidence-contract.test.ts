@@ -105,6 +105,8 @@ describe('Living Evidence Field contracts', () => {
 	it('bounds upstream evidence fetches before deployment gates', () => {
 		const source = readFileSync(resolve('scripts/sync-laurea.mjs'), 'utf8');
 		expect(source).toContain('AbortSignal.timeout(15_000)');
+		expect(source).toContain('isLastKnownGoodLaureaSnapshot');
+		expect(source).toContain('writeSnapshot = false');
 	});
 
 	it('keeps resume sources on the canonical portfolio origin', () => {
@@ -116,7 +118,22 @@ describe('Living Evidence Field contracts', () => {
 			const source = readFileSync(resolve(path), 'utf8');
 			expect(source).toContain(canonicalBase);
 			expect(source).not.toContain('https://4444j99.github.io/portfolio/');
+			expect(source).toContain('  email: padavano.anthony@gmail.com');
+			expect(source).toContain(`  website: ${canonicalBase}`);
+			expect(source).not.toMatch(/^ {2}(email|website):\s*\n\s+-/m);
 		}
+		const converter = readFileSync(resolve('resume/yaml_to_jsonresume.py'), 'utf8');
+		expect(converter).not.toContain('cv["email"][0]');
+		expect(converter).not.toContain('cv["website"][0]');
+		const workflow = readFileSync(resolve('.github/workflows/build-resume.yml'), 'utf8');
+		expect(workflow).toContain('pypandoc_binary==1.15');
+		expect(workflow).toContain('SOURCE_DATE_EPOCH');
+		expect(workflow).toContain('pull_request:');
+		expect(workflow).toContain(
+			'-md rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.md',
+		);
+		expect(workflow).not.toContain('sudo apt-get install -y pandoc');
+		expect(workflow).not.toContain('git push');
 	});
 
 	it('generates a dedicated social image for the projects catalog', () => {
@@ -138,6 +155,11 @@ describe('Living Evidence Field contracts', () => {
 			expect(card).toContain(field);
 		}
 		expect(card).toContain("['verified', 'derived_reviewed'].includes");
+		expect(normalizer).toContain('raw.schema_version !== REQUIRED_SCHEMA');
+		expect(normalizer).toContain("!Object.hasOwn(finding, 'tier')");
+		expect(card).toContain('Measured GitHub activity profile');
+		expect(card).toContain('publishes no population ranking');
+		expect(card).not.toContain('snapshot.composite');
 	});
 
 	it('keeps reduced-motion proof rails static until the user explicitly resumes', () => {

@@ -49,7 +49,7 @@ assert(
 	'contract schema version must be supported exactly',
 );
 assert(
-	manifest.schema_version === 'portfolio.psp_c06_visual_direction_manifest.v1',
+	manifest.schema_version === 'portfolio.psp_c06_visual_direction_manifest.v2',
 	'visual manifest schema version must be supported exactly',
 );
 assert(contract.status === 'PREPARED/PREFLIGHT', 'contract must remain a preflight');
@@ -300,37 +300,66 @@ assert(
 		'Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase.',
 	'selection alone must not authorize implementation',
 );
-assert(manifest.status === 'OPERATOR_SELECTED', 'visual manifest must record operator selection');
-assert(manifest.selection_status === 'SELECTED', 'visual manifest must record selected state');
 assert(
-	manifest.selection_receipt?.chosen_direction === 'Living Evidence Field',
-	'visual manifest must select Living Evidence Field exactly',
+	manifest.status === 'OPERATOR_DIRECTED_CORRECTIVE_CLOSEOUT',
+	'visual manifest must record the current operator-directed closeout',
 );
 assert(
-	hasExactUniqueStrings(manifest.selection_receipt?.rejected_directions, [
+	manifest.selection_status === 'UNSELECTED',
+	'visual manifest must retain the truthful unselected state',
+);
+assert(
+	!Object.hasOwn(manifest, 'selection_receipt'),
+	'unselected visual manifest must not contain a selection receipt',
+);
+assert(
+	manifest.corrective_closeout_receipt?.surface_under_correction === 'Living Evidence Field',
+	'visual manifest must identify Living Evidence Field as the surface under correction',
+);
+assert(
+	hasExactUniqueStrings(manifest.corrective_closeout_receipt?.prepared_directions_rejected, [
 		'Evidence Ledger',
 		'Systems Field Guide',
 		'Decision Brief',
 	]),
-	'visual manifest must reject all three prepared static directions',
+	'visual manifest must retain the rejection of all three prepared static directions',
 );
 assert(
-	manifest.selection_receipt?.rollback ===
+	manifest.corrective_closeout_receipt?.recorded_at === '2026-08-21' &&
+		manifest.corrective_closeout_receipt?.authority ===
+			'Direct human instruction in the current session' &&
+		manifest.corrective_closeout_receipt?.instruction === 'this needs to be walked to the end',
+	'visual manifest must retain the traceable current-session authority',
+);
+assert(
+	/Living Evidence Field was a proposal/.test(manifest.corrective_closeout_receipt?.prior_state) &&
+		/PR #223 merged without an earlier selection receipt/.test(
+			manifest.corrective_closeout_receipt?.prior_state,
+		) &&
+		/is not an operator selection receipt/.test(
+			manifest.corrective_closeout_receipt?.nonretroactivity,
+		) &&
+		/does not retroactively validate/.test(manifest.corrective_closeout_receipt?.nonretroactivity),
+	'visual manifest must correct the fabricated prior selection receipt',
+);
+assert(
+	manifest.corrective_closeout_receipt?.rollback ===
 		'Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f.',
 	'visual manifest must retain the exact rollback head',
 );
 assert(
 	collectKeys(manifest).every(
 		(key) =>
-			['selection_status', 'selection_receipt', 'chosen_direction'].includes(key) ||
+			key === 'selection_status' ||
 			!/(?:^selected|^chosen|^choice|selectionreceipt|selection_receipt)/i.test(key),
 	),
 	'visual manifest must not contain an unrecognized selection-bearing field',
 );
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
-	/without adopting any static mockup wholesale/.test(manifest.selection_receipt?.rationale),
-	'visual manifest must preserve the static-direction rejection boundary',
+	/removing false claims/.test(manifest.corrective_closeout_receipt?.scope) &&
+		/verified merge and deployment evidence/.test(manifest.corrective_closeout_receipt?.scope),
+	'visual manifest must retain the corrective closeout scope',
 );
 const expectedVisualDigests = [
 	'0446be226d12bc108f8120f7a656a79345e043eae7d45c65ee6f2dd099bfbf05',

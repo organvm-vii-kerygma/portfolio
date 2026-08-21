@@ -1,28 +1,27 @@
 {
-  "schema_version": "portfolio.laurea_snapshot.v1",
+  "schema_version": "portfolio.laurea_snapshot.v2",
   "subject": "4444J99",
-  "generated_at": "2026-08-20T19:00:58.740323Z",
+  "generated_at": "2026-08-21T13:36:17.634675Z",
   "source_repository": "organvm/laurea",
-  "source_sha": "a93d801c82d12589b4103a936724a856c91cf2b1",
+  "source_sha": "7fb9c15ef253bc14459519d090447b653750d46d",
   "state": "ready",
   "public_claim": {
-    "claim_id": "laurea.github-output-profile.4444J99.a93d801c82d1",
+    "claim_id": "laurea.github-activity-profile.4444J99.7fb9c15ef253",
     "claim_status": "derived_reviewed",
     "evidence_state": "ready",
     "disclosure_level": "L1",
-    "source_ref": "organvm/laurea@a93d801c82d12589b4103a936724a856c91cf2b1"
+    "source_ref": "organvm/laurea@7fb9c15ef253bc14459519d090447b653750d46d"
   },
-  "composite": {
-    "tier": "top 1%",
-    "claim": "Top 1% GitHub output profile"
+  "profile": {
+    "label": "Measured GitHub activity profile"
   },
   "limitations": [
-    "GitHub activity does not establish quality, reliability, adoption, or business impact."
+    "GitHub activity does not establish authorship, quality, reliability, adoption, or impact."
   ],
   "metrics": {
-    "contributions_trailing_12_months": 34379,
+    "contributions_trailing_12_months": 33587,
     "non_fork_repositories_visible": 290,
-    "pull_requests_opened_trailing_12_months": 4181,
-    "organizations_queried": 10
+    "pull_requests_opened_trailing_12_months": 4191,
+    "organization_memberships_queried": 10
   }
 }

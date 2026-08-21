@@ -1,21 +1,21 @@
 {
-	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v1",
-	"status": "OPERATOR_SELECTED",
+	"schema_version": "portfolio.psp_c06_visual_direction_manifest.v2",
+	"status": "OPERATOR_DIRECTED_CORRECTIVE_CLOSEOUT",
 	"source_capture": {
 		"url": "https://organvm-vii-kerygma.github.io/portfolio/",
 		"captured_at": "2026-08-10",
 		"basis": "rendered public portfolio surface and PSP-P06 design-context brief"
 	},
-	"selection_status": "SELECTED",
-	"selection_receipt": {
-		"recorded_at": "2026-08-20",
-		"chosen_direction": "Living Evidence Field",
-		"rejected_directions": ["Evidence Ledger", "Systems Field Guide", "Decision Brief"],
-		"rationale": "Converge the living pixel field, bento spatial language, and evidence-ledger content logic without adopting any static mockup wholesale.",
-		"identity_fit": "Production-systems architect is the sole primary identity; creative practice remains visible through work and resume lenses.",
-		"proof_hierarchy_fit": "L1 leads with the expensive problem, two equal audience doors, and selected work; quantitative evidence is bounded by source, date, state, and limitations.",
-		"accessibility_risk": "Moving environmental color can reduce legibility unless every text region uses an opaque surface and motion is governed globally.",
-		"performance_risk": "Keep the existing 24fps canvas constants and replace the image-based laurels with semantic HTML and a lightweight CSS rail.",
+	"selection_status": "UNSELECTED",
+	"corrective_closeout_receipt": {
+		"recorded_at": "2026-08-21",
+		"surface_under_correction": "Living Evidence Field",
+		"prepared_directions_rejected": ["Evidence Ledger", "Systems Field Guide", "Decision Brief"],
+		"authority": "Direct human instruction in the current session",
+		"instruction": "this needs to be walked to the end",
+		"prior_state": "Living Evidence Field was a proposal after the operator rejected all three prepared directions with None of the above; PR #223 merged without an earlier selection receipt.",
+		"scope": "Correct the already-merged Living Evidence Field surface while removing false claims and requiring verified merge and deployment evidence.",
+		"nonretroactivity": "This receipt authorizes corrections to the already-merged surface only; it is not an operator selection receipt and does not retroactively validate the selection claim recorded in merged PR #223.",
 		"rollback": "Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f."
 	},
 	"directions": [

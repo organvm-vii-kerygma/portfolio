@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Convert RenderCV YAML to JSON Resume schema.
 
 Usage:
@@ -10,7 +9,6 @@ Then publish:
 
 import json
 import sys
-from pathlib import Path
 
 import yaml
 
@@ -22,12 +20,17 @@ def convert(yaml_path: str) -> dict:
     cv = data["cv"]
     sections = cv.get("sections", {})
 
+    def scalar(value: object) -> str:
+        if isinstance(value, list):
+            return str(value[0]) if value else ""
+        return str(value) if value else ""
+
     # Basics
     basics = {
         "name": cv["name"],
         "label": cv.get("headline", ""),
-        "email": cv["email"][0] if cv.get("email") else "",
-        "url": cv["website"][0] if cv.get("website") else "",
+        "email": scalar(cv.get("email")),
+        "url": scalar(cv.get("website")),
         "summary": sections.get("summary", [""])[0],
         "location": {
             "city": cv.get("location", ""),
@@ -38,19 +41,23 @@ def convert(yaml_path: str) -> dict:
 
     for sn in cv.get("social_networks", []):
         if sn["network"] == "GitHub":
-            basics["profiles"].append({
-                "network": "GitHub",
-                "username": sn["username"],
-                "url": f"https://github.com/{sn['username']}",
-            })
+            basics["profiles"].append(
+                {
+                    "network": "GitHub",
+                    "username": sn["username"],
+                    "url": f"https://github.com/{sn['username']}",
+                }
+            )
 
     # Skills
     skills = []
     for s in sections.get("skills", []):
-        skills.append({
-            "name": s["label"],
-            "keywords": [k.strip() for k in s["details"].split(",")],
-        })
+        skills.append(
+            {
+                "name": s["label"],
+                "keywords": [k.strip() for k in s["details"].split(",")],
+            }
+        )
 
     # Work
     work = []
@@ -70,32 +77,38 @@ def convert(yaml_path: str) -> dict:
     # Education
     education = []
     for edu in sections.get("education", []):
-        education.append({
-            "institution": edu["institution"],
-            "area": edu["area"],
-            "studyType": edu["degree"],
-            "startDate": str(edu["start_date"]),
-            "endDate": str(edu["end_date"]),
-        })
+        education.append(
+            {
+                "institution": edu["institution"],
+                "area": edu["area"],
+                "studyType": edu["degree"],
+                "startDate": str(edu["start_date"]),
+                "endDate": str(edu["end_date"]),
+            }
+        )
 
     # Certificates
     certificates = []
     for cert in sections.get("certifications", []):
         label_parts = cert["label"].split(" — ")
-        certificates.append({
-            "name": label_parts[0].strip(),
-            "issuer": label_parts[1].strip() if len(label_parts) > 1 else "",
-            "date": cert.get("details", ""),
-        })
+        certificates.append(
+            {
+                "name": label_parts[0].strip(),
+                "issuer": label_parts[1].strip() if len(label_parts) > 1 else "",
+                "date": cert.get("details", ""),
+            }
+        )
 
     # Projects
     projects = []
     for proj in sections.get("selected projects", []):
-        projects.append({
-            "name": proj["name"],
-            "description": "; ".join(proj.get("highlights", [])),
-            "startDate": proj.get("date", "").split(" — ")[0].strip(),
-        })
+        projects.append(
+            {
+                "name": proj["name"],
+                "description": "; ".join(proj.get("highlights", [])),
+                "startDate": proj.get("date", "").split(" — ")[0].strip(),
+            }
+        )
 
     return {
         "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",

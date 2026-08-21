@@ -95,23 +95,63 @@ assertRejected(
 
 assertRejected(
 	(candidate) => {
-		candidate.selection_receipt.chosen_direction = 'Evidence Ledger';
+		candidate.selection_status = 'SELECTED';
 	},
-	/select Living Evidence Field exactly/,
+	/retain the truthful unselected state/,
 	'manifest',
 );
 
 assertRejected(
 	(candidate) => {
-		candidate.selection_receipt.rejected_directions.pop();
+		candidate.selection_receipt = { chosen_direction: 'Living Evidence Field' };
 	},
-	/reject all three prepared static directions/,
+	/must not contain a selection receipt/,
 	'manifest',
 );
 
 assertRejected(
 	(candidate) => {
-		candidate.selection_receipt.rollback = 'Restore main.';
+		candidate.corrective_closeout_receipt.surface_under_correction = 'Evidence Ledger';
+	},
+	/identify Living Evidence Field as the surface under correction/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.corrective_closeout_receipt.prepared_directions_rejected.pop();
+	},
+	/retain the rejection of all three prepared static directions/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.corrective_closeout_receipt.instruction = 'select the proposal';
+	},
+	/traceable current-session authority/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.corrective_closeout_receipt.prior_state = 'Selected on 2026-08-20.';
+	},
+	/correct the fabricated prior selection receipt/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.corrective_closeout_receipt.nonretroactivity = 'PR #223 was already authorized.';
+	},
+	/correct the fabricated prior selection receipt/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.corrective_closeout_receipt.rollback = 'Restore main.';
 	},
 	/retain the exact rollback head/,
 	'manifest',

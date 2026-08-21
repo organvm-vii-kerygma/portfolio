@@ -72,9 +72,6 @@ jobs:
             echo "::warning::Corpus metrics fetch failed — building with committed src/data (last-known-good)."
           fi
 
-      - name: Sync LAVREA JSON evidence
-        run: npm run sync:laurea
-
       # --- Lint & Typecheck ---
       - name: Lint
         run: npm run lint
@@ -115,6 +112,8 @@ jobs:
         run: npm run test:sketches
       - name: Validate Build
         run: npm run validate
+      - name: Verify resume artifact links
+        run: npm run verify:resume-links
 
       # --- Deploy (main branch only, not PRs) ---
       - name: Upload Pages artifact

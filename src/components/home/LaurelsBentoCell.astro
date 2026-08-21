@@ -6,7 +6,7 @@ import { siteConfig } from '../../utils/paths';
 interface LaureaSnapshot {
 	state: 'ready' | 'stale' | 'error' | 'withheld';
 	generated_at: string | null;
-	composite: { tier: string; claim: string } | null;
+	profile: { label: string } | null;
 	public_claim: {
 		claim_id: string;
 		claim_status: 'verified' | 'derived_reviewed';
@@ -19,7 +19,7 @@ interface LaureaSnapshot {
 		contributions_trailing_12_months: number | null;
 		non_fork_repositories_visible: number | null;
 		pull_requests_opened_trailing_12_months: number | null;
-		organizations_queried: number | null;
+		organization_memberships_queried: number | null;
 	};
 }
 const snapshot = rawSnapshot as LaureaSnapshot;
@@ -29,7 +29,7 @@ const evidenceState = effectiveEvidenceState(snapshot.state, snapshot.generated_
 const publicClaim = snapshot.public_claim;
 const isReady = Boolean(
 	evidenceState === 'ready' &&
-		snapshot.composite &&
+		snapshot.profile?.label === 'Measured GitHub activity profile' &&
 		publicClaim &&
 		['verified', 'derived_reviewed'].includes(publicClaim.claim_status) &&
 		publicClaim.evidence_state === 'ready' &&
@@ -53,7 +53,11 @@ const metrics = [
 		snapshot.metrics.pull_requests_opened_trailing_12_months,
 		'Trailing 12 months',
 	],
-	['Organizations', snapshot.metrics.organizations_queried, 'Queried by LAVREA'],
+	[
+		'Organization memberships',
+		snapshot.metrics.organization_memberships_queried,
+		'Queried by LAVREA',
+	],
 ];
 ---
 
@@ -74,13 +78,13 @@ const metrics = [
 			<time datetime={hasValidTimestamp ? snapshot.generated_at ?? undefined : undefined}>Last verified {verifiedDate}</time>
 		</p>
 	</div>
-	<h2 id="laurea-title">{isReady ? snapshot.composite?.claim : 'A measured GitHub output profile'}</h2>
+	<h2 id="laurea-title">{isReady ? snapshot.profile?.label : 'A measured GitHub activity profile'}</h2>
 	<p class="laurea__scope">
 		{isReady
-			? 'A bounded measurement of visible GitHub activity, with percentile claims tied to the source snapshot.'
+			? 'A bounded measurement of API-visible GitHub activity. It publishes no population ranking.'
 			: evidenceState === 'stale'
-				? 'The last source snapshot is older than 36 hours. Numeric and percentile claims are withheld until verification refreshes.'
-				: 'The evidence source is unavailable or invalid. Numeric and percentile claims are withheld.'}
+				? 'The last source snapshot is older than 36 hours. Numeric activity claims are withheld until verification refreshes.'
+				: 'The evidence source is unavailable or invalid. Numeric activity claims are withheld.'}
 	</p>
 	{
 		isReady && (
@@ -110,7 +114,7 @@ const metrics = [
 	}
 	<div class="laurea__links">
 		<a href={`${siteConfig.repositories.laurea}/blob/main/METHODOLOGY.md`}>Methodology</a>
-		<a href={`${siteConfig.repositories.laurea}/blob/main/assets/SUPERLATIVES.md`}>Full report</a>
+		<a href={`${siteConfig.repositories.laurea}/blob/main/assets/PROFILE.md`}>Full report</a>
 	</div>
 	<div class="laurea__proof-rail" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>

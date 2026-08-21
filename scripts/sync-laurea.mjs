@@ -1,6 +1,10 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { normalizeLaureaSnapshot, unavailableLaureaSnapshot } from './lib/laurea-snapshot.mjs';
+import {
+	isLastKnownGoodLaureaSnapshot,
+	normalizeLaureaSnapshot,
+	unavailableLaureaSnapshot,
+} from './lib/laurea-snapshot.mjs';
 
 const SOURCE_URL = 'https://raw.githubusercontent.com/organvm/laurea/main/assets/metrics.json';
 const outputPath = resolve('src/data/laurea-snapshot.json');
@@ -19,12 +23,24 @@ async function loadSource() {
 }
 
 let normalized;
+let writeSnapshot = true;
 try {
 	normalized = normalizeLaureaSnapshot(await loadSource());
 } catch (error) {
 	console.warn(`LAVREA unavailable: ${error instanceof Error ? error.message : String(error)}`);
-	normalized = unavailableLaureaSnapshot();
+	try {
+		const existing = JSON.parse(await readFile(outputPath, 'utf8'));
+		if (isLastKnownGoodLaureaSnapshot(existing)) {
+			normalized = existing;
+			writeSnapshot = false;
+			console.warn('LAVREA snapshot: preserving last-known-good evidence');
+		} else {
+			normalized = unavailableLaureaSnapshot();
+		}
+	} catch {
+		normalized = unavailableLaureaSnapshot();
+	}
 }
 
-await writeFile(outputPath, `${JSON.stringify(normalized, null, 2)}\n`);
-console.log(`LAVREA snapshot: ${normalized.state} -> ${outputPath}`);
+if (writeSnapshot) await writeFile(outputPath, `${JSON.stringify(normalized, null, 2)}\n`);
+console.log(`LAVREA snapshot: ${writeSnapshot ? normalized.state : 'preserved'} -> ${outputPath}`);

@@ -15,6 +15,7 @@ declare global {
 			options?: { timeout: number },
 		): number;
 		cancelIdleCallback(handle: number): void;
+		__ambientMotionFallback?: { preference: 'system' | 'running' | 'paused' };
 	}
 }
 
@@ -63,11 +64,21 @@ type AmbientMotionPreference = 'system' | 'running' | 'paused';
 type AmbientMotionState = 'running' | 'paused';
 
 function readAmbientPreference(): AmbientMotionPreference {
+	let preference = window.__ambientMotionFallback?.preference;
 	try {
 		const value = window.localStorage.getItem('ambient-motion');
-		if (value === 'system' || value === 'running' || value === 'paused') return value;
+		if (value === 'system' || value === 'running' || value === 'paused') {
+			preference = value;
+			const fallback = window.__ambientMotionFallback ?? { preference: value };
+			fallback.preference = value;
+			window.__ambientMotionFallback = fallback;
+		}
 	} catch {}
-	return 'system';
+	if (preference === 'system' || preference === 'running' || preference === 'paused') {
+		return preference;
+	}
+	const applied = document.documentElement.dataset.ambientMotionPreference;
+	return applied === 'running' || applied === 'paused' ? applied : 'system';
 }
 
 function resolveAmbientState(preference = readAmbientPreference()): AmbientMotionState {
@@ -150,6 +161,36 @@ function showFallback(container: HTMLElement, sketchId: string): void {
 	}
 }
 
+const PAUSED_REDRAW_EVENTS = [
+	'mousePressed',
+	'mouseReleased',
+	'mouseClicked',
+	'doubleClicked',
+	'touchStarted',
+	'touchMoved',
+	'touchEnded',
+] as const;
+
+function prepareSketch(p: p5): void {
+	for (const eventName of PAUSED_REDRAW_EVENTS) {
+		const handler = Reflect.get(p, eventName);
+		if (typeof handler !== 'function') continue;
+		Reflect.set(p, eventName, (...args: unknown[]): unknown => {
+			const result = Reflect.apply(handler, p, args);
+			if (ambientMotionState === 'paused') p.redraw();
+			return result;
+		});
+	}
+
+	if (p.draw) {
+		const originalDraw = p.draw.bind(p);
+		p.draw = (): void => {
+			originalDraw();
+			if (ambientMotionState === 'paused') p.noLoop();
+		};
+	}
+}
+
 function processQueue(): void {
 	while (activeInits < MAX_CONCURRENT && initQueue.length > 0) {
 		const next = initQueue.shift();
@@ -198,15 +239,7 @@ function doInitSketch(container: HTMLElement): void {
 			try {
 				const instance = new P5((p: p5): void => {
 					sketchFn(p, container);
-
-					// Paused ambient motion renders exactly one complete frame.
-					if (ambientMotionState === 'paused' && p.draw) {
-						const originalDraw = p.draw.bind(p);
-						p.draw = (): void => {
-							originalDraw();
-							if (ambientMotionState === 'paused') p.noLoop();
-						};
-					}
+					prepareSketch(p);
 				}, container);
 				instances.set(container, instance);
 			} catch (err) {
@@ -284,14 +317,7 @@ function initBackground(): void {
 			try {
 				const instance = new P5((p: p5): void => {
 					sketchFn(p, bg);
-
-					if (ambientMotionState === 'paused' && p.draw) {
-						const originalDraw = p.draw.bind(p);
-						p.draw = (): void => {
-							originalDraw();
-							if (ambientMotionState === 'paused') p.noLoop();
-						};
-					}
+					prepareSketch(p);
 				}, bg);
 				instances.set(bg, instance);
 			} catch (err) {
