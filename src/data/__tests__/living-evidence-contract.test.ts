@@ -98,4 +98,21 @@ describe('Living Evidence Field contracts', () => {
 	it('declares one canonical public contact', () => {
 		expect(siteConfig.contact.email).toBe('padavano.anthony@gmail.com');
 	});
+
+	it('bounds upstream evidence fetches before deployment gates', () => {
+		const source = readFileSync(resolve('scripts/sync-laurea.mjs'), 'utf8');
+		expect(source).toContain('AbortSignal.timeout(15_000)');
+	});
+
+	it('keeps resume sources on the canonical portfolio origin', () => {
+		for (const path of [
+			'resume/Anthony_James_Padavano_CV.yaml',
+			'resume/Anthony_James_Padavano_Developer.yaml',
+			'resume/Anthony_James_Padavano_Multimedia.yaml',
+		]) {
+			const source = readFileSync(resolve(path), 'utf8');
+			expect(source).toContain(canonicalBase);
+			expect(source).not.toContain('https://4444j99.github.io/portfolio/');
+		}
+	});
 });

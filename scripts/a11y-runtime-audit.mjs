@@ -103,7 +103,7 @@ async function runInteractionChecks(page, checks = []) {
 
 	for (const check of checks) {
 		if (check === 'nav-menu') {
-			const toggle = page.locator('.header__toggle').first();
+			const toggle = page.locator('.site-header__menu').first();
 			if ((await toggle.count()) === 0) {
 				results.push({ check, status: 'skip', detail: 'header toggle missing' });
 				continue;

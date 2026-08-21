@@ -32,7 +32,7 @@ export async function replayAstroPageLoad(page: Page, cycles = 3) {
 }
 
 export async function assertMenuSingleFire(page: Page) {
-	const toggle = page.locator('.header__toggle').first();
+	const toggle = page.locator('.site-header__menu').first();
 	if ((await toggle.count()) === 0 || !(await toggle.isVisible())) return;
 
 	await toggle.click();

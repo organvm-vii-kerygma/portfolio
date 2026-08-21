@@ -13,8 +13,22 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain('state.controller?.abort()');
 		expect(source).toContain("event.key === 'Escape'");
 		expect(source).toContain("themeQuery.addEventListener('change'");
+		expect(source).toContain('__themeStorageFallback');
+		expect(source).toContain('fallback.preference = next');
 		expect(source).toContain('<Search />');
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
+	});
+
+	it('runtime interaction probes target the current mobile menu control', () => {
+		for (const path of [
+			'scripts/a11y-runtime-audit.mjs',
+			'scripts/test-runtime-errors.mjs',
+			'src/e2e/helpers.ts',
+		]) {
+			const source = readFileSync(resolve(path), 'utf-8');
+			expect(source).toContain('.site-header__menu');
+			expect(source).not.toContain('.header__toggle');
+		}
 	});
 
 	it('footer carries no duplicate theme controller', () => {

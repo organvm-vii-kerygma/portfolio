@@ -86,20 +86,31 @@ const links = [
 		}
 		const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
 		if (themeButton) {
+			type ThemePreference = 'system' | 'light' | 'dark';
+			type ThemeWindow = Window & { __themeStorageFallback?: { preference: ThemePreference } };
+			const themeWindow = window as ThemeWindow;
+			const fallback = themeWindow.__themeStorageFallback ?? { preference: 'system' as ThemePreference };
+			themeWindow.__themeStorageFallback = fallback;
 			const themeQuery = matchMedia('(prefers-color-scheme: light)');
-			const readThemePreference = () => {
-				try { return localStorage.getItem('theme-preference') || 'system'; } catch { return 'system'; }
+			const readThemePreference = (): ThemePreference => {
+				try {
+					const stored = localStorage.getItem('theme-preference');
+					if (stored === 'system' || stored === 'light' || stored === 'dark') fallback.preference = stored;
+				} catch {}
+				return fallback.preference;
 			};
-			const applyThemePreference = (preference: string) => {
+			const applyThemePreference = (preference: ThemePreference) => {
+				fallback.preference = preference;
 				const theme = preference === 'system' ? (themeQuery.matches ? 'light' : 'dark') : preference;
 				document.documentElement.dataset.theme = theme;
 				themeButton.textContent = `Theme: ${preference[0].toUpperCase()}${preference.slice(1)}`;
 				themeButton.setAttribute('aria-label', `Theme: ${preference}`);
 			};
 			applyThemePreference(readThemePreference());
-			themeButton.addEventListener('click', () => {
+				themeButton.addEventListener('click', () => {
 				const pref = readThemePreference();
 				const next = pref === 'system' ? 'light' : pref === 'light' ? 'dark' : 'system';
+				fallback.preference = next;
 				try { localStorage.setItem('theme-preference', next); } catch {}
 				applyThemePreference(next);
 			}, { signal });

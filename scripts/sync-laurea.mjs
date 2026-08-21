@@ -10,7 +10,10 @@ async function loadSource() {
 	if (inputArg) {
 		return JSON.parse(await readFile(resolve(inputArg.slice('--input='.length)), 'utf8'));
 	}
-	const response = await fetch(SOURCE_URL, { headers: { accept: 'application/json' } });
+	const response = await fetch(SOURCE_URL, {
+		headers: { accept: 'application/json' },
+		signal: AbortSignal.timeout(15_000),
+	});
 	if (!response.ok) throw new Error(`LAVREA fetch returned ${response.status}`);
 	return response.json();
 }
