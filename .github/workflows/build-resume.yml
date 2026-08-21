@@ -6,6 +6,19 @@ on:
       - 'resume/Anthony_James_Padavano_CV.yaml'
       - 'resume/Anthony_James_Padavano_Multimedia.yaml'
       - 'resume/Anthony_James_Padavano_Developer.yaml'
+      - 'scripts/render-resume-docx.py'
+      - 'scripts/normalize-resume-docx-links.py'
+      - 'public/resume/**'
+      - '.github/workflows/build-resume.yml'
+  pull_request:
+    paths:
+      - 'resume/Anthony_James_Padavano_CV.yaml'
+      - 'resume/Anthony_James_Padavano_Multimedia.yaml'
+      - 'resume/Anthony_James_Padavano_Developer.yaml'
+      - 'scripts/render-resume-docx.py'
+      - 'scripts/normalize-resume-docx-links.py'
+      - 'public/resume/**'
+      - '.github/workflows/build-resume.yml'
   workflow_dispatch:
 
 permissions:
@@ -14,6 +27,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: '1787270400'
     steps:
       - uses: actions/checkout@v6
 
@@ -46,13 +61,9 @@ jobs:
             -md rendercv_output_developer/Anthony_James_Padavano_Developer.md
 
       - name: Generate DOCX from Creative Technologist Markdown
-        env:
-          SOURCE_DATE_EPOCH: '1787270400'
         run: python scripts/render-resume-docx.py resume/rendercv_output/Anthony_James_Padavano_CV.md resume/rendercv_output/Anthony_James_Padavano_CV.docx
 
       - name: Generate DOCX from Developer Markdown
-        env:
-          SOURCE_DATE_EPOCH: '1787270400'
         run: python scripts/render-resume-docx.py resume/rendercv_output_developer/Anthony_James_Padavano_Developer.md resume/rendercv_output_developer/Anthony_James_Padavano_Developer.docx
 
       - name: Normalize DOCX hyperlinks

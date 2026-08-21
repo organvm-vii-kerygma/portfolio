@@ -129,3 +129,37 @@ export function normalizeLaureaSnapshot(raw, now = new Date()) {
 export function unavailableLaureaSnapshot() {
 	return baseSnapshot('error');
 }
+
+export function isLastKnownGoodLaureaSnapshot(candidate) {
+	if (!candidate || typeof candidate !== 'object') return false;
+	const sourceSha = candidate.source_sha;
+	const publicClaim = candidate.public_claim;
+	const metrics = candidate.metrics;
+	const requiredMetrics = [
+		'contributions_trailing_12_months',
+		'non_fork_repositories_visible',
+		'pull_requests_opened_trailing_12_months',
+		'organization_memberships_queried',
+	];
+	return Boolean(
+		candidate.schema_version === 'portfolio.laurea_snapshot.v2' &&
+			candidate.subject === REQUIRED_SUBJECT &&
+			candidate.source_repository === REQUIRED_REPOSITORY &&
+			candidate.state === 'ready' &&
+			typeof candidate.generated_at === 'string' &&
+			Number.isFinite(Date.parse(candidate.generated_at)) &&
+			typeof sourceSha === 'string' &&
+			/^[0-9a-f]{7,40}$/i.test(sourceSha) &&
+			candidate.profile?.label === 'Measured GitHub activity profile' &&
+			Array.isArray(candidate.limitations) &&
+			candidate.limitations.includes(PUBLIC_LIMITATION) &&
+			publicClaim?.claim_id ===
+				`laurea.github-activity-profile.${REQUIRED_SUBJECT}.${sourceSha.slice(0, 12)}` &&
+			['verified', 'derived_reviewed'].includes(publicClaim?.claim_status) &&
+			publicClaim?.evidence_state === 'ready' &&
+			publicClaim?.disclosure_level === 'L1' &&
+			publicClaim?.source_ref === `${REQUIRED_REPOSITORY}@${sourceSha}` &&
+			metrics &&
+			requiredMetrics.every((metric) => finiteNonNegative(metrics[metric])),
+	);
+}

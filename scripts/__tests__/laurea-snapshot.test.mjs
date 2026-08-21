@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { normalizeLaureaSnapshot, PUBLIC_LIMITATION } from '../lib/laurea-snapshot.mjs';
+import {
+	isLastKnownGoodLaureaSnapshot,
+	normalizeLaureaSnapshot,
+	PUBLIC_LIMITATION,
+} from '../lib/laurea-snapshot.mjs';
 
 const NOW = new Date('2026-08-20T12:00:00Z');
 
@@ -92,4 +96,19 @@ test('unavailable input cannot promote claims', () => {
 	const result = normalizeLaureaSnapshot(undefined, NOW);
 	assert.equal(result.state, 'error');
 	assert.ok(Object.values(result.metrics).every((value) => value === null));
+});
+
+test('only a complete normalized snapshot can survive a transport failure', () => {
+	const ready = normalizeLaureaSnapshot(fixture(), NOW);
+	assert.equal(isLastKnownGoodLaureaSnapshot(ready), true);
+
+	for (const candidate of [
+		undefined,
+		{ ...ready, state: 'error' },
+		{ ...ready, source_sha: 'unknown' },
+		{ ...ready, public_claim: null },
+		{ ...ready, metrics: { ...ready.metrics, contributions_trailing_12_months: null } },
+	]) {
+		assert.equal(isLastKnownGoodLaureaSnapshot(candidate), false);
+	}
 });

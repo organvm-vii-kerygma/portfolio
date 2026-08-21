@@ -105,6 +105,8 @@ describe('Living Evidence Field contracts', () => {
 	it('bounds upstream evidence fetches before deployment gates', () => {
 		const source = readFileSync(resolve('scripts/sync-laurea.mjs'), 'utf8');
 		expect(source).toContain('AbortSignal.timeout(15_000)');
+		expect(source).toContain('isLastKnownGoodLaureaSnapshot');
+		expect(source).toContain('writeSnapshot = false');
 	});
 
 	it('keeps resume sources on the canonical portfolio origin', () => {
@@ -126,6 +128,7 @@ describe('Living Evidence Field contracts', () => {
 		const workflow = readFileSync(resolve('.github/workflows/build-resume.yml'), 'utf8');
 		expect(workflow).toContain('pypandoc_binary==1.15');
 		expect(workflow).toContain('SOURCE_DATE_EPOCH');
+		expect(workflow).toContain('pull_request:');
 		expect(workflow).toContain(
 			'-md rendercv_output_multimedia/Anthony_James_Padavano_Multimedia.md',
 		);
