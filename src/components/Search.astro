@@ -73,12 +73,12 @@ import { base } from '../utils/paths';
         if (e.target === dialog) closeSearch();
       }, { signal });
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && dialog.open) {
-          closeSearch();
-          return;
-        }
+      dialog.addEventListener('cancel', function (e) {
+        e.preventDefault();
+        closeSearch();
+      }, { signal });
 
+      document.addEventListener('keydown', function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault();
           if (dialog.open) {

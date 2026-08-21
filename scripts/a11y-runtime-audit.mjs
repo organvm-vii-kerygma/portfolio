@@ -102,157 +102,175 @@ async function runInteractionChecks(page, checks = []) {
 	const results = [];
 
 	for (const check of checks) {
-		if (check === 'nav-menu') {
-			const toggle = page.locator('.site-header__menu').first();
-			if ((await toggle.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'header toggle missing' });
-				continue;
-			}
-			if (!(await toggle.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'header toggle hidden in viewport' });
-				continue;
-			}
-			await toggle.click();
-			const opened = await toggle.getAttribute('aria-expanded');
-			await toggle.click();
-			const closed = await toggle.getAttribute('aria-expanded');
-			results.push({
-				check,
-				status: opened === 'true' && closed === 'false' ? 'pass' : 'fail',
-				detail: `opened=${opened} closed=${closed}`,
-			});
-			continue;
-		}
-
-		if (check === 'dropdown-menu') {
-			const trigger = page.locator('.header__dropdown-trigger').first();
-			if ((await trigger.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'dropdown trigger missing' });
-				continue;
-			}
-			if (!(await trigger.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'dropdown trigger hidden in viewport' });
-				continue;
-			}
-			await trigger.click();
-			const openCount = await page.locator('.header__dropdown-menu[data-open]').count();
-			await page.keyboard.press('Escape');
-			const closedCount = await page.locator('.header__dropdown-menu[data-open]').count();
-			results.push({
-				check,
-				status: openCount > 0 && closedCount === 0 ? 'pass' : 'fail',
-				detail: `open=${openCount} closed=${closedCount}`,
-			});
-			continue;
-		}
-
-		if (check === 'search-dialog') {
-			const trigger = page.locator('.search-trigger').first();
-			if ((await trigger.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'search trigger missing' });
-				continue;
-			}
-			if (!(await trigger.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'search trigger hidden in viewport' });
+		try {
+			if (check === 'nav-menu') {
+				const toggle = page.locator('.site-header__menu').first();
+				if ((await toggle.count()) === 0) {
+					results.push({ check, status: 'skip', detail: 'header toggle missing' });
+					continue;
+				}
+				if (!(await toggle.isVisible())) {
+					results.push({ check, status: 'skip', detail: 'header toggle hidden in viewport' });
+					continue;
+				}
+				await toggle.click();
+				const opened = await toggle.getAttribute('aria-expanded');
+				await toggle.click();
+				const closed = await toggle.getAttribute('aria-expanded');
+				results.push({
+					check,
+					status: opened === 'true' && closed === 'false' ? 'pass' : 'fail',
+					detail: `opened=${opened} closed=${closed}`,
+				});
 				continue;
 			}
 
-			await trigger.click();
-			const dialog = page.locator('.search-dialog');
-			await dialog.waitFor({ state: 'visible', timeout: 3000 });
-			const opened = await dialog.evaluate((el) => el.hasAttribute('open'));
-			const closeButton = page.locator('.search-dialog__close');
-			if (await closeButton.count()) {
-				await closeButton.click();
-			} else {
+			if (check === 'dropdown-menu') {
+				const trigger = page.locator('.header__dropdown-trigger').first();
+				if ((await trigger.count()) === 0) {
+					results.push({ check, status: 'fail', detail: 'required dropdown trigger missing' });
+					continue;
+				}
+				if (!(await trigger.isVisible())) {
+					results.push({
+						check,
+						status: 'fail',
+						detail: 'required dropdown trigger hidden in viewport',
+					});
+					continue;
+				}
+				await trigger.click();
+				const openSelector =
+					'details[data-nav-group][open] > .header__dropdown-menu, .header__dropdown-menu[data-open]';
+				await page.locator(openSelector).first().waitFor({ state: 'visible', timeout: 1000 });
+				const openCount = await page.locator(openSelector).count();
 				await page.keyboard.press('Escape');
+				await page.waitForFunction(
+					(selector) => document.querySelectorAll(selector).length === 0,
+					openSelector,
+					{ timeout: 1000 },
+				);
+				const closedCount = await page.locator(openSelector).count();
+				results.push({
+					check,
+					status: openCount > 0 && closedCount === 0 ? 'pass' : 'fail',
+					detail: `open=${openCount} closed=${closedCount}`,
+				});
+				continue;
 			}
-			const closed = await dialog.evaluate((el) => !el.hasAttribute('open'));
-			results.push({
-				check,
-				status: opened && closed ? 'pass' : 'fail',
-				detail: `opened=${opened} closed=${closed}`,
-			});
-			continue;
+
+			if (check === 'search-dialog') {
+				const trigger = page.locator('.search-trigger').first();
+				if ((await trigger.count()) === 0) {
+					results.push({ check, status: 'skip', detail: 'search trigger missing' });
+					continue;
+				}
+				if (!(await trigger.isVisible())) {
+					results.push({ check, status: 'skip', detail: 'search trigger hidden in viewport' });
+					continue;
+				}
+
+				await trigger.click();
+				const dialog = page.locator('.search-dialog');
+				await dialog.waitFor({ state: 'visible', timeout: 3000 });
+				const opened = await dialog.evaluate((el) => el.hasAttribute('open'));
+				const closeButton = page.locator('.search-dialog__close');
+				if (await closeButton.count()) {
+					await closeButton.click();
+				} else {
+					await page.keyboard.press('Escape');
+				}
+				const closed = await dialog.evaluate((el) => !el.hasAttribute('open'));
+				results.push({
+					check,
+					status: opened && closed ? 'pass' : 'fail',
+					detail: `opened=${opened} closed=${closed}`,
+				});
+				continue;
+			}
+
+			if (check === 'theme-toggle') {
+				const toggle = page.locator('.theme-toggle').first();
+				if ((await toggle.count()) === 0) {
+					results.push({ check, status: 'skip', detail: 'theme toggle missing' });
+					continue;
+				}
+				if (!(await toggle.isVisible())) {
+					results.push({ check, status: 'skip', detail: 'theme toggle hidden in viewport' });
+					continue;
+				}
+
+				const before = await page.evaluate(() => ({
+					pref: localStorage.getItem('theme-preference'),
+					theme: document.documentElement.dataset.theme ?? null,
+				}));
+				await toggle.click();
+				await page.waitForTimeout(120);
+				const after = await page.evaluate(() => ({
+					pref: localStorage.getItem('theme-preference'),
+					theme: document.documentElement.dataset.theme ?? null,
+				}));
+				const changed = before.pref !== after.pref || before.theme !== after.theme;
+				results.push({
+					check,
+					status: changed ? 'pass' : 'fail',
+					detail: `before=${JSON.stringify(before)} after=${JSON.stringify(after)}`,
+				});
+				continue;
+			}
+
+			if (check === 'gallery-filter') {
+				const filters = page.locator('.gallery-filter');
+				if ((await filters.count()) < 2) {
+					results.push({ check, status: 'skip', detail: 'gallery filters unavailable' });
+					continue;
+				}
+				if (!(await filters.nth(1).isVisible())) {
+					results.push({ check, status: 'skip', detail: 'gallery filter hidden in viewport' });
+					continue;
+				}
+
+				await filters.nth(1).click();
+				const active = await filters
+					.nth(1)
+					.evaluate((el) => el.classList.contains('gallery-filter--active'));
+				results.push({
+					check,
+					status: active ? 'pass' : 'fail',
+					detail: `active=${active}`,
+				});
+				continue;
+			}
+
+			if (check === 'fullscreen') {
+				const button = page.locator('.sketch-ctrl--fullscreen').first();
+				if ((await button.count()) === 0) {
+					results.push({ check, status: 'skip', detail: 'fullscreen control missing' });
+					continue;
+				}
+				if (!(await button.isVisible())) {
+					results.push({ check, status: 'skip', detail: 'fullscreen control hidden in viewport' });
+					continue;
+				}
+
+				await button.click();
+				await page.waitForTimeout(200);
+				const entered = await page.evaluate(() => Boolean(document.fullscreenElement));
+				if (entered) await page.keyboard.press('Escape');
+				results.push({
+					check,
+					status: entered ? 'pass' : 'fail',
+					detail: `entered=${entered}`,
+				});
+				continue;
+			}
+
+			results.push({ check, status: 'skip', detail: 'unknown check' });
+		} catch (error) {
+			await page.keyboard.press('Escape').catch(() => {});
+			const message = error instanceof Error ? error.message : String(error);
+			results.push({ check, status: 'fail', detail: `${check} interaction failed: ${message}` });
 		}
-
-		if (check === 'theme-toggle') {
-			const toggle = page.locator('.theme-toggle').first();
-			if ((await toggle.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'theme toggle missing' });
-				continue;
-			}
-			if (!(await toggle.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'theme toggle hidden in viewport' });
-				continue;
-			}
-
-			const before = await page.evaluate(() => ({
-				pref: localStorage.getItem('theme-preference'),
-				theme: document.documentElement.dataset.theme ?? null,
-			}));
-			await toggle.click();
-			await page.waitForTimeout(120);
-			const after = await page.evaluate(() => ({
-				pref: localStorage.getItem('theme-preference'),
-				theme: document.documentElement.dataset.theme ?? null,
-			}));
-			const changed = before.pref !== after.pref || before.theme !== after.theme;
-			results.push({
-				check,
-				status: changed ? 'pass' : 'fail',
-				detail: `before=${JSON.stringify(before)} after=${JSON.stringify(after)}`,
-			});
-			continue;
-		}
-
-		if (check === 'gallery-filter') {
-			const filters = page.locator('.gallery-filter');
-			if ((await filters.count()) < 2) {
-				results.push({ check, status: 'skip', detail: 'gallery filters unavailable' });
-				continue;
-			}
-			if (!(await filters.nth(1).isVisible())) {
-				results.push({ check, status: 'skip', detail: 'gallery filter hidden in viewport' });
-				continue;
-			}
-
-			await filters.nth(1).click();
-			const active = await filters
-				.nth(1)
-				.evaluate((el) => el.classList.contains('gallery-filter--active'));
-			results.push({
-				check,
-				status: active ? 'pass' : 'fail',
-				detail: `active=${active}`,
-			});
-			continue;
-		}
-
-		if (check === 'fullscreen') {
-			const button = page.locator('.sketch-ctrl--fullscreen').first();
-			if ((await button.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'fullscreen control missing' });
-				continue;
-			}
-			if (!(await button.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'fullscreen control hidden in viewport' });
-				continue;
-			}
-
-			await button.click();
-			await page.waitForTimeout(200);
-			const entered = await page.evaluate(() => Boolean(document.fullscreenElement));
-			if (entered) await page.keyboard.press('Escape');
-			results.push({
-				check,
-				status: entered ? 'pass' : 'fail',
-				detail: `entered=${entered}`,
-			});
-			continue;
-		}
-
-		results.push({ check, status: 'skip', detail: 'unknown check' });
 	}
 
 	return results;
