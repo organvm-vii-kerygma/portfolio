@@ -1,16 +1,16 @@
 {
   "schema_version": "portfolio.laurea_snapshot.v2",
   "subject": "4444J99",
-  "generated_at": "2026-08-21T13:13:35.920345Z",
+  "generated_at": "2026-08-21T13:36:17.634675Z",
   "source_repository": "organvm/laurea",
-  "source_sha": "456e73a2970ec3a68c6a7ee8826ac4f2627ef0dc",
+  "source_sha": "7fb9c15ef253bc14459519d090447b653750d46d",
   "state": "ready",
   "public_claim": {
-    "claim_id": "laurea.github-activity-profile.4444J99.456e73a2970e",
+    "claim_id": "laurea.github-activity-profile.4444J99.7fb9c15ef253",
     "claim_status": "derived_reviewed",
     "evidence_state": "ready",
     "disclosure_level": "L1",
-    "source_ref": "organvm/laurea@456e73a2970ec3a68c6a7ee8826ac4f2627ef0dc"
+    "source_ref": "organvm/laurea@7fb9c15ef253bc14459519d090447b653750d46d"
   },
   "profile": {
     "label": "Measured GitHub activity profile"
