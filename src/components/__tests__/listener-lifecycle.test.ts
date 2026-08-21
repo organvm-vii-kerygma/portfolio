@@ -15,6 +15,7 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain("themeQuery.addEventListener('change'");
 		expect(source).toContain('__themeStorageFallback');
 		expect(source).toContain('fallback.preference = next');
+		expect(source).toContain("themeColor.content = theme === 'light' ? '#f5f5f0' : '#0a0a0b'");
 		expect(source).toContain('<Search />');
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
