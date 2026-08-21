@@ -12,8 +12,9 @@
  */
 
 import { mkdirSync, writeFileSync } from 'fs';
+import { canonicalBase } from '../site.config.mjs';
 
-const BASE_URL = 'https://organvm.github.io/portfolio';
+const BASE_URL = canonicalBase.replace(/\/$/, '');
 const PSI_API = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
 const API_KEY = process.env.PSI_API_KEY || ''; // allow-secret
 

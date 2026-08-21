@@ -18,6 +18,10 @@
 	--bg-secondary: rgba(0, 0, 0, 0.25);
 	--bg-card: rgba(0, 0, 0, 0.65);
 	--bg-card-hover: rgba(0, 0, 0, 0.75);
+	--surface-strong: rgba(10, 10, 12, 0.94);
+	--surface-evidence: rgba(13, 14, 17, 0.98);
+	--surface-subtle: rgba(24, 25, 29, 0.92);
+	--surface-chrome: rgba(8, 8, 10, 0.96);
 	--border: rgba(255, 255, 255, 0.2);
 	--border-hover: rgba(255, 255, 255, 0.4);
 
@@ -32,6 +36,15 @@
 	--accent-yellow: #ffd600;
 	--accent-purple: #9c27b0;
 	--accent-green: #00e676;
+	--text-on-accent: #16120a;
+	--success-text: #8ff0ae;
+	--focus-inner: #ffffff;
+	--focus-outer: #111111;
+	--organ-text-safe: #f0d084;
+	--organ-border: #d4a853;
+	--spectrum-primary: 212, 168, 83;
+	--spectrum-complement: 70, 110, 196;
+	--spectrum-current: 120, 100, 160;
 
 	--color-substantial: #7ce8a6;
 	--color-partial: #c9a84c;
@@ -96,6 +109,10 @@ html[data-theme="light"] :root,
 	--bg-secondary: rgba(255, 255, 255, 0.25);
 	--bg-card: rgba(255, 255, 255, 0.7);
 	--bg-card-hover: rgba(255, 255, 255, 0.85);
+	--surface-strong: rgba(255, 255, 252, 0.94);
+	--surface-evidence: rgba(250, 250, 246, 0.98);
+	--surface-subtle: rgba(244, 244, 238, 0.94);
+	--surface-chrome: rgba(255, 255, 252, 0.96);
 	--border: rgba(0, 0, 0, 0.12);
 	--border-hover: rgba(0, 0, 0, 0.25);
 
@@ -107,6 +124,12 @@ html[data-theme="light"] :root,
 	--accent-text: #96760f;
 	--accent-hover: #a83830;
 	--accent-muted: rgba(184, 146, 46, 0.12);
+	--text-on-accent: #171209;
+	--success-text: #176b36;
+	--focus-inner: #ffffff;
+	--focus-outer: #111111;
+	--organ-text-safe: #765b08;
+	--organ-border: #9c7614;
 
 	--color-substantial: #2e7d32;
 	--color-partial: #9e7b1e;
@@ -368,7 +391,7 @@ html[data-shibui-depth="full"] [data-shibui-c] .shibui-term[data-definition] {
 	display: flex;
 	align-items: center;
 	gap: var(--space-xs);
-	color: var(--accent);
+	color: var(--organ-text-safe);
 	transition:
 		color var(--transition-fast),
 		background var(--transition-fast),
@@ -468,7 +491,7 @@ html[data-shibui-depth="overview"] .shibui-bridge {
 .bento-grid {
 	display: grid;
 	gap: var(--space-md);
-	max-width: var(--max-width);
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: var(--space-lg);
 	grid-template-columns: 1fr;
@@ -511,13 +534,17 @@ html[data-shibui-depth="overview"] .shibui-bridge {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+	.bento-cell--hero,
+	.selected-project {
+		grid-column: 1 / -1;
+	}
 	.bento-cell--row-2 {
 		grid-row: span 1;
 	}
 }
 
 .bento-cell {
-	background: var(--bg-card);
+	background: var(--surface-strong);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-lg);
 	padding: var(--space-lg);
@@ -537,7 +564,7 @@ a.bento-cell {
 }
 
 a.bento-cell:hover {
-	background: color-mix(in srgb, var(--bg-card) 90%, var(--accent) 10%);
+	background: color-mix(in srgb, var(--surface-strong) 90%, var(--accent) 10%);
 	border-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
@@ -547,8 +574,8 @@ a.bento-cell:focus-visible {
 }
 
 .bento-cell--hero {
-	background: transparent;
-	border: none;
+	background: var(--surface-strong);
+	border: 1px solid var(--border);
 	padding: var(--space-xl) var(--space-lg);
 }
 
@@ -966,8 +993,17 @@ img {
 
 /* --- Focus --- */
 :focus-visible {
-	outline: 2px solid var(--accent-text);
+	outline: 2px solid var(--focus-inner);
 	outline-offset: 2px;
+	box-shadow: 0 0 0 4px var(--focus-outer);
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+[role="button"] {
+	min-width: 44px;
+	min-height: 44px;
 }
 
 /* --- Lists (in prose) --- */

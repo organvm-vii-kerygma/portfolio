@@ -1,71 +1,25 @@
 ---
-// src/components/home/CTABentoCell.astro
-// Consultation CTA cell (2x1 wide) for bento grid.
-
 import { base } from '../../utils/paths';
 ---
 
-<div class="bento-cell bento-cell--span-2 cta-cell">
-	<h2 class="cta-cell__heading">Let's work together</h2>
-	<p class="cta-cell__text">I bring 15 years of systems thinking to every engagement.</p>
-	<div class="cta-cell__actions">
-		<a href={`${base}consult/`} class="cta-cell__btn cta-cell__btn--primary">Start a conversation</a>
-		<a href="mailto:etceter4@etceter4.com" class="cta-cell__btn cta-cell__btn--secondary"
-			>Email directly</a
-		>
+<section class="bento-cell bento-cell--span-full cta-cell" aria-labelledby="next-step-title">
+	<div>
+		<p class="cta-cell__eyebrow">Choose the relevant next step</p>
+		<h2 id="next-step-title">A clear door for each audience.</h2>
 	</div>
-</div>
+	<div class="cta-cell__actions">
+		<a href={`${base}consult/`} class="button button--primary">Discuss a systems audit</a>
+		<a href={`${base}resume/`} class="button button--secondary">View role-fit résumé</a>
+	</div>
+</section>
 
 <style>
-	.cta-cell {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	.cta-cell__heading {
-		font-family: var(--font-heading);
-		font-size: 1.3rem;
-		margin-bottom: var(--space-xs);
-	}
-
-	.cta-cell__text {
-		font-size: 0.9rem;
-		color: var(--text-secondary);
-		margin-bottom: var(--space-md);
-	}
-
-	.cta-cell__actions {
-		display: flex;
-		gap: var(--space-sm);
-		flex-wrap: wrap;
-	}
-
-	.cta-cell__btn {
-		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		padding: var(--space-xs) var(--space-md);
-		border-radius: var(--radius-sm);
-		text-decoration: none;
-		transition: all var(--transition-fast);
-	}
-
-	.cta-cell__btn--primary {
-		background: var(--accent);
-		color: var(--bg-primary);
-	}
-
-	.cta-cell__btn--primary:hover {
-		background: var(--accent-hover);
-	}
-
-	.cta-cell__btn--secondary {
-		border: 1px solid var(--border);
-		color: var(--text-secondary);
-	}
-
-	.cta-cell__btn--secondary:hover {
-		border-color: var(--accent);
-		color: var(--accent);
-	}
+	.cta-cell { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xl); }
+	.cta-cell__eyebrow { color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	h2 { font: clamp(1.4rem, 3vw, 2.1rem)/1.15 var(--font-heading); margin-top: var(--space-sm); }
+	.cta-cell__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+	.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: var(--radius-sm); padding: var(--space-sm) var(--space-lg); font: 700 0.8rem/1.2 var(--font-mono); text-decoration: none; }
+	.button--primary { color: var(--text-on-accent); background: var(--accent); }
+	.button--secondary { color: var(--text-primary); border: 1px solid var(--border-bright); background: var(--surface-subtle); }
+	@media (max-width: 700px) { .cta-cell { align-items: flex-start; flex-direction: column; } .cta-cell__actions, .button { width: 100%; } }
 </style>

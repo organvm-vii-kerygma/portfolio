@@ -300,19 +300,37 @@ assert(
 		'Visual selection alone neither authorizes an implementation effect nor closes a P07 leaf or phase.',
 	'selection alone must not authorize implementation',
 );
-assert(manifest.selection_status === 'UNSELECTED', 'visual directions must remain unselected');
+assert(manifest.status === 'OPERATOR_SELECTED', 'visual manifest must record operator selection');
+assert(manifest.selection_status === 'SELECTED', 'visual manifest must record selected state');
+assert(
+	manifest.selection_receipt?.chosen_direction === 'Living Evidence Field',
+	'visual manifest must select Living Evidence Field exactly',
+);
+assert(
+	hasExactUniqueStrings(manifest.selection_receipt?.rejected_directions, [
+		'Evidence Ledger',
+		'Systems Field Guide',
+		'Decision Brief',
+	]),
+	'visual manifest must reject all three prepared static directions',
+);
+assert(
+	manifest.selection_receipt?.rollback ===
+		'Restore the exact pre-selection main head 77c27d16a777af5fc0da8d6a0da503ae17f0d29f.',
+	'visual manifest must retain the exact rollback head',
+);
 assert(
 	collectKeys(manifest).every(
 		(key) =>
-			key === 'selection_status' ||
+			['selection_status', 'selection_receipt', 'chosen_direction'].includes(key) ||
 			!/(?:^selected|^chosen|^choice|selectionreceipt|selection_receipt)/i.test(key),
 	),
-	'visual manifest must not contain a selection-bearing field',
+	'visual manifest must not contain an unrecognized selection-bearing field',
 );
 assert(manifest.directions.length === 3, 'visual manifest must preserve exactly three directions');
 assert(
-	/No direction may be regenerated/.test(manifest.no_build_boundary),
-	'visual manifest must preserve the no-build boundary',
+	/without adopting any static mockup wholesale/.test(manifest.selection_receipt?.rationale),
+	'visual manifest must preserve the static-direction rejection boundary',
 );
 const expectedVisualDigests = [
 	'0446be226d12bc108f8120f7a656a79345e043eae7d45c65ee6f2dd099bfbf05',

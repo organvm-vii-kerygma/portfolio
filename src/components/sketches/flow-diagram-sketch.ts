@@ -50,6 +50,16 @@ export default function flowDiagramSketch(p: p5, container: HTMLElement) {
 		p.createCanvas(container.clientWidth, container.clientHeight);
 		p.frameRate(30);
 		parseData();
+		if (document.documentElement.dataset.ambientMotion === 'paused' && stages.length > 1) {
+			particles.push({
+				x: stages[0].x + stages[0].w,
+				y: stages[0].y + stages[0].h / 2,
+				stage: 0,
+				progress: 0.35,
+				speed: 0,
+				alive: true,
+			});
+		}
 	};
 
 	p.draw = () => {

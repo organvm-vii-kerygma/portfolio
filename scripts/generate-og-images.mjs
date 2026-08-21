@@ -12,6 +12,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
 import satori from 'satori';
+import { canonicalBase, siteConfig } from '../site.config.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
@@ -85,7 +86,7 @@ export async function generateOGImage(destPath, title, subtitle, accentColor = '
 											letterSpacing: '0.1em',
 											textTransform: 'uppercase',
 										},
-										children: 'Anthony James Padavano',
+										children: siteConfig.identity.name,
 									},
 								},
 								{
@@ -166,7 +167,9 @@ export async function generateOGImage(destPath, title, subtitle, accentColor = '
 								{
 									type: 'div',
 									props: {
-										children: 'organvm.github.io/portfolio',
+										children:
+											new URL(canonicalBase).host +
+											new URL(canonicalBase).pathname.replace(/\/$/, ''),
 									},
 								},
 								{
@@ -212,8 +215,8 @@ export async function generateOGImage(destPath, title, subtitle, accentColor = '
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
 	(async () => {
 		const pages = [
-			{ file: 'og-image.png', title: '4444j', subtitle: 'Creative Technologist' },
-			{ file: 'about.png', title: 'About Anthony', subtitle: 'Systems Architect' },
+			{ file: 'og-image.png', title: siteConfig.identity.name, subtitle: siteConfig.identity.role },
+			{ file: 'about.png', title: 'About Anthony', subtitle: siteConfig.identity.role },
 			{
 				file: 'resume.png',
 				title: 'Intelligence Ledger',

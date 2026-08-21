@@ -1,0 +1,29 @@
+---
+import type { ProjectCatalogEntry } from '../../data/project-catalog';
+import { base } from '../../utils/paths';
+
+interface Props {
+	project: ProjectCatalogEntry;
+}
+const { project } = Astro.props;
+---
+
+<article class="bento-cell selected-project">
+	<p class="selected-project__eyebrow">{project.organ.replace('-', ' ')}</p>
+	<h3>{project.title}</h3>
+	<p class="selected-project__summary">{project.summary}</p>
+	<ul aria-label={`${project.title} tags`}>
+		{project.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}
+	</ul>
+	<a href={`${base}${project.route.replace(/^\//, '')}`}>View case study<span aria-hidden="true"> →</span></a>
+</article>
+
+<style>
+	.selected-project { display: flex; flex-direction: column; min-height: 310px; border-left: 2px solid var(--organ-border, var(--accent)); }
+	.selected-project__eyebrow { color: var(--text-muted); font: 0.65rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	h3 { font: 1.25rem/1.2 var(--font-heading); margin: var(--space-md) 0; }
+	.selected-project__summary { color: var(--text-secondary); line-height: 1.55; }
+	ul { display: flex; flex-wrap: wrap; gap: var(--space-xs); list-style: none; margin-top: var(--space-lg); }
+	li { color: var(--text-muted); background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); font: 0.68rem/1.4 var(--font-mono); padding: 0.25rem 0.45rem; }
+	a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; padding-top: var(--space-lg); font-weight: 700; }
+</style>

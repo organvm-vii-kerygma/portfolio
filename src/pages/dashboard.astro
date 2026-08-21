@@ -122,7 +122,7 @@ const flagshipChartData = { repos: typedMetrics.flagship_vivification?.repos || 
         <StatGrid stats={[
           { value: vitals.substance.code_files.toLocaleString(), label: 'Code Files' },
           { value: vitals.substance.test_files, label: 'Test Files' },
-          { value: vitals.substance.ci_passing, label: 'Passing CI Workflows' },
+          { value: vitals.substance.repos_with_ci, label: 'Repositories with CI' },
           { value: registryShim.total_repos, label: 'Repositories' },
           { value: registryShim.implementation_status.ACTIVE || 0, label: 'Active' },
           { value: vitals.logos.essays, label: 'Essays' },

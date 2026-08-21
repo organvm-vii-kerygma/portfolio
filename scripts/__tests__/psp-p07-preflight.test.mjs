@@ -89,7 +89,31 @@ assertRejected(
 	(candidate) => {
 		candidate.selected_direction = 1;
 	},
-	/selection-bearing field/,
+	/unrecognized selection-bearing field/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.selection_receipt.chosen_direction = 'Evidence Ledger';
+	},
+	/select Living Evidence Field exactly/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.selection_receipt.rejected_directions.pop();
+	},
+	/reject all three prepared static directions/,
+	'manifest',
+);
+
+assertRejected(
+	(candidate) => {
+		candidate.selection_receipt.rollback = 'Restore main.';
+	},
+	/retain the exact rollback head/,
 	'manifest',
 );
 

@@ -1,0 +1,28 @@
+{
+  "schema_version": "portfolio.laurea_snapshot.v1",
+  "subject": "4444J99",
+  "generated_at": "2026-08-20T19:00:58.740323Z",
+  "source_repository": "organvm/laurea",
+  "source_sha": "a93d801c82d12589b4103a936724a856c91cf2b1",
+  "state": "ready",
+  "public_claim": {
+    "claim_id": "laurea.github-output-profile.4444J99.a93d801c82d1",
+    "claim_status": "derived_reviewed",
+    "evidence_state": "ready",
+    "disclosure_level": "L1",
+    "source_ref": "organvm/laurea@a93d801c82d12589b4103a936724a856c91cf2b1"
+  },
+  "composite": {
+    "tier": "top 1%",
+    "claim": "Top 1% GitHub output profile"
+  },
+  "limitations": [
+    "GitHub activity does not establish quality, reliability, adoption, or business impact."
+  ],
+  "metrics": {
+    "contributions_trailing_12_months": 34379,
+    "non_fork_repositories_visible": 290,
+    "pull_requests_opened_trailing_12_months": 4181,
+    "organizations_queried": 10
+  }
+}

@@ -34,10 +34,7 @@ describe('cross-catalog sync', () => {
 		}
 	});
 
-	it('project-index and organ-groups have the same slugs', () => {
-		const indexOnly = [...indexSlugs].filter((s) => !organGroupSlugs.has(s));
-		const groupOnly = [...organGroupSlugs].filter((s) => !indexSlugs.has(s));
-		expect(indexOnly, 'slugs in project-index but not organ-groups').toEqual([]);
-		expect(groupOnly, 'slugs in organ-groups but not project-index').toEqual([]);
+	it('project-index is derived from the complete canonical catalog', () => {
+		expect([...indexSlugs].sort()).toEqual([...catalogSlugs].sort());
 	});
 });

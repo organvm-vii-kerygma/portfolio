@@ -9,9 +9,10 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { canonicalBase } from '../site.config.mjs';
 
 const DIST = resolve('dist');
-const SITE_BASE = 'https://organvm.github.io/portfolio/';
+const SITE_BASE = canonicalBase;
 let exitCode = 0;
 
 if (!existsSync(DIST)) {

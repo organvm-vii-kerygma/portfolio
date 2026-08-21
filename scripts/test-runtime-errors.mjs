@@ -135,7 +135,7 @@ async function runRouteInteractions(page) {
 		})
 		.catch(() => {});
 
-	const menu = page.locator('.header__toggle').first();
+	const menu = page.locator('.site-header__menu').first();
 	if ((await menu.count()) > 0 && (await menu.isVisible())) {
 		await menu.click().catch(() => {});
 		await menu.click().catch(() => {});

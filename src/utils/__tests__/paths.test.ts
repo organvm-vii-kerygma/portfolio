@@ -9,11 +9,11 @@ describe('paths', () => {
 
 	it('canonicalBase includes /portfolio path', () => {
 		const url = new URL(canonicalBase);
-		expect(url.pathname).toBe('/portfolio');
+		expect(url.pathname).toBe('/portfolio/');
 	});
 
-	it('canonicalBase has no trailing slash', () => {
-		expect(canonicalBase.endsWith('/')).toBe(false);
+	it('canonicalBase has a stable trailing slash for URL resolution', () => {
+		expect(canonicalBase.endsWith('/')).toBe(true);
 	});
 
 	it('module exports base as a string', async () => {

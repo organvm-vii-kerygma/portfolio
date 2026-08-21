@@ -54,7 +54,9 @@ export interface SystemMetrics {
 	code_substance?: {
 		total_code_files: number;
 		total_test_files: number;
-		ci_passing: number;
+		ci_workflow_count: number;
+		repos_with_ci: number;
+		ci_adoption_pct: number;
 	};
 	flagship_vivification?: {
 		total_audited: number;

@@ -1,6 +1,6 @@
 ---
 import { schemaPerson } from '../../data/schema-person';
-import { canonicalBase } from '../../utils/paths';
+import { canonicalBase, siteUrl } from '../../utils/paths';
 
 interface Props {
 	description: string;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { description, ogImage, project } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, 'https://organvm.github.io').href;
+const canonicalURL = siteUrl(Astro.url.pathname.replace(/^\/portfolio\/?/, ''));
 
 const jsonLd = project
 	? {

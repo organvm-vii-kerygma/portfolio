@@ -204,7 +204,11 @@ describe('live-claim repo counts derive from vitals (no drifted hardcodes)', () 
 
 	// Canonical values a repo-count literal may legitimately equal — derived from
 	// vitals so they track the corpus automatically (total / active / CI-covered).
-	const CANONICAL = new Set([vitals.repos.total, vitals.repos.active, vitals.substance.ci_passing]);
+	const CANONICAL = new Set([
+		vitals.repos.total,
+		vitals.repos.active,
+		vitals.substance.repos_with_ci,
+	]);
 	// Documented narrative/subset counts that are intentionally NOT the ecosystem
 	// total. Each is a real subset or a DATED snapshot, and is scoped to the file it
 	// legitimately appears in — so the exemption can never silently whitelist a stale
@@ -248,7 +252,7 @@ describe('live-claim repo counts derive from vitals (no drifted hardcodes)', () 
 		}
 		expect(
 			offenders,
-			`stale repo-count literals — must equal a canonical value (total=${vitals.repos.total}, active=${vitals.repos.active}, ci=${vitals.substance.ci_passing}) or a DOCUMENTED_SUBSETS entry:\n  ${offenders.join('\n  ')}`,
+			`stale repo-count literals — must equal a canonical value (total=${vitals.repos.total}, active=${vitals.repos.active}, ci=${vitals.substance.repos_with_ci}) or a DOCUMENTED_SUBSETS entry:\n  ${offenders.join('\n  ')}`,
 		).toEqual([]);
 	});
 });

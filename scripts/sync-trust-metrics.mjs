@@ -103,6 +103,7 @@ async function syncVitals() {
 		const existingVitals = fs.existsSync(VITALS_PATH)
 			? JSON.parse(fs.readFileSync(VITALS_PATH, 'utf8'))
 			: {};
+		const reposWithCi = c.repos_with_ci ?? existingVitals.substance?.repos_with_ci ?? 0;
 
 		const vitals = {
 			repos: {
@@ -119,8 +120,11 @@ async function syncVitals() {
 				// checkable substance metric is test files; this keeps `automated_tests`
 				// equal to it (surfaces relabel to "test files") instead of a fabrication.
 				automated_tests: c.test_files ?? existingVitals.substance?.automated_tests ?? 0,
-				ci_passing: c.ci_workflows ?? existingVitals.substance?.ci_passing ?? 0,
-				ci_coverage_pct: existingVitals.substance?.ci_coverage_pct ?? 90,
+				ci_workflow_count: c.ci_workflows ?? existingVitals.substance?.ci_workflow_count ?? 0,
+				repos_with_ci: reposWithCi,
+				ci_adoption_pct: Math.round(
+					(reposWithCi / Math.max(c.total_repos ?? existingVitals.repos?.total ?? 1, 1)) * 100,
+				),
 			},
 			logos: {
 				essays: fs.existsSync(LOGOS_DIR)

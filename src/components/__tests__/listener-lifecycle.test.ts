@@ -11,14 +11,37 @@ describe('client listener lifecycle guards', () => {
 		const source = read('components/Header.astro');
 		expect(source).toContain('new AbortController()');
 		expect(source).toContain('state.controller?.abort()');
+		expect(source).toContain("event.key === 'Escape'");
+		expect(source).toContain("themeQuery.addEventListener('change'");
+		expect(source).toContain('__themeStorageFallback');
+		expect(source).toContain('fallback.preference = next');
+		expect(source).toContain("themeColor.content = theme === 'light' ? '#f5f5f0' : '#0a0a0b'");
+		expect(source).toContain('<Search />');
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
-	it('footer theme toggles are rebound via AbortController and singleton media listener', () => {
+	it('runtime interaction probes target the current mobile menu control', () => {
+		for (const path of [
+			'scripts/a11y-runtime-audit.mjs',
+			'scripts/test-runtime-errors.mjs',
+			'src/e2e/helpers.ts',
+		]) {
+			const source = readFileSync(resolve(path), 'utf-8');
+			expect(source).toContain('.site-header__menu');
+			expect(source).not.toContain('.header__toggle');
+		}
+	});
+
+	it('footer carries no duplicate theme controller', () => {
 		const source = read('components/Footer.astro');
-		expect(source).toContain('new AbortController()');
-		expect(source).toContain('state.controller?.abort()');
-		expect(source).toContain('if (!state.mediaListener)');
+		expect(source).not.toContain('theme-toggle');
+		expect(source).not.toContain('<script>');
+	});
+
+	it('ambient motion retains an in-memory preference when storage is unavailable', () => {
+		const source = read('components/AmbientMotionControl.astro');
+		expect(source).toContain('__ambientMotionFallback');
+		expect(source).toContain('fallback.preference = next');
 	});
 
 	it('gallery controls clean up fullscreen and click listeners per navigation', () => {

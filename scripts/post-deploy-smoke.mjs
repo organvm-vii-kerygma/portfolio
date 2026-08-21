@@ -5,16 +5,17 @@
  * Exit 0 = healthy, exit 1 = broken (triggers rollback).
  */
 
-const BASE_URL = (process.env.DEPLOY_URL || 'https://organvm.github.io/portfolio').replace(
-	/\/$/,
-	'',
-);
+import { canonicalBase } from '../site.config.mjs';
+
+const BASE_URL = (process.env.DEPLOY_URL || canonicalBase).replace(/\/$/, '');
 
 const CHECKS = [
 	{ path: '/', expect: { status: 200, bodyContains: 'Anthony' } },
 	{ path: '/about/', expect: { status: 200, bodyContains: 'About' } },
 	{ path: '/dashboard/', expect: { status: 200, bodyContains: 'Dashboard' } },
 	{ path: '/resume/', expect: { status: 200 } },
+	{ path: '/projects/', expect: { status: 200, bodyContains: 'Canonical project catalog' } },
+	{ path: '/projects/limen/', expect: { status: 200, bodyContains: 'Governed multi-agent' } },
 	{ path: '/projects/orchestration-hub/', expect: { status: 200 } },
 ];
 

@@ -1,15 +1,15 @@
 ---
-import { base } from '../../utils/paths';
+import { base, siteConfig, siteUrl } from '../../utils/paths';
 ---
 
 <!-- RSS Feed -->
-<link rel="alternate" type="application/rss+xml" title="Portfolio Feed" href={`${base}feed.xml`} />
+<link rel="alternate" type="application/rss+xml" title="Portfolio Feed" href={siteUrl('feed.xml')} />
 
 <!-- PWA -->
 <link rel="manifest" href={`${base}manifest.json`} />
 
 <!-- Identity verification -->
-<link rel="me" href="https://github.com/4444j99" />
+<link rel="me" href={siteConfig.profiles.github} />
 
 <!-- Privacy-friendly analytics by Plausible -->
 <script is:inline async src="https://plausible.io/js/pa-RjIinI-oQ3QXE-LnbY2eA.js"></script>

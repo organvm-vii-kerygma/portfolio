@@ -15,6 +15,7 @@ import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, resolve } from 'node:path';
+import { siteUrl } from '../site.config.mjs';
 
 const WORKSPACE = resolve(homedir(), 'Workspace');
 const doWrite = process.argv.includes('--write') || process.argv.includes('--commit');
@@ -76,7 +77,7 @@ const HUB_FOOTER = [
 	'',
 	'**Explore the System**',
 	'',
-	`[Portfolio](https://organvm.github.io/portfolio/) · [System Directory](https://organvm.github.io/portfolio/directory/) · [${essaysLabel}](https://organvm.github.io/public-process/) · [Knowledge Base](https://organvm.github.io/portfolio/projects/knowledge-base/) · [Consult](https://organvm.github.io/portfolio/consult/)`,
+	`[Portfolio](${siteUrl()}) · [System Directory](${siteUrl('directory/')}) · [${essaysLabel}](https://organvm.github.io/public-process/) · [Knowledge Base](${siteUrl('projects/knowledge-base/')}) · [Consult](${siteUrl('consult/')})`,
 	'',
 	'</div>',
 	'<!-- PORTFOLIO-HUB-END -->',

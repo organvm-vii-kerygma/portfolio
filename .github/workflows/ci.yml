@@ -12,7 +12,7 @@ on:
   # a schedule/dispatch event keeps the live numbers current without a human push.
   # This absorbs the retired refresh-data.yml (no commit->PR->auto-merge dance).
   schedule:
-    - cron: '30 6 * * *' # 06:30 UTC, 30 min after the corpus metrics-refresh
+    - cron: '17 10 * * *' # 10:17 UTC, one hour after the upstream LAVREA run
   repository_dispatch:
     types: [metrics-refresh]
 
@@ -71,6 +71,9 @@ jobs:
           else
             echo "::warning::Corpus metrics fetch failed — building with committed src/data (last-known-good)."
           fi
+
+      - name: Sync LAVREA JSON evidence
+        run: npm run sync:laurea
 
       # --- Lint & Typecheck ---
       - name: Lint

@@ -18,11 +18,12 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
+import { siteUrl } from '../site.config.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const LOGOS_DIR = join(ROOT, 'src', 'content', 'logos');
 const OUT_DIR = join(ROOT, 'dist-syndication', 'devto');
-const CANONICAL_BASE = 'https://organvm.github.io/portfolio/logos';
+const CANONICAL_BASE = siteUrl('logos').replace(/\/$/, '');
 
 /**
  * Parse YAML-ish frontmatter from a markdown file.

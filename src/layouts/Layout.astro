@@ -18,7 +18,7 @@ import ThemeRestore from '../components/scripts/ThemeRestore.astro';
 import WebVitals from '../components/scripts/WebVitals.astro';
 import ShibuiGlint from '../components/shibui/ShibuiGlint.astro';
 import ShibuiOnboarding from '../components/shibui/ShibuiOnboarding.astro';
-import { canonicalBase } from '../utils/paths';
+import { canonicalBase, siteUrl } from '../utils/paths';
 
 interface Props {
 	title: string;
@@ -39,7 +39,7 @@ interface Props {
 }
 
 const slug = Astro.url.pathname.replace(/^\/portfolio\//, '').replace(/\/$/, '') || 'index';
-const defaultOG = `${canonicalBase}/og/${slug}.png`;
+const defaultOG = `${canonicalBase}og/${slug}.png`;
 const {
 	title,
 	description = 'Creative technologist building autonomous creative systems and treating governance as artistic medium.',
@@ -50,7 +50,8 @@ const {
 	keywords = [],
 	shibuiFloor,
 } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, 'https://organvm.github.io').href;
+const routePath = Astro.url.pathname.replace(/^\/portfolio\/?/, '');
+const canonicalURL = siteUrl(routePath);
 ---
 
 <!doctype html>

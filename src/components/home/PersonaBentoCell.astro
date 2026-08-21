@@ -8,8 +8,9 @@ import { base } from '../../utils/paths';
 const personas = personasData.personas;
 ---
 
-<div class="bento-cell bento-cell--row-2 persona-cell">
-	<span class="persona-cell__label">I work as</span>
+<section class="bento-cell bento-cell--span-full persona-cell" aria-labelledby="role-fit-title">
+	<h2 id="role-fit-title">Role-fit résumés</h2>
+	<p class="persona-cell__intro">Audience-specific views of one career—not competing identities.</p>
 	<nav class="persona-cell__list" aria-label="Resume personas">
 		{
 			personas.map((p) => (
@@ -22,7 +23,7 @@ const personas = personasData.personas;
 			))
 		}
 	</nav>
-</div>
+</section>
 
 <style>
 	.persona-cell {
@@ -30,18 +31,13 @@ const personas = personasData.personas;
 		flex-direction: column;
 	}
 
-	.persona-cell__label {
-		font-family: var(--font-mono);
-		font-size: 0.65rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: var(--text-muted);
-		margin-bottom: var(--space-sm);
-	}
+	.persona-cell h2 { font: clamp(1.5rem, 3vw, 2.2rem)/1.15 var(--font-heading); }
+	.persona-cell__intro { color: var(--text-secondary); margin: var(--space-xs) 0 var(--space-lg); }
 
 	.persona-cell__list {
 		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: var(--space-xs);
 	}
 
@@ -54,6 +50,8 @@ const personas = personasData.personas;
 		text-decoration: none;
 		color: var(--text-secondary);
 		transition: all var(--transition-fast);
+		min-height: 56px;
+		border: 1px solid var(--border);
 	}
 
 	.persona-cell__link:hover {
@@ -76,4 +74,5 @@ const personas = personasData.personas;
 		transform: translateX(3px);
 		color: var(--accent);
 	}
+	@media (max-width: 800px) { .persona-cell__list { grid-template-columns: 1fr; } }
 </style>

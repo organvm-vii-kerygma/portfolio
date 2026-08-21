@@ -7,9 +7,10 @@
   "substance": {
     "code_files": 23121,
     "test_files": 4337,
-    "automated_tests": 2000,
-    "ci_passing": 107,
-    "ci_coverage_pct": 63
+    "automated_tests": 4337,
+    "ci_workflow_count": 107,
+    "repos_with_ci": 107,
+    "ci_adoption_pct": 63
   },
   "logos": {
     "essays": 49,

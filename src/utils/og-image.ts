@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import satori from 'satori';
+import { canonicalBase } from './paths';
 
 // Satori requires raw TTF/OTF — woff2 is not supported.
 // Prefer local fonts so static builds do not depend on network availability.
@@ -122,7 +123,9 @@ export async function generateOGImage(
 											color: '#6e6e71',
 											letterSpacing: '0.05em',
 										},
-										children: 'organvm.github.io/portfolio',
+										children:
+											new URL(canonicalBase).host +
+											new URL(canonicalBase).pathname.replace(/\/$/, ''),
 									},
 								},
 								{

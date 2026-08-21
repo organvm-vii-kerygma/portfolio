@@ -1,11 +1,12 @@
 import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { describe, expect, it } from 'vitest';
+import { canonicalBase } from '../../../site.config.mjs';
 
 const DIST = resolve(process.cwd(), 'dist');
 const describeBuiltOutput = existsSync(DIST) ? describe : describe.skip;
 const FEED = resolve(DIST, 'feed.xml');
-const SITE_BASE = 'https://organvm.github.io/portfolio/';
+const SITE_BASE = canonicalBase;
 
 function variants(relativePath: string): string[] {
 	const normalized = relativePath.replace(/^\/+/, '');

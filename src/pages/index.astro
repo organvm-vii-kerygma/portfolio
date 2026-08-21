@@ -1,68 +1,59 @@
 ---
-import BentoCard from '../components/home/BentoCard.astro';
+import AudienceDoor from '../components/home/AudienceDoor.astro';
 import BentoGrid from '../components/home/BentoGrid.astro';
-import ControlsBentoCell from '../components/home/ControlsBentoCell.astro';
 import CTABentoCell from '../components/home/CTABentoCell.astro';
-import FeaturedBentoCard from '../components/home/FeaturedBentoCard.astro';
 import HeroBentoCell from '../components/home/HeroBentoCell.astro';
 import LaurelsBentoCell from '../components/home/LaurelsBentoCell.astro';
 import PersonaBentoCell from '../components/home/PersonaBentoCell.astro';
-import { organColorMap } from '../data/organ-colors';
-import { featuredNumbers, organGroups } from '../data/organ-groups';
-import vitals from '../data/vitals.json';
+import SelectedProjectCard from '../components/home/SelectedProjectCard.astro';
+import { projectCatalogBySlug } from '../data/project-catalog';
 import Layout from '../layouts/Layout.astro';
-import { base } from '../utils/paths';
+import { base, siteConfig } from '../utils/paths';
 
-// Resolve slugs to full hrefs at build time
-const resolvedGroups = organGroups.map((group) => ({
-	...group,
-	projects: group.projects.map((p) => ({ ...p, href: `${base}projects/${p.slug}/` })),
-}));
-
-const allProjects = resolvedGroups.flatMap((g) =>
-	g.projects.map((p) => ({
-		...p,
-		organ: g.name,
-		organColor: organColorMap[g.organ] || 'var(--accent)',
-	})),
-);
-const featured = allProjects.filter((p) => featuredNumbers.has(p.number)).slice(0, 2);
-const nonFeatured = allProjects.filter((p) => !featuredNumbers.has(p.number)).slice(0, 6);
+const selectedSlugs = [
+	'limen',
+	'public-record-data-scrapper',
+	'agentic-titan',
+	'orchestration-hub',
+];
+const selectedProjects = selectedSlugs.map((slug) => {
+	const project = projectCatalogBySlug.get(slug);
+	if (!project) throw new Error(`Selected project missing from canonical catalog: ${slug}`);
+	return project;
+});
 ---
 
 <Layout
-	title="Anthony James Padavano — AI Orchestration Architect"
-	description={`Portfolio of Anthony James Padavano — AI Orchestration Architect, Systems Engineer, and Creative Technologist building a ${vitals.repos.total}-repository autonomous creative-institutional system.`}
-	mainAttrs={{ 'data-portfolio-view': 'engineering' }}
-	keywords={['AI Orchestration', 'Systems Architect', 'Platform Governance', 'Logocentric Architecture', 'Staff Engineer', 'Multi-Agent Systems', 'Python', 'TypeScript', 'CI/CD Automation']}
+	title={`${siteConfig.identity.name} — ${siteConfig.identity.role}`}
+	description="Production-systems architecture for complex software delivery: governance, routing, verification, cost boundaries, evidence, and handoff."
+	keywords={['Production systems', 'Systems architecture', 'Software delivery governance', 'Multi-agent systems', 'Staff engineer']}
 >
 	<BentoGrid>
 		<HeroBentoCell />
-		<ControlsBentoCell />
-		{featured.map((p) => (
-			<FeaturedBentoCard
-				title={p.title}
-				tagline={p.tagline}
-				slug={p.slug}
-				tags={p.tags}
-				skills={p.skills}
-				organ={p.organ}
-				organColor={p.organColor}
-			/>
-		))}
-		{nonFeatured.map((p) => (
-			<BentoCard
-				title={p.title}
-				slug={p.slug}
-				tags={p.tags}
-				skills={p.skills}
-				organ={p.organ}
-				organColor={p.organColor}
-			/>
-		))}
-		<a href={`${base}#work`} class="bento-cell bento-card bento-card--see-all">
-			<span class="bento-card__title">See all {allProjects.length} projects &rarr;</span>
+		<AudienceDoor
+			eyebrow="For clients"
+			title="Make a risky initiative governable."
+			description="A bounded, read-only entry point for diagnosing authority, routing, verification, and handoff failures."
+			href={`${base}consult/`}
+			action="Discuss a systems audit"
+		/>
+		<AudienceDoor
+			eyebrow="For hiring teams"
+			title="Evaluate the role fit."
+			description="Audience-specific views of one career, with the same work, scope, and authorship boundaries."
+			href={`${base}resume/`}
+			action="View role-fit résumé"
+		/>
+
+		<header class="bento-section-heading bento-cell--span-full">
+			<p>Evidence-led case studies</p>
+			<h2>Selected work</h2>
+		</header>
+		{selectedProjects.map((project) => <SelectedProjectCard project={project} />)}
+		<a href={`${base}projects/`} class="bento-cell bento-cell--span-full see-all">
+			<span>See all projects</span><span aria-hidden="true">→</span>
 		</a>
+
 		<PersonaBentoCell />
 		<LaurelsBentoCell />
 		<CTABentoCell />
@@ -70,15 +61,8 @@ const nonFeatured = allProjects.filter((p) => !featuredNumbers.has(p.number)).sl
 </Layout>
 
 <style>
-	.bento-card--see-all {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		color: var(--text-muted);
-	}
-
-	.bento-card--see-all:hover {
-		color: var(--accent);
-	}
+	.bento-section-heading { padding: var(--space-xl) 0 var(--space-sm); }
+	.bento-section-heading p { color: var(--text-muted); font: 0.68rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	.bento-section-heading h2 { font: clamp(1.8rem, 4vw, 3rem)/1.1 var(--font-heading); margin-top: var(--space-xs); }
+	.see-all { display: flex; min-height: 72px; align-items: center; justify-content: space-between; font-weight: 700; }
 </style>

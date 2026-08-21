@@ -32,7 +32,7 @@ export async function replayAstroPageLoad(page: Page, cycles = 3) {
 }
 
 export async function assertMenuSingleFire(page: Page) {
-	const toggle = page.locator('.header__toggle').first();
+	const toggle = page.locator('.site-header__menu').first();
 	if ((await toggle.count()) === 0 || !(await toggle.isVisible())) return;
 
 	await toggle.click();
@@ -75,9 +75,12 @@ export async function assertThemeSingleFire(page: Page) {
 	const after = await page.evaluate(() => ({
 		pref: localStorage.getItem('theme-preference'),
 		theme: document.documentElement.dataset.theme ?? null,
+		themeColor:
+			document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content ?? null,
 	}));
 
 	expect(after.pref !== before.pref || after.theme !== before.theme).toBe(true);
+	expect(after.themeColor).toBe(after.theme === 'light' ? '#f5f5f0' : '#0a0a0b');
 }
 
 export async function assertFullscreenSingleFire(page: Page) {

@@ -14,11 +14,27 @@ export interface ProjectCatalogEntry {
 	organ: OrganKey;
 	tags: string[];
 	summary: string;
+	route: string;
+	audienceRelevance: Array<'client' | 'recruiter'>;
 	sourceRepoName?: string;
 	publishedAt?: string;
+	evidenceReference?: string;
 }
 
-export const projectCatalog: ProjectCatalogEntry[] = [
+const projectCatalogEntries: Array<
+	Omit<ProjectCatalogEntry, 'route' | 'audienceRelevance'> &
+		Partial<Pick<ProjectCatalogEntry, 'audienceRelevance'>>
+> = [
+	{
+		slug: 'limen',
+		title: 'Limen',
+		organ: 'META-ORGANVM',
+		tags: ['Systems', 'Governance', 'Multi-agent'],
+		summary:
+			'A governed production system that turns multi-agent work into bounded, verifiable delivery with explicit authority and handoff.',
+		sourceRepoName: 'limen',
+		evidenceReference: 'https://github.com/organvm/limen',
+	},
 	{
 		slug: 'narratological-lenses',
 		title: 'Narratological Algorithmic Lenses',
@@ -188,6 +204,61 @@ export const projectCatalog: ProjectCatalogEntry[] = [
 		summary: 'Meta-governance architecture spanning eight organs and shared infrastructure.',
 	},
 ];
+
+const clientRelevantSlugs = new Set([
+	'limen',
+	'org-architecture',
+	'recursive-engine',
+	'metasystem-master',
+	'ai-council',
+	'life-my-midst-in',
+	'your-fit-tailored',
+	'the-actual-news',
+	'aetheria-rpg',
+	'agentic-titan',
+	'orchestration-hub',
+	'ai-conductor',
+	'distribution-strategy',
+	'public-record-data-scrapper',
+	'eight-organ-system',
+]);
+
+const recruiterRelevantSlugs = new Set([
+	'limen',
+	'narratological-lenses',
+	'knowledge-base',
+	'org-architecture',
+	'linguistic-atomization',
+	'recursive-engine',
+	'metasystem-master',
+	'ai-council',
+	'generative-music',
+	'life-my-midst-in',
+	'block-warfare',
+	'the-actual-news',
+	'aetheria-rpg',
+	'agentic-titan',
+	'orchestration-hub',
+	'public-process',
+	'ai-conductor',
+	'community-infrastructure',
+	'distribution-strategy',
+	'public-record-data-scrapper',
+	'collective-persona-operations',
+	'a-mavs-olevm',
+	'eight-organ-system',
+]);
+
+export const projectCatalog: ProjectCatalogEntry[] = projectCatalogEntries.map((project) => ({
+	...project,
+	route: `/projects/${project.slug}/`,
+	audienceRelevance:
+		project.audienceRelevance ??
+		([
+			...(clientRelevantSlugs.has(project.slug) ? (['client'] as const) : []),
+			...(recruiterRelevantSlugs.has(project.slug) ? (['recruiter'] as const) : []),
+		] satisfies Array<'client' | 'recruiter'>),
+}));
 
 export const projectCatalogBySlug = new Map(
 	projectCatalog.map((project) => [project.slug, project]),

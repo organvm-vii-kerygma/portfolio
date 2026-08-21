@@ -87,6 +87,16 @@ export default function backgroundSketch(p: p5, container: HTMLElement) {
 			}
 		}
 
+		const rootStyle = document.documentElement.style;
+		rootStyle.setProperty(
+			'--spectrum-primary',
+			`${Math.round(color1[0])}, ${Math.round(color1[1])}, ${Math.round(color1[2])}`,
+		);
+		rootStyle.setProperty(
+			'--spectrum-complement',
+			`${Math.round(color2[0])}, ${Math.round(color2[1])}, ${Math.round(color2[2])}`,
+		);
+
 		// Slowly drift hues each frame
 		currentHue1 = (currentHue1 + HUE_DRIFT) % 360;
 		color1 = hslToRgb(currentHue1, 0.8, 0.5);
