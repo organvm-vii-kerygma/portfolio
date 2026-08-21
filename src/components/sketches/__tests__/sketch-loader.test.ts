@@ -2,7 +2,7 @@
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 
 // Parse original file for static tests
 const loaderSource = readFileSync(resolve(__dirname, '../sketch-loader.ts'), 'utf-8');
@@ -11,12 +11,12 @@ const moduleEntries = [...loaderSource.matchAll(/['"]?([a-z-]+)['"]?:\s*\(\)\s*=
 const registeredIds = moduleEntries.flatMap((m) => (m[1] ? [m[1]] : []));
 
 type MockP5Shape = {
-	remove: ReturnType<typeof vi.fn>;
-	noLoop: ReturnType<typeof vi.fn>;
-	loop: ReturnType<typeof vi.fn>;
-	redraw: ReturnType<typeof vi.fn>;
-	draw: ReturnType<typeof vi.fn>;
-	mousePressed?: ReturnType<typeof vi.fn>;
+	remove: Mock<() => void>;
+	noLoop: Mock<() => void>;
+	loop: Mock<() => void>;
+	redraw: Mock<() => void>;
+	draw: Mock<() => void>;
+	mousePressed?: Mock<() => void>;
 };
 
 type TestIntersectionEntry = Pick<IntersectionObserverEntry, 'isIntersecting' | 'target'>;
