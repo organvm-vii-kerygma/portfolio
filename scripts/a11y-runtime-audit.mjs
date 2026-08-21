@@ -127,17 +127,28 @@ async function runInteractionChecks(page, checks = []) {
 		if (check === 'dropdown-menu') {
 			const trigger = page.locator('.header__dropdown-trigger').first();
 			if ((await trigger.count()) === 0) {
-				results.push({ check, status: 'skip', detail: 'dropdown trigger missing' });
+				results.push({ check, status: 'fail', detail: 'required dropdown trigger missing' });
 				continue;
 			}
 			if (!(await trigger.isVisible())) {
-				results.push({ check, status: 'skip', detail: 'dropdown trigger hidden in viewport' });
+				results.push({
+					check,
+					status: 'fail',
+					detail: 'required dropdown trigger hidden in viewport',
+				});
 				continue;
 			}
 			await trigger.click();
-			const openCount = await page.locator('.header__dropdown-menu[data-open]').count();
+			const openSelector =
+				'details[data-nav-group][open] > .header__dropdown-menu, .header__dropdown-menu[data-open]';
+			await page.locator(openSelector).first().waitFor({ state: 'visible', timeout: 1000 });
+			const openCount = await page.locator(openSelector).count();
 			await page.keyboard.press('Escape');
-			const closedCount = await page.locator('.header__dropdown-menu[data-open]').count();
+			await page.waitForFunction(
+				(selector) => document.querySelectorAll(selector).length === 0,
+				openSelector,
+			);
+			const closedCount = await page.locator(openSelector).count();
 			results.push({
 				check,
 				status: openCount > 0 && closedCount === 0 ? 'pass' : 'fail',

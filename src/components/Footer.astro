@@ -2,25 +2,84 @@
 import { base, siteConfig } from '../utils/paths';
 
 const year = new Date().getFullYear();
-const links = [
-	['Projects', `${base}projects/`],
-	['Résumé', `${base}resume/`],
-	['About', `${base}about/`],
-	['Contact', `mailto:${siteConfig.contact.email}`],
-	['LinkedIn', siteConfig.profiles.linkedin],
-	['GitHub', siteConfig.profiles.github],
+const groups = [
+	{
+		label: 'Work',
+		links: [
+			['Projects', `${base}projects/`],
+			['Résumés', `${base}resume/`],
+			['Products', `${base}products/`],
+			['Roadmap', `${base}roadmap/`],
+		],
+	},
+	{
+		label: 'Explore',
+		links: [
+			['Essays', `${base}essays/`],
+			['Logos', `${base}logos/`],
+			['Gallery', `${base}gallery/`],
+			['Directory', `${base}directory/`],
+		],
+	},
+	{
+		label: 'About',
+		links: [
+			['About', `${base}about/`],
+			['Community', `${base}community/`],
+			['Consult', `${base}consult/`],
+			['Press', `${base}press/`],
+		],
+	},
+	{
+		label: 'Connect',
+		links: [
+			['Contact', `mailto:${siteConfig.contact.email}`],
+			['LinkedIn', siteConfig.profiles.linkedin],
+			['GitHub', siteConfig.profiles.github],
+		],
+	},
 ];
 ---
 
 <footer class="site-footer">
-	<nav aria-label="Footer navigation">{links.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
-	<p>&copy; {year} {siteConfig.identity.name}</p>
+	<div class="site-footer__inner">
+		<div class="site-footer__intro">
+			<a class="site-footer__brand" href={base}>AJP</a>
+			<p>{siteConfig.identity.role}. Evidence-led systems, software, and practice.</p>
+		</div>
+		<nav aria-label="Footer navigation">
+			{groups.map((group) => (
+				<div>
+					<p>{group.label}</p>
+					{group.links.map(([label, href]) => <a href={href}>{label}</a>)}
+				</div>
+			))}
+		</nav>
+		<div class="site-footer__bottom">
+			<p>&copy; {year} {siteConfig.identity.name}</p>
+			<p>Built as a living evidence field.</p>
+		</div>
+	</div>
 </footer>
 
 <style>
-	.site-footer { width: min(1200px, calc(100% - 2rem)); margin: var(--space-3xl) auto 0; padding: var(--space-xl) 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: var(--space-lg); color: var(--text-muted); }
-	nav { display: flex; flex-wrap: wrap; gap: var(--space-md); }
-	a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-secondary); }
-	p { align-self: center; font-size: 0.78rem; }
-	@media (max-width: 700px) { .site-footer { align-items: flex-start; flex-direction: column; } }
+	.site-footer { margin-top: var(--space-3xl); color: var(--text-muted); background: #08080a; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+	.site-footer__inner { width: min(1200px, calc(100% - 2rem)); margin: 0 auto; padding: var(--space-2xl) 0 var(--space-lg); }
+	.site-footer__intro { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); }
+	.site-footer__brand { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; color: var(--text-primary); font: 800 0.82rem/1 var(--font-mono); letter-spacing: 0.12em; text-decoration: none; }
+	.site-footer__intro p { max-width: none; color: var(--text-secondary); font-size: 0.88rem; }
+	nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xl); padding: var(--space-lg) 0; }
+	nav > div { display: flex; flex-direction: column; align-items: flex-start; }
+	nav p { margin-bottom: var(--space-xs); color: var(--text-muted); font: 0.65rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+	nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--text-secondary); font-size: 0.82rem; }
+	nav a:hover, nav a:focus-visible { color: var(--text-primary); }
+	.site-footer__bottom { min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); padding: var(--space-md) calc(56px + var(--space-lg)) 0 0; border-top: 1px solid var(--border); }
+	.site-footer__bottom p { max-width: none; font: 0.68rem/1.5 var(--font-mono); }
+	:global(html[data-theme='light']) .site-footer { background: #fffffc; }
+	@media (max-width: 900px) { nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+	@media (max-width: 520px) {
+		.site-footer__intro { grid-template-columns: 1fr; gap: var(--space-sm); }
+		nav { grid-template-columns: 1fr 1fr; gap: var(--space-lg) var(--space-md); }
+		.site-footer__bottom { min-height: 88px; align-items: flex-start; flex-direction: column; justify-content: flex-start; gap: var(--space-xs); padding-right: calc(56px + var(--space-md)); }
+	}
 </style>

@@ -11,12 +11,14 @@ describe('client listener lifecycle guards', () => {
 		const source = read('components/Header.astro');
 		expect(source).toContain('new AbortController()');
 		expect(source).toContain('state.controller?.abort()');
-		expect(source).toContain("event.key === 'Escape'");
+		expect(source).toContain("event.key !== 'Escape'");
 		expect(source).toContain("themeQuery.addEventListener('change'");
 		expect(source).toContain('__themeStorageFallback');
 		expect(source).toContain('fallback.preference = next');
 		expect(source).toContain("themeColor.content = theme === 'light' ? '#f5f5f0' : '#0a0a0b'");
 		expect(source).toContain('<Search />');
+		expect(source).toContain('data-nav-submenu');
+		expect(source).toContain("panel?.toggleAttribute('data-open', detail.open)");
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
@@ -30,6 +32,13 @@ describe('client listener lifecycle guards', () => {
 			expect(source).toContain('.site-header__menu');
 			expect(source).not.toContain('.header__toggle');
 		}
+	});
+
+	it('treats an absent required dropdown as an accessibility failure', () => {
+		const source = readFileSync(resolve('scripts/a11y-runtime-audit.mjs'), 'utf-8');
+		expect(source).toContain("detail: 'required dropdown trigger missing'");
+		expect(source).toContain("detail: 'required dropdown trigger hidden in viewport'");
+		expect(source).toContain('details[data-nav-group][open] > .header__dropdown-menu');
 	});
 
 	it('footer carries no duplicate theme controller', () => {

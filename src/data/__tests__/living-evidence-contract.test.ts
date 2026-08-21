@@ -162,6 +162,15 @@ describe('Living Evidence Field contracts', () => {
 		expect(card).not.toContain('snapshot.composite');
 	});
 
+	it('keeps machine-oriented LAVREA provenance subordinate to the evidence summary', () => {
+		const card = readFileSync(resolve('src/components/home/LaurelsBentoCell.astro'), 'utf8');
+		expect(card).toContain('<details class="laurea__provenance">');
+		expect(card).toContain('<summary>Evidence record</summary>');
+		expect(card).not.toContain('class="laurea__trace"');
+		expect(card).toContain('.laurea__provenance dd {');
+		expect(card).toContain('font: 0.7rem/1.5 var(--font-mono);');
+	});
+
 	it('keeps reduced-motion proof rails static until the user explicitly resumes', () => {
 		const source = readFileSync(resolve('src/components/home/LaurelsBentoCell.astro'), 'utf8');
 		expect(source).toContain('.laurea__proof-rail i { animation: none; opacity: 1; }');
