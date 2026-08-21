@@ -37,10 +37,17 @@ test('stale source withholds all numeric and percentile claims', () => {
 });
 
 test('malformed or mismatched subjects fail closed', () => {
-	for (const raw of [null, {}, fixture({ login: 'organvm' }), fixture({ source_sha: 'unknown' })]) {
+	for (const raw of [
+		null,
+		{},
+		fixture({ login: 'organvm' }),
+		fixture({ source_sha: 'unknown' }),
+		fixture({ generated_at: 'not-a-date' }),
+	]) {
 		const result = normalizeLaureaSnapshot(raw, NOW);
 		assert.equal(result.state, 'error');
 		assert.equal(result.composite, null);
+		if (raw?.generated_at === 'not-a-date') assert.equal(result.generated_at, null);
 	}
 });
 

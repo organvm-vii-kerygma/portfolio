@@ -1,12 +1,12 @@
 ---
-import { siteConfig, siteUrl } from '../../utils/paths';
+import { base, siteConfig, siteUrl } from '../../utils/paths';
 ---
 
 <!-- RSS Feed -->
 <link rel="alternate" type="application/rss+xml" title="Portfolio Feed" href={siteUrl('feed.xml')} />
 
 <!-- PWA -->
-<link rel="manifest" href={siteUrl('manifest.json')} />
+<link rel="manifest" href={`${base}manifest.json`} />
 
 <!-- Identity verification -->
 <link rel="me" href={siteConfig.profiles.github} />

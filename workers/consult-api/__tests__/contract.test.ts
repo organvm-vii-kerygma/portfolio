@@ -43,5 +43,6 @@ describe('consult-api worker contract', () => {
 
 	it('handles CORS via ALLOWED_ORIGINS', () => {
 		expect(workerSrc).toContain('ALLOWED_ORIGINS');
+		expect(workerSrc).toContain('https://organvm-vii-kerygma.github.io');
 	});
 });

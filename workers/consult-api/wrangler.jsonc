@@ -17,6 +17,6 @@
 		}
 	],
 	"vars": {
-		"ALLOWED_ORIGINS": "https://4444j99.github.io,http://localhost:4321,http://127.0.0.1:4321"
+		"ALLOWED_ORIGINS": "https://organvm-vii-kerygma.github.io,https://4444j99.github.io,http://localhost:4321,http://127.0.0.1:4321"
 	}
 }

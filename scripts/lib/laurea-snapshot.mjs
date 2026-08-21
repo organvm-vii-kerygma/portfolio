@@ -43,7 +43,7 @@ export function normalizeLaureaSnapshot(raw, now = new Date()) {
 			raw.source_repository !== REQUIRED_REPOSITORY ||
 			!Number.isFinite(generatedMs)
 		) {
-			return baseSnapshot('error', generatedAt);
+			return baseSnapshot('error', Number.isFinite(generatedMs) ? generatedAt : null);
 		}
 
 		const ageMs = now.getTime() - generatedMs;

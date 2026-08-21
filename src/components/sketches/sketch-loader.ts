@@ -101,6 +101,8 @@ const BACKGROUND_DEFER_ROUTES: ReadonlySet<string> = new Set([
 
 // Track p5 instances for teardown (Map replaces former Set for VT readiness)
 const instances = new Map<HTMLElement, p5>();
+const initializing = new Set<HTMLElement>();
+let lifecycleGeneration = 0;
 let sketchObserver: IntersectionObserver | null = null;
 
 // Concurrency throttle: max 4 simultaneous sketch initializations
@@ -157,7 +159,7 @@ function processQueue(): void {
 }
 
 function initSketch(container: HTMLElement): void {
-	if (instances.has(container)) return;
+	if (instances.has(container) || initializing.has(container)) return;
 
 	if (activeInits >= MAX_CONCURRENT) {
 		if (!initQueue.includes(container)) initQueue.push(container);
@@ -168,7 +170,7 @@ function initSketch(container: HTMLElement): void {
 }
 
 function doInitSketch(container: HTMLElement): void {
-	if (instances.has(container)) return;
+	if (instances.has(container) || initializing.has(container)) return;
 	activeInits++;
 
 	const sketchId = container.dataset.sketch;
@@ -180,6 +182,8 @@ function doInitSketch(container: HTMLElement): void {
 		processQueue();
 		return;
 	}
+	initializing.add(container);
+	const generation = lifecycleGeneration;
 
 	applyResponsiveHeight(container);
 
@@ -187,6 +191,7 @@ function doInitSketch(container: HTMLElement): void {
 
 	Promise.all([import('p5'), loader()])
 		.then(([p5Module, sketchModule]): void => {
+			if (generation !== lifecycleGeneration || !container.isConnected) return;
 			const P5 = p5Module.default;
 			const sketchFn = sketchModule.default;
 
@@ -214,6 +219,7 @@ function doInitSketch(container: HTMLElement): void {
 			showFallback(container, sketchId);
 		})
 		.finally((): void => {
+			initializing.delete(container);
 			activeInits--;
 			processQueue();
 		});
@@ -323,6 +329,7 @@ function scheduleBackgroundInit(): void {
 
 /** Remove all active p5 instances and reset state. */
 export function teardown(): void {
+	lifecycleGeneration++;
 	if (resizeTimer) {
 		clearTimeout(resizeTimer);
 		resizeTimer = null;
@@ -340,6 +347,7 @@ export function teardown(): void {
 		}
 	});
 	instances.clear();
+	initializing.clear();
 	initQueue.length = 0;
 	activeInits = 0;
 	if (sketchObserver) {
@@ -350,6 +358,7 @@ export function teardown(): void {
 
 /** Tear down per-page sketches but preserve the #bg-canvas instance. */
 export function teardownPage(): void {
+	lifecycleGeneration++;
 	if (resizeTimer) {
 		clearTimeout(resizeTimer);
 		resizeTimer = null;
@@ -373,6 +382,7 @@ export function teardownPage(): void {
 		}
 	});
 	instances.clear();
+	initializing.clear();
 
 	// Preserve background instance
 	if (bg && bgInstance) {

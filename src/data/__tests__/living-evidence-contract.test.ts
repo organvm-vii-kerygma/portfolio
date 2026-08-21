@@ -31,6 +31,12 @@ describe('Living Evidence Field contracts', () => {
 	it('uses the current Pages origin without activating the staged custom domain', () => {
 		expect(canonicalBase).toBe('https://organvm-vii-kerygma.github.io/portfolio/');
 		expect(siteConfig.origin).not.toContain('4444j99.dev');
+		expect(readFileSync(resolve('src/pages/robots.txt.ts'), 'utf8')).toContain(
+			"siteUrl('sitemap-index.xml')",
+		);
+		expect(readFileSync(resolve('workers/consult-api/wrangler.jsonc'), 'utf8')).toContain(
+			'https://organvm-vii-kerygma.github.io',
+		);
 	});
 
 	it('forbids the failed legacy portfolio host outside the historical P07 fixture', () => {
@@ -58,12 +64,35 @@ describe('Living Evidence Field contracts', () => {
 		}
 	});
 
+	it('classifies audience relevance instead of treating every project as relevant to both doors', () => {
+		const clientSlugs = projectCatalog
+			.filter((project) => project.audienceRelevance.includes('client'))
+			.map((project) => project.slug);
+		const recruiterSlugs = projectCatalog
+			.filter((project) => project.audienceRelevance.includes('recruiter'))
+			.map((project) => project.slug);
+		expect(clientSlugs.length).toBeGreaterThan(0);
+		expect(clientSlugs.length).toBeLessThan(projectCatalog.length);
+		expect(recruiterSlugs.length).toBeLessThan(projectCatalog.length);
+		expect(clientSlugs).not.toEqual(recruiterSlugs);
+		expect(projectCatalog.every((project) => project.audienceRelevance.length > 0)).toBe(true);
+	});
+
+	it('serializes filter values without splitting multi-word tags', () => {
+		const source = readFileSync(resolve('src/pages/projects/index.astro'), 'utf8');
+		expect(source).toContain('data-filters={JSON.stringify');
+		expect(source).toContain("JSON.parse(card.dataset.filters ?? '[]')");
+	});
+
 	it('uses precise CI adoption semantics', () => {
 		expect(vitals.substance).toHaveProperty('ci_workflow_count');
 		expect(vitals.substance).toHaveProperty('repos_with_ci');
 		expect(vitals.substance).toHaveProperty('ci_adoption_pct');
 		expect(vitals.substance).not.toHaveProperty('ci_passing');
 		expect(vitals.substance).not.toHaveProperty('ci_coverage_pct');
+		const generator = readFileSync(resolve('scripts/generate-system-data.py'), 'utf8');
+		expect(generator).toContain('count_repositories_with_ci(registry)');
+		expect(generator).not.toContain('"repos_with_ci": ci_workflows');
 	});
 
 	it('declares one canonical public contact', () => {

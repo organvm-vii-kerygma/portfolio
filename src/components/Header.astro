@@ -1,6 +1,7 @@
 ---
 import { base, siteConfig } from '../utils/paths';
 import AmbientMotionControl from './AmbientMotionControl.astro';
+import Search from './Search.astro';
 import DepthControl from './shibui/DepthControl.astro';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '');
@@ -21,6 +22,7 @@ const links = [
 				{links.map((link) => <a href={link.href} aria-current={currentPath === link.href.replace(/\/$/, '') ? 'page' : undefined}>{link.label}</a>)}
 			</div>
 			<div class="site-header__utilities" role="group" aria-label="Display controls">
+				<Search />
 				<DepthControl />
 				<AmbientMotionControl />
 				<button class="theme-toggle" type="button" aria-label="Theme: system">Theme</button>
@@ -63,23 +65,46 @@ const links = [
 		const menu = document.querySelector<HTMLButtonElement>('.site-header__menu');
 		const nav = document.querySelector<HTMLElement>('#site-navigation');
 		if (menu && nav) {
+			const closeMenu = () => {
+				nav.removeAttribute('data-open');
+				menu.setAttribute('aria-expanded', 'false');
+			};
 			menu.addEventListener('click', () => {
 				const open = !nav.hasAttribute('data-open');
 				nav.toggleAttribute('data-open', open);
 				menu.setAttribute('aria-expanded', String(open));
 			}, { signal });
+			nav.addEventListener('click', (event) => {
+				if ((event.target as Element).closest('a[href]')) closeMenu();
+			}, { signal });
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape' && nav.hasAttribute('data-open')) {
+					closeMenu();
+					menu.focus();
+				}
+			}, { signal });
 		}
 		const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
 		if (themeButton) {
+			const themeQuery = matchMedia('(prefers-color-scheme: light)');
+			const readThemePreference = () => {
+				try { return localStorage.getItem('theme-preference') || 'system'; } catch { return 'system'; }
+			};
+			const applyThemePreference = (preference: string) => {
+				const theme = preference === 'system' ? (themeQuery.matches ? 'light' : 'dark') : preference;
+				document.documentElement.dataset.theme = theme;
+				themeButton.textContent = `Theme: ${preference[0].toUpperCase()}${preference.slice(1)}`;
+				themeButton.setAttribute('aria-label', `Theme: ${preference}`);
+			};
+			applyThemePreference(readThemePreference());
 			themeButton.addEventListener('click', () => {
-				let pref = 'system';
-				try { pref = localStorage.getItem('theme-preference') || 'system'; } catch {}
+				const pref = readThemePreference();
 				const next = pref === 'system' ? 'light' : pref === 'light' ? 'dark' : 'system';
 				try { localStorage.setItem('theme-preference', next); } catch {}
-				const theme = next === 'system' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : next;
-				document.documentElement.dataset.theme = theme;
-				themeButton.textContent = `Theme: ${next[0].toUpperCase()}${next.slice(1)}`;
-				themeButton.setAttribute('aria-label', `Theme: ${next}`);
+				applyThemePreference(next);
+			}, { signal });
+			themeQuery.addEventListener('change', () => {
+				if (readThemePreference() === 'system') applyThemePreference('system');
 			}, { signal });
 		}
 		document.addEventListener('astro:before-swap', () => controller.abort(), { once: true, signal });

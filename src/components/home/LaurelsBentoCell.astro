@@ -1,5 +1,6 @@
 ---
 import rawSnapshot from '../../data/laurea-snapshot.json';
+import { effectiveEvidenceState } from '../../utils/laurea-evidence';
 import { siteConfig } from '../../utils/paths';
 
 interface LaureaSnapshot {
@@ -15,9 +16,12 @@ interface LaureaSnapshot {
 	};
 }
 const snapshot = rawSnapshot as LaureaSnapshot;
-const isReady = snapshot.state === 'ready' && snapshot.composite;
-const verifiedDate = snapshot.generated_at
-	? new Date(snapshot.generated_at).toLocaleDateString('en-US', {
+const generatedMs = snapshot.generated_at ? Date.parse(snapshot.generated_at) : Number.NaN;
+const hasValidTimestamp = Number.isFinite(generatedMs);
+const evidenceState = effectiveEvidenceState(snapshot.state, snapshot.generated_at);
+const isReady = evidenceState === 'ready' && snapshot.composite;
+const verifiedDate = hasValidTimestamp
+	? new Date(generatedMs).toLocaleDateString('en-US', {
 			month: 'short',
 			day: 'numeric',
 			year: 'numeric',
@@ -36,20 +40,20 @@ const metrics = [
 ];
 ---
 
-<section class="bento-cell bento-cell--span-full laurea" aria-labelledby="laurea-title" data-evidence-state={snapshot.state}>
+<section class="bento-cell bento-cell--span-full laurea" aria-labelledby="laurea-title" data-evidence-state={evidenceState}>
 	<div class="laurea__meta">
 		<p class="laurea__eyebrow">LAVREA / Computed evidence</p>
 		<p>
 			<a href={siteConfig.repositories.laurea}>organvm/laurea</a>
 			<span aria-hidden="true"> · </span>
-			<time datetime={snapshot.generated_at ?? undefined}>Last verified {verifiedDate}</time>
+			<time datetime={hasValidTimestamp ? snapshot.generated_at ?? undefined : undefined}>Last verified {verifiedDate}</time>
 		</p>
 	</div>
 	<h2 id="laurea-title">{isReady ? snapshot.composite?.claim : 'A measured GitHub output profile'}</h2>
 	<p class="laurea__scope">
 		{isReady
 			? 'A bounded measurement of visible GitHub activity, with percentile claims tied to the source snapshot.'
-			: snapshot.state === 'stale'
+			: evidenceState === 'stale'
 				? 'The last source snapshot is older than 36 hours. Numeric and percentile claims are withheld until verification refreshes.'
 				: 'The evidence source is unavailable or invalid. Numeric and percentile claims are withheld.'}
 	</p>

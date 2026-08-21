@@ -11,6 +11,9 @@ describe('client listener lifecycle guards', () => {
 		const source = read('components/Header.astro');
 		expect(source).toContain('new AbortController()');
 		expect(source).toContain('state.controller?.abort()');
+		expect(source).toContain("event.key === 'Escape'");
+		expect(source).toContain("themeQuery.addEventListener('change'");
+		expect(source).toContain('<Search />');
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 

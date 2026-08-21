@@ -205,10 +205,59 @@ const projectCatalogEntries: Array<
 	},
 ];
 
+const clientRelevantSlugs = new Set([
+	'limen',
+	'org-architecture',
+	'recursive-engine',
+	'metasystem-master',
+	'ai-council',
+	'life-my-midst-in',
+	'your-fit-tailored',
+	'the-actual-news',
+	'aetheria-rpg',
+	'agentic-titan',
+	'orchestration-hub',
+	'ai-conductor',
+	'distribution-strategy',
+	'public-record-data-scrapper',
+	'eight-organ-system',
+]);
+
+const recruiterRelevantSlugs = new Set([
+	'limen',
+	'narratological-lenses',
+	'knowledge-base',
+	'org-architecture',
+	'linguistic-atomization',
+	'recursive-engine',
+	'metasystem-master',
+	'ai-council',
+	'generative-music',
+	'life-my-midst-in',
+	'block-warfare',
+	'the-actual-news',
+	'aetheria-rpg',
+	'agentic-titan',
+	'orchestration-hub',
+	'public-process',
+	'ai-conductor',
+	'community-infrastructure',
+	'distribution-strategy',
+	'public-record-data-scrapper',
+	'collective-persona-operations',
+	'a-mavs-olevm',
+	'eight-organ-system',
+]);
+
 export const projectCatalog: ProjectCatalogEntry[] = projectCatalogEntries.map((project) => ({
 	...project,
 	route: `/projects/${project.slug}/`,
-	audienceRelevance: project.audienceRelevance ?? ['client', 'recruiter'],
+	audienceRelevance:
+		project.audienceRelevance ??
+		([
+			...(clientRelevantSlugs.has(project.slug) ? (['client'] as const) : []),
+			...(recruiterRelevantSlugs.has(project.slug) ? (['recruiter'] as const) : []),
+		] satisfies Array<'client' | 'recruiter'>),
 }));
 
 export const projectCatalogBySlug = new Map(

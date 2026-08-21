@@ -78,6 +78,7 @@ const RATE_LIMIT_MAX = 12;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const DEFAULT_KNOWLEDGE_API_URL = 'https://stakeholder-portal-ten.vercel.app/api/knowledge';
 const DEFAULT_ALLOWED_ORIGINS = [
+	'https://organvm-vii-kerygma.github.io',
 	'https://4444j99.github.io',
 	'http://localhost:4321',
 	'http://127.0.0.1:4321',

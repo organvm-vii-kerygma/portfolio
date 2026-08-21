@@ -21,6 +21,9 @@ export default function typewriterSketch(p: p5, container: HTMLElement) {
 	p.setup = () => {
 		p.createCanvas(container.clientWidth, container.clientHeight);
 		p.frameRate(30);
+		if (document.documentElement.dataset.ambientMotion === 'paused') {
+			charIndex = lines[currentLine].length;
+		}
 	};
 
 	p.draw = () => {

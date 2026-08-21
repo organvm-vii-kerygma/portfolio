@@ -22,7 +22,7 @@ const tags = [...new Set(projectCatalog.flatMap((project) => project.tags))].sor
 		<p class="project-count" aria-live="polite"><span data-project-count>{projectCatalog.length}</span> projects shown</p>
 		<div class="project-catalog">
 			{projectCatalog.map((project) => (
-				<article data-project-card data-filters={[...project.audienceRelevance, ...project.tags.map((tag) => tag.toLowerCase())].join(' ')}>
+				<article data-project-card data-filters={JSON.stringify([...project.audienceRelevance, ...project.tags.map((tag) => tag.toLowerCase())])}>
 					<p class="eyebrow">{project.organ.replace('-', ' ')}</p>
 					<h2>{project.title}</h2>
 					<p>{project.summary}</p>
@@ -71,7 +71,9 @@ const tags = [...new Set(projectCatalog.flatMap((project) => project.tags))].sor
 				for (const candidate of buttons) candidate.setAttribute('aria-pressed', String(candidate === button));
 				let visible = 0;
 				for (const card of cards) {
-					const show = filter === 'all' || (card.dataset.filters ?? '').split(' ').includes(filter);
+					let filters: string[] = [];
+					try { filters = JSON.parse(card.dataset.filters ?? '[]'); } catch {}
+					const show = filter === 'all' || filters.includes(filter);
 					card.hidden = !show;
 					if (show) visible++;
 				}
