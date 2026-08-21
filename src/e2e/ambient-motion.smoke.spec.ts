@@ -10,7 +10,9 @@ test('ambient motion cycles when browser storage is unavailable', async ({ page 
 		});
 	});
 	await page.goto('/portfolio/', { waitUntil: 'networkidle' });
-	const control = page.locator('[data-ambient-motion-control]').first();
+	const menu = page.locator('.site-header__menu');
+	if (await menu.isVisible()) await menu.click();
+	const control = page.locator('[data-ambient-motion-control]:visible').first();
 	await expect(control).toHaveAttribute('aria-label', /Ambient motion: system/);
 	await control.click();
 	await expect(control).toHaveAttribute('aria-label', /Ambient motion: paused/);
