@@ -29,6 +29,12 @@ test('grouped navigation exposes the complete project browser at every breakpoin
 		projectCatalog.length + 1,
 	);
 	await expect(projects.getByRole('link', { name: /Limen META-ORGANVM/i })).toBeVisible();
+	if (!isMobile) {
+		await expect(projects.locator(':scope > .site-header__sideout')).toHaveCSS(
+			'position',
+			'absolute',
+		);
+	}
 
 	if (isMobile) {
 		const hasHorizontalOverflow = await page.evaluate(
@@ -54,7 +60,37 @@ test('grouped navigation exposes the complete project browser at every breakpoin
 		await page.locator('main').dispatchEvent('pointerdown');
 		await expect(menu).toHaveAttribute('aria-expanded', 'false');
 		await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+	} else {
+		await page.setViewportSize({ width: 1100, height: 360 });
+		const explore = page.locator('details[data-nav-group]').nth(1);
+		await explore.locator(':scope > summary').click();
+		const panel = explore.locator(':scope > .site-header__panel');
+		await expect(panel).toBeVisible();
+		await expect(panel).toHaveCSS('overflow-y', 'auto');
+		const panelBox = await panel.boundingBox();
+		expect(panelBox).not.toBeNull();
+		if (panelBox) expect(panelBox.y + panelBox.height).toBeLessThanOrEqual(360);
+		expect(await panel.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(
+			true,
+		);
+		const finalLink = panel.getByRole('link', { name: 'GitHub Pages' });
+		await finalLink.focus();
+		await expect(finalLink).toBeInViewport();
 	}
+});
+
+test('header breakpoint cleanup preserves a governance modal scroll lock', async ({ page }) => {
+	test.skip((page.viewportSize()?.width ?? 0) > 1020, 'mobile breakpoint transition only');
+	await page.goto('for/openai/', { waitUntil: 'networkidle' });
+	await page.locator('#view-trace-btn').click();
+	await expect(page.locator('#gov-preview')).toBeVisible();
+	await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+	await page.setViewportSize({ width: 1100, height: 844 });
+	await expect(page.locator('#gov-preview')).toBeVisible();
+	await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+	await page.locator('#close-gov-preview').click();
+	await expect(page.locator('#gov-preview')).toBeHidden();
+	await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
 });
 
 test('collection detail pages retain their parent navigation context', async ({ page }) => {
@@ -81,21 +117,17 @@ test('footer has an opaque hierarchy and reserves the back-to-top footprint', as
 
 	const bottom = page.locator('.site-footer__bottom');
 	const backToTop = page.locator('.btt');
-	if (await backToTop.isVisible()) {
-		const [bottomBox, buttonBox] = await Promise.all([
-			bottom.boundingBox(),
-			backToTop.boundingBox(),
-		]);
-		expect(bottomBox).not.toBeNull();
-		expect(buttonBox).not.toBeNull();
-		if (bottomBox && buttonBox) {
-			const overlaps = !(
-				buttonBox.x + buttonBox.width <= bottomBox.x ||
-				buttonBox.x >= bottomBox.x + bottomBox.width ||
-				buttonBox.y + buttonBox.height <= bottomBox.y ||
-				buttonBox.y >= bottomBox.y + bottomBox.height
-			);
-			expect(overlaps).toBe(false);
-		}
+	await expect(backToTop).toBeVisible();
+	const [bottomBox, buttonBox] = await Promise.all([bottom.boundingBox(), backToTop.boundingBox()]);
+	expect(bottomBox).not.toBeNull();
+	expect(buttonBox).not.toBeNull();
+	if (bottomBox && buttonBox) {
+		const overlaps = !(
+			buttonBox.x + buttonBox.width <= bottomBox.x ||
+			buttonBox.x >= bottomBox.x + bottomBox.width ||
+			buttonBox.y + buttonBox.height <= bottomBox.y ||
+			buttonBox.y >= bottomBox.y + bottomBox.height
+		);
+		expect(overlaps).toBe(false);
 	}
 });

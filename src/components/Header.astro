@@ -110,7 +110,13 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 	.site-header__external { color: var(--text-muted); font-size: 0.78em; }
 	.theme-toggle, .site-header__menu { min-height: 44px; color: var(--text-secondary); border: 1px solid var(--border); background: var(--surface-strong); border-radius: var(--radius-sm); padding: 0 var(--space-sm); cursor: pointer; font: 0.68rem/1 var(--font-mono); }
 	.site-header__menu { display: none; }
+	:global(body.site-header-menu-open) { overflow: hidden; }
 	:global(html[data-theme='light']) .site-header__panel, :global(html[data-theme='light']) .site-header__sideout { background: #fffffc; }
+	@media (min-width: 1021px) and (max-height: 560px) {
+		.site-header__panel { max-height: calc(100dvh - 68px - var(--space-md)); overflow-y: auto; overscroll-behavior: contain; }
+		.site-header__sideout, .site-header__sideout--grid { position: static; width: auto; max-height: none; grid-template-columns: minmax(0, 1fr); margin: 0 0 var(--space-xs) var(--space-md); border: 0; border-left: 1px solid var(--border); border-radius: 0; box-shadow: none; background: transparent; overflow: visible; }
+		.site-header__sideout--grid > a:first-child { grid-column: 1; }
+	}
 	@media (max-width: 1020px) {
 		.site-header__menu { display: block; }
 		nav { display: none; position: absolute; inset: 68px 0 auto; max-height: calc(100dvh - 68px); overflow-y: auto; padding: var(--space-md) max(var(--space-lg), calc((100vw - 1200px) / 2)); background: #08080a; border-bottom: 1px solid var(--border); }
@@ -118,7 +124,7 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 		.site-header__links, .site-header__utilities { width: 100%; align-items: stretch; flex-direction: column; }
 		.site-header__group { border-bottom: 1px solid var(--border); }
 		.site-header__group > summary { justify-content: space-between; padding: 0 var(--space-xs); }
-		.site-header__panel { position: static; min-width: 0; padding: 0 0 var(--space-sm) var(--space-md); border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+		.site-header__panel { position: static; min-width: 0; max-height: none; overflow: visible; overscroll-behavior: auto; padding: 0 0 var(--space-sm) var(--space-md); border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 		.site-header__panel > a, .site-header__submenu > summary { padding-left: var(--space-sm); }
 		.site-header__sideout, .site-header__sideout--grid { position: static; width: auto; max-height: none; grid-template-columns: minmax(0, 1fr); margin: 0 0 var(--space-xs) var(--space-md); border: 0; border-left: 1px solid var(--border); border-radius: 0; box-shadow: none; background: transparent; overflow: visible; }
 		.site-header__sideout--grid > a:first-child { grid-column: 1; }
@@ -145,7 +151,6 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 		const menu = document.querySelector<HTMLButtonElement>('.site-header__menu');
 		const nav = document.querySelector<HTMLElement>('#site-navigation');
 		if (menu && nav) {
-			let previousBodyOverflow = '';
 			const disclosures = [...nav.querySelectorAll<HTMLDetailsElement>('details[data-nav-disclosure]')];
 			const groups = disclosures.filter((detail) => detail.hasAttribute('data-nav-group'));
 			const submenus = disclosures.filter((detail) => detail.hasAttribute('data-nav-submenu'));
@@ -159,8 +164,7 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 			const closeMenu = (restoreFocus = false) => {
 				nav.removeAttribute('data-open');
 				menu.setAttribute('aria-expanded', 'false');
-				document.body.style.overflow = previousBodyOverflow;
-				previousBodyOverflow = '';
+				document.body.classList.remove('site-header-menu-open');
 				closeDisclosures();
 				if (restoreFocus) menu.focus();
 			};
@@ -179,8 +183,7 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 				nav.toggleAttribute('data-open', open);
 				menu.setAttribute('aria-expanded', String(open));
 				if (open) {
-					previousBodyOverflow = document.body.style.overflow;
-					document.body.style.overflow = 'hidden';
+					document.body.classList.add('site-header-menu-open');
 				} else closeMenu();
 			}, { signal });
 			nav.addEventListener('click', (event) => {
@@ -225,6 +228,7 @@ function itemContainsActive(item: SiteNavigationItem): boolean {
 			matchMedia('(min-width: 1021px)').addEventListener('change', (event) => {
 				if (event.matches) closeMenu();
 			}, { signal });
+			signal.addEventListener('abort', () => closeMenu(), { once: true });
 			document.addEventListener('astro:before-swap', () => closeMenu(), { once: true, signal });
 		}
 		const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');

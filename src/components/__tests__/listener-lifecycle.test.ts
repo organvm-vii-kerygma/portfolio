@@ -19,6 +19,8 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain('<Search />');
 		expect(source).toContain('data-nav-submenu');
 		expect(source).toContain("panel?.toggleAttribute('data-open', detail.open)");
+		expect(source).toContain("document.body.classList.add('site-header-menu-open')");
+		expect(source).toContain("signal.addEventListener('abort', () => closeMenu()");
 		expect(source).toContain("document.addEventListener('astro:before-swap'");
 	});
 
@@ -39,6 +41,8 @@ describe('client listener lifecycle guards', () => {
 		expect(source).toContain("detail: 'required dropdown trigger missing'");
 		expect(source).toContain("detail: 'required dropdown trigger hidden in viewport'");
 		expect(source).toContain('details[data-nav-group][open] > .header__dropdown-menu');
+		expect(source).toContain('interaction failed:');
+		expect(source).toContain('{ timeout: 1000 }');
 	});
 
 	it('footer carries no duplicate theme controller', () => {
