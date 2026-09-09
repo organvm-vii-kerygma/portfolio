@@ -180,7 +180,7 @@ jobs:
         run: node scripts/check-ci-results.mjs
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.build-and-deploy.result == 'success' }}
     needs: [build-and-deploy]
     runs-on: ubuntu-latest
     timeout-minutes: 10

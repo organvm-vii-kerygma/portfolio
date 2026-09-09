@@ -44,16 +44,20 @@ For a security update, also verify the maintainer advisory's affected/fixed rang
 and every installed copy. Passing the delta check alone does not prove the
 intended advisory disappeared from all install paths.
 
-## Pilot acceptance and authority
+## Acceptance and authority
 
-This pilot builds on formatting repair #230 and leaves security update #234
-separate. Full output validation also exposed runtime components outside the
-closing body tag; the layout now keeps those components inside the body. It does not approve, merge, or change CODEOWNERS or repository rules.
+The maintenance workflow was integrated through #230 and #235; #234 carries the
+separate SVGO security repair. Full output validation also exposed runtime
+components outside the closing body tag; the layout keeps those components
+inside the body. The workflow does not approve or merge PRs, or change CODEOWNERS
+or repository rules.
 The original required check name is retained, but its name/App identity alone
 does not establish trusted workflow identity. Automatic acceptance remains
 dependent on the existing governor/relay's provenance and freshness enforcement.
 Code on a PR branch is not an independent trust root for its own approval.
 
-Before rollout, review the published head's hosted jobs and restore the stack's
-base to main after #230 lands through the authorized merge path. This document
-does not claim that main or the deployment is already repaired.
+Review each published head's hosted jobs and tested checkout. On main, deployment
+requires an uncancelled run and a successful acceptance aggregate. The explicit
+status condition permits the PR-only dependency review to be skipped without
+suppressing deployment. A successful build alone does not establish publication:
+verify the deployment job and its live smoke test for the accepted main revision.
