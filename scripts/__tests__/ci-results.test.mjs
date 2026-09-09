@@ -7,6 +7,7 @@ const success = () => ({
 	'static-checks': { result: 'success' },
 	'build-validation': { result: 'success' },
 	'dependency-review': { result: 'success' },
+	'dependency-evidence': { result: 'success' },
 });
 
 test('a PR needs every applicable job to succeed', () => {

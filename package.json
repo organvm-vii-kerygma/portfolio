@@ -27,7 +27,7 @@
 		"sync:workspace-health": "node scripts/sync-workspace-health.mjs --output src/data/workspace-health.json",
 		"build": "npm run sync:laurea && npm run generate-badges && npm run sync:vitals && npm run sync:omega && npm run sync:identity && astro build && npx pagefind --site dist --glob '**/*.html'",
 		"build:ci": "PORTFOLIO_SNAPSHOT_BUILD=1 astro build && pagefind --site dist --glob '**/*.html'",
-		"test:ci-gate": "node --test scripts/__tests__/ci-results.test.mjs",
+		"test:ci-gate": "node --test scripts/__tests__/ci-results.test.mjs scripts/__tests__/dependency-evidence.test.mjs",
 		"build:resume": "node scripts/orchestrate-resume-pdfs.mjs",
 		"build:qr": "node scripts/generate-qr-codes.mjs",
 		"consult:worker:dev": "npx wrangler dev --config workers/consult-api/wrangler.jsonc --remote",
@@ -98,11 +98,12 @@
 		"@4444j99/quality-ratchet-kit": "file:packages/quality-ratchet-kit",
 		"@4444j99/shibui-rhetoric": "file:packages/shibui-rhetoric",
 		"@4444j99/sketches": "file:packages/sketches",
+		"@astrojs/markdown-remark": "7.3.1",
 		"@astrojs/mdx": "7.0.7",
 		"@astrojs/rss": "4.0.19",
 		"@astrojs/sitemap": "3.7.3",
 		"@meta-organvm/github-pages-index-core": "file:packages/github-pages-index-core",
-		"astro": "^7.2.4",
+		"astro": "^7.3.2",
 		"d3": "7.9.0",
 		"dompurify": "3.4.14",
 		"mermaid": "11.17.0",
@@ -144,5 +145,6 @@
 		"devalue": ">=5.6.3",
 		"fast-xml-parser": ">=5.5.6",
 		"yaml": "2.9.0"
-	}
+	},
+	"packageManager": "npm@11.9.0"
 }
