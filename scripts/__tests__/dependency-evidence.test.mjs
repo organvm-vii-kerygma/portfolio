@@ -5,6 +5,7 @@ import {
 	auditEntries,
 	graphDelta,
 	routeExceptions,
+	validateManifestLock,
 } from '../dependency-evidence.mjs';
 
 const lock = (version = '1.0.0', extra = {}) => ({
@@ -168,5 +169,35 @@ test('root-only lock edits and direct range widening cannot route as routine', (
 	assert.deepEqual(
 		routeExceptions(graphDelta(base, head, 'package-lock.json'), cleanAudit(), [], []),
 		[],
+	);
+});
+
+test('manifest range drift cannot hide behind a frozen-install-compatible lock', () => {
+	const head = lock('1.0.2');
+	head.packages[''].dependencies = { example: '^1.0.2', unchanged: '^4.1.3' };
+	assert.doesNotThrow(() =>
+		validateManifestLock(
+			{ dependencies: head.packages[''].dependencies },
+			head,
+			'package-lock.json',
+		),
+	);
+	assert.throws(
+		() =>
+			validateManifestLock(
+				{ dependencies: { example: '^1.0.2', unchanged: '*' } },
+				head,
+				'package-lock.json',
+			),
+		/manifest and lock root disagree/,
+	);
+	assert.throws(
+		() =>
+			validateManifestLock(
+				{ dependencies: head.packages[''].dependencies, optionalDependencies: { hidden: '*' } },
+				head,
+				'package-lock.json',
+			),
+		/optionalDependencies/,
 	);
 });

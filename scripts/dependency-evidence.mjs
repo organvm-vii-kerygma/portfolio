@@ -58,6 +58,18 @@ export function graphDelta(base, head, lockfile) {
 	return result;
 }
 
+export function validateManifestLock(manifest, lock, lockfile) {
+	for (const field of [
+		'dependencies',
+		'devDependencies',
+		'optionalDependencies',
+		'peerDependencies',
+	]) {
+		if (!equal(manifest[field] ?? {}, lock.packages?.['']?.[field] ?? {}))
+			throw new Error(`${lockfile}: manifest and lock root disagree on ${field}`);
+	}
+}
+
 export function auditEntries(report, lockfile) {
 	if (
 		report?.error ||
@@ -149,7 +161,12 @@ export function routeExceptions(graph, advisories, files, allowedFiles, sensitiv
 		exceptions.push('no-dependency-graph-change');
 	for (const change of graph.changed) {
 		if (change.path === '') {
-			for (const field of ['dependencies', 'devDependencies', 'optionalDependencies']) {
+			for (const field of [
+				'dependencies',
+				'devDependencies',
+				'optionalDependencies',
+				'peerDependencies',
+			]) {
 				for (const [name, spec] of Object.entries(change.after[field] ?? {})) {
 					const previous = change.before[field]?.[name];
 					if (previous === spec) continue;
@@ -319,6 +336,7 @@ export function collect(args) {
 		const manifestPath = join(dirname(lock), 'package.json');
 		const manifestBefore = JSON.parse(git('show', `${config.base}:${manifestPath}`));
 		const manifestAfter = JSON.parse(git('show', `${config.tested}:${manifestPath}`));
+		validateManifestLock(manifestAfter, JSON.parse(current), lock);
 		if (!equal(JSON.parse(readFileSync(manifestPath, 'utf8')), manifestAfter))
 			throw new Error(`${manifestPath}: manifest changed after tested revision`);
 		const dependencyFields = ['dependencies', 'devDependencies', 'optionalDependencies'];
