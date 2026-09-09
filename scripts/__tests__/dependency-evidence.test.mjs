@@ -147,3 +147,26 @@ test('incomplete, dangling and circular advisory inventories fail closed', () =>
 		auditEntries({ ...report, metadata: { vulnerabilities: { total: 3 } } }, 'package-lock.json'),
 	);
 });
+
+test('root-only lock edits and direct range widening cannot route as routine', () => {
+	const base = lock('1.0.1');
+	base.packages[''].dependencies = { example: '^1.0.1' };
+	for (const spec of ['*', 'latest', '>=1.0.1', '~1.0.1', '^0.9.0']) {
+		const head = structuredClone(base);
+		head.packages[''].dependencies.example = spec;
+		const reasons = routeExceptions(
+			graphDelta(base, head, 'package-lock.json'),
+			cleanAudit(),
+			[],
+			[],
+		);
+		assert.ok(reasons.includes('non-routine-direct-spec:example'));
+		assert.ok(reasons.includes('no-dependency-graph-change'));
+	}
+	const head = lock('1.0.2');
+	head.packages[''].dependencies = { example: '^1.0.2' };
+	assert.deepEqual(
+		routeExceptions(graphDelta(base, head, 'package-lock.json'), cleanAudit(), [], []),
+		[],
+	);
+});

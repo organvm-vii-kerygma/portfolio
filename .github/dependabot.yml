@@ -10,7 +10,7 @@ updates:
     groups:
       minor-and-patch:
         applies-to: version-updates
-        exclude-patterns: ["astro", "@astrojs/*", "dompurify", "svgo"]
+        exclude-patterns: ["astro", "@astrojs/*", "dompurify", "svgo", "sharp", "three", "p5"]
         update-types:
           - "minor"
           - "patch"

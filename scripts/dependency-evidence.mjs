@@ -141,10 +141,34 @@ export function routeExceptions(graph, advisories, files, allowedFiles, sensitiv
 		exceptions.push('non-dependency-files-changed');
 	if (graph.added.length || graph.removed.length)
 		exceptions.push('dependency-graph-additions-or-removals');
-	if (!graph.added.length && !graph.removed.length && !graph.changed.length)
+	if (
+		!graph.added.length &&
+		!graph.removed.length &&
+		!graph.changed.some((change) => change.path !== '')
+	)
 		exceptions.push('no-dependency-graph-change');
 	for (const change of graph.changed) {
-		if (change.path === '') continue;
+		if (change.path === '') {
+			for (const field of ['dependencies', 'devDependencies', 'optionalDependencies']) {
+				for (const [name, spec] of Object.entries(change.after[field] ?? {})) {
+					const previous = change.before[field]?.[name];
+					if (previous === spec) continue;
+					const oldSpec = /^([~^]?)(\d+)\.(\d+)\.(\d+)$/.exec(previous ?? '');
+					const newSpec = /^([~^]?)(\d+)\.(\d+)\.(\d+)$/.exec(spec);
+					if (
+						!oldSpec ||
+						!newSpec ||
+						oldSpec[1] !== newSpec[1] ||
+						oldSpec[2] !== newSpec[2] ||
+						(oldSpec[2] === '0' && oldSpec[3] !== newSpec[3]) ||
+						Number(newSpec[3]) < Number(oldSpec[3]) ||
+						(newSpec[3] === oldSpec[3] && Number(newSpec[4]) < Number(oldSpec[4]))
+					)
+						exceptions.push(`non-routine-direct-spec:${name}`);
+				}
+			}
+			continue;
+		}
 		if (
 			sensitive.some(
 				(name) =>
