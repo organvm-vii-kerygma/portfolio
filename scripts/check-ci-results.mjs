@@ -13,7 +13,7 @@ export function checkResults(results, event) {
 		throw new Error('Unknown CI event');
 	}
 	const required = ['static-checks', 'build-validation'];
-	if (event === 'pull_request') required.push('dependency-review');
+	if (event === 'pull_request') required.push('dependency-review', 'dependency-evidence');
 	return required.filter((job) => results[job]?.result !== 'success');
 }
 
