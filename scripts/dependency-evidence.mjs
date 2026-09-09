@@ -249,6 +249,17 @@ export function routeExceptions(graph, advisories, files, allowedFiles, sensitiv
 	return [...new Set(exceptions)].sort();
 }
 
+export function changedFiles(base, tested, cwd = process.cwd()) {
+	return execFileSync('git', ['diff', '--name-only', base, tested], {
+		...gitBufferOptions,
+		cwd,
+		encoding: 'utf8',
+	})
+		.trimEnd()
+		.split('\n')
+		.filter(Boolean);
+}
+
 function git(...args) {
 	return execFileSync('git', args, { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 }).trimEnd();
 }
@@ -387,7 +398,7 @@ export function collect(args) {
 			evidence.advisories,
 			advisoryDelta(evidence.advisories.base, evidence.advisories.head),
 		);
-	const files = git('diff', '--name-only', config.base, config.head).split('\n').filter(Boolean);
+	const files = changedFiles(config.base, config.tested);
 	const allowed = locks.flatMap((lock) => [lock, join(dirname(lock), 'package.json')]);
 	evidence.exceptions.push(
 		...routeExceptions(evidence.graph, evidence.advisories, files, allowed, config.sensitive),

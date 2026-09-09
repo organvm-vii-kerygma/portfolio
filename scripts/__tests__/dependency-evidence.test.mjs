@@ -7,6 +7,7 @@ import { test } from 'node:test';
 import {
 	advisoryDelta,
 	auditEntries,
+	changedFiles,
 	graphDelta,
 	manifestBehavior,
 	readRevisionFile,
@@ -248,4 +249,34 @@ test('peer dependency patches stay dependency changes and peer behavior remains 
 			'non-routine-direct-spec:example',
 		),
 	);
+});
+
+test('advanced base changes do not become candidate file-policy exceptions', (t) => {
+	const directory = mkdtempSync(join(tmpdir(), 'dependency-base-regression-'));
+	t.after(() => rmSync(directory, { recursive: true, force: true }));
+	const command = (...args) =>
+		execFileSync('git', args, { cwd: directory, encoding: 'utf8' }).trim();
+	command('init', '--quiet', '--initial-branch=main');
+	command('config', 'user.name', 'Fixture');
+	command('config', 'user.email', 'fixture@example.invalid');
+	writeFileSync(join(directory, 'package-lock.json'), 'base\n');
+	command('add', '.');
+	command('commit', '--quiet', '-m', 'base');
+	command('checkout', '--quiet', '-b', 'dependency');
+	writeFileSync(join(directory, 'package-lock.json'), 'updated\n');
+	command('add', '.');
+	command('commit', '--quiet', '-m', 'dependency');
+	const candidate = command('rev-parse', 'HEAD');
+	command('checkout', '--quiet', 'main');
+	writeFileSync(join(directory, 'unrelated-source.js'), 'export default 1;\n');
+	command('add', '.');
+	command('commit', '--quiet', '-m', 'base advance');
+	const base = command('rev-parse', 'HEAD');
+	assert.deepEqual(changedFiles(base, candidate, directory), [
+		'package-lock.json',
+		'unrelated-source.js',
+	]);
+	command('merge', '--quiet', '--no-edit', 'dependency');
+	const tested = command('rev-parse', 'HEAD');
+	assert.deepEqual(changedFiles(base, tested, directory), ['package-lock.json']);
 });
