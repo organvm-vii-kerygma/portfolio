@@ -61,22 +61,25 @@ const ROLE_LABELS: Record<string, string> = {
 };
 
 let apiFacets: ApiFacet[] = FALLBACK_FACETS;
-try {
-	const res = await fetch(
-		'https://stakeholder-portal-ten.vercel.app/api/knowledge?endpoint=prism',
-		{
-			signal: AbortSignal.timeout(5000),
-		},
-	);
-	if (res.ok) {
-		const data = await res.json();
-		if (data.ok && Array.isArray(data.facets)) {
-			// Exclude portfolio itself — we're on it
-			apiFacets = data.facets.filter((f: ApiFacet) => f.id !== 'portfolio');
+// Dependency PR builds use these committed facets without consulting a live API.
+if (import.meta.env.PORTFOLIO_SNAPSHOT_BUILD !== '1') {
+	try {
+		const res = await fetch(
+			'https://stakeholder-portal-ten.vercel.app/api/knowledge?endpoint=prism',
+			{
+				signal: AbortSignal.timeout(5000),
+			},
+		);
+		if (res.ok) {
+			const data = await res.json();
+			if (data.ok && Array.isArray(data.facets)) {
+				// Exclude portfolio itself — we're on it
+				apiFacets = data.facets.filter((f: ApiFacet) => f.id !== 'portfolio');
+			}
 		}
+	} catch {
+		// Build-time fetch failed — use fallback
 	}
-} catch {
-	// Build-time fetch failed — use fallback
 }
 
 const prism = `portfolio.${context}`;
