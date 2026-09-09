@@ -40,10 +40,11 @@ const inputPath = resolve(parseOption('input', 'src/data/github-pages.json'));
 const policyPath = resolve(parseOption('policy', DEFAULT_POLICY_PATH));
 const policy = loadValidationPolicy(policyPath);
 
-const maxAgeHours = parseFiniteNumber(
-	parseOption('max-age-hours', String(policy.maxAgeHours)),
-	policy.maxAgeHours,
-);
+// Snapshot validation preserves every structural/health check; only elapsed age is excluded.
+const snapshot = process.argv.includes('--snapshot');
+const maxAgeHours = snapshot
+	? Number.POSITIVE_INFINITY
+	: parseFiniteNumber(parseOption('max-age-hours', String(policy.maxAgeHours)), policy.maxAgeHours);
 const maxErrored = parseFiniteInteger(
 	parseOption('max-errored', String(policy.maxErrored)),
 	policy.maxErrored,
@@ -59,6 +60,8 @@ const result = validateGitHubPagesIndex({
 	maxErrored,
 	maxUnreachable,
 });
+
+if (snapshot) console.log('Snapshot validation: no claim about current data freshness.');
 
 if (result.summary) {
 	console.log(`GitHub Pages validation policy (${policyPath}):`);
