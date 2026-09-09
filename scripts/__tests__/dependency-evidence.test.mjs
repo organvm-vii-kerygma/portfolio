@@ -280,3 +280,23 @@ test('advanced base changes do not become candidate file-policy exceptions', (t)
 	const tested = command('rev-parse', 'HEAD');
 	assert.deepEqual(changedFiles(base, tested, directory), ['package-lock.json']);
 });
+
+test('root lock metadata drift cannot hide beside an ordinary dependency patch', () => {
+	for (const [field, value] of [
+		['version', '2.0.0'],
+		['engines', { node: '>=26' }],
+		['hasInstallScript', true],
+	]) {
+		const base = lock();
+		const candidate = lock('1.0.1');
+		candidate.packages[''][field] = value;
+		assert.ok(
+			routeExceptions(
+				graphDelta(base, candidate, 'package-lock.json'),
+				cleanAudit(),
+				[],
+				[],
+			).includes('root-package-metadata-change'),
+		);
+	}
+});

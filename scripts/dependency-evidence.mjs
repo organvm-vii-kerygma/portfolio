@@ -177,6 +177,8 @@ export function routeExceptions(graph, advisories, files, allowedFiles, sensitiv
 		exceptions.push('no-dependency-graph-change');
 	for (const change of graph.changed) {
 		if (change.path === '') {
+			if (change.fields.some((field) => !dependencyFields.includes(field)))
+				exceptions.push('root-package-metadata-change');
 			for (const field of [
 				'dependencies',
 				'devDependencies',
@@ -326,6 +328,7 @@ export function collect(args) {
 		base_sha: config.base,
 		head_sha: config.head,
 		tested_sha: config.tested,
+		dependency_revision_sha: config.tested,
 		workflow_sha: process.env.GITHUB_WORKFLOW_SHA ?? '',
 		workflow_path: process.env.DEPENDENCY_WORKFLOW_PATH ?? '.github/workflows/ci.yml',
 		run_id: process.env.GITHUB_RUN_ID ?? '',
