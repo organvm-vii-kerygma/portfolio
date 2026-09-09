@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
   workflow_dispatch:
   # Daily refresh + on-demand from the corpus metrics beat. The build's
   # "Refresh canonical metrics from corpus" step re-fetches live counts and the
@@ -18,8 +17,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write # allow-secret
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -29,17 +26,105 @@ env:
   QUALITY_PHASE: W12
 
 jobs:
-  build-and-deploy:
+  # A formatting failure must not suppress dependency or build evidence.
+  static-checks:
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ (github.ref == 'refs/heads/main' && github.event_name != 'pull_request') && 'github-pages' || '' }}
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: npm
+      - name: Use authoritative npm version
+        run: npm install --global npm@11.9.0 --ignore-scripts
+      - name: Verify package-manager contract
+        run: node scripts/check-package-manager.mjs
+      - run: npm ci
+        id: install
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck:strict
+      - name: Acceptance gate counterexamples
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test:ci-gate
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Reject introduced high or critical vulnerabilities
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          fail-on-scopes: runtime, development, unknown
+          comment-summary-in-pr: never
+
+  dependency-evidence:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+      - name: Use authoritative npm version
+        run: npm install --global npm@11.9.0 --ignore-scripts
+      - name: Verify package-manager contract
+        run: node scripts/check-package-manager.mjs
+      - name: Record graph changes and advisory closure
+        env:
+          REVIEWED_BASE: ${{ github.event.pull_request.base.sha }}
+          REVIEWED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TESTED_SHA: ${{ github.sha }}
+        run: >-
+          node scripts/dependency-evidence.mjs
+          --base "$REVIEWED_BASE" --head "$REVIEWED_HEAD" --tested "$TESTED_SHA"
+          --sensitive astro --sensitive '@astrojs/*' --sensitive dompurify --sensitive svgo
+          --sensitive sharp --sensitive three --sensitive p5
+      - name: Retain dependency evidence, including audit failures
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: dependency-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .quality/dependency-evidence/dependency-evidence.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Retain raw advisory diagnostics separately
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: dependency-audit-raw-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .quality/dependency-evidence/audit-*.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
+
+  build-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: npm
+      - name: Use authoritative npm version
+        run: npm install --global npm@11.9.0 --ignore-scripts
+      - name: Verify package-manager contract
+        run: node scripts/check-package-manager.mjs
       - run: npm ci
 
       # --- Refresh canonical metrics from the corpus SSOT (fresh at deploy) ---
@@ -47,11 +132,11 @@ jobs:
       # (system-metrics.json → repo_count_basis=live-public-gh-api). Fetch it fresh
       # here so every deploy shows the current derived number instead of a committed
       # snapshot — this is why 149 could go stale while the corpus moved to 171.
-      # Runs before lint/build/test so ALL of them (incl. the data-integrity guard)
-      # see the fresh numbers. FAIL-SAFE: a transient corpus/API error leaves the
+      # Runs before build/test so the data-integrity guard sees the fresh numbers. FAIL-SAFE: a transient corpus/API error leaves the
       # committed src/data intact and the build continues on last-known-good — never
       # break the live deploy over a fetch hiccup. Replaces the retired refresh-data.yml.
       - name: Refresh canonical metrics from corpus
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -72,20 +157,26 @@ jobs:
             echo "::warning::Corpus metrics fetch failed — building with committed src/data (last-known-good)."
           fi
 
-      # --- Lint & Typecheck ---
-      - name: Lint
-        run: npm run lint
-      - name: Typecheck
-        run: npm run typecheck:strict
-
       # --- Build ---
       - name: Sync Data
+        if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run sync:github-pages
       - name: Validate GitHub Pages data
+        if: github.event_name != 'pull_request'
         run: npm run validate:github-pages
-      - name: Build
+      - name: Validate committed GitHub Pages snapshot
+        if: github.event_name == 'pull_request'
+        run: npm run validate:github-pages -- --snapshot
+      # PRs test the committed snapshots. Live refresh/freshness stays on main.
+      - name: Build committed snapshots
+        if: github.event_name == 'pull_request'
+        run: npm run build:ci
+        env:
+          PUBLIC_CONSULT_API_BASE: https://portfolio-consult-api.ivixivi.workers.dev # allow-secret
+      - name: Build refreshed site
+        if: github.event_name != 'pull_request'
         run: npm run build
         env:
           PUBLIC_CONSULT_API_BASE: https://portfolio-consult-api.ivixivi.workers.dev # allow-secret
@@ -118,21 +209,55 @@ jobs:
       # --- Deploy (main branch only, not PRs) ---
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist
+
+  # Preserve the existing required check name while collecting independent jobs.
+  build-and-deploy:
+    if: always()
+    needs: [static-checks, build-validation, dependency-review, dependency-evidence]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Require all applicable checks
+        env:
+          CI_RESULTS: ${{ toJSON(needs) }}
+          CI_EVENT: ${{ github.event_name }}
+          REVIEWED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          TESTED_SHA: ${{ github.sha }}
+          REVIEWED_BASE: ${{ github.event.pull_request.base.sha || '' }}
+        run: node scripts/check-ci-results.mjs
+
+  deploy:
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.build-and-deploy.result == 'success' }}
+    needs: [build-and-deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write # allow-secret
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
       - name: Deploy
         id: deployment
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
       - name: Smoke test
         id: smoke
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           DEPLOY_URL: ${{ steps.deployment.outputs.page_url }}
         run: node scripts/post-deploy-smoke.mjs
       - name: Flag failed deploy
         if: always() && steps.smoke.outcome == 'failure'
         run: |
-          echo "::error::Post-deploy smoke test failed — the live site may be serving a bad build. GitHub Pages artifact deploys cannot be auto-rolled-back via git; re-run a deploy from a known-good commit."
+          echo "::error::Post-deploy smoke test failed. Re-run a deploy from a known-good commit."
           exit 1

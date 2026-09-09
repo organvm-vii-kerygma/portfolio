@@ -77,6 +77,27 @@ afterEach(() => {
 });
 
 describe('validate-github-pages defaults and overrides', () => {
+	it('snapshot mode accepts old evidence while normal validation still rejects staleness', () => {
+		const dir = makeTempDir();
+		const inputPath = join(dir, 'github-pages.json');
+		const payload = buildPayload(0);
+		payload.generatedAt = '2020-01-01T00:00:00.000Z';
+		writeFileSync(inputPath, JSON.stringify(payload));
+		expect(runNode(['--input', inputPath], root).status).toBe(1);
+		const snapshot = runNode(['--input', inputPath, '--snapshot'], root);
+		expect(snapshot.status).toBe(0);
+		expect(snapshot.stdout).toContain('no claim about current data freshness');
+	});
+
+	it('snapshot mode still rejects malformed data and unhealthy snapshots', () => {
+		const dir = makeTempDir();
+		const inputPath = join(dir, 'github-pages.json');
+		writeFileSync(inputPath, JSON.stringify({ ...buildPayload(0), totalRepos: 'wrong' }));
+		expect(runNode(['--input', inputPath, '--snapshot'], root).status).toBe(1);
+		writeFileSync(inputPath, JSON.stringify(buildPayload(9)));
+		expect(runNode(['--input', inputPath, '--snapshot'], root).status).toBe(1);
+	});
+
 	it('uses policy defaults when CLI thresholds are omitted', () => {
 		const dir = makeTempDir();
 		const inputPath = join(dir, 'github-pages.json');

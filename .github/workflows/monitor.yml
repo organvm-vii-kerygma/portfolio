@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: npm install --global npm@11.9.0 --ignore-scripts
+      - run: node scripts/check-package-manager.mjs
       - run: npm ci
       - run: npm run test:security:prod || true
       - run: npm run test:security || true
@@ -36,6 +38,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: npm install --global npm@11.9.0 --ignore-scripts
+      - run: node scripts/check-package-manager.mjs
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium || true
