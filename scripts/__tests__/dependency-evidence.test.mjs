@@ -1,9 +1,15 @@
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
 import {
 	advisoryDelta,
 	auditEntries,
 	graphDelta,
+	manifestBehavior,
+	readRevisionFile,
 	routeExceptions,
 	validateManifestLock,
 } from '../dependency-evidence.mjs';
@@ -199,5 +205,47 @@ test('manifest range drift cannot hide behind a frozen-install-compatible lock',
 				'package-lock.json',
 			),
 		/optionalDependencies/,
+	);
+});
+
+test('large revision lockfiles preserve exact bytes beyond the default process buffer', (t) => {
+	const directory = mkdtempSync(join(tmpdir(), 'dependency-lock-regression-'));
+	t.after(() => rmSync(directory, { recursive: true, force: true }));
+	const command = (...args) =>
+		execFileSync('git', args, { cwd: directory, encoding: 'utf8' }).trim();
+	command('init', '--quiet');
+	command('config', 'user.name', 'Fixture');
+	command('config', 'user.email', 'fixture@example.invalid');
+	const bytes = Buffer.from(
+		JSON.stringify({ packages: {}, fixture: 'x'.repeat(2 * 1024 * 1024) }) + '\n',
+	);
+	writeFileSync(join(directory, 'package-lock.json'), bytes);
+	command('add', 'package-lock.json');
+	command('commit', '--quiet', '-m', 'fixture');
+	const revision = command('rev-parse', 'HEAD');
+	assert.deepEqual(readRevisionFile(revision, 'package-lock.json', directory), bytes);
+});
+
+test('peer dependency patches stay dependency changes and peer behavior remains reviewable', () => {
+	const base = { name: 'fixture', peerDependencies: { example: '^1.0.0' } };
+	const candidate = { ...base, peerDependencies: { example: '^1.0.1' } };
+	assert.deepEqual(manifestBehavior(base), manifestBehavior(candidate));
+	assert.notDeepEqual(
+		manifestBehavior(base),
+		manifestBehavior({ ...candidate, peerDependenciesMeta: { example: { optional: true } } }),
+	);
+	const before = lock();
+	before.packages[''].peerDependencies = base.peerDependencies;
+	const after = lock('1.0.1');
+	after.packages[''].peerDependencies = candidate.peerDependencies;
+	assert.deepEqual(
+		routeExceptions(graphDelta(before, after, 'package-lock.json'), cleanAudit(), [], []),
+		[],
+	);
+	after.packages[''].peerDependencies.example = '*';
+	assert.ok(
+		routeExceptions(graphDelta(before, after, 'package-lock.json'), cleanAudit(), [], []).includes(
+			'non-routine-direct-spec:example',
+		),
 	);
 });

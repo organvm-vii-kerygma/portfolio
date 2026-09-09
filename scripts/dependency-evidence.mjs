@@ -6,6 +6,22 @@ import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+const dependencyFields = [
+	'dependencies',
+	'devDependencies',
+	'optionalDependencies',
+	'peerDependencies',
+];
+const gitBufferOptions = { maxBuffer: 32 * 1024 * 1024 };
+export function readRevisionFile(revision, file, cwd = process.cwd()) {
+	return execFileSync('git', ['show', `${revision}:${file}`], { ...gitBufferOptions, cwd });
+}
+export function manifestBehavior(manifest) {
+	return Object.fromEntries(
+		Object.entries(manifest).filter(([key]) => !dependencyFields.includes(key)),
+	);
+}
+
 const sha256 = (text) => createHash('sha256').update(text).digest('hex');
 const canonical = (value) => {
 	if (Array.isArray(value)) return value.map(canonical);
@@ -251,10 +267,7 @@ function auditAt(revision, lockfile, outputDir, label) {
 	const directory = mkdtempSync(join(tmpdir(), 'dependency-audit-'));
 	try {
 		for (const file of [lockfile, join(dirname(lockfile), 'package.json')])
-			writeFileSync(
-				join(directory, basename(file)),
-				execFileSync('git', ['show', `${revision}:${file}`]),
-			);
+			writeFileSync(join(directory, basename(file)), readRevisionFile(revision, file));
 		const result = spawnSync(
 			'npm',
 			['audit', '--package-lock-only', '--ignore-scripts', '--json'],
@@ -329,7 +342,7 @@ export function collect(args) {
 			basename(lock) !== 'package-lock.json'
 		)
 			throw new Error('Lock path must be a repository-relative package-lock.json');
-		const current = execFileSync('git', ['show', `${config.tested}:${lock}`]);
+		const current = readRevisionFile(config.tested, lock);
 		if (sha256(readFileSync(lock)) !== sha256(current))
 			throw new Error(`${lock}: checkout changed after tested revision`);
 		evidence.lockfile_sha256[lock] = sha256(current);
@@ -339,12 +352,7 @@ export function collect(args) {
 		validateManifestLock(manifestAfter, JSON.parse(current), lock);
 		if (!equal(JSON.parse(readFileSync(manifestPath, 'utf8')), manifestAfter))
 			throw new Error(`${manifestPath}: manifest changed after tested revision`);
-		const dependencyFields = ['dependencies', 'devDependencies', 'optionalDependencies'];
-		const behavior = (manifest) =>
-			Object.fromEntries(
-				Object.entries(manifest).filter(([key]) => !dependencyFields.includes(key)),
-			);
-		if (!equal(behavior(manifestBefore), behavior(manifestAfter)))
+		if (!equal(manifestBehavior(manifestBefore), manifestBehavior(manifestAfter)))
 			evidence.exceptions.push(`manifest-behavior-change:${manifestPath}`);
 		for (const field of dependencyFields) {
 			if (
