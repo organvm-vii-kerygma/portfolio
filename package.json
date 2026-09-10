@@ -99,7 +99,7 @@
 		"@4444j99/shibui-rhetoric": "file:packages/shibui-rhetoric",
 		"@4444j99/sketches": "file:packages/sketches",
 		"@astrojs/markdown-remark": "7.3.1",
-		"@astrojs/mdx": "7.0.7",
+		"@astrojs/mdx": "8.0.0",
 		"@astrojs/rss": "4.0.19",
 		"@astrojs/sitemap": "3.7.4",
 		"@meta-organvm/github-pages-index-core": "file:packages/github-pages-index-core",
