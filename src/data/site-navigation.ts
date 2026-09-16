@@ -75,6 +75,10 @@ export function buildSiteNavigation(base: string): SiteNavigationGroup[] {
 			label: 'Explore',
 			items: [
 				{
+					label: 'Literary Field Guide',
+					href: internalHref(base, 'literary-events/'),
+				},
+				{
 					label: 'Writing',
 					children: [
 						{ label: 'Essays', href: internalHref(base, 'essays/'), meta: 'Long-form analyses' },

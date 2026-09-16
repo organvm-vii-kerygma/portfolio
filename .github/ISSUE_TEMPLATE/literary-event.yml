@@ -1,0 +1,41 @@
+name: Literary Field Guide submission
+description: Propose an event or correct an existing guide entry
+title: "[Literary guide]: "
+labels: ["content", "literary-field-guide"]
+body:
+  - type: dropdown
+    id: change
+    attributes:
+      label: What should change?
+      options:
+        - Add an event
+        - Correct an event
+        - Report a cancellation or sellout
+    validations:
+      required: true
+  - type: input
+    id: event
+    attributes:
+      label: Event name
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Official source URL
+      description: Link to the organizer, venue, or official registration page.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Date, place, price, and access details
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Why is this useful to the community?
+      description: Explain the artistic, educational, civic, professional, or local value.
+    validations:
+      required: true
