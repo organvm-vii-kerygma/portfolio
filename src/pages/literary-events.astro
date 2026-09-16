@@ -1,0 +1,268 @@
+---
+import {
+	literaryEvents,
+	literaryGuideCoverage,
+	literaryGuideUpdatedAt,
+} from '../data/literary-events';
+import Layout from '../layouts/Layout.astro';
+import { base } from '../utils/paths';
+
+const now = new Date();
+const upcoming = literaryEvents
+	.filter((event) => new Date(event.end ?? event.start) >= now)
+	.sort((a, b) => new Date(a.start).valueOf() - new Date(b.start).valueOf());
+const cityCounts = literaryGuideCoverage.map((city) => ({
+	city,
+	count: upcoming.filter((event) => event.city === city).length,
+}));
+const freeCount = upcoming.filter((event) => event.price === 'free').length;
+const schema = upcoming.map((event) => ({
+	'@type': 'Event',
+	name: event.title,
+	startDate: event.start,
+	endDate: event.end,
+	eventAttendanceMode:
+		event.format === 'online'
+			? 'https://schema.org/OnlineEventAttendanceMode'
+			: event.format === 'hybrid'
+				? 'https://schema.org/MixedEventAttendanceMode'
+				: 'https://schema.org/OfflineEventAttendanceMode',
+	eventStatus: 'https://schema.org/EventScheduled',
+	location: event.address
+		? { '@type': 'Place', name: event.venue, address: event.address }
+		: { '@type': 'Place', name: event.venue },
+	offers: {
+		'@type': 'Offer',
+		url: event.registrationUrl,
+		availability:
+			event.availability === 'sold-out'
+				? 'https://schema.org/SoldOut'
+				: 'https://schema.org/InStock',
+	},
+	description: event.whyItMatters,
+}));
+
+const formatDate = (value: string) =>
+	new Intl.DateTimeFormat('en-US', {
+		timeZone: 'America/New_York',
+		weekday: 'short',
+		month: 'short',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: '2-digit',
+	}).format(new Date(value));
+---
+
+<Layout
+	title="NYC Literary Field Guide — Readings, Talks, Workshops, and Community"
+	description="An editorially filtered, source-verified guide to literary events across Staten Island, Brooklyn, Manhattan, Jersey City, and Newark."
+	keywords={['NYC literary events', 'Staten Island readings', 'Brooklyn author talks', 'Newark poetry', 'creative writing events']}
+	shibuiFloor="standard"
+>
+	<script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': schema })} />
+	<section class="field-hero">
+		<div class="container field-hero__grid">
+			<div>
+				<p class="eyebrow">A living public resource · updated {literaryGuideUpdatedAt}</p>
+				<h1>Literary life, mapped for actual use.</h1>
+				<p class="lede">
+					A selective guide to readings, talks, workshops, festivals, and gatherings across the
+					NYC–Newark literary corridor. Every entry explains not only what is happening, but who it
+					serves and why it matters.
+				</p>
+				<div class="hero-actions">
+					<a class="button button--primary" href="#events">Explore the guide</a>
+					<a class="button" href={`${base}literary-events.ics`}>Subscribe by calendar</a>
+					<a class="button" href={`${base}literary-events.json`}>Use the open data</a>
+				</div>
+			</div>
+			<aside class="guide-note" aria-label="Editorial standard">
+				<strong>Not a calendar dump.</strong>
+				<p>
+					Entries are selected for artistic, educational, civic, or professional value. Official
+					sources are checked, duplicates are removed, and expired events leave the active guide.
+				</p>
+			</aside>
+		</div>
+	</section>
+
+	<section class="section compact-section" aria-labelledby="guide-at-a-glance">
+		<div class="container">
+			<h2 id="guide-at-a-glance" class="section__heading">The guide at a glance</h2>
+			<div class="stat-grid">
+				<div class="stat"><strong>{upcoming.length}</strong><span>verified upcoming events</span></div>
+				<div class="stat"><strong>{freeCount}</strong><span>free to attend</span></div>
+				<div class="stat"><strong>{literaryGuideCoverage.length}</strong><span>cities and boroughs watched</span></div>
+				<div class="stat"><strong>3</strong><span>ways to reuse the guide</span></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="paths-heading">
+		<div class="container">
+			<p class="eyebrow">Editorial pathways</p>
+			<h2 id="paths-heading" class="section__heading">Start with a purpose</h2>
+			<div class="path-grid">
+				<article class="path-card">
+					<span>01</span><h3>Build a literary network</h3>
+					<p>Prioritize the Brooklyn Indie Party, festival days, small-press programs, and open mics where exchange is part of the form.</p>
+					<button type="button" data-path="networking">Show networking events</button>
+				</article>
+				<article class="path-card">
+					<span>02</span><h3>Study image + text</h3>
+					<p>Follow comics, visual narrative, translation, performance, and other events where literature crosses media.</p>
+					<button type="button" data-path="visual narrative">Show cross-media events</button>
+				</article>
+				<article class="path-card">
+					<span>03</span><h3>Find a free doorway</h3>
+					<p>See serious public programs that do not require a paid ticket, with Staten Island opportunities surfaced first.</p>
+					<button type="button" data-path="free">Show free events</button>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section id="events" class="section events-section" aria-labelledby="events-heading">
+		<div class="container">
+			<div class="section-intro">
+				<div><p class="eyebrow">Verified opportunities</p><h2 id="events-heading" class="section__heading">Upcoming events</h2></div>
+				<p id="result-count" aria-live="polite">Showing {upcoming.length} events</p>
+			</div>
+			<form class="filters" aria-label="Filter literary events">
+				<label>Search <input id="event-search" type="search" placeholder="Title, venue, theme…" /></label>
+				<label>Place
+					<select id="city-filter"><option value="all">All places</option>{cityCounts.map(({ city, count }) => <option value={city}>{city} ({count})</option>)}</select>
+				</label>
+				<label>Cost
+					<select id="price-filter"><option value="all">Any price</option><option value="free">Free</option><option value="paid">Paid</option><option value="mixed">Mixed</option></select>
+				</label>
+				<button type="reset">Reset</button>
+			</form>
+
+			<div class="event-list">
+				{upcoming.map((event) => (
+					<article class:list={['event-card', { 'event-card--featured': event.featured }]} data-event data-city={event.city} data-price={event.price} data-search={`${event.title} ${event.venue} ${event.neighborhood} ${event.tags.join(' ')}`.toLowerCase()}>
+						<div class="event-date"><time datetime={event.start}>{formatDate(event.start)}</time><span>{event.city}</span></div>
+						<div class="event-body">
+							<div class="event-title-row"><h3>{event.title}</h3>{event.featured && <span class="editors-pick">Editor’s pick</span>}</div>
+							<p class="event-venue">{event.venue} · {event.neighborhood} · {event.format}</p>
+							<p class="event-why">{event.whyItMatters}</p>
+							<p class="community-use"><strong>Community use:</strong> {event.communityUse}</p>
+							<div class="tag-row">{event.tags.map((tag) => <span>{tag}</span>)}</div>
+							<footer>
+								<div><strong>{event.priceLabel}</strong><small>Verified {event.verifiedAt} via <a href={event.sourceUrl}>{event.sourceName}</a></small></div>
+								<a class="button button--primary" href={event.registrationUrl} target="_blank" rel="noopener noreferrer">Details & registration</a>
+							</footer>
+						</div>
+					</article>
+				))}
+			</div>
+			<p id="empty-state" class="empty-state" hidden>No current events match those filters. Reset the guide or propose a missing event.</p>
+		</div>
+	</section>
+
+	<section class="section utility-section" aria-labelledby="reuse-heading">
+		<div class="container utility-grid">
+			<div>
+				<p class="eyebrow">Community infrastructure</p>
+				<h2 id="reuse-heading" class="section__heading">Use it, improve it, republish it.</h2>
+				<p class="lede-small">The guide is published as a human-readable page, an open JSON feed, and an iCalendar feed. Community organizers can submit omissions or corrections through the public tracker.</p>
+			</div>
+			<div class="utility-actions">
+				<a href={`${base}literary-events.json`}>Open JSON feed</a>
+				<a href={`${base}literary-events.ics`}>Add calendar feed</a>
+				<a href="https://github.com/organvm-vii-kerygma/portfolio/issues/new?template=literary-event.yml" target="_blank" rel="noopener noreferrer">Submit or correct an event</a>
+				<a href="https://github.com/organvm-vii-kerygma/portfolio/blob/main/docs/literary-field-guide-methodology.md" target="_blank" rel="noopener noreferrer">Read the selection method</a>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		const search = document.querySelector<HTMLInputElement>('#event-search');
+		const city = document.querySelector<HTMLSelectElement>('#city-filter');
+		const price = document.querySelector<HTMLSelectElement>('#price-filter');
+		const form = document.querySelector<HTMLFormElement>('.filters');
+		const cards = [...document.querySelectorAll<HTMLElement>('[data-event]')];
+		const count = document.querySelector<HTMLElement>('#result-count');
+		const empty = document.querySelector<HTMLElement>('#empty-state');
+		const apply = () => {
+			const query = search?.value.trim().toLowerCase() ?? '';
+			let visible = 0;
+			for (const card of cards) {
+				const matches = (!query || card.dataset.search?.includes(query)) && (!city || city.value === 'all' || card.dataset.city === city.value) && (!price || price.value === 'all' || card.dataset.price === price.value);
+				card.hidden = !matches;
+				if (matches) visible += 1;
+			}
+			if (count) count.textContent = `Showing ${visible} event${visible === 1 ? '' : 's'}`;
+			if (empty) empty.hidden = visible !== 0;
+		};
+		form?.addEventListener('input', apply);
+		form?.addEventListener('reset', () => setTimeout(apply));
+		document.querySelectorAll<HTMLButtonElement>('[data-path]').forEach((button) => button.addEventListener('click', () => {
+			const path = button.dataset.path ?? '';
+			if (path === 'free' && price) { price.value = 'free'; if (search) search.value = ''; }
+			else if (search) { search.value = path; if (price) price.value = 'all'; }
+			if (city) city.value = 'all'; apply(); document.querySelector('#events')?.scrollIntoView({ behavior: 'smooth' });
+		}));
+	</script>
+</Layout>
+
+<style>
+	.field-hero { padding: clamp(5rem, 12vw, 10rem) 0 3rem; border-bottom: 1px solid var(--border); }
+	.field-hero__grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, .7fr); gap: var(--space-3xl); align-items: end; }
+	.eyebrow { margin: 0 0 var(--space-sm); color: var(--accent-text); font: 600 .72rem/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+	h1 { max-width: 12ch; margin: 0; font-size: clamp(3rem, 8vw, 7.5rem); line-height: .91; letter-spacing: -.055em; }
+	.lede { max-width: 47rem; margin: var(--space-xl) 0 0; color: var(--text-secondary); font-size: clamp(1.05rem, 2vw, 1.35rem); line-height: 1.55; }
+	.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+	.button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: var(--radius); padding: .65rem 1rem; color: var(--text-primary); text-decoration: none; background: transparent; }
+	.button--primary { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+	.guide-note { border-left: 3px solid var(--accent); padding: var(--space-lg); background: var(--bg-card); }
+	.guide-note strong { font-size: 1.1rem; }
+	.guide-note p { margin-bottom: 0; color: var(--text-secondary); line-height: 1.6; }
+	.compact-section { padding-block: var(--space-xl); }
+	.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
+	.stat { padding: var(--space-lg); border-right: 1px solid var(--border); }
+	.stat:last-child { border: 0; }
+	.stat strong { display: block; font-size: 2rem; }
+	.stat span { color: var(--text-muted); font-size: .8rem; }
+	.path-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+	.path-card { padding: var(--space-xl); border: 1px solid var(--border); background: linear-gradient(145deg, var(--bg-card), transparent); }
+	.path-card > span { font: .72rem var(--font-mono); color: var(--text-muted); }
+	.path-card h3 { margin: var(--space-lg) 0 var(--space-sm); font-size: 1.2rem; }
+	.path-card p { min-height: 6rem; color: var(--text-secondary); line-height: 1.55; }
+	.path-card button { border: 0; border-bottom: 1px solid currentColor; padding: .25rem 0; color: var(--accent-text); background: transparent; cursor: pointer; }
+	.events-section { background: color-mix(in srgb, var(--bg-card) 45%, transparent); }
+	.section-intro { display: flex; align-items: end; justify-content: space-between; gap: var(--space-lg); }
+	#result-count { color: var(--text-muted); font: .75rem var(--font-mono); }
+	.filters { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: var(--space-sm); align-items: end; margin: var(--space-xl) 0; padding: var(--space-md); border: 1px solid var(--border); background: var(--bg); }
+	.filters label { color: var(--text-muted); font: .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+	.filters input, .filters select, .filters button { width: 100%; min-height: 2.75rem; margin-top: .35rem; border: 1px solid var(--border); border-radius: 0; padding: .55rem .7rem; color: var(--text-primary); background: var(--bg-card); font: inherit; text-transform: none; letter-spacing: 0; }
+	.filters button { cursor: pointer; }
+	.event-list { display: grid; gap: var(--space-md); }
+	.event-card { display: grid; grid-template-columns: 13rem minmax(0, 1fr); border: 1px solid var(--border); background: var(--bg); }
+	.event-card--featured { border-left: 3px solid var(--accent); }
+	.event-card[hidden] { display: none; }
+	.event-date { padding: var(--space-lg); border-right: 1px solid var(--border); }
+	.event-date time { display: block; font-weight: 650; line-height: 1.4; }
+	.event-date span { color: var(--text-muted); font: .75rem var(--font-mono); }
+	.event-body { padding: var(--space-lg); }
+	.event-title-row { display: flex; align-items: start; justify-content: space-between; gap: var(--space-md); }
+	.event-title-row h3 { margin: 0; font-size: clamp(1.2rem, 2.3vw, 1.7rem); }
+	.editors-pick { flex: none; border: 1px solid var(--accent); padding: .25rem .5rem; color: var(--accent-text); font: .66rem var(--font-mono); text-transform: uppercase; }
+	.event-venue { color: var(--text-muted); font: .76rem var(--font-mono); text-transform: capitalize; }
+	.event-why { max-width: 54rem; font-size: 1.02rem; line-height: 1.6; }
+	.community-use { max-width: 54rem; color: var(--text-secondary); font-size: .9rem; line-height: 1.55; }
+	.tag-row { display: flex; flex-wrap: wrap; gap: .4rem; margin: var(--space-md) 0; }
+	.tag-row span { border: 1px solid var(--border); padding: .2rem .45rem; color: var(--text-muted); font: .66rem var(--font-mono); }
+	.event-body footer { display: flex; align-items: end; justify-content: space-between; gap: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--border); }
+	.event-body footer strong, .event-body footer small { display: block; }
+	.event-body footer small { margin-top: .3rem; color: var(--text-muted); }
+	.empty-state { padding: var(--space-2xl); border: 1px dashed var(--border); text-align: center; }
+	.utility-section { border-top: 1px solid var(--border); }
+	.utility-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-3xl); }
+	.lede-small { max-width: 42rem; color: var(--text-secondary); line-height: 1.65; }
+	.utility-actions { display: grid; border-top: 1px solid var(--border); }
+	.utility-actions a { padding: var(--space-md) 0; border-bottom: 1px solid var(--border); color: var(--text-primary); text-decoration: none; }
+	@media (max-width: 850px) { .field-hero__grid, .utility-grid { grid-template-columns: 1fr; } .stat-grid { grid-template-columns: repeat(2, 1fr); } .stat:nth-child(2) { border-right: 0; } .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); } .path-grid { grid-template-columns: 1fr; } .path-card p { min-height: 0; } .filters { grid-template-columns: 1fr 1fr; } .event-card { grid-template-columns: 1fr; } .event-date { border-right: 0; border-bottom: 1px solid var(--border); } }
+	@media (max-width: 560px) { .filters { grid-template-columns: 1fr; } .event-body footer, .event-title-row { align-items: stretch; flex-direction: column; } .editors-pick { align-self: start; } .event-body footer .button { width: 100%; } }
+</style>
