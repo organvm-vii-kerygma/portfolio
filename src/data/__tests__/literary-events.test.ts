@@ -11,6 +11,14 @@ describe('literary field guide data', () => {
 		}
 	});
 
+	it('distinguishes literature from film and keeps film listings genuinely free', () => {
+		for (const event of literaryEvents) {
+			expect(['literature', 'film']).toContain(event.eventType);
+			if (event.eventType === 'film') expect(event.price).toBe('free');
+		}
+		expect(literaryEvents.some((event) => event.eventType === 'film')).toBe(true);
+	});
+
 	it('includes an editorial explanation and community use for every event', () => {
 		for (const event of literaryEvents) {
 			expect(event.whyItMatters.length).toBeGreaterThan(80);
