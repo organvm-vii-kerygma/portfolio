@@ -37,7 +37,8 @@ export const literaryEvents: LiteraryEvent[] = [
 		price: 'free',
 		priceLabel: 'Free; RSVP requested',
 		availability: 'open',
-		registrationUrl: 'https://www.eventbrite.com/e/abbrd-a-short-film-showcase-tickets-1998695788908',
+		registrationUrl:
+			'https://www.eventbrite.com/e/abbrd-a-short-film-showcase-tickets-1998695788908',
 		tags: ['film', 'short films', 'coming of age', 'filmmaker Q&A', 'networking'],
 		whyItMatters:
 			'A curated short-film program pairs three coming-of-age works with a live filmmaker conversation, making the screening as useful for studying process as finished form.',
