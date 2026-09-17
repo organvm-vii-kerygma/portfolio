@@ -35,7 +35,7 @@ export const literaryEvents: LiteraryEvent[] = [
 		city: 'Brooklyn',
 		address: '81 Devoe Street, Brooklyn, NY 11211',
 		price: 'free',
-		priceLabel: 'Free; first come, first served',
+		priceLabel: 'Free; no registration listed',
 		availability: 'open',
 		registrationUrl:
 			'https://www.bklynlibrary.org/calendar/east-williamsburg-cinema-leonard-auditorium-20260917-0530pm',
