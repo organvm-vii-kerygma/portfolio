@@ -24,6 +24,32 @@ export type LiteraryEvent = {
 
 export const literaryEvents: LiteraryEvent[] = [
 	{
+		id: 'abbrd-coming-of-age-2026',
+		eventType: 'film',
+		title: "Abbr'd: A Short Film Showcase",
+		start: '2026-09-22T18:00:00-04:00',
+		end: '2026-09-22T20:00:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Library for Arts & Culture',
+		neighborhood: 'Brooklyn Cultural District',
+		city: 'Brooklyn',
+		address: '10 Lafayette Avenue, Second Floor, Brooklyn, NY 11217',
+		price: 'free',
+		priceLabel: 'Free; RSVP requested',
+		availability: 'open',
+		registrationUrl: 'https://www.eventbrite.com/e/abbrd-a-short-film-showcase-tickets-1998695788908',
+		tags: ['film', 'short films', 'coming of age', 'filmmaker Q&A', 'networking'],
+		whyItMatters:
+			'A curated short-film program pairs three coming-of-age works with a live filmmaker conversation, making the screening as useful for studying process as finished form.',
+		communityUse:
+			'A free meeting point for emerging filmmakers, writers, performers, students, and neighbors seeking collaborators, audience feedback, or a view into local production practice.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/abbrd-short-film-showcase-library-for-arts-culture-20260922-0600pm',
+		verifiedAt: '2026-09-17',
+		featured: true,
+	},
+	{
 		id: 'three-colors-blue-leonard-2026',
 		eventType: 'film',
 		title: 'East Williamsburg Cinema Club: Three Colors: Blue',
