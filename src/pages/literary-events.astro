@@ -145,7 +145,7 @@ const formatDate = (value: string) =>
 
 			<div class="event-list">
 				{upcoming.map((event) => (
-					<article class:list={['event-card', { 'event-card--featured': event.featured }]} data-event data-city={event.city} data-type={event.eventType} data-price={event.price} data-search={`${event.title} ${event.venue} ${event.neighborhood} ${event.tags.join(' ')}`.toLowerCase()}>
+					<article id={event.id} class:list={['event-card', { 'event-card--featured': event.featured }]} data-event data-city={event.city} data-type={event.eventType} data-price={event.price} data-search={`${event.title} ${event.venue} ${event.neighborhood} ${event.tags.join(' ')}`.toLowerCase()}>
 						<div class="event-date"><time datetime={event.start}>{formatDate(event.start)}</time><span>{event.city}</span></div>
 						<div class="event-body">
 							<div class="event-title-row"><h3>{event.title}</h3>{event.featured && <span class="editors-pick">Editor’s pick</span>}</div>
