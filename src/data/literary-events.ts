@@ -1,5 +1,6 @@
 export type LiteraryEvent = {
 	id: string;
+	eventType: 'literature' | 'film';
 	title: string;
 	start: string;
 	end?: string;
@@ -23,7 +24,35 @@ export type LiteraryEvent = {
 
 export const literaryEvents: LiteraryEvent[] = [
 	{
+		id: 'three-colors-blue-leonard-2026',
+		eventType: 'film',
+		title: 'East Williamsburg Cinema Club: Three Colors: Blue',
+		start: '2026-09-17T17:30:00-04:00',
+		end: '2026-09-17T19:30:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Leonard Library',
+		neighborhood: 'East Williamsburg',
+		city: 'Brooklyn',
+		address: '81 Devoe Street, Brooklyn, NY 11211',
+		price: 'free',
+		priceLabel: 'Free; first come, first served',
+		availability: 'open',
+		registrationUrl:
+			'https://www.bklynlibrary.org/calendar/east-williamsburg-cinema-leonard-auditorium-20260917-0530pm',
+		tags: ['film', 'international cinema', 'psychological drama', 'discussion'],
+		whyItMatters:
+			'Krzysztof Kieślowski’s formally precise study of grief, freedom, music, and visual meaning is followed by a community film discussion.',
+		communityUse:
+			'A zero-cost entry point for filmmakers, writers, visual artists, students, and neighbors interested in close reading across image, sound, and narrative.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/east-williamsburg-cinema-leonard-auditorium-20260917-0530pm',
+		verifiedAt: '2026-09-17',
+		featured: true,
+	},
+	{
 		id: 'new-directions-90',
+		eventType: 'literature',
 		title: 'Celebrating 90 Years of New Directions',
 		start: '2026-09-17T19:00:00-04:00',
 		format: 'hybrid',
@@ -46,6 +75,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'american-reading-crisis',
+		eventType: 'literature',
 		title: 'The Atlantic Festival: The American Reading Crisis',
 		start: '2026-09-19T19:00:00-04:00',
 		end: '2026-09-19T20:15:00-04:00',
@@ -70,6 +100,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'spiegelman-no-towers',
+		eventType: 'literature',
 		title: 'Art Spiegelman Discusses In the Shadow of No Towers',
 		start: '2026-09-22T19:00:00-04:00',
 		end: '2026-09-22T20:30:00-04:00',
@@ -94,6 +125,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'day-of-translation-2026',
+		eventType: 'literature',
 		title: '2026 Day of Translation',
 		start: '2026-09-24T13:30:00-04:00',
 		end: '2026-09-24T18:15:00-04:00',
@@ -118,6 +150,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'wave-books-spotlight',
+		eventType: 'literature',
 		title: 'Indie Press Spotlight: New Poetry from Wave Books',
 		start: '2026-09-25T19:00:00-04:00',
 		format: 'hybrid',
@@ -141,6 +174,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'brooklyn-indie-party-2026',
+		eventType: 'literature',
 		title: '16th Annual Brooklyn Indie Party',
 		start: '2026-09-25T19:30:00-04:00',
 		format: 'in-person',
@@ -163,6 +197,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'between-page-stage',
+		eventType: 'literature',
 		title: 'Between the Page & Stage: Youth Open Mic and Author Reading',
 		start: '2026-09-26T15:00:00-04:00',
 		end: '2026-09-26T18:00:00-04:00',
@@ -189,6 +224,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'brooklyn-book-festival-2026',
+		eventType: 'literature',
 		title: 'Brooklyn Book Festival: Festival Day',
 		start: '2026-09-27T10:00:00-04:00',
 		end: '2026-09-27T18:00:00-04:00',
@@ -212,6 +248,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 	{
 		id: 'dodge-poetry-festival-2026',
+		eventType: 'literature',
 		title: 'Dodge Poetry Festival',
 		start: '2026-10-15T09:00:00-04:00',
 		end: '2026-10-17T23:00:00-04:00',
@@ -235,7 +272,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 ];
 
-export const literaryGuideUpdatedAt = '2026-09-16';
+export const literaryGuideUpdatedAt = '2026-09-17';
 
 export const literaryGuideCoverage = [
 	'Staten Island',
