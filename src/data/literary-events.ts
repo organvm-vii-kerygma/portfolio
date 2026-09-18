@@ -24,6 +24,87 @@ export type LiteraryEvent = {
 
 export const literaryEvents: LiteraryEvent[] = [
 	{
+		id: 'cora-lewis-information-age-2026',
+		eventType: 'literature',
+		title: "Cora Lewis' Information Age with Hannah Kingsley-Ma",
+		start: '2026-09-24T18:00:00-04:00',
+		end: '2026-09-24T19:15:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Sunset Park Library',
+		neighborhood: 'Sunset Park',
+		city: 'Brooklyn',
+		address: '5108 Fourth Avenue, Brooklyn, NY 11220',
+		price: 'free',
+		priceLabel: 'Free; registration encouraged but not required',
+		availability: 'open',
+		registrationUrl:
+			'https://www.bklynlibrary.org/calendar/author-talk-cora-lewis-sunset-park-multipurpose-20260924-0600pm',
+		tags: ['fiction', 'technology', 'media', 'craft', 'author conversation'],
+		whyItMatters:
+			'A novella about technology journalism, compressed news cycles, and blurred public-private life becomes a craft conversation between two Brooklyn writers working across fiction, reporting, and audio.',
+		communityUse:
+			'A free neighborhood program for fiction writers, journalists, media workers, teachers, and readers interested in how contemporary systems reshape voice, attention, and narrative form.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/author-talk-cora-lewis-sunset-park-multipurpose-20260924-0600pm',
+		verifiedAt: '2026-09-18',
+		featured: true,
+	},
+	{
+		id: 'bpl-book-prize-shortlist-2026',
+		eventType: 'literature',
+		title: '2026 Brooklyn Public Library Book Prize Shortlist Readings',
+		start: '2026-09-25T19:00:00-04:00',
+		end: '2026-09-25T20:30:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Central Library',
+		neighborhood: 'Prospect Heights',
+		city: 'Brooklyn',
+		address: '10 Grand Army Plaza, Brooklyn, NY 11238',
+		price: 'free',
+		priceLabel: 'Free with registration',
+		availability: 'open',
+		registrationUrl:
+			'https://www.bklynlibrary.org/calendar/2026-brooklyn-public-central-library-dweck-20260925-0700pm',
+		tags: ['fiction', 'nonfiction', 'reading', 'publishing', 'Brooklyn Book Festival'],
+		whyItMatters:
+			'Six shortlisted fiction and nonfiction writers read and discuss work spanning experimental debut novels, memoir, translation, politics, and Brooklyn history with a librarian prize judge.',
+		communityUse:
+			'A free survey of current literary work for readers, teachers, editors, book clubs, and writers who want to compare how a public-library prize frames artistic merit and civic relevance.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/2026-brooklyn-public-central-library-dweck-20260925-0700pm',
+		verifiedAt: '2026-09-18',
+		featured: true,
+	},
+	{
+		id: 'hello-darknuss-greg-tate-2026',
+		eventType: 'literature',
+		title: 'Hello Darknuss: Reflections on the Intergalactic Greg Tate',
+		start: '2026-09-28T19:00:00-04:00',
+		end: '2026-09-28T21:00:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Central Library',
+		neighborhood: 'Prospect Heights',
+		city: 'Brooklyn',
+		address: '10 Grand Army Plaza, Brooklyn, NY 11238',
+		price: 'free',
+		priceLabel: 'Free with registration',
+		availability: 'open',
+		registrationUrl:
+			'https://www.bklynlibrary.org/calendar/hello-darknuss-central-library-dweck-20260928-0700pm',
+		tags: ['cultural criticism', 'film', 'music', 'performance', 'media', 'Black arts'],
+		whyItMatters:
+			'Arthur Jafa, Questlove, dream hampton, Jelani Cobb, and Daphne A. Brooks examine Greg Tate’s criticism and cross-media legacy alongside a Burnt Sugar performance.',
+		communityUse:
+			'A rare free forum for writers, filmmakers, musicians, critics, scholars, and interdisciplinary artists studying how criticism, archives, performance, and cultural memory reinforce one another.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/hello-darknuss-central-library-dweck-20260928-0700pm',
+		verifiedAt: '2026-09-18',
+		featured: true,
+	},
+	{
 		id: 'abbrd-coming-of-age-2026',
 		eventType: 'film',
 		title: "Abbr'd: A Short Film Showcase",
@@ -299,7 +380,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 ];
 
-export const literaryGuideUpdatedAt = '2026-09-17';
+export const literaryGuideUpdatedAt = '2026-09-18';
 
 export const literaryGuideCoverage = [
 	'Staten Island',
