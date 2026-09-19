@@ -193,17 +193,17 @@ export const literaryEvents: LiteraryEvent[] = [
 		city: 'Brooklyn',
 		address: '10 Grand Army Plaza, Brooklyn, NY',
 		price: 'free',
-		priceLabel: 'Free with registration',
-		availability: 'open',
-		registrationUrl: 'https://www.bklynlibrary.org/',
+		priceLabel: 'Free; registration at capacity',
+		availability: 'sold-out',
+		registrationUrl: 'https://www.bklynlibrary.org/node/839042/register',
 		tags: ['public culture', 'education', 'fiction', 'attention'],
 		whyItMatters:
 			'A public conversation about sustained attention, intellectual curiosity, and shared literary culture, followed by novelist Tayari Jones.',
 		communityUse:
 			'Relevant to teachers, librarians, reading-group organizers, and people designing public-literacy programs.',
 		sourceName: 'Brooklyn Public Library',
-		sourceUrl: 'https://www.bklynlibrary.org/',
-		verifiedAt: '2026-09-16',
+		sourceUrl: 'https://www.bklynlibrary.org/node/839042/register',
+		verifiedAt: '2026-09-19',
 		featured: true,
 	},
 	{
@@ -218,8 +218,8 @@ export const literaryEvents: LiteraryEvent[] = [
 		city: 'Brooklyn',
 		address: '10 Grand Army Plaza, Brooklyn, NY',
 		price: 'free',
-		priceLabel: 'Free with registration',
-		availability: 'open',
+		priceLabel: 'Free; registration at capacity',
+		availability: 'sold-out',
 		registrationUrl: 'https://www.bklynlibrary.org/node/828089/register',
 		tags: ['comics', 'visual narrative', 'politics', 'memoir'],
 		whyItMatters:
@@ -228,7 +228,7 @@ export const literaryEvents: LiteraryEvent[] = [
 			'Especially useful for visual storytellers, nonfiction writers, artists working across image and text, and post-9/11 cultural historians.',
 		sourceName: 'Brooklyn Public Library',
 		sourceUrl: 'https://www.bklynlibrary.org/node/828089/register',
-		verifiedAt: '2026-09-16',
+		verifiedAt: '2026-09-19',
 		featured: true,
 	},
 	{
@@ -380,7 +380,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 ];
 
-export const literaryGuideUpdatedAt = '2026-09-18';
+export const literaryGuideUpdatedAt = '2026-09-19';
 
 export const literaryGuideCoverage = [
 	'Staten Island',
