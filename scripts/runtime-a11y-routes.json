@@ -960,6 +960,10 @@
         "search-dialog",
         "theme-toggle"
       ]
+    },
+    {
+      "path": "/proofs/conversation-resolution",
+      "checks": []
     }
   ]
 }
