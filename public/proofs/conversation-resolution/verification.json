@@ -1,48 +1,50 @@
 {
 	"schema": "conversation-resolution-verification.v1",
-	"revision": "2026-09-22.r1",
+	"revision": "2026-09-22.r2",
 	"verified_date": "2026-09-22",
-	"scope": "New synthetic state model and browser interaction only; not the twelve referenced systems as an integrated platform.",
+	"scope": "Synthetic workflow engine and guided presentation. The twelve project examples are separate prior work, not an integrated platform.",
 	"artifacts_sha256": {
-		"index.html": "2247be9e53f19969ef1b46cd1420fb5dc78af08d8a8fd41e8222cbb3c55f255b",
+		"index.html": "bebc2dfab71d179f8673ec5dbb03d94dc4c9e982e0999e7343ea1bc4313b2e33",
 		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
 		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
 		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
-		"offline_combined_html": "f2d745f34d510168c4aa493ce3e03623930132ea1a6d8ce105968c6627b5aac3"
+		"test-guide.cjs": "80ff948c97adc39ae9e7e87a4e411e2fab225ebe904d8b44562ce8731ff0e21b",
+		"test-guide-browser.cjs": "92bad8b323a96390d299a730e89aea52a66ece981238d9e51df74399c381304c"
 	},
 	"state_model": {
-		"runtime": "Node.js 22.16.0",
 		"core_passed": 26,
 		"additional_passed": 25,
+		"guided_flow_passed": 13,
 		"failed": 0,
 		"seeded_invariant_action_attempts": 10000,
 		"invariant_attempts_are_not_load_tests": true,
-		"reproduce": "npm test --prefix public/proofs/conversation-resolution"
+		"reproduce": "npm test --prefix public/proofs/conversation-resolution && node public/proofs/conversation-resolution/test-guide.cjs",
+		"evidence": "All 64 model checks passed in CI run 35797735029; that run's separate hash check correctly rejected the old r1 receipt. Each later Conversation proof run reruns the model checks and validates this revised file manifest."
 	},
-	"browser_source_verification": {
-		"browser": "Chromium 144.0.7559.96",
-		"passed": 41,
-		"failed": 0,
-		"method": "Playwright set_content with the exact HTML and inline substitution of the exact engine. Local file navigation was blocked by the execution environment.",
+	"guided_browser_verification": {
+		"required_job": "guided-browser",
+		"result_artifact": "guided-proof-review/.quality/conversation-guide/browser-results.json",
+		"workflow": ".github/workflows/conversation-proof.yml",
+		"reproduce": "npm ci && npx playwright install chromium && node public/proofs/conversation-resolution/test-guide-browser.cjs",
+		"method": "Real browser navigation to HTTP-served source with CSP enforced; not set_content or a CSP bypass.",
+		"coverage": "Initial disclosure, contextual steps, keyboard focus, owner acceptance, escalation, four scenarios, guarded closure, reopening, read-only back navigation, export and responsive layout.",
 		"viewports": [320, 390, 768, 1440],
-		"coverage": "Four scenarios, false closure, source replay, reopening, review invalidation, JSON export, reset, keyboard expansion, reduced motion, markup escaping, console errors and horizontal overflow.",
-		"does_not_establish": "Public HTTPS delivery, external-link availability, Safari or Firefox compatibility. Deployment must be checked independently.",
-		"before_repository_formatting": true,
-		"note": "The 41 source-level checks bind the recorded offline_combined_html hash before repository formatting. Final deployed-browser verification is separate."
+		"release_rule": "Inspect the successful exact-head guided-browser job and retained results before accepting a release. Public HTTPS delivery is checked separately after deployment; this manifest alone does not assert that either check passed."
 	},
-	"repairs": [
-		"Reject altered speaker, source kind, text or parent under an unchanged source revision.",
-		"Reject self-verification when the accepted owner is named verifier.",
-		"Retain explicit reply-parent context and reviewed-source identity.",
-		"Invalidate earlier adjudication when new evidence arrives.",
-		"Preserve existing receipt and version on a duplicate customer-update action."
-	],
+	"design": {
+		"entry": "One customer request and one primary action.",
+		"disclosure": "Step-specific explanations and exception branches are contextual. Twelve examples, scenario selection and technical state are optional.",
+		"back_navigation": "Earlier explanations are read-only and cannot rewind the current work record.",
+		"csp": "Exact inline guide hash; same-origin engine; no network connections."
+	},
+	"historical_boundary": "The r1 browser totals describe the former operator interface and are not reused as evidence for this redesign.",
 	"not_verified": [
 		"Automatic transcript extraction or semantic classification accuracy",
 		"Real server-side authorization, durable storage or multi-user concurrency",
 		"Live HubSpot writes, external delivery or exactly-once provider effects",
 		"Customer-scale capacity, adoption or business outcomes",
-		"Fresh full test suites of the twelve referenced projects"
+		"Fresh full test suites of the twelve referenced projects",
+		"User comprehension, a usability study, physical-device or all-browser compatibility"
 	],
-	"privacy": "Synthetic workflow only; private client correspondence and source paths omitted. Public page requests are not private. Noindex is not access control."
+	"privacy": "Fictional example only. No private correspondence, customer data or private repository paths. Public hosting is not private access; noindex is not access control."
 }
