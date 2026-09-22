@@ -1,0 +1,44 @@
+name: Conversation proof
+
+on:
+  pull_request:
+    paths:
+      - 'public/proofs/conversation-resolution/**'
+      - '.github/workflows/conversation-proof.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/proofs/conversation-resolution/**'
+      - '.github/workflows/conversation-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+      - name: Verify the exact tested artifact bytes
+        working-directory: public/proofs/conversation-resolution
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const assert = require('node:assert/strict');
+          const receipt = JSON.parse(fs.readFileSync('verification.json', 'utf8'));
+          for (const name of ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs']) {
+            const digest = crypto.createHash('sha256').update(fs.readFileSync(name)).digest('hex');
+            assert.equal(digest, receipt.artifacts_sha256[name], `Unverified bytes: ${name}`);
+            console.log(`${name}: ${digest}`);
+          }
+          NODE
+      - name: Run deterministic acceptance and regression checks
+        run: npm test --prefix public/proofs/conversation-resolution
