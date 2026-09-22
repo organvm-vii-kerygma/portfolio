@@ -1,0 +1,46 @@
+{
+  "schema": "conversation-resolution-verification.v1",
+  "revision": "2026-09-22.r1",
+  "verified_date": "2026-09-22",
+  "scope": "New synthetic state model and browser interaction only; not the twelve referenced systems as an integrated platform.",
+  "artifacts_sha256": {
+    "index.html": "de6b5ee02d64ec02ec1ad5badd5ea8944a661bca70fbbb5b4216076eee43e28a",
+    "workflow-engine.js": "1030de9fcdc4eb0f73443627d43f53a80a79cbbb39cd904668f01ee37d8dd45a",
+    "test-workflow.cjs": "ba1d81b712d57c150c06050a16b42c5ddb50429759057fc3e14f39b8a85b055d",
+    "test-additional.cjs": "cb14b945a290183a8599cfa74f91b3d5ce21f6f9c314c958ee4f54abfcd13393",
+    "offline_combined_html": "f2d745f34d510168c4aa493ce3e03623930132ea1a6d8ce105968c6627b5aac3"
+  },
+  "state_model": {
+    "runtime": "Node.js 22.16.0",
+    "core_passed": 26,
+    "additional_passed": 25,
+    "failed": 0,
+    "seeded_invariant_action_attempts": 10000,
+    "invariant_attempts_are_not_load_tests": true,
+    "reproduce": "npm test --prefix public/proofs/conversation-resolution"
+  },
+  "browser_source_verification": {
+    "browser": "Chromium 144.0.7559.96",
+    "passed": 41,
+    "failed": 0,
+    "method": "Playwright set_content with the exact HTML and inline substitution of the exact engine. Local file navigation was blocked by the execution environment.",
+    "viewports": [320, 390, 768, 1440],
+    "coverage": "Four scenarios, false closure, source replay, reopening, review invalidation, JSON export, reset, keyboard expansion, reduced motion, markup escaping, console errors and horizontal overflow.",
+    "does_not_establish": "Public HTTPS delivery, external-link availability, Safari or Firefox compatibility. Deployment must be checked independently."
+  },
+  "repairs": [
+    "Reject altered speaker, source kind, text or parent under an unchanged source revision.",
+    "Reject self-verification when the accepted owner is named verifier.",
+    "Retain explicit reply-parent context and reviewed-source identity.",
+    "Invalidate earlier adjudication when new evidence arrives.",
+    "Preserve existing receipt and version on a duplicate customer-update action."
+  ],
+  "not_verified": [
+    "Automatic transcript extraction or semantic classification accuracy",
+    "Real server-side authorization, durable storage or multi-user concurrency",
+    "Live HubSpot writes, external delivery or exactly-once provider effects",
+    "Customer-scale capacity, adoption or business outcomes",
+    "Fresh full test suites of the twelve referenced projects"
+  ],
+  "privacy": "Synthetic workflow only; private client correspondence and source paths omitted. Public page requests are not private. Noindex is not access control."
+}
