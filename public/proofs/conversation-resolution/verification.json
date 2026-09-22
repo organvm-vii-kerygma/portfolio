@@ -4,7 +4,7 @@
 	"verified_date": "2026-09-22",
 	"scope": "Synthetic workflow engine and guided presentation. The twelve project examples are separate prior work, not an integrated platform.",
 	"artifacts_sha256": {
-		"index.html": "5ee9db186ed08ae7dc7455d87a294bc2763aea8da6d003d99f3c86943501eb4c",
+		"index.html": "943699735b4d135392969653671a5490dee1abf2a2a6e2945a9665d94ae46250",
 		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
 		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
 		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
