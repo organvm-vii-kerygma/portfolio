@@ -86,6 +86,17 @@ async function generateA11yRoutes() {
 		return { path: routePath, checks: DEFAULT_CHECKS };
 	});
 
+	// This static public proof is copied without the portfolio shell, so audit
+	// its own controls rather than requiring navigation controls it does not render.
+	const proofPath = '../public/proofs/conversation-resolution/index.html';
+	if (fs.existsSync(path.join(__dirname, proofPath))) {
+		routes.push({
+			path: '/proofs/conversation-resolution',
+			checks: [],
+			requiredFocusSelectors: ['#scenario', '#walkthrough', '#reset'],
+		});
+	}
+
 	// Inject Persona Routes
 	for (const persona of personas) {
 		routes.push({ path: `/resume/${persona.id}`, checks: DEFAULT_CHECKS });
