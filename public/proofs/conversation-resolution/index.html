@@ -1,36 +1,272 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'"><title>Conversation to Resolution | Anthony James Padavano</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Walk through one customer request, from conflicting notes to an accepted owner and a checked result.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-GpViI35BhfudsjwAzcnPtFk9Q20+InyR5/wgo9pegq8='; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Conversation to Resolution | Anthony James Padavano</title>
 <style>
-:root{--ink:#173349;--muted:#536576;--paper:#f5f7f8;--line:#d8e0e5;--accent:#126978;--pale:#eaf2f3}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent)}main{max-width:1160px;margin:auto;padding:40px 28px 72px}.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:750;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(32px,5vw,54px);line-height:1.12;letter-spacing:-.035em;margin:16px 0 22px;max-width:880px}h2{font-size:27px;line-height:1.25;margin:0 0 14px}h3{font-size:17px;line-height:1.35;margin:0 0 12px}p{margin:0 0 13px}header>p{max-width:850px}.lede{font-size:19px}.notice{border-left:4px solid var(--accent);background:var(--pale);padding:15px 18px;margin:24px 0;font-size:14px}nav{display:flex;flex-wrap:wrap;gap:24px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:28px 0 38px}nav a{text-decoration:none;font-weight:650;font-size:14px}section{margin:42px 0}.layout{display:grid;grid-template-columns:1fr 1fr;gap:22px}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:24px;min-width:0}.wide{grid-column:1/-1}.small{font-size:13px;color:var(--muted)}.sourcebox{padding:13px 0;border-top:1px solid var(--line)}.sourcebox p{margin:6px 0;font-size:14px}.tag{display:inline-block;font-size:11px;font-weight:700;background:var(--pale);border-radius:4px;padding:3px 7px;margin:0 5px 5px 0}.selector{width:100%;font:inherit;padding:11px;border:1px solid var(--line);border-radius:6px;background:white;color:var(--ink);margin:8px 0 18px}.status{font-size:24px;font-weight:750;text-transform:capitalize}.statusrow,.headerline{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:8px 0 18px}.actions,.top-actions{display:flex;flex-wrap:wrap;gap:8px}button{background:var(--accent);color:white;border:1px solid var(--accent);border-radius:6px;font:600 13px/1.2 system-ui;padding:12px 14px;min-height:44px;cursor:pointer}button.secondary{background:white;color:var(--accent)}button:hover{filter:brightness(.94)}button:focus-visible,summary:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #c78122;outline-offset:3px}.kv{display:grid;grid-template-columns:135px 1fr;gap:0 12px;margin:16px 0;font-size:14px}.kv dt{color:var(--muted)}.kv dd{margin:0 0 7px;overflow-wrap:anywhere}.message{min-height:58px;background:var(--pale);padding:12px 14px;border-radius:6px;font-size:14px;margin:16px 0}.message.bad{color:#9a3c27;background:#fff0e9}.rail{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}.rail span{font-size:11px;padding:5px 7px;border:1px solid var(--line);border-radius:4px}.rail span.current{background:var(--ink);color:white}.audit{max-height:285px;overflow:auto;border-top:1px solid var(--line);margin-top:15px;padding-left:24px;font-size:13px}.audit li{padding:9px 0;border-bottom:1px solid var(--line)}.evidence{background:white;border:1px solid var(--line);border-radius:8px;margin:10px 0}.evidence summary{padding:16px 18px;cursor:pointer;list-style:none;display:grid;grid-template-columns:45px 1fr 1fr;align-items:center;gap:14px}.evidence summary::-webkit-details-marker{display:none}.code{font-size:12px;color:var(--accent);font-weight:750}.stage{font-size:13px;color:var(--muted)}.inside{padding:0 20px 18px 77px;font-size:14px}.boundary{font-size:13px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.metric{border-top:3px solid var(--accent);padding:10px 0;font-size:14px}.metric strong{display:block;margin-bottom:4px}footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:22px}#record{font:12px/1.5 ui-monospace,monospace;max-height:350px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:760px){main{padding:26px 18px 45px}.layout,.metrics{grid-template-columns:1fr}.panel{padding:19px}.evidence summary{grid-template-columns:35px 1fr;gap:7px}.stage{grid-column:2}.inside{padding-left:22px}.headerline{display:block}.kv{grid-template-columns:115px 1fr}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}@media print{nav,.actions,.top-actions,button{display:none}.layout{display:block}.panel{break-inside:avoid;margin-bottom:15px}.audit{max-height:none}body{background:white}main{padding:0}details{break-inside:avoid}}
-</style></head><body><main>
-<header><div class="eyebrow">Anthony James Padavano · Systems &amp; automation</div><h1>Keep a customer need connected to an accountable outcome.</h1><p class="lede">Preserve the source. Reconcile what it means. Find the right lane. Obtain an accepted owner. Verify the result.</p><p>A working demonstration of the handoff, with twelve examples of the mechanisms behind the approach.</p><div class="notice"><b>Demonstrator, not a live integration.</b> Customer records, speakers, roles and outcomes in the workflow are synthetic. Sources are manually structured, not extracted by AI. Roles are simulated, not authenticated. State resets on reload; no CRM requests or messages are sent. The evidence map describes separate prior work.</div></header>
-<nav aria-label="Sections"><a href="#approach">Operating approach</a><a href="#demo">Try the workflow</a><a href="#evidence">Twelve examples</a><a href="#pilot">Pilot &amp; verification</a></nav>
-<section id="approach"><h2>One record contract. Different business workflows.</h2><p>Keep existing tools. Add the missing links between source evidence, decisions, ownership and completion. Billing, support, onboarding and feature requests share identity and history, but retain different permissions, routes and completion criteria.</p><div class="metrics"><div class="metric"><strong>Source is not interpretation</strong>A quote, a proposed action and an approved decision are separate records.</div><div class="metric"><strong>Assigned is not accepted</strong>Silence triggers a visible escalation, not an invented owner.</div><div class="metric"><strong>Attempted is not resolved</strong>Closure requires completion evidence and a customer-update receipt.</div></div></section>
-<section id="demo"><div class="headerline"><h2>Try the information-to-action loop</h2><div class="top-actions"><button type="button" id="walkthrough">Run scenario</button><button type="button" class="secondary" id="reset">Reset</button></div></div><p class="small">Use individual actions to inspect the gates. Run scenario includes simulated review decisions; it does not infer identity or resolve contradictions automatically.</p><div class="layout"><div class="panel"><h3>1. Read the source</h3><label for="scenario" class="small">Choose a synthetic scenario</label><select id="scenario" class="selector"><option value="happy">Approved scope → verified resolution</option><option value="unaccepted">Nobody accepts → coordinator escalation</option><option value="ambiguous">Ambiguous account → write blocked</option><option value="conflict">Conflicting instructions → review required</option></select><div id="sources"></div><p class="small">A short “yes” can carry a decision. Its parent context and source attribution must survive atomization.</p></div><div class="panel"><h3>2. Inspect the current work record</h3><div class="statusrow"><span class="status" id="status"></span><span class="small" id="version"></span></div><div class="rail" id="rail"></div><dl class="kv" id="facts"></dl><div id="message" role="status" aria-live="polite" class="message"></div></div><div class="panel wide"><h3>3. Advance only when the gate is satisfied</h3><div class="actions"><button type="button" id="resolve-account" data-action="resolveAccount">Resolve account</button><button type="button" id="resolve-conflict" data-action="resolveConflict">Adjudicate conflict</button><button type="button" data-action="approve">Approve scope</button><button type="button" data-action="propose">Propose owner</button><button type="button" data-action="accept">Owner accepts</button><button type="button" data-action="execute">Simulate execution</button><button type="button" data-action="verify">Verify fixture</button><button type="button" data-action="notify">Record customer update</button><button type="button" data-action="close">Close case</button></div><div class="actions" style="margin-top:10px"><button type="button" class="secondary" data-action="wait">Wait past acceptance deadline</button><button type="button" class="secondary" data-action="replay">Replay the same sources</button><button type="button" class="secondary" data-action="reopen">Reopen with new conflict</button><button type="button" class="secondary" id="export">Export synthetic receipt</button></div><ol id="audit" class="audit" aria-label="Event history"></ol><details><summary>Inspect complete synthetic state</summary><pre id="record"></pre></details></div></div></section>
-<section id="evidence"><h2>The broader evidence map</h2><p>Twelve related mechanisms—not twelve deployments of the same system. Private client cases are anonymized here. Expand a row to inspect the connection and its limitation.</p>
-<details class="evidence"><summary><span class="code">E01</span><strong>Client requirements case</strong><span class="stage">Reconcile evolving requirements</span></summary><div class="inside"><p>Conversation sources became individually identified wants with source references, evolution, scope and implementation status. The record exposed a mismatch between the governing experience and a nested product funnel.</p><p><b>Applied here.</b> Connect the customer statement, its interpretation and the authorized implementation; preserve disagreement.</p><p class="boundary">Private client-delivery evidence. Not proof of automated extraction accuracy or customer-scale throughput; correspondence is not published.</p></div></details>
-<details class="evidence"><summary><span class="code">E02</span><strong>Client review studio</strong><span class="stage">Focus the human decision</span></summary><div class="inside"><p>Parallel editorial, archive, commerce and platform lanes feed one client-review item. Preparation is distinct from rights, voice, editorial and publication approval.</p><p><b>Applied here.</b> Present one actionable review while specialist work proceeds behind it. Preserve the existing public platform until cutover is authorized.</p><p class="boundary">Private operating model and prototype. Publication and migration remain human-gated; not autonomous customer operation.</p></div></details>
-<details class="evidence"><summary><span class="code">E03</span><strong>AI Chat Exporter</strong><span class="stage">Preserve source conversations</span></summary><div class="inside"><p>The ChatGPT path normalizes a message tree and supports Markdown, HTML, JSON, PNG and text exports, separating provider, request queue and renderers.</p><p><b>Applied here.</b> Preserve structured evidence before summarizing; put source-specific adapters behind a shared contract.</p><p class="boundary">Substantially transformed fork of Pionxzh's project. Other provider paths are scaffolds; compatibility with changing host interfaces is not guaranteed.</p><a href="https://github.com/organvm-iii-ergon/a-i-chat--exporter/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect public source</a></div></details>
-<details class="evidence"><summary><span class="code">E04</span><strong>Private knowledge pipeline</strong><span class="stage">Turn chats into typed records</span></summary><div class="inside"><p>A knowledge atomizer separates messages and code blocks, retains conversation identity, and applies redaction and format-specific chunking strategies.</p><p><b>Applied here.</b> Make retrievable units without losing their source context.</p><p class="boundary">The inspected message pass skips content under 20 characters and uses random unit IDs. A sales adaptation needs short-approval preservation and replay-safe identity; those limitations are not hidden.</p></div></details>
-<details class="evidence"><summary><span class="code">E05</span><strong>LingFrame</strong><span class="stage">Preserve context across levels</span></summary><div class="inside"><p>The atomization model retains hierarchical relationships between theme, paragraph, sentence, word and letter.</p><p><b>Applied here.</b> Pair a small, inspectable evidence span with the larger context needed to distinguish a request, condition or commitment.</p><p class="boundary">Research framework and heuristic rhetorical analysis, not a validated business-intent classifier.</p><a href="https://github.com/organvm/linguistic-atomization-framework/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect public source</a></div></details>
-<details class="evidence"><summary><span class="code">E06</span><strong>Public Record Data Scraper / UCC</strong><span class="stage">Normalize and deliver into CRM</span></summary><div class="inside"><p>Inspected HubSpot adapters map prospect data to CRM properties, submit authenticated requests and expose success, failure and remote object identifiers.</p><p><b>Applied here.</b> Translate a shared record into the destination schema and reconcile its returned object instead of adding an isolated store.</p><p class="boundary">Private integration code, not a live customer test, owner-acceptance system or proof of idempotent remote creation.</p></div></details>
-<details class="evidence"><summary><span class="code">E07</span><strong>Limen</strong><span class="stage">Bind execution to authority</span></summary><div class="inside"><p>Bounded work packets carry authority, limits, deadlines and verification predicates. A deterministic keeper manages leases and generations; receipts record executor identity, revisions, checks and outcomes.</p><p><b>Applied here.</b> Distinguish assignment, acceptance, execution and completion evidence.</p><p class="boundary">An agent lease is not a person's acceptance and does not prove exactly-once effects in an external CRM.</p><a href="https://github.com/4444J99/limen/blob/main/docs/architecture/peer-conductor-protocol.md" target="_blank" rel="noopener noreferrer">Inspect public protocol</a></div></details>
-<details class="evidence"><summary><span class="code">E08</span><strong>ORGANVM Engine</strong><span class="stage">Coordinate varied workflows</span></summary><div class="inside"><p>Registry, governance, dependency, promotion, dispatch and context-synchronization mechanisms coordinate distributed work.</p><p><b>Applied here.</b> Share identities and lifecycle rules while keeping each business workflow's own acceptance criteria.</p><p class="boundary">Cross-repository governance is not a customer-operation capacity benchmark. Repository count is not throughput.</p><a href="https://github.com/organvm/organvm-engine/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect public source</a></div></details>
-<details class="evidence"><summary><span class="code">E09</span><strong>Testament and governance corpus</strong><span class="stage">Retain history</span></summary><div class="inside"><p>Testament catalogs rendered artifacts with time, module, format, path and metadata. A separate planning corpus preserves decisions, dependencies and superseded documents.</p><p><b>Applied here.</b> Reconstruct what was produced and how the current state relates to its history.</p><p class="boundary">The inspected catalog is a local append-oriented file, not a tamper-proof distributed ledger. Corpus and runtime are distinct.</p><a href="https://github.com/organvm/organvm-engine/blob/main/src/organvm_engine/testament/catalog.py" target="_blank" rel="noopener noreferrer">Inspect public catalog code</a></div></details>
-<details class="evidence"><summary><span class="code">E10</span><strong>Universal Mail Automation</strong><span class="stage">Close communication loops</span></summary><div class="inside"><p>Provider adapters, routing rules, escalation and redacted action state distinguish draft approval from delivery receipts.</p><p><b>Applied here.</b> A drafted, approved and delivered response are different events. Pending follow-up needs a coordinator.</p><p class="boundary">Implementation documentation, not a fresh live-provider test or proof of production delivery.</p><a href="https://github.com/4444J99/universal-mail--automation/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect public documentation</a></div></details>
-<details class="evidence"><summary><span class="code">E11</span><strong>Private conversation-operations kernel</strong><span class="stage">Compose a domain workflow</span></summary><div class="inside"><p>Opportunities, permission-aware approvals, drafts, routing, briefs, recording assets and commitments are connected through adapters.</p><p><b>Applied here.</b> Share intake and evidence contracts, but configure the workflow for the people operating it. Preparation does not authorize a send.</p><p class="boundary">Bounded local implementation; no completed customer pilot or adoption is established by this review.</p></div></details>
-<details class="evidence"><summary><span class="code">E12</span><strong>Agentic Titan</strong><span class="stage">Compare approaches within limits</span></summary><div class="inside"><p>The framework separates agent definitions, provider policy, topology, state, tools and human-approval controls.</p><p><b>Applied here.</b> Compare candidate extraction and routing strategies offline against a simple baseline on the same labeled examples. Select one supported operating path.</p><p class="boundary">Framework breadth does not demonstrate that parallel agents improve outcomes. Keep open-ended exploration outside the customer-critical path.</p><a href="https://github.com/organvm-iii-ergon/agentic-titan/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect public framework</a></div></details>
+:root{--ink:#1e3035;--muted:#546369;--paper:#fafbf9;--line:#dce2df;--accent:#17675c;--tint:#f0f5f2;--warning:#876021}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:860px;margin:auto;padding:28px 26px 64px}a{color:var(--accent);text-underline-offset:3px}button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #9a641d;outline-offset:4px}h1,h2,h3,p{margin:0}.masthead{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:12px;margin-bottom:30px}.masthead a{color:inherit}h1{font-size:clamp(29px,5vw,42px);line-height:1.16;letter-spacing:-.035em;margin-bottom:12px}.lede{color:var(--muted);max-width:680px;font-size:17px}.simulation{font-size:12px;color:var(--muted);margin:14px 0 22px}.progress{list-style:none;display:flex;padding:0;margin:0 0 24px;gap:8px}.progress li{flex:1;border-top:3px solid var(--line);padding-top:7px;font-size:12px;color:var(--muted)}.progress .current{border-color:var(--accent);color:var(--ink);font-weight:700}.progress .complete{border-color:#a6c1b5}.story{background:white;border:1px solid var(--line);border-radius:18px;padding:30px 34px;box-shadow:0 6px 28px #233b2c05}.story-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.step-label{font-size:12px;color:var(--accent);font-weight:650}.text-button{background:none;border:0;color:var(--muted);font-size:13px;padding:8px 0;min-height:44px;text-decoration:underline;text-underline-offset:4px}h2{font-size:clamp(23px,3.5vw,30px);line-height:1.2;letter-spacing:-.02em;margin:10px 0 12px}h2:focus{outline:none}.step-copy{color:var(--muted);font-size:16px;max-width:650px}.cards{display:grid;gap:10px;margin:22px 0}.story-card{background:var(--tint);border-left:3px solid #a6c1b5;padding:13px 17px;border-radius:0 8px 8px 0}.story-card p{line-height:1.5;font-size:17px}.card-label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px}.story-card.warning{background:#fcf7ed;border-color:#cbaf7c}.primary{display:inline-block;background:var(--accent);color:white;border:1px solid var(--accent);border-radius:8px;font-weight:650;font-size:15px;min-height:48px;padding:13px 22px;text-align:center}.primary:hover{background:#12544b}.step-note{color:var(--muted);font-size:12px;margin-top:13px;max-width:660px}.scene-help{border-top:1px solid var(--line);margin-top:20px;padding-top:4px;font-size:13px;color:var(--muted)}summary{cursor:pointer;min-height:44px;padding:12px 0;line-height:1.5}details p{margin:4px 0 15px}.optional{margin-top:28px}.optional>details{border-top:1px solid var(--line);padding:3px 0}.optional>details>summary{font-weight:600;font-size:15px;padding:14px 2px}.optional>details>div{padding:6px 2px 18px;font-size:14px}.optional h3{font-size:16px;margin:12px 0 7px}.small,.boundary,.stage{font-size:12px;color:var(--muted)}.evidence{border:1px solid var(--line);border-radius:8px;margin:10px 0;background:white}.evidence summary{display:grid;grid-template-columns:34px 1fr;gap:4px 10px;padding:13px 16px;list-style:none}.evidence summary:after{content:'+';grid-column:1;grid-row:2;color:var(--accent)}.evidence[open] summary:after{content:'−'}.evidence summary::-webkit-details-marker{display:none}.evidence .code{grid-column:1;grid-row:1;font-size:10px;color:var(--muted)}.evidence strong{font-size:14px;grid-column:2}.evidence .stage{grid-column:2}.inside{padding:2px 18px 10px;font-size:14px}.inline-actions{display:flex;gap:16px;flex-wrap:wrap}.secondary{background:white;border:1px solid var(--line);border-radius:7px;color:var(--ink);min-height:44px;padding:10px 15px;font-size:13px;margin:8px 8px 8px 0}select{display:block;width:100%;max-width:430px;padding:10px;border:1px solid var(--line);border-radius:6px;background:white;min-height:44px;margin:7px 0;color:var(--ink)}pre{font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;border:1px solid var(--line);padding:15px;border-radius:8px}#test-message{margin:12px 0;color:var(--accent)}.error{color:#883922;background:#fff4ed;padding:14px;margin-top:14px}.end-note{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.skip{position:absolute;left:-10000px}.skip:focus{left:12px;top:8px;background:white;padding:12px;z-index:10}@media(max-width:600px){main{padding:20px 17px 38px}.masthead{margin-bottom:24px;font-size:11px}.story{padding:20px 18px;border-radius:12px}.progress{gap:5px}.progress li{font-size:11px}.story-card p{font-size:16px}.primary{width:100%}.optional{margin-top:24px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media print{button,.progress,.masthead,.optional>details:not([open]){display:none}main{padding:0;max-width:none}.story{box-shadow:none}.optional details{break-inside:avoid}}
+</style>
+</head>
+<body data-pagefind-ignore="all">
+<a class="skip" href="#walkthrough">Skip to the walkthrough</a>
+<main>
+<header>
+<div class="masthead"><span>Anthony James Padavano</span><span>Interactive walkthrough</span></div>
+<h1>From a request to a result.</h1>
+<p class="lede">Follow one customer request. See what needs clarifying, who takes it, and how the team knows it is done.</p>
+<p class="simulation">Fictional example · No AI extraction, CRM connection, or messages sent.</p>
+</header>
+<ol class="progress" id="progress" aria-label="Request progress"><li class="current" aria-current="step">Request</li><li>Clarify</li><li>Owner</li><li>Result</li><li>Closed</li></ol>
+<section class="story" id="walkthrough" aria-labelledby="step-title">
+<div class="story-top"><span class="step-label" id="step-label">Stage 1 of 5 · Request</span><button type="button" class="text-button" id="restart" hidden>Start over</button></div>
+<h2 id="step-title" tabindex="-1">A customer asks for a checklist.</h2>
+<p class="step-copy" id="step-copy">After the call, how do we make sure the right thing actually happens?</p>
+<div class="cards" id="cards"><div class="story-card"><div class="card-label">Customer · call excerpt</div><p>Send the onboarding checklist. Do not change our live configuration yet.</p></div></div>
+<button type="button" class="primary" id="next">Follow this request</button>
+<p class="step-note" id="step-note">You are walking through the handoff, not connecting to a real customer account.</p>
+<p class="error" id="guide-error" role="alert" hidden></p>
+<details class="scene-help" id="explain"><summary>What is happening behind this step?</summary><p id="step-detail">This example starts with written, fictional source records. It does not record a call or extract meaning with AI.</p></details>
+<details class="scene-help" id="late-option" hidden><summary>What if Alex never responds?</summary><p>Advance the example beyond the acceptance deadline and see why the task cannot disappear.</p><button type="button" class="secondary" id="wait">Show the missed deadline</button></details>
+<details class="scene-help" id="reopen-option" hidden><summary>What if new instructions arrive later?</summary><p>Keep the finished case in history and open a fresh review. Do not silently replace the earlier decision.</p><button type="button" class="secondary" id="reopen">Add a new conflicting note</button></details>
+<button type="button" class="text-button" id="previous" hidden>Review the previous explanation</button>
+<noscript><p class="error">JavaScript is needed to advance this walkthrough. The project explanations below remain readable.</p></noscript>
 </section>
-<section id="pilot"><h2>Prove one complete workflow, then expand.</h2><div class="layout"><div class="panel"><h3>Trace → shadow → constrained pilot</h3><p>Label an authorized sample across calls, CRM and notes. Establish an existing-tool baseline. Run extraction and routing without customer-facing writes, then enable one approved write path with an owner, exception queue, verification criterion and rollback procedure.</p></div><div class="panel"><h3>Measure outcomes, not generated records</h3><p>Measure missed requests, wrong-account joins, routing corrections, time to accepted owner, overdue work, reopened cases, verified outcomes, review time and cost. Stop writes on unauthorized commitments, cross-account disclosure, duplicate effects or false closure.</p></div></div><div class="notice"><b>Verification boundary.</b> The repaired model passed 51 deterministic checks, including 10,000 invariant-checking action attempts. Browser checks cover this synthetic interaction, not AI extraction, real authentication, multi-user concurrency, provider delivery or production capacity. <a href="verification.json">Read the verification receipt</a>.</div></section>
-<footer><p>Public demonstration · revision 2026-09-22.r1. No login, analytics, external fonts or customer data. Hosting requests are separate from the simulated workflow; exported JSON is synthetic. State resets on reload. Noindex is not access control.</p><p>Private source paths and correspondence are omitted. Public references are evidence of mechanisms, not live deployment claims. Architecture and implementation direction use AI coding collaborators; upstream attribution is retained.</p></footer><noscript><p>The operating approach and evidence map remain readable. JavaScript is required for the interactive scenario.</p></noscript></main>
-<script src="workflow-engine.js"></script>
-<script>
-let demo;const el=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function render(){const s=demo.state;el('status').textContent=s.status;el('version').textContent='Record version '+s.version;el('rail').innerHTML=['unreviewed','ready','proposed','accepted','executed','verified','closed'].map(x=>`<span class="${x===s.status?'current':''}">${esc(x)}</span>`).join('');el('sources').innerHTML=s.sources.map(x=>`<div class="sourcebox"><span class="tag">${esc(x.id)}</span><span class="small">${esc(x.kind)} · ${esc(x.speaker)}</span><p>“${esc(x.text)}”</p></div>`).join('');const values=[['Account',s.accountResolved?'Harbor Goods · demo-account-001':'AMBIGUOUS — writes blocked'],['Scope',s.conflictPending?'CONFLICT — review required':s.scope||'Awaiting approval'],['Proposed owner',s.proposedOwner||'None'],['Accepted owner',s.acceptedOwner||'None — not inferred'],['Escalation',s.escalated?'Overdue acceptance → coordinator':'Not triggered'],['Result',s.result?.id||'None'],['Verification',s.verification?.passed?'Passing synthetic fixture':'Missing'],['Customer update',s.communication?.id||'Not recorded']];el('facts').innerHTML=values.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');el('audit').innerHTML=[...s.audit].reverse().map(x=>`<li><b>${esc(x.n)} · ${esc(x.action)}</b> <span class="small">v${esc(x.version)}</span><br>${esc(x.detail)}</li>`).join('');el('record').textContent=JSON.stringify(s,null,2);el('resolve-account').hidden=s.accountResolved;el('resolve-conflict').hidden=!s.conflictPending;}
-function act(a){const s=demo.state;const payloads={resolveAccount:{actor:'reviewer',account:s.account},resolveConflict:{actor:'reviewer'},approve:{actor:'reviewer',scope:'checklist-only'},propose:{owner:'CS owner (simulated)'},accept:{actor:s.proposedOwner},execute:{actor:s.acceptedOwner},verify:{actor:'verifier',passed:true,resultId:s.result?.id},notify:{actor:'coordinator'}};const result=demo.dispatch(a,payloads[a]||{});el('message').textContent=result.detail;el('message').className='message'+(result.ok?'':' bad');render();return result;}
-function reset(){demo=new WorkflowDemo(el('scenario').value);el('message').className='message';el('message').textContent='Start by approving checklist-only scope. Try a premature close to see the guard. Resolve missing decisions in the blocked scenarios first.';render();}
-function walkthrough(){reset();if(!demo.state.accountResolved)act('resolveAccount');if(demo.state.conflictPending)act('resolveConflict');for(const a of ['approve','propose'])act(a);if(demo.state.scenario==='unaccepted'){act('wait');return;}for(const a of ['accept','execute','verify','notify','close'])act(a);}
-function exportRecord(){const blob=new Blob([JSON.stringify(demo.state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='synthetic-workflow-receipt.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
-document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>act(b.dataset.action)));el('scenario').addEventListener('change',reset);el('reset').addEventListener('click',reset);el('walkthrough').addEventListener('click',walkthrough);el('export').addEventListener('click',exportRecord);reset();
-</script></body></html>
+<div class="optional">
+<details id="connections"><summary id="connections-title">Where this approach comes from · 12 project examples</summary><div><p>The walkthrough combines patterns from earlier work. These are separate systems, not twelve live services running behind this page.</p><details class="evidence"><summary><span class="code">E01</span><strong>Client requirements case</strong><span class="stage">Reconcile evolving requirements</span></summary><div class="inside"><p>Conversation sources became individually identified wants with source references, evolution, scope and implementation status. The record exposed a mismatch between the governing experience and a nested product funnel.</p><p><b>Applied here.</b> Connect the customer statement, its interpretation and the authorized implementation; preserve disagreement.</p><p class="boundary">Private client-delivery evidence. Not proof of automated extraction accuracy or customer-scale throughput; correspondence is not published.</p></div></details>
+<details class="evidence"><summary><span class="code">E02</span><strong>Client review studio</strong><span class="stage">Focus the human decision</span></summary><div class="inside"><p>Parallel editorial, archive, commerce and platform lanes feed one client-review item. Preparation is distinct from rights, voice, editorial and publication approval.</p><p><b>Applied here.</b> Present one actionable review while specialist work proceeds behind it. Preserve the existing public platform until cutover is authorized.</p><p class="boundary">Private operating model and prototype. Publication and migration remain human-gated; not autonomous customer operation.</p></div></details>
+<details class="evidence"><summary><span class="code">E03</span><strong>AI Chat Exporter</strong><span class="stage">Preserve source conversations</span></summary><div class="inside"><p>The ChatGPT path normalizes a message tree and supports Markdown, HTML, JSON, PNG and text exports, separating provider, request queue and renderers.</p><p><b>Applied here.</b> Preserve structured evidence before summarizing; put source-specific adapters behind a shared contract.</p><p class="boundary">Substantially transformed fork of Pionxzh's project. Other provider paths are scaffolds; compatibility with changing host interfaces is not guaranteed.</p><a href="https://github.com/organvm-iii-ergon/a-i-chat--exporter/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details>
+<details class="evidence"><summary><span class="code">E04</span><strong>Private knowledge pipeline</strong><span class="stage">Turn chats into typed records</span></summary><div class="inside"><p>A knowledge atomizer separates messages and code blocks, retains conversation identity, and applies redaction and format-specific chunking strategies.</p><p><b>Applied here.</b> Make retrievable units without losing their source context.</p><p class="boundary">The inspected message pass skips content under 20 characters and uses random unit IDs. A sales adaptation needs short-approval preservation and replay-safe identity; those limitations are not hidden.</p></div></details>
+<details class="evidence"><summary><span class="code">E05</span><strong>LingFrame</strong><span class="stage">Preserve context across levels</span></summary><div class="inside"><p>The atomization model retains hierarchical relationships between theme, paragraph, sentence, word and letter.</p><p><b>Applied here.</b> Pair a small, inspectable evidence span with the larger context needed to distinguish a request, condition or commitment.</p><p class="boundary">Research framework and heuristic rhetorical analysis, not a validated business-intent classifier.</p><a href="https://github.com/organvm/linguistic-atomization-framework/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details>
+<details class="evidence"><summary><span class="code">E06</span><strong>Public Record Data Scraper / UCC</strong><span class="stage">Normalize and deliver into CRM</span></summary><div class="inside"><p>Inspected HubSpot adapters map prospect data to CRM properties, submit authenticated requests and expose success, failure and remote object identifiers.</p><p><b>Applied here.</b> Translate a shared record into the destination schema and reconcile its returned object instead of adding an isolated store.</p><p class="boundary">Private integration code, not a live customer test, owner-acceptance system or proof of idempotent remote creation.</p></div></details>
+<details class="evidence"><summary><span class="code">E07</span><strong>Limen</strong><span class="stage">Bind execution to authority</span></summary><div class="inside"><p>Bounded work packets carry authority, limits, deadlines and verification predicates. A deterministic keeper manages leases and generations; receipts record executor identity, revisions, checks and outcomes.</p><p><b>Applied here.</b> Distinguish assignment, acceptance, execution and completion evidence.</p><p class="boundary">An agent lease is not a person's acceptance and does not prove exactly-once effects in an external CRM.</p><a href="https://github.com/4444J99/limen/blob/main/docs/architecture/peer-conductor-protocol.md" rel="noopener noreferrer" target="_blank">Inspect public protocol</a></div></details>
+<details class="evidence"><summary><span class="code">E08</span><strong>ORGANVM Engine</strong><span class="stage">Coordinate varied workflows</span></summary><div class="inside"><p>Registry, governance, dependency, promotion, dispatch and context-synchronization mechanisms coordinate distributed work.</p><p><b>Applied here.</b> Share identities and lifecycle rules while keeping each business workflow's own acceptance criteria.</p><p class="boundary">Cross-repository governance is not a customer-operation capacity benchmark. Repository count is not throughput.</p><a href="https://github.com/organvm/organvm-engine/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details>
+<details class="evidence"><summary><span class="code">E09</span><strong>Testament / governance corpus</strong><span class="stage">Keep a durable evidence history</span></summary><div class="inside"><p>Testament catalogs rendered artifacts with source module, format, time and metadata. The governance corpus preserves the history from source conversations through plans, evaluations and later revisions.</p><p><b>Applied here.</b> Keep the evidence behind a decision inspectable after a status or interpretation changes.</p><p class="boundary">An append-only artifact catalog is not, by itself, a tamper-proof transaction log or a complete customer decision system.</p><a href="https://github.com/organvm/organvm-engine/blob/main/src/organvm_engine/testament/catalog.py" rel="noopener noreferrer" target="_blank">Inspect public catalog</a></div></details>
+<details class="evidence"><summary><span class="code">E10</span><strong>Universal Mail Automation</strong><span class="stage">Triage and route incoming work</span></summary><div class="inside"><p>Mail-processing mechanisms distinguish incoming material, triage, routing, escalation, approval and delivery evidence.</p><p><b>Applied here.</b> Route a customer signal toward a bounded next action without treating draft or approval as confirmed delivery.</p><p class="boundary">Mail automation is a related implementation pattern, not proof that this demonstration sends or receives messages.</p><a href="https://github.com/4444J99/universal-mail--automation/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details>
+<details class="evidence"><summary><span class="code">E11</span><strong>HOSPES</strong><span class="stage">Make the next action visible</span></summary><div class="inside"><p>A human-gated operating workflow links intake, approvals, drafts, routing and commitments. A stale-projection defect showed why a saved decision must also reach the operator's next view.</p><p><b>Applied here.</b> Keep the visible work queue aligned with the authoritative decision and expose the next allowed action.</p><p class="boundary">Private workflow and bounded synthetic evidence; not a production-scale customer-success deployment.</p></div></details>
+<details class="evidence"><summary><span class="code">E12</span><strong>Agentic Titan</strong><span class="stage">Bound experiments and automation</span></summary><div class="inside"><p>Agent specification, model-provider policy, coordination, memory, tool execution and human approval remain separate concerns.</p><p><b>Applied here.</b> Compare alternatives during development, then deliver a constrained workflow with explicit authority and limits.</p><p class="boundary">Framework implementation and local verification, not proof that open-ended multi-agent exploration improves customer outcomes.</p><a href="https://github.com/organvm-iii-ergon/agentic-titan/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div></details>
+<details id="real-world"><summary>How this would fit a real team</summary><div><h3>Keep the tools people already use.</h3><p>A call or message stays linked to its customer record. The next person sees the approved request, the owner, and the next action—not every raw note.</p><h3>Automate routine transitions, not unresolved decisions.</h3><p>The walkthrough pauses to explain each step. A production workflow should not make one person manually play every role. Existing rules can handle routine routing; people handle unclear intent, exceptions, and approvals that require judgment.</p><h3>Prove one handoff before expanding it.</h3><p>A pilot needs real account matching, permissions, reliable storage, CRM integration, delivery checks, and failure recovery. Measure missed requests and time to accepted ownership. This page does not establish those production capabilities.</p></div></details>
+<details id="situations"><summary>Try another situation</summary><div><p>Each example uses the same request. Loading a different situation resets this local walkthrough.</p><label for="scenario">Example situation</label><select id="scenario"><option value="conflict" selected>The notes disagree</option><option value="happy">The request is already clear</option><option value="unaccepted">Nobody accepts the task</option><option value="ambiguous">The customer account is unclear</option></select><button type="button" class="secondary" id="load-scenario">Load this example</button></div></details>
+<details id="technical"><summary>Inspect the current record and test the safeguards</summary><div><p>Everything here is a browser simulation. Roles are labels, not authentication; source interpretation is supplied, not AI-generated. Reloading resets the case. The tests below run on a copy and do not change your walkthrough.</p><div class="inline-actions"><button type="button" class="secondary" id="test-close">Test closing at this point</button><button type="button" class="secondary" id="test-replay">Test receiving the same notes twice</button><button type="button" class="secondary" id="export">Export current record</button></div><p id="test-message" role="status" aria-live="polite"></p><details><summary>Current record and event history</summary><pre id="record"></pre></details><p class="small"><a href="./verification.json">Verification record</a> · <a href="https://github.com/organvm-vii-kerygma/portfolio/tree/main/public/proofs/conversation-resolution" target="_blank" rel="noopener noreferrer">Source and tests</a></p></div></details>
+</div>
+<footer class="end-note">A demonstration of the handoff, not a production customer platform. No account information is collected. Public hosting is not private access.</footer>
+</main>
+<script src="./workflow-engine.js"></script>
+<script id="walkthrough-guide">/* Guided presentation of the existing synthetic engine. No services or AI are called. */
+((root) => {
+	'use strict';
+	const Engine = root.WorkflowDemo || (typeof require === 'function' && require('./workflow-engine.js').WorkflowDemo);
+	const copy = (value) => JSON.parse(JSON.stringify(value));
+	const owner = 'Alex (Customer Success)';
+	const card = (label, text, tone = '') => ({ label, text, tone });
+
+	class GuidedDemo {
+		constructor(scenario = 'conflict') {
+			this.reset(scenario);
+		}
+		reset(scenario = 'conflict') {
+			this.engine = new Engine(scenario);
+			this.started = false;
+			this.history = [];
+			this.reviewIndex = null;
+		}
+		current() {
+			const s = this.engine.state;
+			if (!this.started) return {
+				key: 'intro', phase: 0, title: 'A customer asks for a checklist.',
+				text: 'After the call, how do we make sure the right thing actually happens?',
+				cards: [card('Customer · call excerpt', s.sources[0].text)],
+				primary: 'Follow this request',
+				note: 'You are walking through the handoff, not connecting to a real customer account.',
+				detail: 'This example starts with written, fictional source records. It does not record a call or extract meaning with AI. The next screens show how a team could review and act on the information.',
+			};
+			if (!s.accountResolved) return {
+				key: 'account', phase: 1, title: 'Which customer is this?',
+				text: 'A similar name is not enough. Nothing should be assigned until the account is confirmed.',
+				cards: [card('Account awaiting review', 'Example account 001'), card('What stays on hold', 'Task approval and delivery', 'warning')],
+				primary: 'Confirm the example account',
+				note: 'Here the match is supplied by the example. In a real workflow, someone must check reliable account identifiers.',
+				detail: 'The engine refuses approval while accountResolved is false. Clicking confirms the known fixture identity; it does not perform identity matching or look up a CRM.',
+			};
+			if (s.status === 'unreviewed' && s.conflictPending) return {
+				key: 'conflict', phase: 1, title: 'The notes disagree.',
+				text: 'The customer asked for a checklist, but an internal note says to change the live configuration. Those are different instructions.',
+				cards: [card('Customer', s.sources[0].text), card('Internal note', s.priorCases.length ? s.sources[s.sources.length - 1].text : s.sources[1].text, 'warning'), card('Customer confirmation · replying to the request', s.sources[2].text)],
+				primary: 'Approve checklist only',
+				note: 'You are making the review decision. The system keeps both sources and does not authorize a live change.',
+				detail: 'This click records a simulated human resolution and then approves the checklist-only task. Both events remain separate in the history. An unresolved disagreement in a real account would require clarification, not a model choosing the most confident-sounding statement.',
+			};
+			if (s.status === 'unreviewed') return {
+				key: 'review', phase: 1, title: 'Make the request specific.',
+				text: 'A conversation becomes a proposed task, with a clear limit on what is allowed.',
+				cards: [card('Task to approve', 'Send the onboarding checklist.'), card('Not authorized', 'Changing the live configuration.', 'warning'), card('Customer confirmation', s.sources[2].text)],
+				primary: 'Approve this task',
+				note: 'This task is prepared in advance for the example; no AI extraction is happening.',
+				detail: 'The original source stays attached to the proposed task. Approval is a separate event, so a suggestion is not silently promoted into permission to act.',
+			};
+			if (s.status === 'ready') return {
+				key: 'owner', phase: 2, title: 'Give the task a named owner.',
+				text: 'The request is clear. Now someone needs to take responsibility for it.',
+				cards: [card('Approved task', 'Send the onboarding checklist. No live changes.'), card('Suggested owner', 'Alex · Customer Success')],
+				primary: 'Ask Alex to take it',
+				note: 'This example routes onboarding work to Customer Success. An assignment request is not acceptance.',
+				detail: 'The engine records the proposed owner and an acceptance deadline. It does not assume that appearing in a queue means someone has agreed to do the work.',
+			};
+			if (s.status === 'proposed') return {
+				key: s.escalated ? 'escalated' : 'waiting', phase: 2,
+				title: s.escalated ? 'No reply. The task stays open.' : 'Asked is not accepted.',
+				text: s.escalated ? 'The acceptance deadline passed. An escalation is recorded for the coordinator; the system does not invent an owner.' : 'Alex has been asked. The handoff is not complete until Alex accepts.',
+				cards: [card('Task', 'Send the onboarding checklist.'), card('Responsibility', s.escalated ? 'Still unaccepted · coordinator escalation recorded' : 'Waiting for Alex to accept', s.escalated ? 'warning' : '')],
+				primary: s.scenario === 'unaccepted' && !s.escalated ? 'Show the missed deadline' : 'Show Alex accepting',
+				note: 'You are advancing a simulation. There is no real notification, person, or background timer.',
+				detail: 'The deadline is 60 simulated minutes. A missed deadline makes the gap visible. In this bounded example the original proposed owner can still accept after escalation.',
+			};
+			if (s.status === 'accepted') return {
+				key: 'delivery', phase: 3, title: 'Alex now owns the request.',
+				text: 'There is a clear task, an accepted owner, and a limit on what may be changed.',
+				cards: [card('Owner', 'Alex · accepted'), card('Work to complete', 'Send the onboarding checklist. Leave the live configuration alone.')],
+				primary: 'Show the delivery record',
+				note: 'The next click creates a fictional result record. It does not send an actual checklist.',
+				detail: 'Execution is allowed only after owner acceptance and scope approval. The existing engine checks those conditions before recording a result.',
+			};
+			if (s.status === 'executed') return {
+				key: 'verify', phase: 3, title: 'Check the result—not just the claim.',
+				text: 'A delivery record exists. A separate verifier must check that it belongs to this task before the case can close.',
+				cards: [card('Example delivery record', 'Onboarding checklist · example account 001'), card('Authorized scope', 'Checklist only. No live configuration changes.')],
+				primary: 'Check the example result',
+				note: 'This checks the fictional record, not a real inbox or external delivery service.',
+				detail: 'The verifier identity must differ from the executor. Verification is bound to this result identifier; an unrelated result cannot satisfy the completion check.',
+			};
+			if (s.status === 'verified') return {
+				key: 'close', phase: 3, title: 'Tell the customer what happened.',
+				text: 'The result has been checked. The final step records the customer update and closes the task.',
+				cards: [card('Example customer update', 'Your onboarding checklist is ready. No live configuration was changed.')],
+				primary: 'Record the update and close',
+				note: 'No email is sent. The example records communication before allowing closure.',
+				detail: 'This click performs two ordered operations: record the simulated customer update, then close the case. Without verified results and a communication record, closure is rejected.',
+			};
+			return {
+				key: 'done', phase: 4, title: 'One request. A traceable result.',
+				text: 'The conversation stayed connected to the decision, the person responsible, and the checked outcome.',
+				cards: [card('What was requested', 'An onboarding checklist. No live changes.'), card('Who took responsibility', 'Alex · Customer Success'), card('How it finished', 'Result checked. Customer update recorded. Case closed.')],
+				primary: 'See the project connections',
+				note: 'That is the idea: the next person should not have to reconstruct the conversation to know what happens next.',
+				detail: 'The demonstration is complete. The source records, review, accepted owner, result, verification and update remain inspectable below. This is not proof of production integration or customer-scale capacity.',
+			};
+		}
+		screen() {
+			if (this.reviewIndex === null) return this.current();
+			return { ...copy(this.history[this.reviewIndex]), reviewing: true, primary: 'Return to the current step' };
+		}
+		apply(action, payload = {}) {
+			const result = this.engine.dispatch(action, payload);
+			if (!result.ok) throw new Error(result.detail);
+		}
+		advance() {
+			if (this.reviewIndex !== null) { this.reviewIndex = null; return; }
+			const screen = this.current();
+			if (screen.key === 'done') return;
+			this.history.push(copy(screen));
+			switch (screen.key) {
+				case 'intro': this.started = true; break;
+				case 'account': this.apply('resolveAccount', { actor: 'reviewer', account: this.engine.state.account }); break;
+				case 'conflict':
+					this.apply('resolveConflict', { actor: 'reviewer' });
+					this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
+				case 'review': this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
+				case 'owner': this.apply('propose', { owner }); break;
+				case 'waiting':
+					if (this.engine.state.scenario === 'unaccepted') this.apply('wait');
+					else this.apply('accept', { actor: owner }); break;
+				case 'escalated': this.apply('accept', { actor: owner }); break;
+				case 'delivery': this.apply('execute', { actor: owner }); break;
+				case 'verify': this.apply('verify', { actor: 'verifier', passed: true, resultId: this.engine.state.result.id }); break;
+				case 'close': this.apply('notify', { actor: 'coordinator' }); this.apply('close'); break;
+				default: throw new Error('Unknown guide step');
+			}
+		}
+		back() {
+			if (!this.history.length) return;
+			this.reviewIndex = this.reviewIndex === null ? this.history.length - 1 : Math.max(0, this.reviewIndex - 1);
+		}
+		wait() {
+			if (this.reviewIndex !== null || this.engine.state.status !== 'proposed' || this.engine.state.escalated) return;
+			this.history.push(copy(this.current())); this.apply('wait');
+		}
+		reopen() {
+			if (this.reviewIndex !== null || this.engine.state.status !== 'closed') return;
+			this.history.push(copy(this.current())); this.apply('reopen');
+		}
+	}
+
+	root.GuidedDemo = GuidedDemo;
+	if (typeof module !== 'undefined' && module.exports) module.exports = { GuidedDemo };
+	if (typeof document === 'undefined') return;
+	const escape = (text) => String(text).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+	const guide = new GuidedDemo();
+	root.proofGuide = guide;
+	const byId = (id) => document.getElementById(id);
+	const phaseNames = ['Request', 'Clarify', 'Owner', 'Result', 'Closed'];
+	function render(focus = true) {
+		const view = guide.screen();
+		const state = guide.engine.state;
+		byId('step-label').textContent = view.reviewing ? 'Earlier explanation · current task unchanged' : `Stage ${view.phase + 1} of 5 · ${phaseNames[view.phase]}`;
+		byId('step-title').textContent = view.title;
+		byId('step-copy').textContent = view.text;
+		byId('cards').innerHTML = view.cards.map((item) => `<div class="story-card ${escape(item.tone)}"><div class="card-label">${escape(item.label)}</div><p>${escape(item.text)}</p></div>`).join('');
+		byId('next').textContent = view.primary;
+		byId('step-note').textContent = view.note;
+		byId('step-detail').textContent = view.detail;
+		byId('explain').open = false;
+		byId('previous').hidden = guide.history.length === 0;
+		byId('restart').hidden = !guide.started;
+		byId('late-option').hidden = !!view.reviewing || state.status !== 'proposed' || state.escalated;
+		byId('reopen-option').hidden = !!view.reviewing || state.status !== 'closed';
+		byId('record').textContent = JSON.stringify(state, null, 2);
+		byId('test-message').textContent = '';
+		byId('guide-error').hidden = true;
+		for (const [index, element] of [...document.querySelectorAll('#progress li')].entries()) {
+			element.classList.toggle('current', index === view.phase);
+			element.classList.toggle('complete', index < view.phase);
+			if (index === view.phase) element.setAttribute('aria-current', 'step'); else element.removeAttribute('aria-current');
+		}
+		if (focus) byId('step-title').focus({ preventScroll: false });
+	}
+	function act(callback) {
+		try { callback(); render(); }
+		catch (error) { byId('guide-error').hidden = false; byId('guide-error').textContent = `The step could not continue: ${error.message}`; }
+	}
+	byId('next').addEventListener('click', () => {
+		if (guide.reviewIndex === null && guide.current().key === 'done') {
+			byId('connections').open = true; byId('connections-title').focus(); return;
+		}
+		act(() => guide.advance());
+	});
+	byId('previous').addEventListener('click', () => act(() => guide.back()));
+	byId('restart').addEventListener('click', () => act(() => guide.reset(guide.engine.state.scenario)));
+	byId('wait').addEventListener('click', () => act(() => guide.wait()));
+	byId('reopen').addEventListener('click', () => act(() => guide.reopen()));
+	byId('load-scenario').addEventListener('click', () => act(() => guide.reset(byId('scenario').value)));
+	byId('test-close').addEventListener('click', () => {
+		const snapshot = new Engine(); snapshot.state = copy(guide.engine.state);
+		const result = snapshot.dispatch('close');
+		byId('test-message').textContent = result.ok ? 'This case meets the closure conditions. The test did not change the walkthrough.' : `Blocked as expected: ${result.detail} The walkthrough is unchanged.`;
+	});
+	byId('test-replay').addEventListener('click', () => {
+		const snapshot = new Engine(guide.engine.state.scenario); snapshot.state = copy(guide.engine.state);
+		const result = snapshot.dispatch('replay'); byId('test-message').textContent = `${result.detail} The walkthrough is unchanged.`;
+	});
+	byId('export').addEventListener('click', () => {
+		const url = URL.createObjectURL(new Blob([JSON.stringify(guide.engine.state, null, 2)], { type: 'application/json' }));
+		const link = document.createElement('a'); link.href = url; link.download = 'example-request-record.json';
+		document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+	});
+	render(false);
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
+</body>
+</html>
