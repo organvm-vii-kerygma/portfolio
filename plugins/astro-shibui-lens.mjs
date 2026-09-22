@@ -48,6 +48,11 @@ export default function astroShibuiLens() {
 				let entries = 0;
 
 				for (const file of htmlFiles) {
+					// Preserve the standalone proof's tested bytes and independent UI.
+					// It remains subject to build, HTML, link and runtime route validation.
+					const proofFile = resolve(distDir, 'proofs/conversation-resolution/index.html');
+					if (resolve(file) === proofFile) continue;
+
 					const html = readFileSync(file, 'utf8');
 
 					// Skip if already fully processed (has data-shibui-c on paragraphs)

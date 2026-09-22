@@ -1,0 +1,48 @@
+{
+	"schema": "conversation-resolution-verification.v1",
+	"revision": "2026-09-22.r1",
+	"verified_date": "2026-09-22",
+	"scope": "New synthetic state model and browser interaction only; not the twelve referenced systems as an integrated platform.",
+	"artifacts_sha256": {
+		"index.html": "2247be9e53f19969ef1b46cd1420fb5dc78af08d8a8fd41e8222cbb3c55f255b",
+		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
+		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
+		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
+		"offline_combined_html": "f2d745f34d510168c4aa493ce3e03623930132ea1a6d8ce105968c6627b5aac3"
+	},
+	"state_model": {
+		"runtime": "Node.js 22.16.0",
+		"core_passed": 26,
+		"additional_passed": 25,
+		"failed": 0,
+		"seeded_invariant_action_attempts": 10000,
+		"invariant_attempts_are_not_load_tests": true,
+		"reproduce": "npm test --prefix public/proofs/conversation-resolution"
+	},
+	"browser_source_verification": {
+		"browser": "Chromium 144.0.7559.96",
+		"passed": 41,
+		"failed": 0,
+		"method": "Playwright set_content with the exact HTML and inline substitution of the exact engine. Local file navigation was blocked by the execution environment.",
+		"viewports": [320, 390, 768, 1440],
+		"coverage": "Four scenarios, false closure, source replay, reopening, review invalidation, JSON export, reset, keyboard expansion, reduced motion, markup escaping, console errors and horizontal overflow.",
+		"does_not_establish": "Public HTTPS delivery, external-link availability, Safari or Firefox compatibility. Deployment must be checked independently.",
+		"before_repository_formatting": true,
+		"note": "The 41 source-level checks bind the recorded offline_combined_html hash before repository formatting. Final deployed-browser verification is separate."
+	},
+	"repairs": [
+		"Reject altered speaker, source kind, text or parent under an unchanged source revision.",
+		"Reject self-verification when the accepted owner is named verifier.",
+		"Retain explicit reply-parent context and reviewed-source identity.",
+		"Invalidate earlier adjudication when new evidence arrives.",
+		"Preserve existing receipt and version on a duplicate customer-update action."
+	],
+	"not_verified": [
+		"Automatic transcript extraction or semantic classification accuracy",
+		"Real server-side authorization, durable storage or multi-user concurrency",
+		"Live HubSpot writes, external delivery or exactly-once provider effects",
+		"Customer-scale capacity, adoption or business outcomes",
+		"Fresh full test suites of the twelve referenced projects"
+	],
+	"privacy": "Synthetic workflow only; private client correspondence and source paths omitted. Public page requests are not private. Noindex is not access control."
+}
