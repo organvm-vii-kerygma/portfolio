@@ -36,8 +36,7 @@ describe('HTML build-link extraction', () => {
 	});
 
 	it('retains stylesheets and excludes data attributes', () => {
-		const html =
-			'<link rel="stylesheet" href="site.css"><div data-href="not-a-link"></div>';
+		const html = '<link rel="stylesheet" href="site.css"><div data-href="not-a-link"></div>';
 		expect(collectHtmlLinks(html)).toEqual(['site.css']);
 	});
 
