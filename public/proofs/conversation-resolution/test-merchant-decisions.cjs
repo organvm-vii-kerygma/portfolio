@@ -15,11 +15,11 @@ function check(name, condition) {
 	checks.push({ name, passed: Boolean(condition) });
 	assert(condition, name);
 }
-function fresh(scenario = 'list-mismatch') {
+function fresh(scenario = 'list-mismatch', seed = 0) {
 	const context = {};
 	vm.createContext(context);
 	scripts.slice(0, 2).forEach((script) => vm.runInContext(script, context));
-	return new context.DecisionExplorer.DecisionCase(scenario);
+	return new context.DecisionExplorer.DecisionCase(scenario, seed);
 }
 function use(flow, id) {
 	flow.select(id);
@@ -42,6 +42,94 @@ function models() {
 		'Network connections and form submissions are disabled',
 		html.includes("connect-src 'none'") && html.includes("form-action 'none'"),
 	);
+
+	check(
+		'Published identity has no local-review label or hiring-outcome text',
+		!/Local review|hiring outcome/.test(html),
+	);
+	check(
+		'Footer states fictional data and no connected accounts',
+		html.includes('Interactive demonstration</span><span>Fictional data · No connected accounts'),
+	);
+	check(
+		'Migrated evidence links use canonical owners',
+		!html.includes('github.com/organvm/organvm-engine/') &&
+			!html.includes('github.com/organvm/linguistic-atomization-framework/'),
+	);
+	check(
+		'All twelve project examples remain',
+		(html.match(/class="code">E\d\d/g) || []).length === 12,
+	);
+	const pending = fresh('pending-consent');
+	check(
+		'Pending confirmation does not fabricate list arrival',
+		pending.record.setup.deliveryState === 'unknown' &&
+			pending.record.setup.doubleOptIn === true &&
+			pending.record.sources[3].text.includes('have not been verified'),
+	);
+	check(
+		'Double-opt-in is explicitly part of the fictional source',
+		pending.record.sources[2].text.includes('fictional list uses double opt-in'),
+	);
+	const arrangements = new Set();
+	for (const scenario of ['list-mismatch', 'pending-consent', 'delivery-failure', 'unexplained']) {
+		for (let seed = 0; seed < 256; seed++) {
+			const flow = fresh(scenario, seed),
+				positions = [];
+			for (let step = 0; step < 5; step++) {
+				const options = flow.presentationChoices();
+				const ids = options.map((c) => c.id);
+				assert.deepEqual([...ids].sort(), [...flow.choices().map((c) => c.id)].sort());
+				const position = options.findIndex((c) => c.verdict === 'supported');
+				positions.push(position);
+				flow.select(options[position].id);
+				assert.deepEqual(
+					flow.presentationChoices().map((c) => c.id),
+					ids,
+				);
+				flow.commit();
+				flow.back();
+				assert.deepEqual(
+					flow.presentationChoices().map((c) => c.id),
+					ids,
+				);
+				flow.commit();
+			}
+			assert.equal(new Set(positions).size, 3);
+			assert.equal(
+				Math.max(...[0, 1, 2].map((slot) => positions.filter((p) => p === slot).length)),
+				2,
+			);
+			arrangements.add(positions.join(''));
+		}
+	}
+	check(
+		'1024 seeded cases vary supported positions across all three slots and retain backtracking order',
+		arrangements.size > 20,
+	);
+	const customerPacket = finish(fresh());
+	check(
+		'Customer draft names the selected proposed investigator and pending acceptance',
+		customerPacket.drafts.customer.includes(customerPacket.proposedOwner.name) &&
+			customerPacket.drafts.customer.includes('acceptance is still pending'),
+	);
+	check(
+		'Customer draft keeps scope to this popup and distinguishes a local calculation',
+		customerPacket.drafts.customer.includes('This popup stays on hold') &&
+			customerPacket.drafts.customer.includes('does not establish a live repair'),
+	);
+	check(
+		'Proposed setting change is labelled as a proposal',
+		customerPacket.decisions[3].choice.startsWith('Propose '),
+	);
+	const specialist = fresh();
+	use(specialist, 'hold');
+	use(specialist, 'list-mismatch');
+	use(specialist, 'engineering');
+	check(
+		'Choosing another investigator changes the customer draft too',
+		finish(specialist).drafts.customer.includes('Leo (Integration triage)'),
+	);
 	let paths = 0,
 		rejected = 0;
 	for (const scenario of ['list-mismatch', 'pending-consent', 'delivery-failure', 'unexplained']) {
@@ -60,6 +148,9 @@ function models() {
 				assert.equal(packet.liveOutcome, 'Unverified');
 				assert(packet.proposedOwner.name && packet.plan);
 				assert.equal(Object.keys(packet.drafts).length, 3);
+				assert(packet.drafts.customer.includes(packet.proposedOwner.name));
+				assert(packet.drafts.customer.includes('acceptance is still pending'));
+				assert(packet.drafts.customer.includes('This popup stays on hold'));
 				if (packet.localTest) assert.equal(packet.localTest.passed, true);
 				paths++;
 				return;
@@ -156,6 +247,20 @@ async function browserTests() {
 			!(await page.locator('#connections').getAttribute('open')) &&
 				(await page.locator('.evidence:visible').count()) === 0,
 		);
+		check(
+			'Published footer is appropriate to the actual hosted demo',
+			(await page.locator('footer').innerText()).includes('Interactive demonstration') &&
+				!(await page.locator('footer').innerText()).includes('Local review'),
+		);
+		check(
+			'The first visible evidence includes the list named by the customer',
+			(await page.locator('#evidence').innerText()).includes(
+				'Friday’s campaign uses Welcome Subscribers',
+			),
+		);
+		const entryOrder = await page
+			.locator('[data-choice]')
+			.evaluateAll((buttons) => buttons.map((b) => b.dataset.choice));
 		await page.screenshot({ path: path.join(output, 'entry-desktop.png'), fullPage: true });
 		await page.locator('[data-choice="ready"]').click();
 		check(
@@ -164,6 +269,14 @@ async function browserTests() {
 				(await page.locator('#feedback-consequence').innerText()).length > 30,
 		);
 		check('Unsupported choice cannot continue', await page.locator('#next').isDisabled());
+		check(
+			'Selecting a choice does not reshuffle the buttons',
+			JSON.stringify(
+				await page
+					.locator('[data-choice]')
+					.evaluateAll((buttons) => buttons.map((b) => b.dataset.choice)),
+			) === JSON.stringify(entryOrder),
+		);
 		await page.locator('[data-choice="confirm"]').click();
 		check(
 			'Reasoned alternative is allowed, not marked wrong',
@@ -284,10 +397,22 @@ async function browserTests() {
 			);
 			if (width === 390)
 				await page.screenshot({ path: path.join(output, 'entry-mobile.png'), fullPage: true });
+			const supportedPositions = [];
 			for (let i = 0; i < 5; i++) {
 				await page.locator('#help-suggestion').click();
+				supportedPositions.push(
+					await page
+						.locator('[data-choice]')
+						.evaluateAll((buttons) =>
+							buttons.findIndex((b) => b.getAttribute('aria-pressed') === 'true'),
+						),
+				);
 				await page.locator('#next').click();
 			}
+			check(
+				'Rendered recommendations cover A, B and C, never a repeated middle-answer path',
+				new Set(supportedPositions).size === 3,
+			);
 			check(
 				`${width}px: completes using the visible controls`,
 				await page.locator('#complete-screen').isVisible(),
@@ -297,10 +422,22 @@ async function browserTests() {
 			if (!(await page.locator('#variations').evaluate((el) => el.open)))
 				await page.locator('#variations > summary').click();
 			await page.locator('#scenario').selectOption(scenario);
+			const supportedPositions = [];
 			for (let i = 0; i < 5; i++) {
 				await page.locator('#help-suggestion').click();
+				supportedPositions.push(
+					await page
+						.locator('[data-choice]')
+						.evaluateAll((buttons) =>
+							buttons.findIndex((b) => b.getAttribute('aria-pressed') === 'true'),
+						),
+				);
 				await page.locator('#next').click();
 			}
+			check(
+				'Rendered recommendations cover A, B and C, never a repeated middle-answer path',
+				new Set(supportedPositions).size === 3,
+			);
 			const p = (await page.evaluate(() => window.reviewSnapshot())).packet;
 			check(
 				`${scenario}: output is investigation, not recycled list repair`,
