@@ -159,6 +159,33 @@ export const literaryEvents: LiteraryEvent[] = [
 		featured: true,
 	},
 	{
+		id: 'woman-under-influence-leonard-2026',
+		eventType: 'film',
+		title: 'East Williamsburg Cinema Club: A Woman Under the Influence',
+		start: '2026-09-26T14:00:00-04:00',
+		end: '2026-09-26T16:30:00-04:00',
+		format: 'in-person',
+		venue: 'Brooklyn Public Library — Leonard Library',
+		neighborhood: 'East Williamsburg',
+		city: 'Brooklyn',
+		address: '81 Devoe Street, Brooklyn, NY 11211',
+		price: 'free',
+		priceLabel: 'Free; no registration listed',
+		availability: 'open',
+		registrationUrl:
+			'https://www.bklynlibrary.org/calendar/east-williamsburg-cinema-leonard-auditorium-20260926-0200pm',
+		tags: ['film', 'independent cinema', 'performance', 'psychological drama', 'discussion'],
+		whyItMatters:
+			'John Cassavetes’s performance-driven domestic drama is a landmark of independent American cinema, followed by a community discussion at Leonard Library.',
+		communityUse:
+			'A free close-reading space for filmmakers, actors, writers, teachers, and viewers interested in performance, improvisation, domestic realism, and directing actors.',
+		sourceName: 'Brooklyn Public Library',
+		sourceUrl:
+			'https://www.bklynlibrary.org/calendar/east-williamsburg-cinema-leonard-auditorium-20260926-0200pm',
+		verifiedAt: '2026-09-23',
+		featured: true,
+	},
+	{
 		id: 'new-directions-90',
 		eventType: 'literature',
 		title: 'Celebrating 90 Years of New Directions',
@@ -380,7 +407,7 @@ export const literaryEvents: LiteraryEvent[] = [
 	},
 ];
 
-export const literaryGuideUpdatedAt = '2026-09-19';
+export const literaryGuideUpdatedAt = '2026-09-23';
 
 export const literaryGuideCoverage = [
 	'Staten Island',
