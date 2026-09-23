@@ -28,7 +28,6 @@ jobs:
           staged = subprocess.check_output(['git','show','0e01c981e06eff7adeb8ee367ba4633c17c630bd:.github/workflows/materialize-conversation-design.yml'],text=True)
           encoded = re.search("encoded = '''([\\s\\S]*?)'''",staged)[1]
           encoded = ''.join(encoded.split())
-          # Repair three transcription errors in the transport, then require the original digest.
           encoded = encoded.replace('O40GvdFkOJ8s0MTzht','O40GvdFkOJ8s1MTzht').replace('WdXT6e/mr','WdXT6/mr').replace('IrmGIsJ8t','IrmGQSJ8t')
           assert hashlib.sha256(encoded.encode()).hexdigest() == 'c135a6b950f118d56fa3a7a85ae18fb68cef4db391729e7c9c41c4963dad9dc9', 'Transport integrity failure'
           patches = json.loads(zlib.decompress(base64.b64decode(encoded)))
@@ -41,6 +40,8 @@ jobs:
               new = ''.join(''.join(lines[x[0]:x[1]]) if isinstance(x,list) else x for x in patch['ops'])
               assert hashlib.sha256(new.encode()).hexdigest() == patch['result_sha256'], 'Delta corruption: '+name
               (root/name).write_text(new)
+          p=root/'index.html'
+          p.write_text(p.read_text().replace('</style>','@media(max-width:360px){h1{font-size:30px}.hero{padding:20px 0}.masthead{height:60px}}</style>'))
           PY
       - run: npm install --global npm@11.9.0 --ignore-scripts
       - run: npm ci
