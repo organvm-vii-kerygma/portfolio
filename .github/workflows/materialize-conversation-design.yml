@@ -40,8 +40,12 @@ jobs:
               new = ''.join(''.join(lines[x[0]:x[1]]) if isinstance(x,list) else x for x in patch['ops'])
               assert hashlib.sha256(new.encode()).hexdigest() == patch['result_sha256'], 'Delta corruption: '+name
               (root/name).write_text(new)
-          p=root/'index.html'
-          p.write_text(p.read_text().replace('</style>','@media(max-width:360px){h1{font-size:30px}.hero{padding:20px 0}.masthead{height:60px}}</style>'))
+          p=root/'index.html'; html=p.read_text()
+          html=html.replace('</style>','@media(max-width:360px){h1{font-size:30px}.hero{padding:20px 0}.masthead{height:60px}}</style>')
+          html=html.replace('<svg width="22"','<svg aria-hidden="true" focusable="false" width="22"')
+          html=html.replace('<div class="ticket" aria-label=', '<div class="ticket" role="group" aria-label=')
+          html=html.replace('id="owner-avatar" aria-label=', 'id="owner-avatar" role="img" aria-label=')
+          p.write_text(html)
           PY
       - run: npm install --global npm@11.9.0 --ignore-scripts
       - run: npm ci
