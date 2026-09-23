@@ -10,6 +10,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { canonicalBase } from '../site.config.mjs';
+import { collectHtmlLinks } from './lib/html-links.mjs';
 
 const DIST = resolve('dist');
 const SITE_BASE = canonicalBase;
@@ -74,17 +75,16 @@ for (const f of allFiles) {
 }
 
 const htmlFiles = findHtmlFiles(DIST);
-const hrefRegex = /(?:href|src)=["']([^"'#?]+)/g;
 let brokenLinks = 0;
 let totalLinks = 0;
 
 for (const file of htmlFiles) {
 	const html = readFileSync(file, 'utf-8');
 	const relDir = file.replace(DIST + '/', '').replace(/[^/]+$/, '');
-	let match;
 
-	while ((match = hrefRegex.exec(html)) !== null) {
-		const href = match[1];
+	for (const value of collectHtmlLinks(html)) {
+		const href = value.trim().split(/[?#]/, 1)[0];
+		if (!href) continue;
 
 		// Skip external, data URIs, javascript, mailto, tel
 		if (/^(https?:|data:|javascript:|mailto:|tel:)/.test(href)) continue;
