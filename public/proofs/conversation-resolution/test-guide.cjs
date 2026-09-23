@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const { WorkflowDemo } = require('./workflow-engine.js');
 
-const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, 'legacy-guide.html'), 'utf8');
 const script = html.match(/<script id="walkthrough-guide">([\s\S]*?)<\/script>/)[1];
 const context = { WorkflowDemo };
 vm.runInNewContext(script, context);

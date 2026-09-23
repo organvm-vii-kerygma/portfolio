@@ -1,53 +1,21 @@
 {
-	"schema": "conversation-resolution-verification.v1",
-	"revision": "2026-09-22.r3",
-	"verified_date": "2026-09-22",
-	"scope": "Visual synthetic handoff: prepared notes, explicit decisions and a persistent task card. No live extraction, CRM, authentication or delivery.",
+	"schema": "merchant-decision-release.v1",
+	"revision": "merchant-decisions-r1",
 	"artifacts_sha256": {
-		"index.html": "dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a",
+		"index.html": "908f6f333ca53c83332633eb9be84f502cf8cc2dd259448415dc0a7eab323a6e",
 		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
 		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
 		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
-		"test-guide.cjs": "80ff948c97adc39ae9e7e87a4e411e2fab225ebe904d8b44562ce8731ff0e21b",
-		"test-guide-browser.cjs": "dc461f86e72bc26519fcfa22dbb95081e981fb4ea10678699d054c5b5b743b0b"
+		"test-guide.cjs": "679bf1d04394715c1a981dbe1540fc9e473b72f884b1eda8f82893ca9db66fc4",
+		"test-guide-browser.cjs": "fa4311ac685443a858028bad0ad1b3b323777970672c8e4ea692543328dfc985",
+		"legacy-guide.html": "dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a",
+		"test-merchant-decisions.cjs": "6d8d3961877951cf4114295ba4aad7b18b5bc3af49e34380af788a5b89fd13fd"
 	},
-	"state_model": {
-		"core_passed": 26,
-		"additional_passed": 25,
-		"guided_flow_passed": 13,
-		"failed": 0,
-		"seeded_invariant_action_attempts": 10000,
-		"invariant_attempts_are_not_load_tests": true,
-		"reproduce": "npm test --prefix public/proofs/conversation-resolution && node public/proofs/conversation-resolution/test-guide.cjs",
-		"evidence": "All 64 model checks passed in CI run 35797735029; that run's separate hash check correctly rejected the old r1 receipt. Each later Conversation proof run reruns the model checks and validates this revised file manifest."
-	},
-	"guided_browser_verification": {
-		"required_job": "guided-browser",
-		"result_artifact": "guided-proof-review/.quality/conversation-guide/browser-results.json",
-		"workflow": ".github/workflows/conversation-proof.yml",
-		"reproduce": "npm ci && npx playwright install chromium && node public/proofs/conversation-resolution/test-guide-browser.cjs",
-		"method": "Real browser navigation to HTTP-served source with CSP enforced; not set_content or a CSP bypass.",
-		"coverage": "Initial disclosure, contextual steps, keyboard focus, owner acceptance, escalation, four scenarios, guarded closure, reopening, read-only back navigation, export and responsive layout.",
-		"viewports": [320, 390, 768, 1440],
-		"release_rule": "Inspect the successful exact-head guided-browser job and retained results before accepting a release. Public HTTPS delivery is checked separately after deployment; this manifest alone does not assert that either check passed."
-	},
-	"design": {
-		"entry": "One customer request and one primary action.",
-		"disclosure": "Step-specific explanations and exception branches are contextual. Twelve examples, scenario selection and technical state are optional.",
-		"back_navigation": "Earlier explanations are read-only and cannot rewind the current work record.",
-		"csp": "Exact inline guide hash; same-origin engine; no network connections."
-	},
-	"historical_boundary": "The r1 browser totals describe the former operator interface and are not reused as evidence for this redesign.",
-	"not_verified": [
-		"Automatic transcript extraction or semantic classification accuracy",
-		"Real server-side authorization, durable storage or multi-user concurrency",
-		"Live HubSpot writes, external delivery or exactly-once provider effects",
-		"Customer-scale capacity, adoption or business outcomes",
-		"Fresh full test suites of the twelve referenced projects",
-		"User comprehension, a usability study, physical-device or all-browser compatibility"
-	],
-	"privacy": "Fictional example only. No private correspondence, customer data or private repository paths. Public hosting is not private access; noindex is not access control.",
-	"browser_verification": {
-		"status": "see same-head CI artifact; no usability or production claim"
-	}
+	"current_presentation": "index.html",
+	"current_verification": "test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json",
+	"legacy_presentation": "legacy-guide.html",
+	"legacy_boundary": "The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.",
+	"scope": "Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.",
+	"source_review_sha256": "d1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b",
+	"adaptation": "Reviewed content and behavior retained; correct HTML semantics, supply fallback headings, preserve WAI-ARIA tabpanel keyboard access with a documented local lint exception, apply repository formatting and CSP hashes."
 }

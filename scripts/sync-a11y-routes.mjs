@@ -86,15 +86,24 @@ async function generateA11yRoutes() {
 		return { path: routePath, checks: DEFAULT_CHECKS };
 	});
 
-	// This static public proof is copied without the portfolio shell, so audit
-	// its own controls rather than requiring navigation controls it does not render.
-	const proofPath = '../public/proofs/conversation-resolution/index.html';
-	if (fs.existsSync(path.join(__dirname, proofPath))) {
-		routes.push({
+	// Both public proof pages are copied without the portfolio shell. Register
+	// each actual HTML route and audit its own initially visible controls.
+	const proofs = [
+		{
+			file: 'index.html',
 			path: '/proofs/conversation-resolution',
-			checks: [],
-			requiredFocusSelectors: ['#scenario', '#walkthrough', '#reset'],
-		});
+			requiredFocusSelectors: ['#restart', '#help-suggestion'],
+		},
+		{
+			file: 'legacy-guide.html',
+			path: '/proofs/conversation-resolution/legacy-guide.html',
+			requiredFocusSelectors: ['#next'],
+		},
+	];
+	for (const { file, path: routePath, requiredFocusSelectors } of proofs) {
+		if (fs.existsSync(path.join(__dirname, '../public/proofs/conversation-resolution', file))) {
+			routes.push({ path: routePath, checks: [], requiredFocusSelectors });
+		}
 	}
 
 	// Inject Persona Routes

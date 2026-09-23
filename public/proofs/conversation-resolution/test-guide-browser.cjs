@@ -13,7 +13,7 @@ function check(name, condition) {
 }
 async function main() {
 	const files = {
-		'/': ['index.html', 'text/html; charset=utf-8'],
+		'/': ['legacy-guide.html', 'text/html; charset=utf-8'],
 		'/workflow-engine.js': ['workflow-engine.js', 'application/javascript'],
 		'/verification.json': ['verification.json', 'application/json'],
 	};
@@ -37,7 +37,7 @@ async function main() {
 		const page = await context.newPage();
 		const errors = [];
 		page.on('pageerror', (error) => errors.push(error.message));
-		const url = process.env.PROOF_URL || `http://127.0.0.1:${server.address().port}/`;
+		const url = process.env.LEGACY_PROOF_URL || `http://127.0.0.1:${server.address().port}/`;
 		const response = await page.goto(url, { waitUntil: 'networkidle' });
 		check('Page loads over HTTP without bypassing CSP', response.status() === 200);
 		check(
