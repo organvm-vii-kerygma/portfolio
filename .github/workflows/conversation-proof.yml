@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
-      - name: Run deterministic engine and guided-flow checks
+      - name: Run retained legacy engine and guided-flow checks
         run: |
           npm test --prefix public/proofs/conversation-resolution
           node public/proofs/conversation-resolution/test-guide.cjs
@@ -38,7 +38,7 @@ jobs:
           const crypto = require('node:crypto');
           const assert = require('node:assert/strict');
           const receipt = JSON.parse(fs.readFileSync('verification.json', 'utf8'));
-          const names = ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs', 'test-guide.cjs', 'test-guide-browser.cjs'];
+          const names = ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs', 'test-guide.cjs', 'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs'];
           const actual = Object.fromEntries(names.map(name => [name, crypto.createHash('sha256').update(fs.readFileSync(name)).digest('hex')]));
           console.log(JSON.stringify(actual, null, 2));
           for (const name of names) assert.equal(actual[name], receipt.artifacts_sha256[name], `Unverified bytes: ${name}`);
@@ -56,13 +56,15 @@ jobs:
           cache: npm
       - run: npm install --global npm@11.9.0 --ignore-scripts
       - run: npm ci
-      - name: Verify formatting of guided test sources
+      - name: Verify formatting of legacy and merchant test sources
         run: |
-          npx biome format --write public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs
-          git diff --exit-code -- public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs
+          npx biome format --write public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs
+          git diff --exit-code -- public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs
       - run: npx playwright install --with-deps chromium
-      - name: Test the actual HTTP-served walkthrough with CSP enforced
-        run: node public/proofs/conversation-resolution/test-guide-browser.cjs
+      - name: Test retained legacy guide and current merchant decisions with CSP enforced
+        run: |
+          node public/proofs/conversation-resolution/test-guide-browser.cjs
+          node public/proofs/conversation-resolution/test-merchant-decisions.cjs
       - name: Retain exact source and browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -71,5 +73,6 @@ jobs:
           path: |
             public/proofs/conversation-resolution/
             .quality/conversation-guide/
+            .quality/merchant-decisions/
           include-hidden-files: true
           retention-days: 7
