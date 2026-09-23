@@ -5,6 +5,7 @@ on:
       - '.github/workflows/import-merchant-review.yml'
 permissions:
   contents: write
+  actions: read
 concurrency:
   group: import-reviewed-merchant-decisions
   cancel-in-progress: false
@@ -12,7 +13,7 @@ jobs:
   import-reviewed-artifact:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'deploy/merchant-decisions-2026-09-22'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -21,114 +22,47 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: 22
-          cache: npm
-      - name: Restore only the hash-bound reviewed source and tests
+          package-manager-cache: false
+      - name: Restore exact bytes from the completed test step
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import base64, hashlib, json, lzma, subprocess, re
+          import hashlib, io, json, subprocess, zipfile
           from pathlib import Path
           root = Path('public/proofs/conversation-resolution')
-          prior = (root / 'index.html').read_bytes()
-          assert hashlib.sha256(prior).hexdigest() == 'dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a', 'Prior presentation changed; stop rather than overwrite'
-          shas = ['3fa57bfd2430b69b1a4e77b81a2dd780c0a155e3', 'ab972998586974effc495a73653c966965f0beeb', '404b4fcaa347282ebde15516bfc7e799b52ed43f', 'e42c85a796a1defd1ca412a51e57eea4f6b08c93', '1d32c9ea2661d56a201dc91dc0f31e143970dc60']
-          chunks = []
-          for sha in shas:
-              data = json.loads(subprocess.check_output(['gh', 'api', 'repos/organvm-vii-kerygma/portfolio/git/blobs/' + sha]))
-              chunk = base64.b64decode(data['content'])
-              assert hashlib.sha1(('blob ' + str(len(chunk)) + '\0').encode() + chunk).hexdigest() == sha
-              chunks.append(chunk)
-          packed = b''.join(chunks)
-          assert hashlib.sha256(packed).hexdigest() == '9a7cc3bc9c7bc38a73774a0836a1eb26b0894f5eb304a4330d3a82ef584f3483'
-          bundle = json.loads(lzma.decompress(packed))
-          assert set(bundle) == {'index.html', 'test-merchant-decisions.cjs'}
-          assert hashlib.sha256(bundle['index.html'].encode()).hexdigest() == '1daa84cb143185bbaca0bee15121eb7127208c2a70fed1358dfa55213e1cd8f0'
-          assert not (root / 'legacy-guide.html').exists()
-          (root / 'legacy-guide.html').write_bytes(prior)
-          for name, text in bundle.items():
-              (root / name).write_text(text)
-          p = root / 'index.html'
-          html = p.read_text()
-          fallback = {'step-title': 'Review the customer request', 'evidence-title': 'Evidence for this decision', 'feedback-title': 'Choice explanation', 'result-heading': 'Local test result'}
-          for ident, value in fallback.items():
-              html, count = re.subn(r'(<h[234][^>]*id="' + ident + r'"[^>]*>)(</h[234]>)', lambda m: m[1]+value+m[2], html)
-              assert count == 1
-          html = html.replace('<pre id="draft-text"', '<!-- biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA tabs require a focusable text-only tabpanel; preserve keyboard access to this scrollable draft. https://www.w3.org/WAI/ARIA/apg/patterns/tabs/ -->\n<pre id="draft-text"')
-          p.write_text(html)
-          p = root / 'test-merchant-decisions.cjs'
-          test = p.read_text().replace('function visit(prefix) {', 'const visit = (prefix) => {').replace('  }\n  visit([]);', '  };\n  visit([]);')
-          needle = "  await page.locator('#deadline-preview').click();"
-          assert needle in test
-          test = test.replace(needle, "  await page.keyboard.press('Tab');\n  check('Text-only draft panel remains keyboard reachable', await page.locator('#draft-text').evaluate((el) => el === document.activeElement));\n  await page.getByText('What if the proposed owner never accepts?', { exact: true }).click();\n" + needle)
-          test = test.replace(' let modelCounts;', ' let modelCounts, completed = false, failure = null;')
-          test = test.replace('  await browserTests();\n } finally {', '  await browserTests();\n  completed = true;\n } catch (error) {\n  failure = { name: error.name, message: error.message };\n  throw error;\n } finally {')
-          test = test.replace('const report = { checked_at:', 'const report = { completed, failure, checked_at:')
-          test = test.replace('failed: checks.filter((c) => !c.passed).length,', 'failed: checks.filter((c) => !c.passed).length + (failure ? 1 : 0),')
-          p.write_text(test)
-          for name in ['test-guide.cjs', 'test-guide-browser.cjs']:
-              p = root / name
-              text = p.read_text()
-              assert "'index.html'" in text
-              p.write_text(text.replace("'index.html'", "'legacy-guide.html'").replace('process.env.PROOF_URL', 'process.env.LEGACY_PROOF_URL'))
-          p = Path('.github/workflows/conversation-proof.yml')
-          text = p.read_text()
-          text = text.replace("'test-guide-browser.cjs'];", "'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs'];")
-          text = text.replace('test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs', 'test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs')
-          old = '      - name: Test the actual HTTP-served walkthrough with CSP enforced\n        run: node public/proofs/conversation-resolution/test-guide-browser.cjs'
-          new = '      - name: Test retained legacy guide and current merchant decisions with CSP enforced\n        run: |\n          node public/proofs/conversation-resolution/test-guide-browser.cjs\n          node public/proofs/conversation-resolution/test-merchant-decisions.cjs'
-          assert old in text
-          text = text.replace(old, new).replace('            .quality/conversation-guide/', '            .quality/conversation-guide/\n            .quality/merchant-decisions/')
-          p.write_text(text)
+          assert hashlib.sha256((root/'index.html').read_bytes()).hexdigest() == 'dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a'
+          raw = subprocess.check_output(['gh', 'api', 'repos/organvm-vii-kerygma/portfolio/actions/artifacts/10729125821/zip'])
+          assert hashlib.sha256(raw).hexdigest() == '6b431bd776b861f7b708a76389ecb112b4fe70a80a7c4dc63642542d8571a1f6', 'Artifact integrity mismatch'
+          with zipfile.ZipFile(io.BytesIO(raw)) as z:
+              prefix = 'public/proofs/conversation-resolution/'
+              receipt = json.loads(z.read(prefix+'verification.json'))
+              report = json.loads(z.read('.quality/merchant-decisions/results.json'))
+              assert report['completed'] is True and report['failure'] is None and report['failed'] == 0 and report['passed'] == 55
+              assert report['modelCounts'] == {'paths':96, 'rejected':100}
+              assert report['html_sha256'] == '908f6f333ca53c83332633eb9be84f502cf8cc2dd259448415dc0a7eab323a6e'
+              for name, digest in receipt['artifacts_sha256'].items():
+                  assert hashlib.sha256(z.read(prefix+name)).hexdigest() == digest, name
+              for name in ['workflow-engine.js','test-workflow.cjs','test-additional.cjs']:
+                  assert (root/name).read_bytes() == z.read(prefix+name), 'Unexpected legacy change'
+              for name in ['index.html','legacy-guide.html','test-guide.cjs','test-guide-browser.cjs','test-merchant-decisions.cjs','verification.json']:
+                  (root/name).write_bytes(z.read(prefix+name))
+          print('Imported six exact presentation/test files from the completed 55-check test step. No workflow change is staged here.')
           PY
-      - run: npm install --global npm@11.9.0 --ignore-scripts
-      - run: npm ci
-      - name: Check source semantics and repository formatting
-        run: npx biome check --write public/proofs/conversation-resolution/index.html public/proofs/conversation-resolution/test-merchant-decisions.cjs public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs
-      - name: Refresh script CSP and exact artifact manifest
+      - name: Verify the retained legacy model
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re, hashlib, base64, json
-          root = Path('public/proofs/conversation-resolution')
-          p = root / 'index.html'
-          html = p.read_text()
-          scripts = re.findall(r'<script[^>]*>([\s\S]*?)</script>', html)
-          assert len(scripts) == 3
-          hashes = ' '.join("'sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode() + "'" for s in scripts)
-          html, count = re.subn(r"script-src [^;]+;", 'script-src ' + hashes + ';', html, count=1)
-          assert count == 1
-          p.write_text(html)
-          names = ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs', 'test-guide.cjs', 'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs']
-          receipt = {'schema': 'merchant-decision-release.v1', 'revision': 'merchant-decisions-r1', 'artifacts_sha256': {n: hashlib.sha256((root/n).read_bytes()).hexdigest() for n in names}, 'current_presentation': 'index.html', 'current_verification': 'test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json', 'legacy_presentation': 'legacy-guide.html', 'legacy_boundary': 'The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.', 'scope': 'Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.', 'source_review_sha256': 'd1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b', 'adaptation': 'Reviewed content and behavior retained; correct HTML semantics, supply fallback headings, preserve WAI-ARIA tabpanel keyboard access with a documented local lint exception, apply repository formatting and CSP hashes.'}
-          (root/'verification.json').write_text(json.dumps(receipt, indent='\t') + '\n')
-          PY
-          npx biome format --write public/proofs/conversation-resolution/verification.json
-      - name: Verify both the legacy rules and the new decisions
-        run: |
-          npm test --prefix public/proofs/conversation-resolution
+          node public/proofs/conversation-resolution/test-workflow.cjs
+          node public/proofs/conversation-resolution/test-additional.cjs
           node public/proofs/conversation-resolution/test-guide.cjs
-          npx playwright install --with-deps chromium
-          node public/proofs/conversation-resolution/test-guide-browser.cjs
-          node public/proofs/conversation-resolution/test-merchant-decisions.cjs
-      - name: Commit the bounded tested change to this branch only
+      - name: Commit verified content only to this branch
         env:
           EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
           test "$(git ls-remote origin refs/heads/deploy/merchant-decisions-2026-09-22 | cut -f1)" = "$EXPECTED_HEAD"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .github/workflows/conversation-proof.yml public/proofs/conversation-resolution/index.html public/proofs/conversation-resolution/legacy-guide.html public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs public/proofs/conversation-resolution/verification.json
-          git commit -m 'feat: publish reviewed Alia decisions with distinct current and legacy verification'
+          git add public/proofs/conversation-resolution/index.html public/proofs/conversation-resolution/legacy-guide.html public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs public/proofs/conversation-resolution/verification.json
+          git diff --cached --name-only | grep -q '^public/proofs/conversation-resolution/'
+          test "$(git diff --cached --name-only | wc -l)" = 6
+          git commit -m 'feat: add the reviewed merchant decision explorer and its verified tests'
           git push origin HEAD:refs/heads/deploy/merchant-decisions-2026-09-22
-      - name: Retain exact source and results
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: merchant-decision-import
-          path: |
-            public/proofs/conversation-resolution/
-            .quality/merchant-decisions/
-            .quality/conversation-guide/
-          include-hidden-files: true
-          retention-days: 7
