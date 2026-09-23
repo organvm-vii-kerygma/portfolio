@@ -48,6 +48,8 @@ jobs:
           html=html.replace('id="owner-avatar" aria-label=', 'id="owner-avatar" role="img" aria-label=')
           html=html.replace("? '3 linked messages' :", "? `${state.sourceCount} linked messages` :")
           p.write_text(html)
+          p=root/'test-guide-browser.cjs'
+          p.write_text(p.read_text().replace("(await page.locator('#step-label').innerText()).includes", "(await page.locator('#step-label').textContent()).includes"))
           PY
       - run: npm install --global npm@11.9.0 --ignore-scripts
       - run: npm ci
