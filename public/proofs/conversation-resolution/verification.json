@@ -28,12 +28,7 @@
 		"reproduce": "npm ci && npx playwright install chromium && node public/proofs/conversation-resolution/test-guide-browser.cjs",
 		"method": "Real browser navigation to HTTP-served source with CSP enforced; not set_content or a CSP bypass.",
 		"coverage": "Initial disclosure, contextual steps, keyboard focus, owner acceptance, escalation, four scenarios, guarded closure, reopening, read-only back navigation, export and responsive layout.",
-		"viewports": [
-			320,
-			390,
-			768,
-			1440
-		],
+		"viewports": [320, 390, 768, 1440],
 		"release_rule": "Inspect the successful exact-head guided-browser job and retained results before accepting a release. Public HTTPS delivery is checked separately after deployment; this manifest alone does not assert that either check passed."
 	},
 	"design": {
