@@ -27,7 +27,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import base64, hashlib, json, lzma, subprocess
+          import base64, hashlib, json, lzma, subprocess, re
           from pathlib import Path
           root = Path('public/proofs/conversation-resolution')
           prior = (root / 'index.html').read_bytes()
@@ -48,6 +48,20 @@ jobs:
           (root / 'legacy-guide.html').write_bytes(prior)
           for name, text in bundle.items():
               (root / name).write_text(text)
+          p = root / 'index.html'
+          html = p.read_text()
+          fallback = {'step-title': 'Review the customer request', 'evidence-title': 'Evidence for this decision', 'feedback-title': 'Choice explanation', 'result-heading': 'Local test result'}
+          for ident, value in fallback.items():
+              html, count = re.subn(r'(<h[234][^>]*id="' + ident + r'"[^>]*>)(</h[234]>)', lambda m: m[1]+value+m[2], html)
+              assert count == 1
+          html = html.replace('<pre id="draft-text"', '<!-- biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA tabs require a focusable text-only tabpanel; preserve keyboard access to this scrollable draft. https://www.w3.org/WAI/ARIA/apg/patterns/tabs/ -->\n<pre id="draft-text"')
+          p.write_text(html)
+          p = root / 'test-merchant-decisions.cjs'
+          test = p.read_text().replace('function visit(prefix) {', 'const visit = (prefix) => {').replace('  }\n  visit([]);', '  };\n  visit([]);')
+          needle = "  await page.locator('#deadline-preview').click();"
+          assert needle in test
+          test = test.replace(needle, "  await page.keyboard.press('Tab');\n  check('Text-only draft panel remains keyboard reachable', await page.locator('#draft-text').evaluate((el) => el === document.activeElement));\n" + needle)
+          p.write_text(test)
           for name in ['test-guide.cjs', 'test-guide-browser.cjs']:
               p = root / name
               text = p.read_text()
@@ -82,7 +96,7 @@ jobs:
           assert count == 1
           p.write_text(html)
           names = ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs', 'test-guide.cjs', 'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs']
-          receipt = {'schema': 'merchant-decision-release.v1', 'revision': 'merchant-decisions-r1', 'artifacts_sha256': {n: hashlib.sha256((root/n).read_bytes()).hexdigest() for n in names}, 'current_presentation': 'index.html', 'current_verification': 'test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json', 'legacy_presentation': 'legacy-guide.html', 'legacy_boundary': 'The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.', 'scope': 'Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.', 'source_review_sha256': 'd1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b', 'adaptation': 'Preserve reviewed content and behavior; correct two HTML accessibility semantics; apply repository formatting and CSP hashes.'}
+          receipt = {'schema': 'merchant-decision-release.v1', 'revision': 'merchant-decisions-r1', 'artifacts_sha256': {n: hashlib.sha256((root/n).read_bytes()).hexdigest() for n in names}, 'current_presentation': 'index.html', 'current_verification': 'test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json', 'legacy_presentation': 'legacy-guide.html', 'legacy_boundary': 'The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.', 'scope': 'Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.', 'source_review_sha256': 'd1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b', 'adaptation': 'Reviewed content and behavior retained; correct HTML semantics, supply fallback headings, preserve WAI-ARIA tabpanel keyboard access with a documented local lint exception, apply repository formatting and CSP hashes.'}
           (root/'verification.json').write_text(json.dumps(receipt, indent='\t') + '\n')
           PY
           npx biome format --write public/proofs/conversation-resolution/verification.json
