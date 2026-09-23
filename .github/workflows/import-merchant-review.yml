@@ -60,7 +60,11 @@ jobs:
           test = p.read_text().replace('function visit(prefix) {', 'const visit = (prefix) => {').replace('  }\n  visit([]);', '  };\n  visit([]);')
           needle = "  await page.locator('#deadline-preview').click();"
           assert needle in test
-          test = test.replace(needle, "  await page.keyboard.press('Tab');\n  check('Text-only draft panel remains keyboard reachable', await page.locator('#draft-text').evaluate((el) => el === document.activeElement));\n" + needle)
+          test = test.replace(needle, "  await page.keyboard.press('Tab');\n  check('Text-only draft panel remains keyboard reachable', await page.locator('#draft-text').evaluate((el) => el === document.activeElement));\n  await page.getByText('What if the proposed owner never accepts?', { exact: true }).click();\n" + needle)
+          test = test.replace(' let modelCounts;', ' let modelCounts, completed = false, failure = null;')
+          test = test.replace('  await browserTests();\n } finally {', '  await browserTests();\n  completed = true;\n } catch (error) {\n  failure = { name: error.name, message: error.message };\n  throw error;\n } finally {')
+          test = test.replace('const report = { checked_at:', 'const report = { completed, failure, checked_at:')
+          test = test.replace('failed: checks.filter((c) => !c.passed).length,', 'failed: checks.filter((c) => !c.passed).length + (failure ? 1 : 0),')
           p.write_text(test)
           for name in ['test-guide.cjs', 'test-guide-browser.cjs']:
               p = root / name
