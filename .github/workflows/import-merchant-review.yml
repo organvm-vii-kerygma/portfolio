@@ -1,0 +1,116 @@
+name: Import reviewed merchant decisions
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/import-merchant-review.yml'
+permissions:
+  contents: write
+concurrency:
+  group: import-reviewed-merchant-decisions
+  cancel-in-progress: false
+jobs:
+  import-reviewed-artifact:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'deploy/merchant-decisions-2026-09-22'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: true
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 22
+          cache: npm
+      - name: Restore only the hash-bound reviewed source and tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, lzma, subprocess
+          from pathlib import Path
+          root = Path('public/proofs/conversation-resolution')
+          prior = (root / 'index.html').read_bytes()
+          assert hashlib.sha256(prior).hexdigest() == 'dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a', 'Prior presentation changed; stop rather than overwrite'
+          shas = ['3fa57bfd2430b69b1a4e77b81a2dd780c0a155e3', 'ab972998586974effc495a73653c966965f0beeb', '404b4fcaa347282ebde15516bfc7e799b52ed43f', 'e42c85a796a1defd1ca412a51e57eea4f6b08c93', '1d32c9ea2661d56a201dc91dc0f31e143970dc60']
+          chunks = []
+          for sha in shas:
+              data = json.loads(subprocess.check_output(['gh', 'api', 'repos/organvm-vii-kerygma/portfolio/git/blobs/' + sha]))
+              chunk = base64.b64decode(data['content'])
+              assert hashlib.sha1(('blob ' + str(len(chunk)) + '\0').encode() + chunk).hexdigest() == sha
+              chunks.append(chunk)
+          packed = b''.join(chunks)
+          assert hashlib.sha256(packed).hexdigest() == '9a7cc3bc9c7bc38a73774a0836a1eb26b0894f5eb304a4330d3a82ef584f3483'
+          bundle = json.loads(lzma.decompress(packed))
+          assert set(bundle) == {'index.html', 'test-merchant-decisions.cjs'}
+          assert hashlib.sha256(bundle['index.html'].encode()).hexdigest() == '1daa84cb143185bbaca0bee15121eb7127208c2a70fed1358dfa55213e1cd8f0'
+          assert not (root / 'legacy-guide.html').exists()
+          (root / 'legacy-guide.html').write_bytes(prior)
+          for name, text in bundle.items():
+              (root / name).write_text(text)
+          for name in ['test-guide.cjs', 'test-guide-browser.cjs']:
+              p = root / name
+              text = p.read_text()
+              assert "'index.html'" in text
+              p.write_text(text.replace("'index.html'", "'legacy-guide.html'").replace('process.env.PROOF_URL', 'process.env.LEGACY_PROOF_URL'))
+          p = Path('.github/workflows/conversation-proof.yml')
+          text = p.read_text()
+          text = text.replace("'test-guide-browser.cjs'];", "'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs'];")
+          text = text.replace('test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs', 'test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs')
+          old = '      - name: Test the actual HTTP-served walkthrough with CSP enforced\n        run: node public/proofs/conversation-resolution/test-guide-browser.cjs'
+          new = '      - name: Test retained legacy guide and current merchant decisions with CSP enforced\n        run: |\n          node public/proofs/conversation-resolution/test-guide-browser.cjs\n          node public/proofs/conversation-resolution/test-merchant-decisions.cjs'
+          assert old in text
+          text = text.replace(old, new).replace('            .quality/conversation-guide/', '            .quality/conversation-guide/\n            .quality/merchant-decisions/')
+          p.write_text(text)
+          PY
+      - run: npm install --global npm@11.9.0 --ignore-scripts
+      - run: npm ci
+      - name: Check source semantics and repository formatting
+        run: npx biome check --write public/proofs/conversation-resolution/index.html public/proofs/conversation-resolution/test-merchant-decisions.cjs public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs
+      - name: Refresh script CSP and exact artifact manifest
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, hashlib, base64, json
+          root = Path('public/proofs/conversation-resolution')
+          p = root / 'index.html'
+          html = p.read_text()
+          scripts = re.findall(r'<script[^>]*>([\s\S]*?)</script>', html)
+          assert len(scripts) == 3
+          hashes = ' '.join("'sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode() + "'" for s in scripts)
+          html, count = re.subn(r"script-src [^;]+;", 'script-src ' + hashes + ';', html, count=1)
+          assert count == 1
+          p.write_text(html)
+          names = ['index.html', 'workflow-engine.js', 'test-workflow.cjs', 'test-additional.cjs', 'test-guide.cjs', 'test-guide-browser.cjs', 'legacy-guide.html', 'test-merchant-decisions.cjs']
+          receipt = {'schema': 'merchant-decision-release.v1', 'revision': 'merchant-decisions-r1', 'artifacts_sha256': {n: hashlib.sha256((root/n).read_bytes()).hexdigest() for n in names}, 'current_presentation': 'index.html', 'current_verification': 'test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json', 'legacy_presentation': 'legacy-guide.html', 'legacy_boundary': 'The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.', 'scope': 'Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.', 'source_review_sha256': 'd1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b', 'adaptation': 'Preserve reviewed content and behavior; correct two HTML accessibility semantics; apply repository formatting and CSP hashes.'}
+          (root/'verification.json').write_text(json.dumps(receipt, indent='\t') + '\n')
+          PY
+          npx biome format --write public/proofs/conversation-resolution/verification.json
+      - name: Verify both the legacy rules and the new decisions
+        run: |
+          npm test --prefix public/proofs/conversation-resolution
+          node public/proofs/conversation-resolution/test-guide.cjs
+          npx playwright install --with-deps chromium
+          node public/proofs/conversation-resolution/test-guide-browser.cjs
+          node public/proofs/conversation-resolution/test-merchant-decisions.cjs
+      - name: Commit the bounded tested change to this branch only
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          test "$(git ls-remote origin refs/heads/deploy/merchant-decisions-2026-09-22 | cut -f1)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/conversation-proof.yml public/proofs/conversation-resolution/index.html public/proofs/conversation-resolution/legacy-guide.html public/proofs/conversation-resolution/test-guide.cjs public/proofs/conversation-resolution/test-guide-browser.cjs public/proofs/conversation-resolution/test-merchant-decisions.cjs public/proofs/conversation-resolution/verification.json
+          git commit -m 'feat: publish reviewed Alia decisions with distinct current and legacy verification'
+          git push origin HEAD:refs/heads/deploy/merchant-decisions-2026-09-22
+      - name: Retain exact source and results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: merchant-decision-import
+          path: |
+            public/proofs/conversation-resolution/
+            .quality/merchant-decisions/
+            .quality/conversation-guide/
+          include-hidden-files: true
+          retention-days: 7
