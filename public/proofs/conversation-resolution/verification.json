@@ -1,15 +1,15 @@
 {
 	"schema": "conversation-resolution-verification.v1",
-	"revision": "2026-09-22.r2",
+	"revision": "2026-09-22.r3",
 	"verified_date": "2026-09-22",
-	"scope": "Synthetic workflow engine and guided presentation. The twelve project examples are separate prior work, not an integrated platform.",
+	"scope": "Visual synthetic handoff: prepared notes, explicit decisions and a persistent task card. No live extraction, CRM, authentication or delivery.",
 	"artifacts_sha256": {
-		"index.html": "bebc2dfab71d179f8673ec5dbb03d94dc4c9e982e0999e7343ea1bc4313b2e33",
+		"index.html": "dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a",
 		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
 		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
 		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
 		"test-guide.cjs": "80ff948c97adc39ae9e7e87a4e411e2fab225ebe904d8b44562ce8731ff0e21b",
-		"test-guide-browser.cjs": "92bad8b323a96390d299a730e89aea52a66ece981238d9e51df74399c381304c"
+		"test-guide-browser.cjs": "dc461f86e72bc26519fcfa22dbb95081e981fb4ea10678699d054c5b5b743b0b"
 	},
 	"state_model": {
 		"core_passed": 26,
@@ -46,5 +46,8 @@
 		"Fresh full test suites of the twelve referenced projects",
 		"User comprehension, a usability study, physical-device or all-browser compatibility"
 	],
-	"privacy": "Fictional example only. No private correspondence, customer data or private repository paths. Public hosting is not private access; noindex is not access control."
+	"privacy": "Fictional example only. No private correspondence, customer data or private repository paths. Public hosting is not private access; noindex is not access control.",
+	"browser_verification": {
+		"status": "see same-head CI artifact; no usability or production claim"
+	}
 }
