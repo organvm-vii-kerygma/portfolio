@@ -56,6 +56,14 @@ async function main() {
 			'Twelve project examples start hidden',
 			(await page.locator('.evidence:visible').count()) === 0,
 		);
+		check(
+			'Task summary reflects the unassigned state',
+			(await page.locator('#owner-name').innerText()) === 'Not assigned',
+		);
+		check(
+			'Review status is visible before acting',
+			(await page.locator('#case-state').innerText()) === 'Needs review',
+		);
 		check('Raw state starts hidden', !(await page.locator('#record').isVisible()));
 		check('Scenario selector starts hidden', !(await page.locator('#scenario').isVisible()));
 		check('Simulation is disclosed on entry', await page.locator('.simulation').isVisible());
@@ -66,7 +74,7 @@ async function main() {
 		await page.locator('#next').click();
 		check(
 			'Conflict appears when relevant',
-			(await page.locator('#step-title').innerText()) === 'The notes disagree.',
+			(await page.locator('#step-title').innerText()) === 'Same customer. Different instructions.',
 		);
 		check(
 			'Prior explanation closes on advancement',
@@ -91,7 +99,7 @@ async function main() {
 		await page.locator('#wait').click();
 		check(
 			'Missed deadline is explained in plain language',
-			(await page.locator('#step-title').innerText()) === 'No reply. The task stays open.',
+			(await page.locator('#step-title').innerText()) === 'No reply. Not forgotten.',
 		);
 		check(
 			'Escalation retains unaccepted ownership',
@@ -110,11 +118,19 @@ async function main() {
 					proofGuide.engine.state.status === 'closed' && !!proofGuide.engine.state.communication,
 			),
 		);
+		check(
+			'Closed card shows accepted owner',
+			(await page.locator('#owner-name').innerText()) === 'Alex · accepted',
+		);
+		check(
+			'Closed card shows actual engine status',
+			(await page.locator('#case-state').innerText()) === 'Resolved',
+		);
 		const before = await page.evaluate(() => JSON.stringify(proofGuide.engine.state));
 		await page.locator('#previous').click();
 		check(
 			'Previous explanation is explicitly read-only',
-			(await page.locator('#step-label').innerText()).includes('current task unchanged'),
+			(await page.locator('#step-label').textContent()).includes('current task unchanged'),
 		);
 		await page.locator('#next').click();
 		check(
@@ -124,9 +140,15 @@ async function main() {
 		await page.locator('#next').click();
 		check(
 			'Project depth is available after the walkthrough',
+			(await page.locator('.evidence:visible').count()) === 4,
+		);
+		await page.locator('#more-projects > summary').click();
+		check(
+			'All twelve references remain available on request',
 			(await page.locator('.evidence:visible').count()) === 12,
 		);
 		await page.locator('#technical > summary').click();
+		await page.locator('#record-tools > summary').click();
 		await page.locator('#test-replay').click();
 		check(
 			'Safeguard test leaves the walkthrough unchanged',
@@ -177,6 +199,16 @@ async function main() {
 				`${width}px: primary target is at least 44px tall`,
 				(await page.locator('#next').boundingBox()).height >= 44,
 			);
+			check(
+				`${width}px: primary action fits on the initial screen`,
+				await page
+					.locator('#next')
+					.evaluate((el) => el.getBoundingClientRect().bottom <= innerHeight),
+			);
+			check(
+				`${width}px: task status remains visible`,
+				await page.locator('#case-state').isVisible(),
+			);
 			if (width === 390)
 				await page.screenshot({ path: path.join(output, 'entry-mobile.png'), fullPage: true });
 			await page.locator('#next').click();
@@ -194,6 +226,11 @@ async function main() {
 			'Source markup is text, not executable HTML',
 			(await page.locator('#cards img').count()) === 0 &&
 				!(await page.evaluate(() => !!window.injected)),
+		);
+		await page.emulateMedia({ reducedMotion: 'reduce' });
+		check(
+			'Reduced motion disables transitions',
+			await page.locator('.ticket').evaluate((el) => getComputedStyle(el).animationName === 'none'),
 		);
 		check('No JavaScript exceptions', errors.length === 0);
 		fs.writeFileSync(
