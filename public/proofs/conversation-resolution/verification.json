@@ -1,21 +1,21 @@
 {
 	"schema": "merchant-decision-release.v1",
-	"revision": "merchant-decisions-r1",
+	"revision": "merchant-decisions-r2",
 	"artifacts_sha256": {
-		"index.html": "908f6f333ca53c83332633eb9be84f502cf8cc2dd259448415dc0a7eab323a6e",
+		"index.html": "7b83937d4cdc1948f7acead52b8fed74c30fd193be1a2bdc2cfb030d5619d9f0",
 		"workflow-engine.js": "517ffed56ee5b4dd297959f6c7d70fdf5306b9d7def5a152ba90862f436a52af",
 		"test-workflow.cjs": "3091a99d0ece3c09b3d0eda4eabfd702c87301cdd9c39143674f8df6827ef7ca",
 		"test-additional.cjs": "a3867491d7a15130aa460c62a63f648a6004e2b61f0f905be95e28a111f6926c",
 		"test-guide.cjs": "679bf1d04394715c1a981dbe1540fc9e473b72f884b1eda8f82893ca9db66fc4",
 		"test-guide-browser.cjs": "fa4311ac685443a858028bad0ad1b3b323777970672c8e4ea692543328dfc985",
 		"legacy-guide.html": "dbcbb3c93832bab3212d255d8993366093debc1902e0fd37e47a7b3612ce247a",
-		"test-merchant-decisions.cjs": "6d8d3961877951cf4114295ba4aad7b18b5bc3af49e34380af788a5b89fd13fd"
+		"test-merchant-decisions.cjs": "33b6f3b3fde8b1f7cc95f9b193536c8750df74c3f9846af08bc504707bc0e6c2"
 	},
 	"current_presentation": "index.html",
 	"current_verification": "test-merchant-decisions.cjs; exact-head CI report in .quality/merchant-decisions/results.json",
 	"legacy_presentation": "legacy-guide.html",
 	"legacy_boundary": "The original engine and guide checks exercise the retained prior demonstration, not the current merchant decision explorer.",
 	"scope": "Fictional, browser-only decision case. Choices, explanatory feedback, local calculations and draft exports. No real owner acceptance, live CRM, messages, transcript extraction or capacity claim.",
-	"source_review_sha256": "d1924d14569e2d4242c4277bb9b0a0553a4ac2747fdfc160ffcf5681d836ea4b",
-	"adaptation": "Reviewed content and behavior retained; correct HTML semantics, supply fallback headings, preserve WAI-ARIA tabpanel keyboard access with a documented local lint exception, apply repository formatting and CSP hashes."
+	"adaptation": "Content audit: published identity, explicit scenario assumptions, consistent pending-confirmation evidence, corrected source links and project boundaries, owner-aware customer drafts, and stable per-session balanced option order. Behavior and content regressions run separately from the preserved legacy guide.",
+	"supersedes_html_sha256": "908f6f333ca53c83332633eb9be84f502cf8cc2dd259448415dc0a7eab323a6e"
 }
