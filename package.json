@@ -132,7 +132,7 @@
 		"satori": "0.33.4",
 		"text-readability": "1.1.1",
 		"typescript": "^5.9.3",
-		"vitest": "4.1.11",
+		"vitest": "5.0.1",
 		"rehype-parse": "^9.0.1",
 		"rehype-stringify": "^10.0.1",
 		"unified": "^11.0.5"
