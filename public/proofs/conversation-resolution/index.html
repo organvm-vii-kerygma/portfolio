@@ -1,300 +1,529 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<meta name="referrer" content="no-referrer">
-<meta name="description" content="An interactive customer handoff: connect scattered notes, clarify the request, and follow it to an accountable outcome.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pgTJnXGC3X7S+R3k/u6tnnZRI+zFbLuJnBS/xwR6mCA='; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'">
-<title>Conversation to Resolution | Anthony James Padavano</title>
-<style>:root{--paper:#f4f2ed;--ink:#24342f;--muted:#65716b;--line:#e2e5df;--green:#254e40;--mint:#e8f0e9;--rust:#a7442d;--peach:#fbede5;--white:#fff;--radius:18px}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}button,select{font:inherit}button,summary{cursor:pointer}a{color:inherit;text-underline-offset:4px}button,a,summary,select{touch-action:manipulation}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--rust);outline-offset:4px}button{min-height:44px}h1,h2,h3,p{margin:0}svg{display:inline-block;vertical-align:middle;flex-shrink:0}main{width:min(1120px,calc(100% - 72px));margin:auto;padding-bottom:30px}.masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;height:82px;border-bottom:1px solid #d9dfd7}.signature{display:flex;gap:12px;align-items:center;font-size:13px;font-weight:650;text-decoration:none}.monogram{display:grid;place-items:center;width:34px;height:34px;background:var(--green);color:white;border-radius:50%;font:italic 18px Georgia,serif}.edition{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding:38px 0 30px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--green);margin-bottom:14px}h1{font-size:clamp(32px,4.3vw,55px);font-weight:600;line-height:1.08;letter-spacing:-.055em}h1 em{font:italic 1.08em/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:var(--green)}.hero-note{width:245px;padding-bottom:3px;color:var(--muted);font-size:14px;line-height:1.6}.hero-note span{display:block;margin-top:13px;font-size:11px;color:var(--green);font-weight:650}.workbench{background:var(--white);border:1px solid #dce2d9;border-radius:22px;box-shadow:0 14px 42px #24342f08;overflow:hidden}.bench-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 26px;border-bottom:1px solid var(--line)}.case-id{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted)}.case-id b{font-weight:650;color:var(--ink)}.live-dot{width:6px;height:6px;border-radius:50%;background:var(--rust)}.progress{display:flex;align-items:center;gap:23px;margin:0;padding:0;list-style:none}.progress li{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}.progress .number{display:grid;place-items:center;width:21px;height:21px;border:1px solid var(--line);border-radius:50%;font-size:9px}.progress .current{color:var(--green);font-weight:700}.progress .current .number,.progress .complete .number{background:var(--green);color:white;border-color:var(--green)}.scene-top{display:flex;align-items:start;justify-content:space-between;gap:15px;padding:26px 30px 19px}.step-label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rust);font-weight:700;margin-bottom:8px}h2{font-size:23px;font-weight:650;letter-spacing:-.035em;line-height:1.25}h2:focus{outline:none}.step-copy{font-size:13px;color:var(--muted);margin-top:7px;max-width:700px}.text-button{background:transparent;border:0;color:var(--muted);padding:8px 5px;font-size:12px;white-space:nowrap}.text-button:hover{color:var(--green);text-decoration:underline}.canvas{display:grid;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);align-items:stretch;padding:0 30px 23px}.source-pane{min-width:0;background:#f6f7f3;border:1px solid var(--line);border-radius:var(--radius);padding:17px 18px}.pane-label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:650;margin-bottom:14px}.pane-label span{letter-spacing:0;text-transform:none;font-size:10px;font-weight:450}.bridge{display:grid;place-items:center;color:#809587}.cards{display:grid;gap:9px}.story-card{background:white;border:1px solid #e1e6de;border-radius:10px;padding:12px 14px}.card-label{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);margin-bottom:6px}.story-card p{font-size:13px;line-height:1.5}.story-card.warning{background:var(--peach);border-color:#efd5c5}.story-card.warning .card-label{color:var(--rust)}.source-tail{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 2px 0;color:var(--muted);font-size:10px}.source-tail svg{margin-right:4px}.ticket{min-width:0;border:1px solid #b5c8bc;border-radius:var(--radius);padding:18px 20px;position:relative;background:#fff}.ticket .pane-label{color:var(--green)}.ticket h3{font-size:22px;line-height:1.22;letter-spacing:-.025em;font-weight:650;max-width:290px}.ticket-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);margin-top:8px}.state-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;line-height:1.3;border-radius:5px;padding:5px 7px;background:var(--peach);color:var(--rust);font-weight:600}.state-chip.good{color:var(--green);background:var(--mint)}.ticket-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;margin-top:14px;border-top:1px solid var(--line)}.field-name{font-size:10px;color:var(--muted);margin-bottom:3px}.field-value{font-size:12px;font-weight:600;line-height:1.4}.field-value.pending{color:var(--muted);font-weight:450}.avatar{display:grid;place-items:center;width:33px;height:33px;flex-shrink:0;border-radius:50%;background:var(--mint);color:var(--green);font-size:10px;font-weight:700}.person{display:flex;align-items:center;gap:9px}.ticket-fields{display:grid;grid-template-columns:1fr 1.1fr;gap:18px}.ticket-row{align-items:start;justify-content:start}.ticket-row>span{display:none}.source-tail:has(.source-stub){display:grid;gap:8px;justify-content:stretch}.source-stub{display:flex;align-items:center;gap:5px;padding:9px 10px;background:#eef1eb;border:1px dashed #d4dcd0;border-radius:7px}.source-stub>span{margin-left:auto;font-size:9px}.canvas[data-view="intro"] .ticket-foot{display:none}.ticket-note{display:flex;gap:7px;align-items:center;margin-top:14px;font-size:10px;color:var(--muted)}.ticket-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:center;gap:7px;font-size:10px;color:var(--green)}.decision{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 30px;background:#f8faf6;border-top:1px solid var(--line)}.action-caption{font-size:11px;color:var(--muted);line-height:1.5;max-width:350px}.action-caption b{display:block;font-size:12px;color:var(--green);font-weight:600;margin-bottom:2px}.primary{display:inline-flex;align-items:center;justify-content:center;gap:22px;border:1px solid var(--green);background:var(--green);color:white;min-height:48px;border-radius:9px;padding:12px 19px;font-size:13px;font-weight:600;white-space:normal;text-align:left}.primary:after{content:'→';font-size:19px;line-height:1;font-weight:400}.primary:hover{background:#173e30;box-shadow:0 3px 12px #254e4020}.primary:active{transform:translateY(1px)}.below-bench{display:flex;align-items:start;justify-content:space-between;gap:20px;padding:13px 4px 0}.simulation{font-size:10px;line-height:1.6;color:var(--muted)}.scene-help{max-width:600px;font-size:12px;color:var(--muted)}summary{min-height:44px;display:list-item;padding:12px 0;line-height:1.5}details p{margin:0 0 12px}#explain>summary{font-size:10px;min-height:30px;padding:0;white-space:nowrap}#explain[open]>summary{margin-bottom:10px}#explain[open]{padding-bottom:12px;max-width:500px}#explain[open] p{font-size:12px}.branch-row{padding:0 30px}.branch-row:has(details:not([hidden])){border-top:1px solid var(--line)}.branch-row .scene-help>summary{font-size:11px}.secondary{min-height:44px;background:white;border:1px solid #c6d3c8;color:var(--green);border-radius:8px;padding:10px 14px;font-size:12px;margin:4px 8px 10px 0}.secondary:hover{background:var(--mint)}.error{color:#9c3426;padding:15px 30px;font-size:13px}.depth{margin-top:26px;border-top:1px solid #d9dfd7}.depth>details>summary{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:20px 0;list-style:none;font-size:13px;font-weight:600}.depth>details>summary::-webkit-details-marker{display:none}.depth>details>summary:after{content:'+';font-size:21px;font-weight:400;color:var(--green)}.depth>details[open]>summary:after{content:'−'}.depth>details+details{border-top:1px solid #d9dfd7}.summary-note{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:3px}.depth-content{padding:0 0 22px;font-size:13px;max-width:900px}.depth-intro{font-size:12px;color:var(--muted);margin-bottom:16px}.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}.evidence{border:1px solid var(--line);border-radius:12px;background:white;min-width:0}.evidence summary{display:grid;grid-template-columns:28px 1fr;gap:4px 9px;padding:16px;list-style:none}.evidence summary::-webkit-details-marker{display:none}.evidence .code{grid-row:1/3;font-size:10px;color:var(--green);padding-top:3px}.evidence strong{font-size:13px;font-weight:600}.evidence .stage{grid-column:2;font-size:11px;color:var(--muted)}.evidence .inside{padding:0 16px 16px;font-size:12px}.inside p{margin-bottom:10px}.boundary,.small{font-size:11px;color:var(--muted)}#more-projects>summary{font-size:12px;color:var(--green);margin-top:6px}.technical-section{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}.technical-section h3{font-size:14px;margin:12px 0 8px}select{display:block;max-width:100%;padding:10px;background:white;border:1px solid #c6d3c8;border-radius:7px;font-size:12px;min-height:44px;margin:8px 0;color:var(--ink)}pre{font:11px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;background:white;border:1px solid var(--line);border-radius:8px;padding:16px}#test-message{margin:10px 0;font-size:12px;color:var(--green)}footer{display:flex;justify-content:space-between;gap:16px;margin-top:24px;font-size:10px;color:var(--muted)}.skip{position:absolute;left:-10000px}.skip:focus{left:16px;top:12px;padding:12px;background:white;z-index:10}.canvas.refresh .ticket{animation:settle .24s ease-out}@keyframes settle{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@media(max-width:900px){main{width:calc(100% - 40px)}.hero-note{width:210px}.canvas{padding:0 22px 20px;grid-template-columns:minmax(0,1fr) 26px minmax(0,1fr)}.scene-top{padding:22px}.bench-top{padding:15px 22px}.progress{gap:12px}.source-pane{padding:14px}.ticket{padding:16px}.ticket h3{font-size:20px}.decision{padding:17px 22px}}@media(max-width:620px){main{width:calc(100% - 32px)}.masthead{height:65px}.signature{font-size:11px;gap:8px}.monogram{width:28px;height:28px;font-size:16px}.edition{font-size:9px;letter-spacing:.04em}.hero{display:block;padding:26px 0 22px}.eyebrow{font-size:9px;margin-bottom:10px}h1{font-size:36px}.hero-note{width:auto;font-size:12px;line-height:1.5;margin-top:14px;max-width:350px}.hero-note span{display:none}.workbench{border-radius:16px}.bench-top{padding:12px 16px}.case-id{display:none}.progress{width:100%;gap:0;justify-content:space-between}.progress li{font-size:10px;gap:5px}.progress .number{width:18px;height:18px;font-size:8px}.scene-top{padding:18px 16px 14px}.step-label{font-size:9px;margin-bottom:6px}h2{font-size:20px}.step-copy{font-size:12px}.canvas{grid-template-columns:1fr;padding:0 14px 16px;gap:0}.source-pane{padding:12px;border-radius:11px}.pane-label{margin-bottom:9px;font-size:8px}.story-card{padding:10px 11px;border-radius:8px}.story-card p{font-size:12px}.card-label{font-size:9px}.bridge{height:25px;transform:rotate(90deg)}.ticket{padding:14px 15px;border-radius:11px}.ticket h3{font-size:18px;max-width:none}.ticket-meta{margin-top:6px}.ticket-row{padding-top:10px;margin-top:10px}.ticket-note,.ticket-foot{margin-top:10px}.ticket-foot{padding-top:9px}.ticket-row .field-name{display:none}.ticket .pane-label{margin-bottom:9px}.decision{padding:14px;display:flex;flex-direction:column-reverse;gap:8px;align-items:stretch}.primary{width:100%;justify-content:space-between;font-size:12px;min-height:46px;padding:10px 15px}.action-caption{font-size:10px;text-align:center;max-width:none}.action-caption b{display:none}.below-bench{display:block;padding:10px 2px 0}.simulation{font-size:9px}#explain{margin-top:8px}#explain>summary{font-size:10px}.depth{margin-top:20px}.depth>details>summary{padding:17px 0;font-size:12px}.summary-note{font-size:10px}.evidence-grid{grid-template-columns:1fr}.branch-row{padding:0 16px}.text-button{font-size:10px}footer{font-size:9px}.canvas[data-view="intro"] .ticket-note,.canvas[data-view="intro"] .ticket-foot{display:none}.canvas[data-view="intro"] .source-tail{display:none}.canvas[data-view="intro"] .ticket .pane-label{display:none}.ticket-fields{grid-template-columns:1fr 1fr;gap:10px}.ticket-fields .ticket-row{align-items:center}.canvas[data-view="intro"] .ticket-row{padding-top:8px;margin-top:8px}.canvas[data-view="intro"] .ticket h3{font-size:17px}.canvas[data-view="intro"] .ticket{padding:12px}.canvas[data-view="intro"] .source-pane{padding:10px}.canvas[data-view="intro"] .source-pane .pane-label{margin-bottom:6px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media print{button,.progress,.edition,.below-bench,.depth>details:not([open]){display:none}main{width:100%}.hero{padding:15px 0}.workbench{box-shadow:none}.canvas{grid-template-columns:1fr 24px 1fr}.depth details{break-inside:avoid}body{background:white}}
-@media(max-width:360px){h1{font-size:30px}.hero{padding:20px 0}.masthead{height:60px}}</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<meta name="description" content="Choose how to handle a fictional Alia merchant’s missing welcome email. Compare evidence, explore trade-offs and prepare a concrete handoff.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CIl50ic8azjtJ19S2WEdDrYQD5CBiCUFNTWQKz5GqZs=' 'sha256-bc4PEZjXeeUeAN2ptJKKPhS1ZQ546/qgcLs4LahLUPE=' 'sha256-Gi18Z+yNpuTyCF3QN92E0bpvnp0lfAQrEMCzJIUVld0='; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Alia merchant handoff · Decision review</title>
+<style>:root{--paper:#f4f2ed;--ink:#24342f;--muted:#59665f;--line:#dce2d9;--green:#254e40;--mint:#edf4ee;--rust:#9c3d27;--peach:#fff1e9;--amber:#72521e;--sand:#faf5e9;--white:#fff}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}button,select{font:inherit}button,a,summary,select{touch-action:manipulation}button,summary{cursor:pointer}button{min-height:44px}button:disabled{cursor:not-allowed;opacity:.68}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--rust);outline-offset:4px}a{color:var(--green);text-underline-offset:3px}h1,h2,h3,p{margin:0}main{width:min(1100px,calc(100% - 64px));margin:auto;padding-bottom:24px}.masthead{height:76px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d4dbd1;gap:12px}.signature{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:650}.monogram{width:33px;height:33px;display:grid;place-items:center;background:var(--green);border-radius:50%;color:white;font:italic 18px Georgia,serif}.edition{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;padding:32px 0 28px}.eyebrow{font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px}h1{font-size:clamp(32px,4.4vw,52px);line-height:1.1;letter-spacing:-.05em;font-weight:600}h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.045em}.hero-note{font-size:14px;max-width:305px;color:var(--muted);line-height:1.6}.hero-note strong{color:var(--ink);font-weight:550}.ecosystem{font-size:12px;color:var(--muted);margin:0 0 18px}.ecosystem b{font-weight:600;color:var(--ink)}.workbench{background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 36px #24342f08;overflow:hidden}.bench-top{padding:17px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px}.case-title{font-size:13px;font-weight:650}.case-title span{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}.progress{display:flex;gap:17px;list-style:none;padding:0;margin:0}.progress li{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}.step-num{display:grid;place-items:center;width:22px;height:22px;border:1px solid var(--line);border-radius:50%;font-size:10px}.current{color:var(--green)!important;font-weight:650}.current .step-num,.complete .step-num{color:white;background:var(--green);border-color:var(--green)}.plan-strip{display:flex;flex-wrap:wrap;gap:10px 22px;padding:11px 26px;background:#f8faf6;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}.plan-strip span:before{content:'·';padding-right:8px;color:var(--green);font-weight:700}.scene-header{padding:24px 28px 22px;display:flex;align-items:start;justify-content:space-between;gap:20px}.kicker{font-size:11px;color:var(--rust);font-weight:650;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:8px}h2{font-size:25px;line-height:1.25;letter-spacing:-.03em}h2:focus,h3:focus{outline:none}.step-copy{font-size:14px;color:var(--muted);max-width:710px;margin-top:8px}.text-button{border:0;background:none;color:var(--green);font-size:12px;padding:7px 4px;text-decoration:underline;text-underline-offset:4px}.restart{white-space:nowrap}.decision-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;padding:0 28px 26px;align-items:start}.evidence-panel{background:#f6f7f3;border:1px solid var(--line);border-radius:14px;padding:17px;min-width:0}.panel-heading{font-size:12px;letter-spacing:.035em;font-weight:650;color:var(--green);margin-bottom:13px}.source-card,.summary-card{padding:14px 15px;background:white;border:1px solid #e1e6de;border-radius:10px;overflow-wrap:anywhere}.source-card+.source-card,.summary-card+.summary-card{margin-top:10px}.source-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}.source-card h3,.summary-card h3{font-size:12px;font-weight:650;color:var(--muted);margin-bottom:6px}.source-card p,.summary-card p{font-size:14px;line-height:1.6}.source-card:has(.source-meta):nth-child(2){border-color:#e4cfc1;background:#fff9f4}.choices-pane{min-width:0}.choice-intro{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;min-height:30px}.choice-intro h3{font-size:13px;font-weight:600}.choice-intro span{font-size:11px;color:var(--muted)}.choice-list{display:grid;gap:10px}.choice{width:100%;display:flex;align-items:center;gap:13px;text-align:left;background:white;color:var(--ink);border:1px solid #d6ded3;border-radius:11px;padding:16px;transition:background .12s,border-color .12s}.choice:hover{background:#f6f9f4;border-color:#93ad98}.choice[aria-pressed="true"]{background:var(--mint);border:2px solid var(--green);padding:15px}.choice-letter{width:25px;height:25px;border:1px solid #cdd8c9;display:grid;place-items:center;flex-shrink:0;font-size:11px;border-radius:6px;color:var(--green)}.choice-copy{display:block;flex:1;min-width:0}.choice-copy strong{display:block;font-size:15px;line-height:1.35;font-weight:600}.choice-copy>span{display:block;font-size:12px;line-height:1.5;margin-top:4px;color:var(--muted)}.choice-mark{color:var(--green);font-size:17px}.choice[aria-pressed="true"] .choice-mark{font-size:0}.choice[aria-pressed="true"] .choice-mark:after{content:'✓';font-size:16px}.suggestion{margin-top:9px}.feedback{margin-top:17px;padding:19px;background:var(--mint);border:1px solid #b5cbb9;border-radius:12px;animation:appear .16s ease-out}.feedback.conditional{background:var(--sand);border-color:#d9c9a7}.feedback.unsupported{background:var(--peach);border-color:#e4bfae}.feedback h3{font-size:15px;font-weight:650;margin-bottom:8px;color:var(--green)}.feedback.conditional h3{color:var(--amber)}.feedback.unsupported h3{color:var(--rust)}.feedback p{font-size:14px;line-height:1.6}.consequence{margin-top:15px;padding-top:12px;border-top:1px solid #24342f1b}.consequence strong{font-size:11px;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:5px;color:var(--muted)}.feedback-refs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:11px;font-size:11px}.source-link{font-size:11px;min-height:32px;padding:2px 0;border:0;background:none;color:var(--green);text-decoration:underline;text-underline-offset:3px}.decision-footer{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-top:17px}.primary{min-height:46px;background:var(--green);color:white;border:1px solid var(--green);border-radius:8px;padding:11px 18px;font-size:13px;font-weight:600;text-align:center}.primary:hover:not(:disabled){background:#173e30}.primary:after{content:' →';padding-left:8px}.button-note{font-size:11px!important;color:var(--muted);margin-top:8px!important}.nav-strip{padding:10px 28px 15px;display:flex;align-items:center;gap:20px}.nav-strip:has(button:not([hidden])){border-top:1px solid var(--line)}.simulation{font-size:12px;color:var(--muted);margin:13px 3px 0}.evidence-panel details{margin-top:8px}summary{min-height:44px;padding:12px 0;cursor:pointer;font-size:12px;color:var(--green)}details p{margin-bottom:10px}#all-evidence{padding-bottom:10px}#feedback-more p{font-size:13px}.test-panel{padding:15px 0 0;margin-top:14px;border-top:1px solid #24342f26}.test-panel h4{font-size:13px;margin:0 0 10px}.table-scroll{max-width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:11px;text-align:left}th,td{padding:8px 6px;border-bottom:1px solid #24342f25;vertical-align:top}th[scope=row]{font-weight:500}thead th{font-weight:600}tbody td:last-child{font-weight:650}.test-note{font-size:11px!important;line-height:1.6;margin-top:9px!important;color:var(--muted)}.complete-body{padding:0 28px 28px}.completion-banner{background:var(--mint);border:1px solid #bfd2c0;border-radius:12px;padding:18px 20px;margin-bottom:20px}.completion-banner h3{font-size:17px;margin-bottom:5px}.completion-banner p{font-size:13px;color:var(--muted)}.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}.final-card{border:1px solid var(--line);padding:16px;border-radius:10px}.final-card.wide{grid-column:1/-1}.final-card>span{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}.final-card strong{font-size:14px;font-weight:600}.final-card p{font-size:12px;color:var(--muted);margin-top:5px}.draft-tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--line);margin-top:16px}.draft-tabs button{background:none;color:var(--muted);border:0;border-bottom:2px solid transparent;padding:12px 15px;font-size:13px}.draft-tabs button[aria-selected=true]{border-color:var(--green);color:var(--green);font-weight:650}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-height:350px;overflow:auto;background:#f8faf6;border:1px solid var(--line);border-radius:8px;padding:20px;margin:14px 0}.draft-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.secondary{border:1px solid #bdcbbc;border-radius:8px;color:var(--green);background:white;padding:10px 14px;min-height:44px;font-size:12px}.secondary:hover{background:var(--mint)}.copy-note{font-size:12px;color:var(--muted);margin:8px 0}.owner-gap{background:var(--sand);padding:14px;border-radius:8px;font-size:13px;margin:8px 0}.history-row{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:13px}.history-row>span{color:var(--green);font-size:11px;margin-top:3px}.history-row p{font-size:12px;color:var(--muted);margin-top:5px}.depth{margin-top:26px;border-top:1px solid #d4dbd1}.depth>details{border-bottom:1px solid #d4dbd1}.depth>details>summary{padding:18px 0;font-size:13px;font-weight:600}.summary-note{display:block;margin-left:15px;font-size:12px;color:var(--muted);font-weight:400;margin-top:3px}.depth-content{padding-bottom:20px;font-size:13px;line-height:1.7}.depth-intro{color:var(--muted);margin-bottom:16px}.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}.evidence{background:white;border:1px solid var(--line);border-radius:10px;min-width:0}.evidence summary{padding:15px;display:grid;grid-template-columns:28px 1fr;gap:3px 9px;list-style:none}.evidence strong{font-size:13px}.evidence .code{grid-row:1/3;font-size:11px}.evidence .stage{font-size:12px;color:var(--muted);grid-column:2}.inside{padding:0 16px 16px;font-size:13px}.inside p{margin-bottom:10px}.boundary,.small{font-size:12px;color:var(--muted)}select{padding:10px;border:1px solid #bccbbb;border-radius:8px;max-width:100%;min-height:44px;font-size:13px;color:var(--ink);background:white;margin:10px 0}.depth h3{font-size:14px;margin:10px 0 8px}.depth ul{padding-left:20px}.depth li{margin-bottom:7px}.complete-body ol{font-size:13px;line-height:1.8;padding-left:20px}.footer{display:flex;justify-content:space-between;gap:16px;font-size:11px;color:var(--muted);margin-top:22px}.skip{position:absolute;left:-10000px}.skip:focus{left:14px;top:14px;padding:12px;background:white;z-index:5}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@keyframes appear{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:850px){main{width:calc(100% - 40px)}.hero{gap:22px}.hero-note{max-width:260px}.bench-top{padding:16px 20px}.case-title{display:none}.progress{width:100%;justify-content:space-between;gap:10px}.scene-header{padding:22px}.decision-grid{padding:0 22px 22px;gap:18px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}.choice{padding:13px}.choice[aria-pressed=true]{padding:12px}.choice-copy strong{font-size:14px}.evidence-panel{padding:13px}.feedback{padding:15px}.decision-footer{flex-wrap:wrap}.plan-strip{padding:10px 20px;font-size:11px}}
+@media(max-width:640px){main{width:calc(100% - 28px)}.masthead{height:62px}.signature{font-size:11px;gap:8px}.monogram{width:28px;height:28px;font-size:16px}.edition{font-size:10px;letter-spacing:0}.hero{display:block;padding:24px 0 14px}.hero-note{font-size:13px;max-width:none;margin-top:13px;line-height:1.55}.hero-note strong{display:inline}.eyebrow{font-size:10px;margin-bottom:9px}h1{font-size:35px}.ecosystem{font-size:11px;line-height:1.7;margin-bottom:16px}.workbench{border-radius:15px}.bench-top{padding:13px}.progress{gap:5px}.progress li{font-size:10px;gap:4px}.step-num{width:18px;height:18px;font-size:9px}.plan-strip{padding:10px 14px;gap:6px 12px}.plan-strip span:last-child{display:none}.scene-header{padding:19px 16px 17px;gap:8px}h2{font-size:22px}.step-copy{font-size:13px;line-height:1.55}.kicker{font-size:10px}.restart{font-size:11px;min-width:42px;white-space:normal}.decision-grid{display:flex;flex-direction:column;padding:0 14px 19px;gap:19px}.evidence-panel{width:100%;padding:12px}.panel-heading{font-size:11px;margin-bottom:9px}.source-card,.summary-card{padding:12px}.source-card p,.summary-card p{font-size:13px;line-height:1.55}.source-card h3,.summary-card h3{font-size:11px}.source-meta{font-size:10px}.choices-pane{width:100%}.choice-intro{margin-bottom:8px}.choice-intro span{font-size:10px}.choice{padding:14px 12px;gap:10px}.choice[aria-pressed=true]{padding:13px 11px}.choice-copy strong{font-size:14px}.choice-copy>span{font-size:12px}.choice-mark{font-size:15px}.choice-letter{width:23px;height:23px}.suggestion{font-size:12px}.feedback p{font-size:13px}.feedback h3{font-size:14px}.decision-footer{display:flex;justify-content:space-between;gap:7px}.decision-footer .text-button{font-size:11px}.primary{font-size:12px;padding:10px 13px}.nav-strip{padding:8px 16px 14px}.simulation{font-size:11px;line-height:1.7}.final-grid{grid-template-columns:1fr}.complete-body{padding:0 16px 20px}.final-card.wide{grid-column:auto}.draft-tabs button{font-size:12px;padding:10px 12px}pre{padding:15px;font-size:12px}.evidence-grid{grid-template-columns:1fr}.footer{font-size:10px}.summary-note{font-size:11px}.depth{margin-top:22px}.depth>details>summary{font-size:12px}.button-note{font-size:11px!important}}
+@media(max-width:360px){h1{font-size:30px}.step-name{font-size:9px}.progress li{gap:3px}.scene-header{display:block}.restart{margin-top:3px}.choice-intro{display:block}.choice-intro span{display:block;margin-top:3px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media(max-width:640px){.hero{padding:20px 0 12px}h1{font-size:30px;letter-spacing:-.055em}.hero-note{font-size:12px;margin-top:11px}.hero-note br{display:none}.ecosystem{margin-bottom:12px}.scene-header{padding:16px}.step-copy{display:none}.plan-strip{font-size:11px}#app[data-step="0"] .plan-strip{display:none}.panel-heading{display:none}.source-card{padding:10px 11px}.source-meta{margin-bottom:3px}.source-card h3{margin-bottom:4px}.source-card p{font-size:13px}.evidence-panel{padding:10px}#evidence-drawer>summary{padding:9px 0 2px;min-height:36px}.decision-grid{gap:14px}.choice-intro{min-height:0}.choice-intro span{display:none}.signature{font-size:10px}.edition{font-size:9px}.restart{min-height:32px}.nav-strip{min-height:0}.nav-strip:not(:has(button:not([hidden]))){padding:0}}
+</style>
 </head>
-<body data-pagefind-ignore="all">
-<a class="skip" href="#walkthrough">Skip to the example</a>
+<body>
+<a class="skip" href="#step-title">Skip to the customer case</a>
 <main>
-<header class="masthead"><a class="signature" href="/portfolio/"><span class="monogram" aria-hidden="true">ap.</span>Anthony James Padavano</a><span class="edition">Fictional case study</span></header>
-<div class="hero"><div><p class="eyebrow">Conversation → Resolution</p><h1>From scattered notes<br>to <em>a clear next step.</em></h1></div><p class="hero-note">Follow a customer request from the first conversation to the person who gets it done.<span>One case. Follow it at your own pace.</span></p></div>
-<section class="workbench" id="walkthrough" aria-labelledby="step-title">
-<div class="bench-top"><div class="case-id"><span class="live-dot"></span><b>CASE 001</b><span>/ Onboarding</span></div><ol class="progress" id="progress" aria-label="Request progress"><li class="current" aria-current="step"><span class="number">1</span>Capture</li><li><span class="number">2</span>Clarify</li><li><span class="number">3</span>Assign</li><li><span class="number">4</span>Resolve</li></ol></div>
-<div class="scene-top"><div><span class="step-label" id="step-label">01 / Capture</span><h2 id="step-title" tabindex="-1">One request. Three places to look.</h2><p class="step-copy" id="step-copy">Start with the call. Then check what the other notes say.</p></div><button type="button" class="text-button" id="restart" hidden>Restart ↺</button></div>
-<div class="canvas" id="canvas" data-view="intro">
-<div class="source-pane"><div class="pane-label"><b id="source-label">Source notes</b><span id="source-count">3 linked messages</span></div><div class="cards" id="cards"><div class="story-card"><div class="card-label">Customer · call</div><p>Send the onboarding checklist. Do not change our live configuration yet.</p></div></div><div class="source-tail" id="source-tail"><span>Internal note</span><span>Customer reply</span></div></div>
-<div class="bridge" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></div>
-<section class="ticket" aria-label="Current task record"><div class="pane-label"><b>The request</b><span>Example account 001</span></div><h3>Send the onboarding<br>checklist</h3><div class="ticket-meta"><span class="state-chip" id="case-state" role="status" aria-live="polite">Needs review</span><span>Onboarding</span></div><div class="ticket-fields"><div class="ticket-row"><div><div class="field-name">Approved scope</div><div class="field-value pending" id="scope-value">Awaiting decision</div></div><span id="scope-icon" aria-hidden="true"></span></div><div class="ticket-row"><div class="person"><span class="avatar" id="owner-avatar" role="img" aria-label="No owner">—</span><div><div class="field-name">Owner</div><div class="field-value pending" id="owner-name">Not assigned</div></div></div></div></div><div class="ticket-note" id="ticket-note">No live configuration changes</div><div class="ticket-foot" id="ticket-foot">Connected to the original conversation</div></section>
-</div>
-<div class="decision"><div class="action-caption"><b id="action-context">The problem</b><span id="step-note">Important details live in different places.</span></div><button type="button" class="primary" id="next" disabled>Connect the notes</button></div>
-<div class="branch-row"><details class="scene-help" id="late-option" hidden><summary>What if Alex never responds?</summary><p>The task stays unaccepted. After the deadline, the coordinator must follow up.</p><button type="button" class="secondary" id="wait">Show the missed deadline</button></details><details class="scene-help" id="reopen-option" hidden><summary>What if the instructions change?</summary><p>Keep the completed case. Open a fresh review of the new instruction.</p><button type="button" class="secondary" id="reopen">Add a conflicting note</button></details><button type="button" class="text-button" id="previous" hidden>← Review previous step</button></div>
-<p class="error" id="guide-error" role="alert" hidden></p><noscript><p class="error">JavaScript is needed to try the example. The project notes below are still available.</p></noscript>
+<header class="masthead"><div class="signature"><span class="monogram" aria-hidden="true">ap.</span>Anthony James Padavano</div><span class="edition">Local review · fictional case</span></header>
+<div class="hero"><div><p class="eyebrow">Alia × Klaviyo · Customer handoff</p><h1>Sales says ready.<br>The customer says <em>not yet.</em></h1></div><p class="hero-note">A Shopify merchant’s welcome email is missing. <br><strong>Choose the next step. See what the evidence supports—and what your choice changes.</strong></p></div>
+<p class="ecosystem"><b>Shopify</b> hosts the store. <b>Alia</b> captures the signup. <b>Klaviyo</b> sends the welcome email. <b>HubSpot</b> holds the sales note.</p>
+<div id="js-fallback"><p>JavaScript is needed for this local decision explorer. The fictional case is a missing welcome email, a contradictory sales note, and a customer request to keep the popup paused. No external action is available.</p></div>
+<div id="app" hidden>
+<section class="workbench" aria-label="Fictional merchant handoff">
+<div class="bench-top"><div class="case-title">Example Homeware<span>Friday campaign · POPUP-07</span></div><ol class="progress" id="progress" aria-label="Decision progress"></ol></div>
+<div class="plan-strip"><span id="case-status">Readiness disputed</span><span id="owner-state">No proposed owner</span><span id="live-state">Live outcome unverified</span></div>
+<div id="decision-screen">
+<div class="scene-header"><div><span class="kicker" id="step-kicker"></span><h2 id="step-title" tabindex="-1">Review the customer request</h2><p id="step-copy" class="step-copy"></p></div><button type="button" class="text-button restart" id="restart">Restart</button></div>
+<div class="decision-grid">
+<aside class="evidence-panel" aria-label="Evidence for this decision"><h3 class="panel-heading" id="evidence-title">Evidence for this decision</h3><div id="evidence"></div><details id="evidence-drawer"><summary id="evidence-toggle">Inspect all four source records</summary><div id="all-evidence"></div></details></aside>
+<div class="choices-pane"><div class="choice-intro"><h3>What would you do next?</h3><span>Choose an option to see the consequence.</span></div><section id="choice-list" class="choice-list" aria-label="Possible next actions"></section><button type="button" class="text-button suggestion" id="help-suggestion">Show the suggested next step</button>
+<section id="feedback" class="feedback" aria-labelledby="feedback-title" hidden><h3 id="feedback-title" tabindex="-1">Choice explanation</h3><p id="feedback-why"></p><div class="consequence"><strong>What this choice changes</strong><p id="feedback-consequence"></p></div>
+<div id="local-result" class="test-panel" hidden><h4 id="result-heading">Local test result</h4><div class="table-scroll"><table><caption class="sr-only">Simplified welcome-send policy, before and after the proposed list setting</caption><thead><tr><th scope="col">Profile</th><th scope="col">Before</th><th scope="col">Proposed</th><th scope="col">Check</th></tr></thead><tbody id="test-rows"></tbody></table></div><p class="test-note">“Eligible” refers only to this example’s welcome-send policy: list match, arrival, enabled flow, confirmation and suppression. It does not simulate all Klaviyo flow behavior or prove inbox delivery.</p></div>
+<details id="feedback-more"><summary>What evidence is still missing?</summary><p id="feedback-missing"></p><div id="feedback-refs" class="feedback-refs"></div></details>
+<div id="primary-area"><div class="decision-footer"><button type="button" class="text-button" id="compare-another">Compare another option</button><button type="button" class="primary" id="next" disabled>Use this approach</button></div><p id="button-note" class="button-note"></p></div>
+</section></div></div></div>
+<div id="complete-screen" hidden><div class="scene-header"><div><span class="kicker">Your handoff</span><h2 id="complete-title" tabindex="-1">The next person gets a specific next step.</h2><p class="step-copy">Your choices are now a support task, a CRM note and a customer-reply draft. None has been sent.</p></div></div>
+<div class="complete-body"><div class="completion-banner"><h3>Draft ready for review. Customer issue still open.</h3><p id="result-boundary"></p></div><div class="final-grid"><div class="final-card"><span>The finding</span><strong id="final-finding"></strong></div><div class="final-card"><span>Proposed owner</span><strong id="final-owner"></strong><p>Fictional person · acceptance pending.</p></div><div class="final-card wide"><span>The next action</span><strong id="final-action"></strong></div></div>
+<details><summary>What if the proposed owner never accepts?</summary><p class="small">A queue assignment is not an accepted handoff. Explore the exception without pretending a real person was contacted.</p><button type="button" class="secondary" id="deadline-preview" aria-controls="no-reply" aria-expanded="false">Preview a missed acceptance</button><p id="no-reply" class="owner-gap" hidden></p></details>
+<div class="draft-tabs" role="tablist" aria-label="Generated local drafts"><button type="button" role="tab" id="tab-support" data-tab="support" aria-controls="draft-text" aria-selected="true">Support task</button><button type="button" role="tab" id="tab-crm" data-tab="crm" aria-controls="draft-text" aria-selected="false" tabindex="-1">HubSpot note</button><button type="button" role="tab" id="tab-customer" data-tab="customer" aria-controls="draft-text" aria-selected="false" tabindex="-1">Customer reply</button></div>
+<!-- biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA tabs require a focusable text-only tabpanel; preserve keyboard access to this scrollable draft. https://www.w3.org/WAI/ARIA/apg/patterns/tabs/ -->
+<pre id="draft-text" role="tabpanel" aria-labelledby="tab-support" tabindex="0"></pre><div class="draft-actions"><button type="button" class="secondary" id="copy-draft">Copy this draft</button><button type="button" class="secondary" id="save-drafts">Save the local record</button></div><p id="copy-note" class="copy-note" role="status"></p>
+<details><summary>Review my five decisions</summary><div id="decision-history"></div></details><details><summary>What remains before a real resolution?</summary><ol id="remaining-checks"></ol></details>
+</div></div>
+<div class="nav-strip"><button type="button" class="text-button" id="previous" hidden>Previous decision</button></div>
 </section>
-<div class="below-bench"><p class="simulation">Fictional case · Clicks simulate the team's actions. No AI or CRM is connected.</p><details class="scene-help" id="explain"><summary>Why this step?</summary><p id="step-detail"></p></details></div>
+<p class="simulation">Fictional records. Local comparisons, calculations and drafts only. No AI extraction, account access, live changes or sending capability.</p>
 <div class="depth">
-<details id="connections"><summary id="connections-title"><span>Built from related work<span class="summary-note">Customer requirements, client review, ownership, and coordination.</span></span></summary><div class="depth-content"><p class="depth-intro">Different systems, related problems. These projects inform the approach; they are not services running behind this example.</p><div class="evidence-grid"><details class="evidence"><summary><span class="code">E01</span><strong>Client requirements case</strong><span class="stage">Reconcile evolving requirements</span></summary><div class="inside"><p>Conversation sources became individually identified wants with source references, evolution, scope and implementation status. The record exposed a mismatch between the governing experience and a nested product funnel.</p><p><b>Applied here.</b> Connect the customer statement, its interpretation and the authorized implementation; preserve disagreement.</p><p class="boundary">Private client-delivery evidence. Not proof of automated extraction accuracy or customer-scale throughput; correspondence is not published.</p></div></details><details class="evidence"><summary><span class="code">E02</span><strong>Client review studio</strong><span class="stage">Focus the human decision</span></summary><div class="inside"><p>Parallel editorial, archive, commerce and platform lanes feed one client-review item. Preparation is distinct from rights, voice, editorial and publication approval.</p><p><b>Applied here.</b> Present one actionable review while specialist work proceeds behind it. Preserve the existing public platform until cutover is authorized.</p><p class="boundary">Private operating model and prototype. Publication and migration remain human-gated; not autonomous customer operation.</p></div></details><details class="evidence"><summary><span class="code">E07</span><strong>Limen</strong><span class="stage">Bind execution to authority</span></summary><div class="inside"><p>Bounded work packets carry authority, limits, deadlines and verification predicates. A deterministic keeper manages leases and generations; receipts record executor identity, revisions, checks and outcomes.</p><p><b>Applied here.</b> Distinguish assignment, acceptance, execution and completion evidence.</p><p class="boundary">An agent lease is not a person's acceptance and does not prove exactly-once effects in an external CRM.</p><a href="https://github.com/4444J99/limen/blob/main/docs/architecture/peer-conductor-protocol.md" rel="noopener noreferrer" target="_blank">Inspect public protocol</a></div></details><details class="evidence"><summary><span class="code">E08</span><strong>ORGANVM Engine</strong><span class="stage">Coordinate varied workflows</span></summary><div class="inside"><p>Registry, governance, dependency, promotion, dispatch and context-synchronization mechanisms coordinate distributed work.</p><p><b>Applied here.</b> Share identities and lifecycle rules while keeping each business workflow's own acceptance criteria.</p><p class="boundary">Cross-repository governance is not a customer-operation capacity benchmark. Repository count is not throughput.</p><a href="https://github.com/organvm/organvm-engine/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div><details id="more-projects"><summary>Explore eight more connections</summary><div class="evidence-grid"><details class="evidence"><summary><span class="code">E03</span><strong>AI Chat Exporter</strong><span class="stage">Preserve source conversations</span></summary><div class="inside"><p>The ChatGPT path normalizes a message tree and supports Markdown, HTML, JSON, PNG and text exports, separating provider, request queue and renderers.</p><p><b>Applied here.</b> Preserve structured evidence before summarizing; put source-specific adapters behind a shared contract.</p><p class="boundary">Substantially transformed fork of Pionxzh's project. Other provider paths are scaffolds; compatibility with changing host interfaces is not guaranteed.</p><a href="https://github.com/organvm-iii-ergon/a-i-chat--exporter/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E04</span><strong>Private knowledge pipeline</strong><span class="stage">Turn chats into typed records</span></summary><div class="inside"><p>A knowledge atomizer separates messages and code blocks, retains conversation identity, and applies redaction and format-specific chunking strategies.</p><p><b>Applied here.</b> Make retrievable units without losing their source context.</p><p class="boundary">The inspected message pass skips content under 20 characters and uses random unit IDs. A sales adaptation needs short-approval preservation and replay-safe identity; those limitations are not hidden.</p></div></details><details class="evidence"><summary><span class="code">E05</span><strong>LingFrame</strong><span class="stage">Preserve context across levels</span></summary><div class="inside"><p>The atomization model retains hierarchical relationships between theme, paragraph, sentence, word and letter.</p><p><b>Applied here.</b> Pair a small, inspectable evidence span with the larger context needed to distinguish a request, condition or commitment.</p><p class="boundary">Research framework and heuristic rhetorical analysis, not a validated business-intent classifier.</p><a href="https://github.com/organvm/linguistic-atomization-framework/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E06</span><strong>Public Record Data Scraper / UCC</strong><span class="stage">Normalize and deliver into CRM</span></summary><div class="inside"><p>Inspected HubSpot adapters map prospect data to CRM properties, submit authenticated requests and expose success, failure and remote object identifiers.</p><p><b>Applied here.</b> Translate a shared record into the destination schema and reconcile its returned object instead of adding an isolated store.</p><p class="boundary">Private integration code, not a live customer test, owner-acceptance system or proof of idempotent remote creation.</p></div></details><details class="evidence"><summary><span class="code">E09</span><strong>Testament / governance corpus</strong><span class="stage">Keep a durable evidence history</span></summary><div class="inside"><p>Testament catalogs rendered artifacts with source module, format, time and metadata. The governance corpus preserves the history from source conversations through plans, evaluations and later revisions.</p><p><b>Applied here.</b> Keep the evidence behind a decision inspectable after a status or interpretation changes.</p><p class="boundary">An append-only artifact catalog is not, by itself, a tamper-proof transaction log or a complete customer decision system.</p><a href="https://github.com/organvm/organvm-engine/blob/main/src/organvm_engine/testament/catalog.py" rel="noopener noreferrer" target="_blank">Inspect public catalog</a></div></details><details class="evidence"><summary><span class="code">E10</span><strong>Universal Mail Automation</strong><span class="stage">Triage and route incoming work</span></summary><div class="inside"><p>Mail-processing mechanisms distinguish incoming material, triage, routing, escalation, approval and delivery evidence.</p><p><b>Applied here.</b> Route a customer signal toward a bounded next action without treating draft or approval as confirmed delivery.</p><p class="boundary">Mail automation is a related implementation pattern, not proof that this demonstration sends or receives messages.</p><a href="https://github.com/4444J99/universal-mail--automation/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E11</span><strong>HOSPES</strong><span class="stage">Make the next action visible</span></summary><div class="inside"><p>A human-gated operating workflow links intake, approvals, drafts, routing and commitments. A stale-projection defect showed why a saved decision must also reach the operator's next view.</p><p><b>Applied here.</b> Keep the visible work queue aligned with the authoritative decision and expose the next allowed action.</p><p class="boundary">Private workflow and bounded synthetic evidence; not a production-scale customer-success deployment.</p></div></details><details class="evidence"><summary><span class="code">E12</span><strong>Agentic Titan</strong><span class="stage">Bound experiments and automation</span></summary><div class="inside"><p>Agent specification, model-provider policy, coordination, memory, tool execution and human approval remain separate concerns.</p><p><b>Applied here.</b> Compare alternatives during development, then deliver a constrained workflow with explicit authority and limits.</p><p class="boundary">Framework implementation and local verification, not proof that open-ended multi-agent exploration improves customer outcomes.</p><a href="https://github.com/organvm-iii-ergon/agentic-titan/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div></details></div></details>
-<details id="technical"><summary><span>Under the hood<span class="summary-note">What is real, what is simulated, and how to inspect it.</span></span></summary><div class="depth-content"><p>This page runs a real, local set of workflow rules against prepared fictional messages. It does not extract a transcript, authenticate staff, write to HubSpot, or send email. Reloading starts over.</p><p>In a real team, routine routing and updates would happen through existing tools. People would handle approvals and exceptions—not click through this presentation for every task.</p><p class="small">The code checks behavior, not usability, business results, or production capacity. <a href="verification.json">Read the verification record</a>.</p><details class="technical-section" id="situations"><summary>Try a different situation</summary><label for="scenario">Example</label><select id="scenario"><option value="conflict">Conflicting instructions</option><option value="happy">An agreed request</option><option value="ambiguous">The account is unclear</option><option value="unaccepted">Nobody accepts the task</option></select><button type="button" class="secondary" id="load-scenario">Start this example</button></details><details class="technical-section" id="record-tools"><summary>Inspect the case and safeguards</summary><p class="small">These tests use a copy. They do not change your walkthrough.</p><button type="button" class="secondary" id="test-close">Test premature closure</button><button type="button" class="secondary" id="test-replay">Test duplicate notes</button><button type="button" class="secondary" id="export">Export this case</button><p id="test-message" role="status" aria-live="polite"></p><pre id="record"></pre></details></div></details>
+<details id="variations"><summary>Change the evidence. Does your answer still hold?<span class="summary-note">Optional: confirmation pending, a failed handoff, or an unknown cause.</span></summary><div class="depth-content"><label for="scenario">Load a different fictional case</label><br><select id="scenario"><option value="list-mismatch">Different lists · destination mismatch</option><option value="pending-consent">Lists match · confirmation pending</option><option value="delivery-failure">Lists match · subscriber handoff failed</option><option value="unexplained">Lists match · cause still unknown</option></select><p class="small">Changing the case clears prior choices, tests and drafts. Explanations, suggested routing and output depend on the selected evidence—not the position of a button.</p></div></details>
+<details id="connections"><summary id="connections-title"><span>Where I’ve used these methods<span class="summary-note">Four connections to existing work. Optional.</span></span></summary><div class="depth-content"><p class="depth-intro">Related implementations, not services running behind this example. Open only the evidence you need.</p><div class="evidence-grid"><details class="evidence"><summary><span class="code">E01</span><strong>Sovereign Systems Spiral</strong><span class="stage">Keep the customer’s words attached to the decision</span></summary><div class="inside"><p>The client’s evolving requests were recorded separately, with source links and scope decisions. That made disagreements inspectable instead of flattening them into one summary.</p><p>Here: retain the customer’s launch hold alongside the later “ready” note.</p><p class="boundary">Private client-delivery evidence. Not proof of automated extraction accuracy or customer-scale throughput; correspondence is not published.</p></div></details><details class="evidence"><summary><span class="code">E02</span><strong>Charles · client-review studio</strong><span class="stage">Show only the decision the client needs to make</span></summary><div class="inside"><p>Parallel preparation feeds a focused client-review item; preparation does not itself authorize publication.</p><p>Here: ask the merchant to review one popup’s destination change, not understand the whole integration.</p><p class="boundary">Private operating model and prototype. Publication and migration remain human-gated; not autonomous customer operation.</p></div></details><details class="evidence"><summary><span class="code">E07</span><strong>Limen</strong><span class="stage">Distinguish a proposed owner from accepted work</span></summary><div class="inside"><p>A bounded work packet identifies authority, scope and completion evidence. Assigning work and verifying its result are separate steps.</p><p>Here: a suggested support team is not a named person accepting the task, and a local check is not real email delivery.</p><p class="boundary">An agent lease is not a person's acceptance and does not prove exactly-once effects in an external CRM.</p><a href="https://github.com/4444J99/limen/blob/main/docs/architecture/peer-conductor-protocol.md" rel="noopener noreferrer" target="_blank">Inspect public protocol</a></div></details><details class="evidence"><summary><span class="code">E08</span><strong>ORGANVM / evidence history</strong><span class="stage">Keep current status connected to earlier records</span></summary><div class="inside"><p>Coordination and evidence records connect distributed work to its source and subsequent decisions.</p><p>Here: add the blocker and test evidence without erasing the original sales note.</p><p class="boundary">Cross-repository governance is not a customer-operation capacity benchmark. Repository count is not throughput.</p><a href="https://github.com/organvm/organvm-engine/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div><details id="more-projects"><summary>Explore eight more connections</summary><div class="evidence-grid"><details class="evidence"><summary><span class="code">E03</span><strong>AI Chat Exporter</strong><span class="stage">Preserve source conversations</span></summary><div class="inside"><p>The ChatGPT path normalizes a message tree and supports Markdown, HTML, JSON, PNG and text exports, separating provider, request queue and renderers.</p><p><b>Applied here.</b> Preserve structured evidence before summarizing; put source-specific adapters behind a shared contract.</p><p class="boundary">Substantially transformed fork of Pionxzh's project. Other provider paths are scaffolds; compatibility with changing host interfaces is not guaranteed.</p><a href="https://github.com/organvm-iii-ergon/a-i-chat--exporter/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E04</span><strong>Private knowledge pipeline</strong><span class="stage">Turn chats into typed records</span></summary><div class="inside"><p>A knowledge atomizer separates messages and code blocks, retains conversation identity, and applies redaction and format-specific chunking strategies.</p><p><b>Applied here.</b> Make retrievable units without losing their source context.</p><p class="boundary">The inspected message pass skips content under 20 characters and uses random unit IDs. A sales adaptation needs short-approval preservation and replay-safe identity; those limitations are not hidden.</p></div></details><details class="evidence"><summary><span class="code">E05</span><strong>LingFrame</strong><span class="stage">Preserve context across levels</span></summary><div class="inside"><p>The atomization model retains hierarchical relationships between theme, paragraph, sentence, word and letter.</p><p><b>Applied here.</b> Pair a small, inspectable evidence span with the larger context needed to distinguish a request, condition or commitment.</p><p class="boundary">Research framework and heuristic rhetorical analysis, not a validated business-intent classifier.</p><a href="https://github.com/organvm/linguistic-atomization-framework/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E06</span><strong>Public Record Data Scraper / UCC</strong><span class="stage">Normalize and deliver into CRM</span></summary><div class="inside"><p>Inspected HubSpot adapters map prospect data to CRM properties, submit authenticated requests and expose success, failure and remote object identifiers.</p><p><b>Applied here.</b> Translate a shared record into the destination schema and reconcile its returned object instead of adding an isolated store.</p><p class="boundary">Private integration code, not a live customer test, owner-acceptance system or proof of idempotent remote creation.</p></div></details><details class="evidence"><summary><span class="code">E09</span><strong>Testament / governance corpus</strong><span class="stage">Keep a durable evidence history</span></summary><div class="inside"><p>Testament catalogs rendered artifacts with source module, format, time and metadata. The governance corpus preserves the history from source conversations through plans, evaluations and later revisions.</p><p><b>Applied here.</b> Keep the evidence behind a decision inspectable after a status or interpretation changes.</p><p class="boundary">An append-only artifact catalog is not, by itself, a tamper-proof transaction log or a complete customer decision system.</p><a href="https://github.com/organvm/organvm-engine/blob/main/src/organvm_engine/testament/catalog.py" rel="noopener noreferrer" target="_blank">Inspect public catalog</a></div></details><details class="evidence"><summary><span class="code">E10</span><strong>Universal Mail Automation</strong><span class="stage">Triage and route incoming work</span></summary><div class="inside"><p>Mail-processing mechanisms distinguish incoming material, triage, routing, escalation, approval and delivery evidence.</p><p><b>Applied here.</b> Route a customer signal toward a bounded next action without treating draft or approval as confirmed delivery.</p><p class="boundary">Mail automation is a related implementation pattern, not proof that this demonstration sends or receives messages.</p><a href="https://github.com/4444J99/universal-mail--automation/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E11</span><strong>HOSPES</strong><span class="stage">Make the next action visible</span></summary><div class="inside"><p>A human-gated operating workflow links intake, approvals, drafts, routing and commitments. A stale-projection defect showed why a saved decision must also reach the operator's next view.</p><p><b>Applied here.</b> Keep the visible work queue aligned with the authoritative decision and expose the next allowed action.</p><p class="boundary">Private workflow and bounded synthetic evidence; not a production-scale customer-success deployment.</p></div></details><details class="evidence"><summary><span class="code">E12</span><strong>Agentic Titan</strong><span class="stage">Bound experiments and automation</span></summary><div class="inside"><p>Agent specification, model-provider policy, coordination, memory, tool execution and human approval remain separate concerns.</p><p><b>Applied here.</b> Compare alternatives during development, then deliver a constrained workflow with explicit authority and limits.</p><p class="boundary">Framework implementation and local verification, not proof that open-ended multi-agent exploration improves customer outcomes.</p><a href="https://github.com/organvm-iii-ergon/agentic-titan/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div></details></div></details>
+<details id="basis"><summary>Product sources &amp; what this does not prove<span class="summary-note">Documented product behavior is separate from the fictional case and proposed workflow.</span></summary><div class="depth-content"><p>This example uses Alia’s Shopify signup and Klaviyo integration context. Alia documents destination/trigger mismatches, flow filters, opt-in and sending issues as potential causes of a missing welcome message. The merchant, notes, identifiers, people, team assignments and acceptance window here are invented.</p><p><a href="https://www.aliapopups.com/integrations" target="_blank" rel="noopener noreferrer">Alia integrations ↗</a> · <a href="https://intercom.help/alia-help-center/en/articles/14054208-troubleshooting-welcome-flow-not-firing-in-klaviyo" target="_blank" rel="noopener noreferrer">Alia troubleshooting ↗</a> · <a href="https://help.klaviyo.com/hc/en-us/articles/115005251108" target="_blank" rel="noopener noreferrer">Klaviyo double opt-in ↗</a> · <a href="https://help.klaviyo.com/hc/en-us/articles/115005246108" target="_blank" rel="noopener noreferrer">Klaviyo suppression ↗</a></p><p>For the modeled welcome marketing message, the local policy excludes pending and suppressed test profiles. Real subscription, flow-entry and sending behavior must be checked separately. Selecting an explanation is not AI classification, and a hypothetical routing result is not a live email test.</p><p>Assessments apply to these supplied records and the example’s routing policy. They are not a claim that Alia uses this internal organization, that engineering must never handle onboarding, or that there is only one defensible investigation path.</p><p class="small">Product documentation reviewed September 22, 2026. Referenced prior projects are supporting examples, not components running together behind this page. No customer-scale performance, hiring outcome or real-user usability result is established.</p><details><summary>Inspect the local decision history</summary><pre id="event-log"></pre></details></div></details>
 </div>
-<footer><span>Anthony James Padavano · Systems &amp; automation</span><a href="/portfolio/">Portfolio ↗</a></footer>
+</div>
+<footer class="footer"><span>Anthony James Padavano · Local review copy</span><span>No messages sent. No live settings changed.</span></footer>
 </main>
-<script src="workflow-engine.js"></script>
-<script id="walkthrough-guide">/* Guided presentation of the existing synthetic engine. No services or AI are called. */
+<div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<script>/* Bounded, local-only example. Inputs are prepared fixtures, not AI extraction or live CRM data. */
 ((root) => {
-	'use strict';
-	const Engine = root.WorkflowDemo || (typeof require === 'function' && require('./workflow-engine.js').WorkflowDemo);
-	const copy = (value) => JSON.parse(JSON.stringify(value));
-	const owner = 'Alex (Customer Success)';
-	const card = (label, text, tone = '') => ({ label, text, tone });
-
-	class GuidedDemo {
-		constructor(scenario = 'conflict') {
-			this.reset(scenario);
-		}
-		reset(scenario = 'conflict') {
-			this.engine = new Engine(scenario);
-			this.started = false;
-			this.history = [];
-			this.reviewIndex = null;
-		}
-		current() {
-			const s = this.engine.state;
-			if (!this.started) return {
-				key: 'intro', phase: 0, title: 'A customer asks for a checklist.',
-				text: 'After the call, how do we make sure the right thing actually happens?',
-				cards: [card('Customer · call excerpt', s.sources[0].text)],
-				primary: 'Follow this request',
-				note: 'You are walking through the handoff, not connecting to a real customer account.',
-				detail: 'This example starts with written, fictional source records. It does not record a call or extract meaning with AI. The next screens show how a team could review and act on the information.',
-			};
-			if (!s.accountResolved) return {
-				key: 'account', phase: 1, title: 'Which customer is this?',
-				text: 'A similar name is not enough. Nothing should be assigned until the account is confirmed.',
-				cards: [card('Account awaiting review', 'Example account 001'), card('What stays on hold', 'Task approval and delivery', 'warning')],
-				primary: 'Confirm the example account',
-				note: 'Here the match is supplied by the example. In a real workflow, someone must check reliable account identifiers.',
-				detail: 'The engine refuses approval while accountResolved is false. Clicking confirms the known fixture identity; it does not perform identity matching or look up a CRM.',
-			};
-			if (s.status === 'unreviewed' && s.conflictPending) return {
-				key: 'conflict', phase: 1, title: 'The notes disagree.',
-				text: 'The customer asked for a checklist, but an internal note says to change the live configuration. Those are different instructions.',
-				cards: [card('Customer', s.sources[0].text), card('Internal note', s.priorCases.length ? s.sources[s.sources.length - 1].text : s.sources[1].text, 'warning'), card('Customer confirmation · replying to the request', s.sources[2].text)],
-				primary: 'Approve checklist only',
-				note: 'You are making the review decision. The system keeps both sources and does not authorize a live change.',
-				detail: 'This click records a simulated human resolution and then approves the checklist-only task. Both events remain separate in the history. An unresolved disagreement in a real account would require clarification, not a model choosing the most confident-sounding statement.',
-			};
-			if (s.status === 'unreviewed') return {
-				key: 'review', phase: 1, title: 'Make the request specific.',
-				text: 'A conversation becomes a proposed task, with a clear limit on what is allowed.',
-				cards: [card('Task to approve', 'Send the onboarding checklist.'), card('Not authorized', 'Changing the live configuration.', 'warning'), card('Customer confirmation', s.sources[2].text)],
-				primary: 'Approve this task',
-				note: 'This task is prepared in advance for the example; no AI extraction is happening.',
-				detail: 'The original source stays attached to the proposed task. Approval is a separate event, so a suggestion is not silently promoted into permission to act.',
-			};
-			if (s.status === 'ready') return {
-				key: 'owner', phase: 2, title: 'Give the task a named owner.',
-				text: 'The request is clear. Now someone needs to take responsibility for it.',
-				cards: [card('Approved task', 'Send the onboarding checklist. No live changes.'), card('Suggested owner', 'Alex · Customer Success')],
-				primary: 'Ask Alex to take it',
-				note: 'This example routes onboarding work to Customer Success. An assignment request is not acceptance.',
-				detail: 'The engine records the proposed owner and an acceptance deadline. It does not assume that appearing in a queue means someone has agreed to do the work.',
-			};
-			if (s.status === 'proposed') return {
-				key: s.escalated ? 'escalated' : 'waiting', phase: 2,
-				title: s.escalated ? 'No reply. The task stays open.' : 'Asked is not accepted.',
-				text: s.escalated ? 'The acceptance deadline passed. An escalation is recorded for the coordinator; the system does not invent an owner.' : 'Alex has been asked. The handoff is not complete until Alex accepts.',
-				cards: [card('Task', 'Send the onboarding checklist.'), card('Responsibility', s.escalated ? 'Still unaccepted · coordinator escalation recorded' : 'Waiting for Alex to accept', s.escalated ? 'warning' : '')],
-				primary: s.scenario === 'unaccepted' && !s.escalated ? 'Show the missed deadline' : 'Show Alex accepting',
-				note: 'You are advancing a simulation. There is no real notification, person, or background timer.',
-				detail: 'The deadline is 60 simulated minutes. A missed deadline makes the gap visible. In this bounded example the original proposed owner can still accept after escalation.',
-			};
-			if (s.status === 'accepted') return {
-				key: 'delivery', phase: 3, title: 'Alex now owns the request.',
-				text: 'There is a clear task, an accepted owner, and a limit on what may be changed.',
-				cards: [card('Owner', 'Alex · accepted'), card('Work to complete', 'Send the onboarding checklist. Leave the live configuration alone.')],
-				primary: 'Show the delivery record',
-				note: 'The next click creates a fictional result record. It does not send an actual checklist.',
-				detail: 'Execution is allowed only after owner acceptance and scope approval. The existing engine checks those conditions before recording a result.',
-			};
-			if (s.status === 'executed') return {
-				key: 'verify', phase: 3, title: 'Check the result—not just the claim.',
-				text: 'A delivery record exists. A separate verifier must check that it belongs to this task before the case can close.',
-				cards: [card('Example delivery record', 'Onboarding checklist · example account 001'), card('Authorized scope', 'Checklist only. No live configuration changes.')],
-				primary: 'Check the example result',
-				note: 'This checks the fictional record, not a real inbox or external delivery service.',
-				detail: 'The verifier identity must differ from the executor. Verification is bound to this result identifier; an unrelated result cannot satisfy the completion check.',
-			};
-			if (s.status === 'verified') return {
-				key: 'close', phase: 3, title: 'Tell the customer what happened.',
-				text: 'The result has been checked. The final step records the customer update and closes the task.',
-				cards: [card('Example customer update', 'Your onboarding checklist is ready. No live configuration was changed.')],
-				primary: 'Record the update and close',
-				note: 'No email is sent. The example records communication before allowing closure.',
-				detail: 'This click performs two ordered operations: record the simulated customer update, then close the case. Without verified results and a communication record, closure is rejected.',
-			};
-			return {
-				key: 'done', phase: 4, title: 'One request. A traceable result.',
-				text: 'The conversation stayed connected to the decision, the person responsible, and the checked outcome.',
-				cards: [card('What was requested', 'An onboarding checklist. No live changes.'), card('Who took responsibility', 'Alex · Customer Success'), card('How it finished', 'Result checked. Customer update recorded. Case closed.')],
-				primary: 'See the project connections',
-				note: 'That is the idea: the next person should not have to reconstruct the conversation to know what happens next.',
-				detail: 'The demonstration is complete. The source records, review, accepted owner, result, verification and update remain inspectable below. This is not proof of production integration or customer-scale capacity.',
-			};
-		}
-		screen() {
-			if (this.reviewIndex === null) return this.current();
-			return { ...copy(this.history[this.reviewIndex]), reviewing: true, primary: 'Return to the current step' };
-		}
-		apply(action, payload = {}) {
-			const result = this.engine.dispatch(action, payload);
-			if (!result.ok) throw new Error(result.detail);
-		}
-		advance() {
-			if (this.reviewIndex !== null) { this.reviewIndex = null; return; }
-			const screen = this.current();
-			if (screen.key === 'done') return;
-			this.history.push(copy(screen));
-			switch (screen.key) {
-				case 'intro': this.started = true; break;
-				case 'account': this.apply('resolveAccount', { actor: 'reviewer', account: this.engine.state.account }); break;
-				case 'conflict':
-					this.apply('resolveConflict', { actor: 'reviewer' });
-					this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
-				case 'review': this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
-				case 'owner': this.apply('propose', { owner }); break;
-				case 'waiting':
-					if (this.engine.state.scenario === 'unaccepted') this.apply('wait');
-					else this.apply('accept', { actor: owner }); break;
-				case 'escalated': this.apply('accept', { actor: owner }); break;
-				case 'delivery': this.apply('execute', { actor: owner }); break;
-				case 'verify': this.apply('verify', { actor: 'verifier', passed: true, resultId: this.engine.state.result.id }); break;
-				case 'close': this.apply('notify', { actor: 'coordinator' }); this.apply('close'); break;
-				default: throw new Error('Unknown guide step');
-			}
-		}
-		back() {
-			if (!this.history.length) return;
-			this.reviewIndex = this.reviewIndex === null ? this.history.length - 1 : Math.max(0, this.reviewIndex - 1);
-		}
-		wait() {
-			if (this.reviewIndex !== null || this.engine.state.status !== 'proposed' || this.engine.state.escalated) return;
-			this.history.push(copy(this.current())); this.apply('wait');
-		}
-		reopen() {
-			if (this.reviewIndex !== null || this.engine.state.status !== 'closed') return;
-			this.history.push(copy(this.current())); this.apply('reopen');
-		}
-	}
-
-	root.GuidedDemo = GuidedDemo;
-	if (typeof module !== 'undefined' && module.exports) module.exports = { GuidedDemo };
-	if (typeof document === 'undefined') return;
-	const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
-	const guide = new GuidedDemo();
-	root.proofGuide = guide;
-	const byId = (id) => document.getElementById(id);
-	const icons = {
-		message: '<path d="M5 5h14v11H9l-4 4V5Z"/>',
-		note: '<path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h7M9 16h5"/>',
-		check: '<path d="m5 12 4 4L19 6"/>',
-		lock: '<rect x="6" y="10" width="12" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
-		arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
-		clock: '<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',
-		link: '<path d="m10 14 4-4M9 16l-1 1a4 4 0 0 1-5-5l4-4a4 4 0 0 1 5 0m0 8a4 4 0 0 0 5 0l4-4a4 4 0 0 0-5-5l-1 1"/>'
-	};
-	const icon = (name, size = 15) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.note}</svg>`;
-	const copybook = {
-		intro: ['One request. Three places to look.', 'Start with the call. Then check what the other notes say.', 'Connect the notes', 'The problem', 'Important details live in different places.'],
-		account: ['First, the right customer.', 'A similar name is not enough to attach work to an account.', 'Confirm this account', 'Identity check', 'The example provides the account match.'],
-		conflict: ['Same customer. Different instructions.', 'The call says checklist only. The internal note says change the setup.', 'Keep it checklist-only', 'Your decision', 'Keep both notes. Approve only the agreed work.'],
-		review: ['Turn the request into a clear task.', 'Send the checklist. Keep the live setup unchanged.', 'Approve this task', 'Your decision', 'A request is not permission to change everything.'],
-		owner: ['Clear task. Now, a clear owner.', 'Onboarding goes to Customer Success in this example.', 'Ask Alex to take it', 'The handoff', 'A name on a task is not acceptance.'],
-		waiting: ['An assignment is not an acceptance.', 'The task stays open until Alex takes responsibility.', 'Show Alex accepting', 'Waiting on Alex', 'No response? The coordinator gets the exception.'],
-		escalated: ['No reply. Not forgotten.', 'The deadline passed. The coordinator is now responsible for following up.', 'Show Alex accepting', 'Exception recorded', 'Alex can still accept after the missed deadline.'],
-		delivery: ['Alex has it from here.', 'The task, the original request, and its limits travel together.', 'Record the delivery', 'Work in progress', 'This click creates an example delivery record.'],
-		verify: ['Did the right thing get done?', 'Check the delivery against the task—not just a “done” message.', 'Check the result', 'Verify the work', 'The check belongs to this specific delivery.'],
-		close: ['One last thing: tell the customer.', 'The checklist is ready. The live setup was left alone.', 'Update and close', 'Close the loop', 'Record the customer update before closing.'],
-		done: ['Nothing left between the cracks.', 'The request, decision, owner, and result are connected.', 'Explore the related work', 'Handoff complete', 'The whole history stays attached to the case.']
-	};
-	function render(focus = true) {
-		const view = guide.screen();
-		const state = guide.engine.state;
-		const words = copybook[view.key];
-		const phase = Math.min(view.phase, 3);
-		const names = ['Capture', 'Clarify', 'Assign', 'Resolve'];
-		byId('step-label').textContent = view.reviewing ? 'Earlier step · current task unchanged' : `${String(phase + 1).padStart(2, '0')} / ${names[phase]}`;
-		byId('step-title').textContent = words[0];
-		byId('step-copy').textContent = words[1];
-		byId('cards').innerHTML = view.cards.map((item, index) => `<div class="story-card ${escapeHtml(item.tone)}"><div class="card-label">${icon(item.tone === 'warning' ? 'note' : index === 2 ? 'check' : 'message')}${escapeHtml(item.label.replace(' · call excerpt', ' · call'))}</div><p>${escapeHtml(item.text)}</p></div>`).join('');
-		byId('source-label').textContent = view.phase < 2 ? 'Source notes' : view.phase < 4 ? 'The handoff' : 'The outcome';
-		byId('source-count').textContent = view.phase < 2 ? `${state.sourceCount} linked messages` : 'One shared history';
-		byId('source-tail').innerHTML = view.key === 'intro' ? `<span class="source-stub">${icon('note')}Internal note<span>Ready to compare</span></span><span class="source-stub">${icon('message')}Customer reply<span>Linked to the call</span></span>` : `<span>${icon('link')}Original sources stay attached</span>`;
-		byId('next').textContent = view.reviewing ? 'Return to the current step' : (view.key === 'waiting' && state.scenario === 'unaccepted' ? 'Show the missed deadline' : words[2]);
-		byId('next').disabled = false;
-		byId('action-context').textContent = view.reviewing ? 'Read-only view' : words[3];
-		byId('step-note').textContent = view.reviewing ? 'Reviewing does not undo completed work.' : words[4];
-		byId('step-detail').textContent = view.detail;
-		byId('explain').open = false;
-		byId('previous').hidden = guide.history.length === 0;
-		byId('restart').hidden = !guide.started;
-		byId('late-option').hidden = !!view.reviewing || state.status !== 'proposed' || state.escalated;
-		byId('late-option').open = false;
-		byId('reopen-option').hidden = !!view.reviewing || state.status !== 'closed';
-		byId('reopen-option').open = false;
-		byId('record').textContent = JSON.stringify(state, null, 2);
-		byId('test-message').textContent = '';
-		byId('guide-error').hidden = true;
-		const statusText = { unreviewed: 'Needs review', ready: 'Ready to assign', proposed: state.escalated ? 'Needs follow-up' : 'Awaiting acceptance', accepted: 'In progress', executed: 'Check delivery', verified: 'Result verified', closed: 'Resolved' }[state.status];
-		byId('case-state').textContent = statusText;
-		byId('case-state').classList.toggle('good', ['ready', 'accepted', 'verified', 'closed'].includes(state.status));
-		byId('owner-name').textContent = state.acceptedOwner ? 'Alex · accepted' : state.proposedOwner ? 'Alex · invited' : 'Not assigned';
-		byId('owner-name').classList.toggle('pending', !state.acceptedOwner);
-		byId('owner-avatar').textContent = state.proposedOwner ? 'AL' : '—';
-		byId('owner-avatar').setAttribute('aria-label', state.proposedOwner ? 'Alex, Customer Success' : 'No owner');
-		byId('scope-value').textContent = state.scope ? 'Checklist only' : 'Awaiting decision';
-		byId('scope-value').classList.toggle('pending', !state.scope);
-		byId('scope-icon').innerHTML = icon(state.scope ? 'check' : 'clock');
-		byId('ticket-note').innerHTML = `${icon('lock', 13)}No live configuration changes`;
-		byId('ticket-foot').innerHTML = `${icon(state.status === 'closed' ? 'check' : 'link', 13)}${state.status === 'closed' ? 'Delivery checked · customer updated' : state.result ? 'Delivery recorded · linked to this task' : 'Connected to the original conversation'}`;
-		const canvas = byId('canvas');
-		canvas.dataset.view = view.key;
-		canvas.classList.remove('refresh');
-		if (focus) requestAnimationFrame(() => canvas.classList.add('refresh'));
-		for (const [index, element] of [...document.querySelectorAll('#progress li')].entries()) {
-			element.classList.toggle('current', index === phase);
-			element.classList.toggle('complete', index < phase || state.status === 'closed');
-			if (index === phase) element.setAttribute('aria-current', 'step'); else element.removeAttribute('aria-current');
-		}
-		if (focus) byId('step-title').focus({ preventScroll: false });
-	}
-	function act(callback) {
-		try { callback(); render(); }
-		catch (error) { byId('guide-error').hidden = false; byId('guide-error').textContent = `The step could not continue: ${error.message}`; }
-	}
-	byId('next').addEventListener('click', () => {
-		if (guide.reviewIndex === null && guide.current().key === 'done') {
-			byId('connections').open = true; byId('connections-title').focus(); return;
-		}
-		act(() => guide.advance());
-	});
-	byId('previous').addEventListener('click', () => act(() => guide.back()));
-	byId('restart').addEventListener('click', () => act(() => guide.reset(guide.engine.state.scenario)));
-	byId('wait').addEventListener('click', () => act(() => guide.wait()));
-	byId('reopen').addEventListener('click', () => act(() => guide.reopen()));
-	byId('load-scenario').addEventListener('click', () => act(() => guide.reset(byId('scenario').value)));
-	byId('test-close').addEventListener('click', () => {
-		const snapshot = new Engine(); snapshot.state = copy(guide.engine.state);
-		const result = snapshot.dispatch('close');
-		byId('test-message').textContent = result.ok ? 'This case meets the closure conditions. The test did not change the walkthrough.' : `Blocked as expected: ${result.detail} The walkthrough is unchanged.`;
-	});
-	byId('test-replay').addEventListener('click', () => {
-		const snapshot = new Engine(guide.engine.state.scenario); snapshot.state = copy(guide.engine.state);
-		const result = snapshot.dispatch('replay'); byId('test-message').textContent = `${result.detail} The walkthrough is unchanged.`;
-	});
-	byId('export').addEventListener('click', () => {
-		const url = URL.createObjectURL(new Blob([JSON.stringify(guide.engine.state, null, 2)], { type: 'application/json' }));
-		const link = document.createElement('a'); link.href = url; link.download = 'example-request-record.json';
-		document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-	});
-	render(false);
+  'use strict';
+  const copy = (value) => JSON.parse(JSON.stringify(value));
+  const GUIDE = 'https://intercom.help/alia-help-center/en/articles/14054208-troubleshooting-welcome-flow-not-firing-in-klaviyo';
+  const LISTS = Object.freeze([
+    Object.freeze({ id: 'L-101', name: 'Popup Leads' }),
+    Object.freeze({ id: 'L-202', name: 'Welcome Subscribers' })
+  ]);
+  const fixtures = Object.freeze([
+    Object.freeze({ id: 'TEST-01', label: 'New subscriber · consent confirmed', consent: 'confirmed', suppressed: false, expected: true }),
+    Object.freeze({ id: 'TEST-02', label: 'New subscriber · confirmation pending', consent: 'pending', suppressed: false, expected: false }),
+    Object.freeze({ id: 'TEST-03', label: 'Unsubscribed / suppressed profile', consent: 'withdrawn', suppressed: true, expected: false })
+  ]);
+  function validate(record) {
+    if (!record || record.kind !== 'fictional-merchant-case.v1' || !record.setup || !Array.isArray(record.sources)) throw new Error('A complete example case is required.');
+    if (!record.account.id || !record.account.name || !record.campaign.id) throw new Error('The account and popup must be identified.');
+    for (const id of [record.setup.popupListId, record.setup.flowListId, record.customer.requestedListId]) {
+      if (!LISTS.some((list) => list.id === id)) throw new Error('Unknown example list.');
+    }
+    if (typeof record.setup.connected !== 'boolean' || typeof record.setup.flowEnabled !== 'boolean') throw new Error('Connection and flow status must be explicit.');
+    if (!['received', 'failed', 'unknown'].includes(record.setup.deliveryState)) throw new Error('Unknown delivery observation.');
+    if (!['confirmed', 'pending', 'withdrawn'].includes(record.setup.testConsent)) throw new Error('Unknown consent observation.');
+    const ids = new Set();
+    for (const source of record.sources) {
+      if (!source.id || !source.text || !source.kind || source.accountId !== record.account.id || ids.has(source.id)) throw new Error('Missing, duplicate, or cross-account evidence.');
+      ids.add(source.id);
+    }
+    return record;
+  }
+  function listName(id) {
+    const list = LISTS.find((item) => item.id === id);
+    if (!list) throw new Error('Unknown example list.');
+    return list.name;
+  }
+  function createCase(scenario = 'list-mismatch') {
+    if (!['list-mismatch', 'pending-consent', 'delivery-failure', 'unexplained'].includes(scenario)) throw new Error('Unknown example scenario.');
+    const record = {
+      kind: 'fictional-merchant-case.v1', scenario,
+      account: { id: 'DEMO-001', name: 'Example Homeware' },
+      campaign: { id: 'POPUP-07', name: 'Friday welcome campaign', plannedLaunch: '2026-09-25', liveStatus: 'paused' },
+      customer: { requestedListId: 'L-202', openBlocker: true, approvalToLaunch: false },
+      crm: { readiness: 'Ready for Friday', issueOwner: null },
+      setup: { connected: true, popupListId: 'L-101', flowListId: 'L-202', flowId: 'FLOW-03', flowEnabled: true, deliveryState: 'received', testConsent: 'confirmed' },
+      sources: [
+        { id: 'CALL-01', kind: 'Customer call · prepared excerpt', time: '10:05', accountId: 'DEMO-001', text: 'The test signup never received our welcome email. Friday’s campaign uses Welcome Subscribers. Please keep the popup paused until we test it.' },
+        { id: 'CRM-01', kind: 'HubSpot · example sales note', time: '10:20', accountId: 'DEMO-001', text: 'Popup installed. Ready for Friday.' },
+        { id: 'SETUP-01', kind: 'Configuration · example snapshot', time: '10:30', accountId: 'DEMO-001', text: 'POPUP-07 sends to Popup Leads (L-101). FLOW-03 starts when a profile joins Welcome Subscribers (L-202).' },
+        { id: 'TEST-01', kind: 'Test signup · example observation', time: '10:35', accountId: 'DEMO-001', text: 'Consent confirmed. Profile appeared in L-101. No entry in FLOW-03 was observed.' }
+      ],
+      assumption: 'All records, identifiers, owners and outcomes are fictional. This is not an account in Alia or a transcript of an interview.'
+    };
+    if (scenario !== 'list-mismatch') {
+      record.setup.popupListId = 'L-202';
+      record.sources[2].text = 'POPUP-07 sends to Welcome Subscribers (L-202). FLOW-03 starts on the same list.';
+    }
+    if (scenario === 'pending-consent') {
+      record.setup.testConsent = 'pending';
+      record.sources[3].text = 'The profile exists, but double-opt-in confirmation is still pending. No welcome-flow entry was observed.';
+    } else if (scenario === 'delivery-failure') {
+      record.setup.deliveryState = 'failed';
+      record.sources[3].text = 'The connection is marked connected and both list IDs match, but the recorded test delivery failed. No profile arrival was observed.';
+    } else if (scenario === 'unexplained') {
+      record.sources[3].text = 'Consent confirmed. Profile appeared in L-202, but no welcome-flow entry was observed. Flow filters and sending status have not been checked.';
+    }
+    return validate(record);
+  }
+  function diagnose(record) {
+    validate(record);
+    const base = {
+      evidence: record.sources.map((source) => source.id),
+      readinessConflict: record.customer.openBlocker && record.crm.readiness === 'Ready for Friday',
+      liveChangeAuthorized: false, namedOwner: null,
+      source: GUIDE
+    };
+    if (!record.setup.connected) return { ...base, code: 'connection', title: 'Connection needs investigation.', team: 'Onboarding support', reason: 'The connection is not confirmed. List routing alone cannot establish successful delivery.', next: 'Check connection health through the authorized account workflow; do not change consent or launch.' };
+    if (record.setup.deliveryState === 'failed') return { ...base, code: 'delivery-failure', title: 'A delivery failed. A list change is not a proven fix.', team: 'Integration / engineering triage', reason: 'The recorded delivery failed. Capture the attempt details and error before deciding whether the cause is credentials, provider behavior, or code.', next: 'Attach the failed attempt and timestamps for investigation. A delivery failure is not yet a confirmed software bug.' };
+    if (record.setup.deliveryState === 'unknown') return { ...base, code: 'unexplained', title: 'We do not yet know whether the profile arrived.', team: 'Onboarding support', reason: 'Delivery evidence is missing. Do not call this a successful sync.', next: 'Check the test profile in the intended list and attach the observation.' };
+    if (record.setup.popupListId !== record.setup.flowListId) return {
+      ...base, code: 'list-mismatch', title: 'The popup and welcome flow point to different lists.', team: 'Onboarding support',
+      reason: `The test profile reached ${record.setup.popupListId}, but the welcome flow listens to ${record.setup.flowListId}. This is a configuration mismatch in the supplied records, not evidence of a platform bug.`,
+      next: `Propose changing only POPUP-07’s destination to ${record.customer.requestedListId}, the merchant’s intended list. Get approval and verify in the actual accounts before launch.`
+    };
+    if (record.setup.testConsent !== 'confirmed') return { ...base, code: 'pending-consent', title: 'The lists match. Consent has not been confirmed.', team: 'Onboarding support / merchant email owner', reason: 'The observed test profile is not consent-confirmed. That is a different blocker from a list mismatch.', next: 'Check the confirmation process with the merchant. Do not disable double opt-in or contact an unsubscribed profile to make a test pass.' };
+    return { ...base, code: 'unexplained', title: 'The lists match. The cause is still open.', team: 'Onboarding support', reason: 'Matching list IDs and an arrived profile do not establish that a welcome email was sent.', next: 'Check flow filters, trigger eligibility, suppression, delays and sending status. Escalate with evidence if configuration checks do not explain the failure.' };
+  }
+  function signature(record) {
+    return JSON.stringify(validate(record));
+  }
+  function eligible(setup, profile) {
+    return setup.connected && setup.deliveryState === 'received' && setup.flowEnabled && setup.popupListId === setup.flowListId && profile.consent === 'confirmed' && !profile.suppressed;
+  }
+  function testProposal(record, targetListId) {
+    validate(record);
+    const diagnosis = diagnose(record);
+    if (diagnosis.code !== 'list-mismatch') throw new Error('A list-change test is not justified by this case.');
+    listName(targetListId);
+    const proposedSetup = { ...record.setup, popupListId: targetListId };
+    const rows = fixtures.map((profile) => ({
+      id: profile.id, label: profile.label, expected: profile.expected,
+      before: eligible(record.setup, profile), after: eligible(proposedSetup, profile),
+      pass: eligible(proposedSetup, profile) === profile.expected
+    }));
+    return {
+      kind: 'local-list-routing-test.v1', inputSignature: signature(record), targetListId,
+      approvedDestinationMatches: targetListId === record.customer.requestedListId,
+      passed: targetListId === record.customer.requestedListId && rows.every((row) => row.pass),
+      rows,
+      change: { campaign: record.campaign.id, field: 'emailListId', before: record.setup.popupListId, proposed: targetListId },
+      unchanged: ['Consent requirements', 'Welcome-flow trigger', 'Other popup campaigns', 'Live campaign state'],
+      boundary: 'Local rules check only: list IDs, connection/arrival flags, flow enabled, consent and suppression. It does not execute Klaviyo or prove inbox delivery.',
+      externalWrites: 0
+    };
+  }
+  function buildHandoff(record, report = null) {
+    const diagnosis = diagnose(record);
+    if (diagnosis.code === 'list-mismatch') {
+      if (!report || report.kind !== 'local-list-routing-test.v1' || report.inputSignature !== signature(record)) throw new Error('Run a fresh local test for these exact example records first.');
+      const fresh = testProposal(record, report.targetListId);
+      if (JSON.stringify(fresh) !== JSON.stringify(report)) throw new Error('The result does not match the local calculation.');
+      if (!fresh.passed) throw new Error('The proposed change has not passed the local checks.');
+    } else if (report) throw new Error('This investigation cannot reuse a list-change result.');
+    const task = diagnosis.code === 'list-mismatch'
+      ? `Review POPUP-07’s destination: ${record.setup.popupListId} → ${report.targetListId}.`
+      : diagnosis.next;
+    const checks = report ? 'Local examples: confirmed signup enters modeled flow; pending and unsubscribed profiles stay out. No real email was sent.' : 'No repair verified. The case needs investigation.';
+    const liveChecks = [
+      'A named owner accepts the task.',
+      'The merchant approves the intended configuration; keep the popup paused until authorized.',
+      'A fresh, properly consented signup reaches the intended list in the actual account.',
+      'Check actual flow entry, filters and welcome-email receipt; check for unintended duplicate sends.',
+      'Record the evidence and customer update before treating the blocker as resolved.'
+    ];
+    const support = `TASK DRAFT — ${record.account.name} / ${record.campaign.id}\n\nProblem: test signups did not receive the welcome email before Friday’s launch.\nSuggested team: ${diagnosis.team}.\nNamed owner: not assigned; acceptance still required.\n\nFinding: ${diagnosis.reason}\n\nNext action: ${task}\n${diagnosis.next}\n\n${checks}\n\nBefore live closure:\n${liveChecks.map((item, i) => `${i + 1}. ${item}`).join('\n')}\n\nEvidence: ${diagnosis.evidence.join(', ')}.\nReference: ${GUIDE}\n\nDraft only. No ticket, assignment, live configuration or message has been created outside this page.`;
+    const crm = `HUBSPOT NOTE DRAFT — ${record.account.name} / ${record.account.id}\n\nProposed readiness: HOLD — welcome-email blocker is still open.\nThe 10:20 “Ready for Friday” note omits the blocker in CALL-01. Preserve both records; do not delete the earlier note.\n\n${diagnosis.reason}\nSuggested route: ${diagnosis.team}; named owner and acceptance unresolved.\nNext action: ${task}\nLocal status: ${report ? 'proposed list change passed the limited browser test' : 'investigation required'}.\nLive outcome: unverified. Customer approval to launch: not recorded.\nEvidence: ${diagnosis.evidence.join(', ')}.\n\nNot written to HubSpot.`;
+    const customer = `CUSTOMER UPDATE DRAFT — NOT SENT\n\n${report ? `The example records suggest the popup sends new signups to Popup Leads, while the welcome email is triggered by Welcome Subscribers. We would ask your approval to align this popup with Welcome Subscribers, then check a fresh signup and the welcome email before launch.` : `The welcome-email issue is still being investigated. ${diagnosis.next}`}\n\nThe popup should remain paused until those checks and your launch approval are recorded. No live settings have been changed by this demonstration.`;
+    return {
+      kind: 'merchant-handoff-draft.v1', fictional: true,
+      account: copy(record.account), campaign: copy(record.campaign), diagnosis: copy(diagnosis),
+      proposedTeam: diagnosis.team, namedOwner: null, ownerAccepted: false,
+      proposedCrmReadiness: 'Hold — welcome email unverified', liveStatus: 'Unverified',
+      sourceRecords: copy(record.sources), test: report ? copy(report) : null,
+      liveChecks, drafts: { support, crm, customer }, externalWrites: 0, emailsSent: 0
+    };
+  }
+  const api = Object.freeze({ LISTS, fixtures, createCase, diagnose, testProposal, buildHandoff, listName });
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.MerchantCase = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 </script>
-</body>
-</html>
+<script>/* Local, fictional decision explorer. No provider calls, notification or persistence. */
+((root) => {
+  'use strict';
+  const M = typeof module !== 'undefined' && module.exports ? require('./merchant-case.js') : root.MerchantCase;
+  const clone = x => JSON.parse(JSON.stringify(x));
+  const steps = ['Readiness', 'Evidence', 'Owner', 'Next action', 'Update'];
+  const docs = {
+    alia: 'https://intercom.help/alia-help-center/en/articles/14054208-troubleshooting-welcome-flow-not-firing-in-klaviyo',
+    consent: 'https://help.klaviyo.com/hc/en-us/articles/115005251108',
+    suppression: 'https://help.klaviyo.com/hc/en-us/articles/115005246108'
+  };
+  const choice = (id, title, subtitle, verdict, why, consequence, missing, effect, refs = []) => ({id,title,subtitle,verdict,why,consequence,missing,effect,refs,canProceed: verdict !== 'unsupported'});
+  class DecisionCase {
+    constructor(scenario = 'list-mismatch') { this.reset(scenario); }
+    reset(scenario) {
+      this.record = M.createCase(scenario);
+      // A pending confirmation does not establish list membership or delivery.
+      if (scenario === 'pending-consent') this.record.sources[3].text = 'The example signup log shows confirmation pending. Arrival in the subscribed list and welcome-email delivery have not been verified.';
+      this.step = 0; this.accepted = []; this.selected = null; this.events = []; this.sequence = 0;
+    }
+    state() {
+      const d = this.accepted;
+      const route = d[2]?.effect || null;
+      const plan = d[3]?.effect || null;
+      return {
+        step: this.step, scenario: this.record.scenario,
+        hold: d.length > 0, needsClarification: d[0]?.id === 'confirm',
+        finding: d[1]?.effect.finding || null,
+        approach: d[1]?.effect.approach || null,
+        route: route ? clone(route) : null,
+        plan: plan ? clone(plan) : null,
+        complete: this.step === 5,
+        emailsSent: 0, externalWrites: 0,
+        liveStatus: 'Unverified', liveCampaign: 'Paused', actualOwner: null, actualOwnerAccepted: false
+      };
+    }
+    choices() {
+      const r = this.record, s = this.state(), diagnosis = M.diagnose(r);
+      switch (this.step) {
+        case 0: return [
+          choice('ready','Keep the launch marked ready','Use the newer sales note as the current status.','unsupported','“Ready” is newer, but it contains no successful email test or customer launch approval. Installation and launch readiness are different claims.','The Friday blocker would disappear from the handoff while the customer is still expecting it to be investigated.','A verified result and explicit approval to launch.',{readiness:'ready'},['CALL-01','CRM-01']),
+          choice('hold','Keep it paused and investigate','Preserve both notes; flag the missing welcome email.','supported','The customer explicitly requested a hold. Keep that constraint attached to the case while checking the configuration and test evidence.','The draft account status becomes “Hold — welcome email unverified.” The earlier sales note stays in the history.','The cause, a responsible person, and a real delivery result.',{readiness:'hold'},['CALL-01','CRM-01']),
+          choice('confirm','Hold it and ask one focused question','Confirm the intended list before proposing a change.','conditional','The excerpt already names Welcome Subscribers. Confirmation is still reasonable when a snapshot may be stale; do not ask the customer to repeat the entire issue.','The handoff will include: “Should this Friday popup use Welcome Subscribers?” Investigation continues while launch stays on hold.','A response to that specific question before changing configuration.',{readiness:'hold',clarify:true},['CALL-01'])
+        ];
+        case 1: {
+          if (r.scenario === 'list-mismatch') return [
+            choice('platform-bug','Alia is failing to sync signups','Escalate a suspected product defect.','unsupported','TEST-01 records arrival in Popup Leads. That contradicts a blanket “no sync” diagnosis. The destination differs from the welcome-flow trigger.','Engineering would receive an unproven bug claim instead of the narrower configuration mismatch.','A failed delivery or a reproducible defect after the relevant setup checks.',{finding:'Product defect'},['SETUP-01','TEST-01']),
+            choice('list-mismatch','The signup reaches the wrong list','Treat the mismatch as a testable explanation.','supported','The observed profile arrived in Popup Leads (L-101); the welcome flow starts from Welcome Subscribers (L-202). This is a documented failure mode, but not proof that no other issue exists.','Prepare a scoped proposal for this popup, then test the proposed routing. Do not label the live issue fixed.','Merchant approval and an actual signup-to-email check.',{finding:'Popup destination and welcome-flow trigger differ',approach:'test-change'},['SETUP-01','TEST-01','alia']),
+            choice('investigate','Check the flow before proposing a fix','Keep the mismatch as a hypothesis, not a complete diagnosis.','conditional','Matching the destination is worth testing. Checking flow filters and sending status first is also defensible, especially when the snapshot may be incomplete.','This branch creates an investigation handoff, not a locally tested list-change proposal.','Flow filters, sending status and a fresh trace of the failed signup.',{finding:'List mismatch observed; other causes not ruled out',approach:'investigate'},['SETUP-01','TEST-01','alia'])
+          ];
+          if (r.scenario === 'pending-consent') return [
+            choice('list-mismatch','The destination list is wrong','Change the popup’s list.','unsupported','Both recorded list IDs are L-202. The observed difference is pending confirmation, not list routing.','An unrelated setting change would leave the observed confirmation blocker unexplained.','Evidence of a destination mismatch.',{finding:'Mismatch'},['SETUP-01','TEST-01']),
+            choice('consent','The test subscription is not confirmed','Investigate the confirmation step.','supported','The example log shows confirmation pending. In a double-opt-in subscription path, confirmation is needed before subscription to that list completes.','Route the case toward checking the confirmation process; do not silently change the merchant’s opt-in policy.','A properly confirmed test subscription and actual welcome-email evidence.',{finding:'Test confirmation pending; delivery unverified',approach:'investigate'},['TEST-01','consent']),
+            choice('unknown','The cause is still unconfirmed','Collect confirmation and delivery evidence together.','conditional','Pending confirmation is the strongest available lead, but you need the actual account evidence to establish the complete delivery path.','Prepare an investigation that checks confirmation first and follows the same profile through the list and flow.','Confirmation outcome, list arrival and flow activity.',{finding:'Confirmation pending; wider delivery path still unknown',approach:'investigate'},['TEST-01','consent'])
+          ];
+          if (r.scenario === 'delivery-failure') return [
+            choice('config','Change the destination list','Use the same fix as the mismatch case.','unsupported','The two list IDs already match. TEST-01 instead records a failed handoff.','The proposed fix would not address the observed failure.','The failed attempt’s error, timestamp and request details.',{finding:'Mismatch'},['SETUP-01','TEST-01']),
+            choice('failure','A handoff failed; the cause is open','Investigate the failed delivery without declaring a code bug.','supported','A recorded failure is evidence of a failed attempt, not evidence that the source is code rather than credentials, provider response or configuration.','Prepare an integration-triage packet with the failed attempt and missing diagnostics.','Error response, request identifiers, connection check and reproducibility.',{finding:'Recorded subscriber-delivery failure; root cause unknown',approach:'investigate'},['TEST-01','alia']),
+            choice('healthy','The connection is healthy','Trust the “connected” label and matching lists.','unsupported','A configuration label does not override a recorded delivery failure.','The blocker would be closed without showing that the signup arrived.','An observed successful delivery for the affected account.',{finding:'Healthy'},['SETUP-01','TEST-01'])
+          ];
+          return [
+            choice('unknown','The cause is still unknown','Inspect flow filters and sending status next.','supported','The list IDs match and the test profile arrived, but the records do not explain the missing welcome email. A root cause cannot be selected honestly yet.','Keep the issue open and collect evidence from the flow and sending path.','Flow filters, eligibility, delays, suppression and sending activity.',{finding:'List arrival observed; welcome-email failure unexplained',approach:'investigate'},['SETUP-01','TEST-01','alia']),
+            choice('config','It must be the destination list','Prepare a list-change fix.','unsupported','The recorded destination and trigger are already the same list.','A familiar fix would be substituted for an actual diagnosis.','Evidence that the recorded configuration is wrong or out of date.',{finding:'Mismatch'},['SETUP-01']),
+            choice('delay','It is probably just a delay','Wait without opening a follow-up task.','unsupported','A delay is possible, but no configured delay or sending activity is recorded. Possibility is not a confirmed explanation.','The Friday issue would again have no owner or defined investigation.','The actual flow delay and message activity; a timed, owned follow-up.',{finding:'Delay'},['TEST-01','alia'])
+          ];
+        }
+        case 2: {
+          const failed = r.scenario === 'delivery-failure';
+          return [
+            choice('sales','Devon · Sales','Have the salesperson handle the whole issue.','unsupported','Sales can retain customer communication, but that alone does not establish ownership of the technical investigation. This example assigns those responsibilities separately.','The customer would have a contact, but the technical task would still lack an accountable investigator.','A technical owner who accepts the task.',{team:'Sales',proposedOwner:'Devon'},['CRM-01']),
+            choice('support','Maya · Onboarding support','Propose a named investigator for the account setup. ',failed ? 'conditional' : 'supported',failed ? 'Support could gather the initial diagnostics, but the recorded failed attempt calls for a clear integration escalation if the connection and setup checks do not explain it.' : 'Under this example’s routing policy, onboarding support investigates the account setup first. Sales remains the customer contact; the technical owner is explicit.','The draft names Maya as proposed owner. Acceptance is still pending; merely appearing in a queue does not count.','Maya’s acceptance. If nobody accepts, the coordinator must arrange reassignment.',{team:'Onboarding support',proposedOwner:'Maya',acceptance:'Pending',escalation:failed ? 'Escalate the failed attempt to integration triage if setup checks do not explain it.' : 'Escalate to integration triage with a failed attempt or reproducible issue after setup checks.'},['TEST-01']),
+            choice('engineering','Leo · Integration triage','Send an evidence packet to a technical specialist.',failed ? 'supported' : 'conditional',failed ? 'The recorded failed handoff justifies specialist triage. The packet should state “cause unknown,” not pre-label the failure as a software bug.' : 'This is reasonable if engineering owns integration setup in the real team. In this illustrative policy, support is the shorter first route; escalating everything would create avoidable engineering work.','The draft names Leo as proposed owner, with the evidence and exact investigation—not a generic “please fix.”','Leo’s acceptance; the actual team’s ownership policy must be confirmed.',{team:'Integration triage',proposedOwner:'Leo',acceptance:'Pending',escalation:'Retain failed-attempt details and escalate a reproducible defect to the responsible component owner.'},['TEST-01'])
+          ];
+        }
+        case 3: {
+          if (r.scenario === 'list-mismatch' && s.approach === 'test-change') {
+            const good = M.testProposal(r, 'L-202'), bad = M.testProposal(r, 'L-101');
+            return [
+              choice('keep-list','Keep Popup Leads; retry the signup','Test whether an unchanged configuration helps.','unsupported','The local calculation still routes the confirmed signup to L-101, while the welcome flow listens to L-202.','The eligible-profile check fails. Pending and suppressed profiles remain excluded, but the original mismatch is not repaired.','A routing change or new evidence that explains why this test should behave differently.',{plan:'Keep existing destination',report:bad},['SETUP-01','TEST-01']),
+              choice('align-popup','Change this popup to Welcome Subscribers','Calculate the scoped proposal before requesting approval.','supported','Only POPUP-07’s proposed destination changes from L-101 to L-202. The local policy checks one eligible profile and two profiles that must not receive this welcome marketing email.','The three local expectations pass. The real popup is still paused; actual list arrival, flow behavior and inbox delivery remain untested.','Merchant approval, an accepted owner, and a fresh end-to-end check in the real accounts.',{plan:'Propose POPUP-07 destination L-101 → L-202 only',report:good},['SETUP-01','TEST-01','alia','suppression']),
+              choice('investigate-first','Investigate before changing a setting','Prepare the missing checks instead of a fix proposal.','conditional','A mismatch is observed, but checking the rest of the path before changing anything is defensible. This route makes no repair claim.','The final handoff becomes an investigation. It will not contain a passed list-change test.','A fresh trace, flow filters and sending status.',{plan:'Inspect configuration freshness, flow filters and a fresh signup trace',report:null},['SETUP-01','TEST-01','alia'])
+            ];
+          }
+          if (r.scenario === 'pending-consent') return [
+            choice('bypass','Disable double opt-in for the list','Make the test progress immediately.','unsupported','Changing a list-wide subscription policy is not a neutral troubleshooting step. It has not been authorized, and it does not verify the existing confirmation path.','Other future signups would be affected by a change outside this case’s approved scope.','An explicit merchant policy decision; do not treat that as already granted.',{plan:'Change opt-in policy'},['CALL-01','consent']),
+            choice('confirm-test','Check the confirmation step','Use a controlled test and preserve the merchant’s policy.','supported','Follow the pending test signup through the confirmation message and subscription outcome before declaring a delivery failure.','The handoff asks the owner to verify confirmation, then list arrival and the welcome email. No signup status is fabricated.','The actual confirmation result and subsequent flow activity.',{plan:'Check confirmation for the controlled test signup, then verify list arrival, flow activity and welcome-email receipt',report:null},['TEST-01','consent']),
+            choice('gather','Collect the signup and flow logs first','Ask the merchant’s email owner for the relevant evidence.','conditional','A narrow request for the confirmation state and message activity is useful when the investigator lacks access. It should not become an unowned request for “all your data.”','The handoff requests only the test signup timestamp, confirmation outcome and corresponding flow activity.','The requested evidence and a person accountable for reviewing it.',{plan:'Request the test timestamp, confirmation outcome and corresponding flow activity from the merchant email owner',report:null},['TEST-01'])
+          ];
+          if (r.scenario === 'delivery-failure') return [
+            choice('retry-all','Replay every signup for this merchant','Retry broadly before checking the failed attempt.','unsupported','The error and previous effects are unknown. A broad replay could duplicate successful work without explaining the failed test.','More ambiguous deliveries would be introduced before the original failure is understood.','Attempt identifiers, provider response, and safe retry/deduplication behavior.',{plan:'Replay all'},['TEST-01']),
+            choice('trace','Inspect the failed attempt','Collect identifiers, response and connection evidence.','supported','Keep the merchant, popup and test timestamp together. The owner can distinguish an access problem, provider response or reproducible code defect before choosing a repair.','The integration packet asks for a specific failed attempt, not a speculative list-change fix.','The error response and a controlled reproduction; no live retry is performed here.',{plan:'Inspect the failed attempt timestamp, request identifier, provider response and connection health; then plan a controlled retry',report:null},['TEST-01','alia']),
+            choice('reproduce','Plan one controlled reproduction','Check duplicate protection before a limited retry.','conditional','A controlled reproduction is reasonable when original diagnostics are missing. First establish authorization and how to identify an already-processed signup.','The packet requests one traceable test, not a replay of the merchant’s entire audience.','Permission, test identity and duplicate protection before the real retry.',{plan:'Obtain permission and check duplicate protection, then capture one controlled signup reproduction and provider response',report:null},['TEST-01'])
+          ];
+          return [
+            choice('flow-audit','Inspect the flow and sending path','Keep the same test profile linked to every observation.','supported','Check filters, consent, suppression, delays and sending status instead of assuming list arrival guarantees a message.','The handoff carries a bounded investigation with the root cause still open.','Actual flow/message activity for this test signup.',{plan:'Trace the test profile through flow filters, consent, suppression, delays and message sending activity',report:null},['TEST-01','alia','suppression']),
+            choice('remove-filters','Remove all flow filters','Broaden eligibility to make a message send.','unsupported','The records do not identify a faulty filter. Removing all of them changes eligibility beyond this customer’s reported test.','An unrelated audience could become eligible, without proving why the original welcome email was absent.','A specific filter diagnosis and approval of any scoped change.',{plan:'Remove all filters'},['TEST-01','alia']),
+            choice('fresh-test','Request a fresh controlled trace','Reproduce with a new, eligible test signup.','conditional','A new trace is useful when existing observations are incomplete. Preserve the old evidence so a different outcome does not silently rewrite the original report.','The packet specifies a new signup, its expected list and the flow/message evidence to capture.','An accepted owner and access to verify the real result.',{plan:'Capture a fresh eligible signup, expected list membership, flow activity and actual message result; retain the original failure',report:null},['TEST-01','alia'])
+          ];
+        }
+        case 4: {
+          const tested = Boolean(s.plan?.report?.passed);
+          return [
+            choice('claim-fixed','“Fixed. Ready for Friday.”','Close the blocker and announce launch readiness.','unsupported',tested ? 'A local routing check is not a real signup or inbox result. No live change, owner acceptance or merchant launch approval has been recorded.' : 'There is no verified repair. The case still contains an investigation, not a resolution.','The handoff would again hide the customer’s unresolved blocker behind “ready.”','Real verification, owner acceptance and merchant approval.',{update:'fixed'},['CALL-01','TEST-01']),
+            choice('bounded',tested ? '“Proposed change tested locally; live checks pending.”' : '“Investigation prepared; outcome still unverified.”','State the finding, proposed owner and next action.','supported','This separates what the example establishes from what still needs to happen in the real accounts. The customer’s hold is retained.','Three drafts will be generated from your selected route and next action. Owner acceptance stays visibly pending.','An operator still needs to review the drafts and perform the authorized real work.',{update:'bounded'},['CALL-01','CRM-01','TEST-01']),
+            choice('approval','Ask for a focused approval or missing evidence','Keep the customer-facing message to one actionable request.','conditional','A focused question is reasonable when approval or access is the next blocker. Keep the complete evidence in the internal handoff rather than asking the customer to decipher it.','The customer draft becomes a question about the proposed test or missing evidence. The support task and CRM note retain the investigation.', 'A reply and the required verification; the issue stays open.',{update:'approval'},['CALL-01'])
+          ];
+        }
+        default: return [];
+      }
+    }
+    select(id) {
+      const c = this.choices().find(x => x.id === id);
+      if (!c) throw new Error('Select an option from the current decision.');
+      this.selected = id;
+      this.events.push({sequence: ++this.sequence, kind:'explored', step:this.step, choice:id, verdict:c.verdict});
+      return clone(c);
+    }
+    preview() { return this.choices().find(c => c.id === this.selected) || null; }
+    commit() {
+      const c = this.preview();
+      if (!c || !c.canProceed) throw new Error('Choose a supported action or a reasoned alternative before continuing.');
+      this.accepted[this.step] = clone(c); this.accepted.length = this.step + 1;
+      this.events.push({sequence: ++this.sequence, kind:'selected', step:this.step, choice:c.id});
+      this.step++; this.selected = null;
+      return this.state();
+    }
+    back() {
+      if (this.step < 1) return;
+      this.step--; const prior = this.accepted[this.step];
+      this.accepted.length = this.step;
+      this.selected = this.choices().some(c => c.id === prior?.id) ? prior.id : null;
+      this.events.push({sequence: ++this.sequence, kind:'revised', step:this.step, downstreamDiscarded:true});
+    }
+    packet() {
+      if (this.step !== 5 || this.accepted.length !== 5) throw new Error('Finish the five decisions before preparing the handoff.');
+      const s = this.state(), r = this.record, p = s.plan, t = s.route;
+      if (!t?.proposedOwner || !p?.plan) throw new Error('An explicit proposed owner and next action are required.');
+      const test = p.report ? M.testProposal(r,p.report.targetListId) : null;
+      if (p.report && (JSON.stringify(test)!==JSON.stringify(p.report) || !test.passed)) throw new Error('The local test no longer matches this case.');
+      const needs = [
+        `${t.proposedOwner} must accept the task; no assignment or acceptance has occurred.`,
+        ...(s.needsClarification ? ['Confirm that this Friday popup should use Welcome Subscribers.'] : []),
+        'Obtain merchant approval before changing settings or running an authorized real test.',
+        test ? 'Verify a fresh eligible signup reaches the intended list, enters the expected flow, and produces the expected welcome email in the real account and test inbox.' : `Complete this investigation and record its outcome: ${p.plan}.`,
+        'Check relevant consent, suppression and duplicate-send behavior.',
+        'Record the evidence and customer update; obtain explicit launch approval before removing the hold.'
+      ];
+      const finding = s.finding;
+      const local = test ? 'Scoped local routing check passed; actual delivery is unverified.' : 'No repair tested. Investigation only.';
+      const question = test ? 'May we test changing only this Friday popup’s destination to Welcome Subscribers, leaving the campaign paused?' : `Could your email owner provide the test signup timestamp and the corresponding confirmation, list and flow activity?`;
+      const customer = this.accepted[4].id === 'approval'
+        ? `${question}\n\n${s.needsClarification ? 'Please also confirm that Welcome Subscribers is the intended list.\n\n' : ''}The welcome-email issue remains open. We are not treating the campaign as ready; no live settings were changed by this example.`
+        : `${test ? 'The example records show the popup sending signups to Popup Leads while the welcome flow listens to Welcome Subscribers. We have prepared a proposal to align this popup, not changed it.' : `We have prepared an investigation of the missing welcome email. Next step: ${p.plan}.`}\n\n${s.needsClarification ? 'Before any change, please confirm that Welcome Subscribers is the intended list.\n\n' : ''}The campaign remains on hold pending authorized testing and your launch approval. No real email or configuration change has been made by this example.`;
+      const evidence = r.sources.map(x=>x.id).join(', ');
+      return {
+        schema:'alia-decision-handoff.v2', fictional:true, account:clone(r.account), popup:clone(r.campaign),
+        status:'Draft ready for review — live issue unverified', finding,
+        proposedOwner:{name:t.proposedOwner,team:t.team,fictional:true,accepted:false},
+        actualOwner:null, actualOwnerAccepted:false, customerContact:'Devon · Sales (fictional; proposed contact only)',
+        plan:p.plan, readiness:'Hold', liveOutcome:'Unverified', launchApproved:false, localTest:test,
+        decisions:this.accepted.map((c,i)=>({step:steps[i],choice:c.title,assessment:c.verdict,reason:c.why})),
+        nextChecks:needs, sources:clone(r.sources), references:clone(docs),
+        drafts:{
+          support:`SUPPORT TASK — DRAFT ONLY\n${r.account.name} / ${r.campaign.id}\n\nFinding: ${finding}.\nProposed owner: ${t.proposedOwner} · ${t.team} (fictional); acceptance pending.\nNext action: ${p.plan}.\n${local}\nEscalation: ${t.escalation}\n\nBefore closing:\n${needs.map(x=>'• '+x).join('\n')}\n\nSources: ${evidence}. No task or notification has been sent.`,
+          crm:`HUBSPOT NOTE — DRAFT ONLY\n${r.account.name} / ${r.account.id}\n\nReadiness: HOLD — welcome email unverified.\nRetain the 10:20 “Ready for Friday” note and append the 10:05 customer hold and failed-test evidence; do not overwrite the earlier record.\n\nFinding: ${finding}.\nProposed owner: ${t.proposedOwner} · ${t.team}; acceptance pending.\nNext action: ${p.plan}.\n${local}\n${s.needsClarification ? 'Intended destination confirmation is still requested.\n' : ''}Launch approval: not recorded.\nSources: ${evidence}. Not written to HubSpot.`,
+          customer:`CUSTOMER REPLY — DRAFT ONLY, NOT SENT\n\n${customer}`
+        },
+        audit:clone(this.events), externalWrites:0, emailsSent:0,
+        boundary:'Fictional inputs and illustrative routing policy; no automated transcript extraction, real team mapping, live account access, real delivery or production-scale evidence.'
+      };
+    }
+    snapshot() { return clone({ ...this.state(),record:this.record,accepted:this.accepted,selected:this.selected,preview:this.preview(),events:this.events }); }
+  }
+  const api = {DecisionCase,steps,docs};
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.DecisionExplorer = Object.freeze(api);
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
+<script>(() => {
+  'use strict';
+  const {DecisionCase, steps, docs} = window.DecisionExplorer;
+  const $ = id => document.getElementById(id);
+  const esc = x => String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let flow = new DecisionCase(), tab = 'support', finalPacket = null;
+  const assessments = {supported:'Supported by these records',conditional:'Reasonable—with a trade-off',unsupported:'Not supported by this evidence'};
+  const headings = [
+    ['What should happen to Friday’s launch?', 'The newest note is not necessarily the most complete. Choose how to handle the conflicting handoff.'],
+    ['What does the evidence actually support?', 'Compare the setup with the test result. A likely explanation is not the same as a verified repair.'],
+    ['Who should take responsibility next?', 'Choose an investigator, not just a department. Names and routing rules are illustrative—not Alia’s actual org chart.'],
+    ['What is the next useful action?', 'Choose the smallest justified step. The result changes the handoff you will prepare.'],
+    ['What can we honestly say now?', 'Decide what the next person—and the customer—should be told. A local check is not a live fix.']
+  ];
+  const sourceCard = s => `<article class="source-card"><div class="source-meta"><span>${esc(s.id)}</span><span>${esc(s.time)}</span></div><h3>${esc(s.kind.replace(' · prepared excerpt','').replace(' · example sales note',' · Sales note').replace(' · example snapshot','').replace(' · example observation',''))}</h3><p>${esc(s.text)}</p></article>`;
+  function announce(text) { $('live-status').textContent = text; }
+  function moveTo(el) {
+    el.focus({preventScroll:true});
+    const rect = el.getBoundingClientRect();
+    if (rect.top < 0 || rect.bottom > innerHeight) el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});
+  }
+  function render() {
+    const s=flow.state(), r=flow.record, done=s.complete;
+    $('app').dataset.step=String(flow.step);
+    $('previous').hidden=flow.step===0;
+    $('previous').textContent=done?'Revise the last decision':'Previous decision';
+    $('case-status').textContent=s.hold?'Launch on hold':'Readiness disputed';
+    $('owner-state').textContent=s.route?`${s.route.proposedOwner} · proposed, not accepted`:'No proposed owner';
+    $('live-state').textContent='Live outcome unverified';
+    $('progress').innerHTML=steps.map((n,i)=>`<li${!done&&i===flow.step?' aria-current="step"':''} class="${done||i<flow.step?'complete':i===flow.step?'current':''}"><span class="step-num">${done||i<flow.step?'✓':i+1}</span><span class="step-name">${esc(n)}</span></li>`).join('');
+    $('decision-screen').hidden=done; $('complete-screen').hidden=!done;
+    $('primary-area').hidden=done; $('feedback').hidden=true; $('local-result').hidden=true;
+    if(done) { renderComplete(); return; }
+    $('step-kicker').textContent=`Decision ${flow.step+1} of 5`;
+    $('step-title').textContent=headings[flow.step][0];
+    $('step-copy').textContent=headings[flow.step][1];
+    $('evidence-title').textContent=flow.step===0?'Two accounts of the same launch':flow.step===1?'The setup and observed signup':flow.step===2?'The work needs an owner':flow.step===3?'The finding you are acting on':'What has—and has not—happened';
+    if(flow.step<2) {
+      const sources=flow.step===0?r.sources.slice(0,2):r.sources.slice(2,4);
+      $('evidence').innerHTML=sources.map(item => sourceCard(flow.step===0 && item.id==='CALL-01' ? {...item,text:'The test signup never received our welcome email. … Please keep the popup paused until we test it.'} : item)).join('');
+    } else {
+      const rows=flow.step===2?[
+        ['Your finding',s.finding],['Next responsibility',s.approach==='test-change'?'Review one popup’s destination and plan an approved signup test.':'Collect the missing account and test evidence.'],['Customer contact','Sales can own communication while a technical investigator owns the blocker.']
+      ]:flow.step===3?[
+        ['Your finding',s.finding],['Proposed owner',`${s.route.proposedOwner} · ${s.route.team}. Acceptance has not occurred.`],['Customer constraint','Keep this popup paused. No live settings have been changed.']
+      ]:[
+        ['Your next action',s.plan.plan],['Local result',s.plan.report?.passed?'Three local routing expectations passed. No live signup or email was executed.':'Investigation prepared. No repair has been verified.'],['Still missing',`${s.route.proposedOwner}’s acceptance, customer authorization, and the real result.`]
+      ];
+      $('evidence').innerHTML=rows.map(([h,p])=>`<article class="summary-card"><h3>${esc(h)}</h3><p>${esc(p)}</p></article>`).join('');
+    }
+    $('all-evidence').innerHTML=r.sources.map(sourceCard).join('');
+    $('evidence-drawer').open=false;
+    $('choice-list').innerHTML=flow.choices().map((c,i)=>`<button type="button" class="choice" data-choice="${esc(c.id)}" aria-pressed="false"><span class="choice-letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="choice-copy"><strong>${esc(c.title)}</strong><span>${esc(c.subtitle)}</span></span><span class="choice-mark" aria-hidden="true">↗</span></button>`).join('');
+    for(const el of $('choice-list').querySelectorAll('button')) el.addEventListener('click',()=>select(el.dataset.choice));
+    if(flow.selected) renderFeedback();
+    $('help-suggestion').textContent='Show the suggested next step';
+    $('event-log').textContent=JSON.stringify(flow.events,null,2);
+  }
+  function select(id) {
+    flow.select(id); renderFeedback();
+    announce(`${assessments[flow.preview().verdict]}. ${flow.preview().consequence}`);
+    moveTo($('feedback-title'));
+  }
+  function renderFeedback() {
+    const c=flow.preview(); if(!c) return;
+    for(const b of $('choice-list').querySelectorAll('button')) b.setAttribute('aria-pressed',String(b.dataset.choice===c.id));
+    $('feedback').hidden=false; $('feedback').className=`feedback ${c.verdict}`;
+    $('feedback-title').textContent=assessments[c.verdict];
+    $('feedback-why').textContent=c.why;
+    $('feedback-consequence').textContent=c.consequence;
+    $('feedback-missing').textContent=c.missing;
+    $('feedback-more').open=false;
+    $('feedback-refs').innerHTML=c.refs.map(ref=>docs[ref]?`<a href="${esc(docs[ref])}" target="_blank" rel="noopener noreferrer">${ref==='alia'?'Alia troubleshooting':ref==='consent'?'Klaviyo opt-in':'Klaviyo suppression'} ↗</a>`:`<button type="button" class="source-link" data-evidence="${esc(ref)}">${esc(ref)}</button>`).join('');
+    for(const b of $('feedback-refs').querySelectorAll('[data-evidence]')) b.addEventListener('click',()=>{ $('evidence-drawer').open=true; moveTo($('evidence-toggle')); });
+    $('next').disabled=!c.canProceed;
+    $('next').textContent=c.canProceed?(flow.step===4?'Prepare my handoff':'Use this approach'):'Choose another approach';
+    $('button-note').textContent=c.canProceed?'Uses this choice in the local case. Nothing is sent or changed live.':'You can inspect this consequence, but the example will not claim it is justified.';
+    $('local-result').hidden=!c.effect.report;
+    if(c.effect.report) renderResult(c.effect.report);
+    $('event-log').textContent=JSON.stringify(flow.events,null,2);
+  }
+  function renderResult(report) {
+    $('local-result').className=`test-panel ${report.passed?'passed':'failed'}`;
+    $('result-heading').textContent=report.passed?'Local calculation: all 3 expectations pass':'Local calculation: the eligible signup is still blocked';
+    $('test-rows').innerHTML=report.rows.map(row=>`<tr><th scope="row">${esc(row.label)}</th><td>${row.before?'Eligible':'Not eligible'}</td><td>${row.after?'Eligible':'Not eligible'}</td><td>${row.pass?'Pass':'Fail'}</td></tr>`).join('');
+  }
+  function renderComplete() {
+    finalPacket=flow.packet(); const p=finalPacket;
+    $('final-finding').textContent=p.finding;
+    $('final-owner').textContent=`${p.proposedOwner.name} · ${p.proposedOwner.team}`;
+    $('final-action').textContent=p.plan;
+    $('result-boundary').textContent=p.localTest?'Local routing test passed. Real configuration and delivery remain unverified.':'Investigation prepared. No fix or delivery is claimed.';
+    $('decision-history').innerHTML=p.decisions.map((d,i)=>`<div class="history-row"><span>${i+1}</span><div><strong>${esc(d.choice)}</strong><p>${esc(d.reason)}</p></div></div>`).join('');
+    $('remaining-checks').innerHTML=p.nextChecks.map(t=>`<li>${esc(t)}</li>`).join('');
+    $('no-reply').hidden=true; $('deadline-preview').textContent='Preview a missed acceptance';
+    $('deadline-preview').setAttribute('aria-expanded','false');
+    $('event-log').textContent=JSON.stringify(p.audit,null,2);
+    tab='support';renderDraft(); announce('Three local drafts prepared from your five decisions. Live issue remains open; nothing was sent.');
+  }
+  function renderDraft() {
+    $('draft-text').textContent=finalPacket.drafts[tab];
+    $('draft-text').setAttribute('aria-labelledby',`tab-${tab}`);
+    for(const b of document.querySelectorAll('[data-tab]')) {
+      b.setAttribute('aria-selected',String(b.dataset.tab===tab));b.tabIndex=b.dataset.tab===tab?0:-1;
+    }
+    $('copy-note').textContent='';
+  }
+  $('next').addEventListener('click',()=>{try{flow.commit();finalPacket=null;render();moveTo(flow.step===5?$('complete-title'):$('step-title'));}catch(e){announce(e.message);}});
+  $('previous').addEventListener('click',()=>{flow.back();finalPacket=null;render();moveTo($('step-title'));announce('Later choices, tests and drafts have been cleared. You are revising the local plan, not undoing a live action.');});
+  $('restart').addEventListener('click',()=>{flow.reset($('scenario').value);finalPacket=null;render();moveTo($('step-title'));announce('Local case reset. No external records were changed.');});
+  $('scenario').addEventListener('change',e=>{flow.reset(e.target.value);finalPacket=null;render();moveTo($('step-title'));announce('Changed the fictional evidence. Earlier choices and drafts were cleared.');});
+  $('help-suggestion').addEventListener('click',()=>select(flow.choices().find(c=>c.verdict==='supported').id));
+  $('compare-another').addEventListener('click',()=>moveTo($('choice-list').querySelector('button')));
+  for(const b of document.querySelectorAll('[data-tab]')) {
+    b.addEventListener('click',()=>{tab=b.dataset.tab;renderDraft();});
+    b.addEventListener('keydown',e=>{
+      if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+      e.preventDefault(); const ids=['support','crm','customer']; const current=ids.indexOf(tab);
+      const index=e.key==='Home'?0:e.key==='End'?2:(current+(e.key==='ArrowRight'?1:2))%3;
+      tab=ids[index];renderDraft();$(`tab-${tab}`).focus();
+    });
+  }
+  $('copy-draft').addEventListener('click',async()=>{
+    if(!finalPacket)return;
+    try{await navigator.clipboard.writeText(finalPacket.drafts[tab]);$('copy-note').textContent='Copied to clipboard. Not sent.';}
+    catch{$('copy-note').textContent='Clipboard access unavailable. Select this draft to copy it, or save the local record.';}
+  });
+  $('save-drafts').addEventListener('click',()=>{
+    if(!finalPacket)return;
+    const blob=new Blob([JSON.stringify(finalPacket,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='alia-fictional-handoff-DRAFT.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    announce('Saved the local draft record. No external system was contacted.');
+  });
+  $('deadline-preview').addEventListener('click',()=>{
+    const p=flow.packet(), show=$('no-reply').hidden;
+    $('no-reply').hidden=!show; $('deadline-preview').setAttribute('aria-expanded',String(show));
+    $('no-reply').textContent=`Illustrative 60-minute acceptance window elapsed: ${p.proposedOwner.name} has not accepted. Alert the coordinator and request a new owner; retain the customer hold. Escalation is not acceptance. This is a preview, not a live clock or a sent notification.`;
+  });
+  window.reviewSnapshot=()=>({ ...flow.snapshot(),packet:finalPacket?JSON.parse(JSON.stringify(finalPacket)):null });
+  $('app').hidden=false;$('js-fallback').hidden=true;render();
+})();
+</script>
+</body></html>

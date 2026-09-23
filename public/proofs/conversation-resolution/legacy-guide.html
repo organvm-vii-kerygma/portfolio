@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="An interactive customer handoff: connect scattered notes, clarify the request, and follow it to an accountable outcome.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pgTJnXGC3X7S+R3k/u6tnnZRI+zFbLuJnBS/xwR6mCA='; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Conversation to Resolution | Anthony James Padavano</title>
+<style>:root{--paper:#f4f2ed;--ink:#24342f;--muted:#65716b;--line:#e2e5df;--green:#254e40;--mint:#e8f0e9;--rust:#a7442d;--peach:#fbede5;--white:#fff;--radius:18px}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}button,select{font:inherit}button,summary{cursor:pointer}a{color:inherit;text-underline-offset:4px}button,a,summary,select{touch-action:manipulation}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--rust);outline-offset:4px}button{min-height:44px}h1,h2,h3,p{margin:0}svg{display:inline-block;vertical-align:middle;flex-shrink:0}main{width:min(1120px,calc(100% - 72px));margin:auto;padding-bottom:30px}.masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;height:82px;border-bottom:1px solid #d9dfd7}.signature{display:flex;gap:12px;align-items:center;font-size:13px;font-weight:650;text-decoration:none}.monogram{display:grid;place-items:center;width:34px;height:34px;background:var(--green);color:white;border-radius:50%;font:italic 18px Georgia,serif}.edition{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding:38px 0 30px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--green);margin-bottom:14px}h1{font-size:clamp(32px,4.3vw,55px);font-weight:600;line-height:1.08;letter-spacing:-.055em}h1 em{font:italic 1.08em/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:var(--green)}.hero-note{width:245px;padding-bottom:3px;color:var(--muted);font-size:14px;line-height:1.6}.hero-note span{display:block;margin-top:13px;font-size:11px;color:var(--green);font-weight:650}.workbench{background:var(--white);border:1px solid #dce2d9;border-radius:22px;box-shadow:0 14px 42px #24342f08;overflow:hidden}.bench-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 26px;border-bottom:1px solid var(--line)}.case-id{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted)}.case-id b{font-weight:650;color:var(--ink)}.live-dot{width:6px;height:6px;border-radius:50%;background:var(--rust)}.progress{display:flex;align-items:center;gap:23px;margin:0;padding:0;list-style:none}.progress li{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}.progress .number{display:grid;place-items:center;width:21px;height:21px;border:1px solid var(--line);border-radius:50%;font-size:9px}.progress .current{color:var(--green);font-weight:700}.progress .current .number,.progress .complete .number{background:var(--green);color:white;border-color:var(--green)}.scene-top{display:flex;align-items:start;justify-content:space-between;gap:15px;padding:26px 30px 19px}.step-label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rust);font-weight:700;margin-bottom:8px}h2{font-size:23px;font-weight:650;letter-spacing:-.035em;line-height:1.25}h2:focus{outline:none}.step-copy{font-size:13px;color:var(--muted);margin-top:7px;max-width:700px}.text-button{background:transparent;border:0;color:var(--muted);padding:8px 5px;font-size:12px;white-space:nowrap}.text-button:hover{color:var(--green);text-decoration:underline}.canvas{display:grid;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);align-items:stretch;padding:0 30px 23px}.source-pane{min-width:0;background:#f6f7f3;border:1px solid var(--line);border-radius:var(--radius);padding:17px 18px}.pane-label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:650;margin-bottom:14px}.pane-label span{letter-spacing:0;text-transform:none;font-size:10px;font-weight:450}.bridge{display:grid;place-items:center;color:#809587}.cards{display:grid;gap:9px}.story-card{background:white;border:1px solid #e1e6de;border-radius:10px;padding:12px 14px}.card-label{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);margin-bottom:6px}.story-card p{font-size:13px;line-height:1.5}.story-card.warning{background:var(--peach);border-color:#efd5c5}.story-card.warning .card-label{color:var(--rust)}.source-tail{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 2px 0;color:var(--muted);font-size:10px}.source-tail svg{margin-right:4px}.ticket{min-width:0;border:1px solid #b5c8bc;border-radius:var(--radius);padding:18px 20px;position:relative;background:#fff}.ticket .pane-label{color:var(--green)}.ticket h3{font-size:22px;line-height:1.22;letter-spacing:-.025em;font-weight:650;max-width:290px}.ticket-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);margin-top:8px}.state-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;line-height:1.3;border-radius:5px;padding:5px 7px;background:var(--peach);color:var(--rust);font-weight:600}.state-chip.good{color:var(--green);background:var(--mint)}.ticket-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;margin-top:14px;border-top:1px solid var(--line)}.field-name{font-size:10px;color:var(--muted);margin-bottom:3px}.field-value{font-size:12px;font-weight:600;line-height:1.4}.field-value.pending{color:var(--muted);font-weight:450}.avatar{display:grid;place-items:center;width:33px;height:33px;flex-shrink:0;border-radius:50%;background:var(--mint);color:var(--green);font-size:10px;font-weight:700}.person{display:flex;align-items:center;gap:9px}.ticket-fields{display:grid;grid-template-columns:1fr 1.1fr;gap:18px}.ticket-row{align-items:start;justify-content:start}.ticket-row>span{display:none}.source-tail:has(.source-stub){display:grid;gap:8px;justify-content:stretch}.source-stub{display:flex;align-items:center;gap:5px;padding:9px 10px;background:#eef1eb;border:1px dashed #d4dcd0;border-radius:7px}.source-stub>span{margin-left:auto;font-size:9px}.canvas[data-view="intro"] .ticket-foot{display:none}.ticket-note{display:flex;gap:7px;align-items:center;margin-top:14px;font-size:10px;color:var(--muted)}.ticket-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:center;gap:7px;font-size:10px;color:var(--green)}.decision{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 30px;background:#f8faf6;border-top:1px solid var(--line)}.action-caption{font-size:11px;color:var(--muted);line-height:1.5;max-width:350px}.action-caption b{display:block;font-size:12px;color:var(--green);font-weight:600;margin-bottom:2px}.primary{display:inline-flex;align-items:center;justify-content:center;gap:22px;border:1px solid var(--green);background:var(--green);color:white;min-height:48px;border-radius:9px;padding:12px 19px;font-size:13px;font-weight:600;white-space:normal;text-align:left}.primary:after{content:'→';font-size:19px;line-height:1;font-weight:400}.primary:hover{background:#173e30;box-shadow:0 3px 12px #254e4020}.primary:active{transform:translateY(1px)}.below-bench{display:flex;align-items:start;justify-content:space-between;gap:20px;padding:13px 4px 0}.simulation{font-size:10px;line-height:1.6;color:var(--muted)}.scene-help{max-width:600px;font-size:12px;color:var(--muted)}summary{min-height:44px;display:list-item;padding:12px 0;line-height:1.5}details p{margin:0 0 12px}#explain>summary{font-size:10px;min-height:30px;padding:0;white-space:nowrap}#explain[open]>summary{margin-bottom:10px}#explain[open]{padding-bottom:12px;max-width:500px}#explain[open] p{font-size:12px}.branch-row{padding:0 30px}.branch-row:has(details:not([hidden])){border-top:1px solid var(--line)}.branch-row .scene-help>summary{font-size:11px}.secondary{min-height:44px;background:white;border:1px solid #c6d3c8;color:var(--green);border-radius:8px;padding:10px 14px;font-size:12px;margin:4px 8px 10px 0}.secondary:hover{background:var(--mint)}.error{color:#9c3426;padding:15px 30px;font-size:13px}.depth{margin-top:26px;border-top:1px solid #d9dfd7}.depth>details>summary{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:20px 0;list-style:none;font-size:13px;font-weight:600}.depth>details>summary::-webkit-details-marker{display:none}.depth>details>summary:after{content:'+';font-size:21px;font-weight:400;color:var(--green)}.depth>details[open]>summary:after{content:'−'}.depth>details+details{border-top:1px solid #d9dfd7}.summary-note{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:3px}.depth-content{padding:0 0 22px;font-size:13px;max-width:900px}.depth-intro{font-size:12px;color:var(--muted);margin-bottom:16px}.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}.evidence{border:1px solid var(--line);border-radius:12px;background:white;min-width:0}.evidence summary{display:grid;grid-template-columns:28px 1fr;gap:4px 9px;padding:16px;list-style:none}.evidence summary::-webkit-details-marker{display:none}.evidence .code{grid-row:1/3;font-size:10px;color:var(--green);padding-top:3px}.evidence strong{font-size:13px;font-weight:600}.evidence .stage{grid-column:2;font-size:11px;color:var(--muted)}.evidence .inside{padding:0 16px 16px;font-size:12px}.inside p{margin-bottom:10px}.boundary,.small{font-size:11px;color:var(--muted)}#more-projects>summary{font-size:12px;color:var(--green);margin-top:6px}.technical-section{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}.technical-section h3{font-size:14px;margin:12px 0 8px}select{display:block;max-width:100%;padding:10px;background:white;border:1px solid #c6d3c8;border-radius:7px;font-size:12px;min-height:44px;margin:8px 0;color:var(--ink)}pre{font:11px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;background:white;border:1px solid var(--line);border-radius:8px;padding:16px}#test-message{margin:10px 0;font-size:12px;color:var(--green)}footer{display:flex;justify-content:space-between;gap:16px;margin-top:24px;font-size:10px;color:var(--muted)}.skip{position:absolute;left:-10000px}.skip:focus{left:16px;top:12px;padding:12px;background:white;z-index:10}.canvas.refresh .ticket{animation:settle .24s ease-out}@keyframes settle{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@media(max-width:900px){main{width:calc(100% - 40px)}.hero-note{width:210px}.canvas{padding:0 22px 20px;grid-template-columns:minmax(0,1fr) 26px minmax(0,1fr)}.scene-top{padding:22px}.bench-top{padding:15px 22px}.progress{gap:12px}.source-pane{padding:14px}.ticket{padding:16px}.ticket h3{font-size:20px}.decision{padding:17px 22px}}@media(max-width:620px){main{width:calc(100% - 32px)}.masthead{height:65px}.signature{font-size:11px;gap:8px}.monogram{width:28px;height:28px;font-size:16px}.edition{font-size:9px;letter-spacing:.04em}.hero{display:block;padding:26px 0 22px}.eyebrow{font-size:9px;margin-bottom:10px}h1{font-size:36px}.hero-note{width:auto;font-size:12px;line-height:1.5;margin-top:14px;max-width:350px}.hero-note span{display:none}.workbench{border-radius:16px}.bench-top{padding:12px 16px}.case-id{display:none}.progress{width:100%;gap:0;justify-content:space-between}.progress li{font-size:10px;gap:5px}.progress .number{width:18px;height:18px;font-size:8px}.scene-top{padding:18px 16px 14px}.step-label{font-size:9px;margin-bottom:6px}h2{font-size:20px}.step-copy{font-size:12px}.canvas{grid-template-columns:1fr;padding:0 14px 16px;gap:0}.source-pane{padding:12px;border-radius:11px}.pane-label{margin-bottom:9px;font-size:8px}.story-card{padding:10px 11px;border-radius:8px}.story-card p{font-size:12px}.card-label{font-size:9px}.bridge{height:25px;transform:rotate(90deg)}.ticket{padding:14px 15px;border-radius:11px}.ticket h3{font-size:18px;max-width:none}.ticket-meta{margin-top:6px}.ticket-row{padding-top:10px;margin-top:10px}.ticket-note,.ticket-foot{margin-top:10px}.ticket-foot{padding-top:9px}.ticket-row .field-name{display:none}.ticket .pane-label{margin-bottom:9px}.decision{padding:14px;display:flex;flex-direction:column-reverse;gap:8px;align-items:stretch}.primary{width:100%;justify-content:space-between;font-size:12px;min-height:46px;padding:10px 15px}.action-caption{font-size:10px;text-align:center;max-width:none}.action-caption b{display:none}.below-bench{display:block;padding:10px 2px 0}.simulation{font-size:9px}#explain{margin-top:8px}#explain>summary{font-size:10px}.depth{margin-top:20px}.depth>details>summary{padding:17px 0;font-size:12px}.summary-note{font-size:10px}.evidence-grid{grid-template-columns:1fr}.branch-row{padding:0 16px}.text-button{font-size:10px}footer{font-size:9px}.canvas[data-view="intro"] .ticket-note,.canvas[data-view="intro"] .ticket-foot{display:none}.canvas[data-view="intro"] .source-tail{display:none}.canvas[data-view="intro"] .ticket .pane-label{display:none}.ticket-fields{grid-template-columns:1fr 1fr;gap:10px}.ticket-fields .ticket-row{align-items:center}.canvas[data-view="intro"] .ticket-row{padding-top:8px;margin-top:8px}.canvas[data-view="intro"] .ticket h3{font-size:17px}.canvas[data-view="intro"] .ticket{padding:12px}.canvas[data-view="intro"] .source-pane{padding:10px}.canvas[data-view="intro"] .source-pane .pane-label{margin-bottom:6px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media print{button,.progress,.edition,.below-bench,.depth>details:not([open]){display:none}main{width:100%}.hero{padding:15px 0}.workbench{box-shadow:none}.canvas{grid-template-columns:1fr 24px 1fr}.depth details{break-inside:avoid}body{background:white}}
+@media(max-width:360px){h1{font-size:30px}.hero{padding:20px 0}.masthead{height:60px}}</style>
+</head>
+<body data-pagefind-ignore="all">
+<a class="skip" href="#walkthrough">Skip to the example</a>
+<main>
+<header class="masthead"><a class="signature" href="/portfolio/"><span class="monogram" aria-hidden="true">ap.</span>Anthony James Padavano</a><span class="edition">Fictional case study</span></header>
+<div class="hero"><div><p class="eyebrow">Conversation → Resolution</p><h1>From scattered notes<br>to <em>a clear next step.</em></h1></div><p class="hero-note">Follow a customer request from the first conversation to the person who gets it done.<span>One case. Follow it at your own pace.</span></p></div>
+<section class="workbench" id="walkthrough" aria-labelledby="step-title">
+<div class="bench-top"><div class="case-id"><span class="live-dot"></span><b>CASE 001</b><span>/ Onboarding</span></div><ol class="progress" id="progress" aria-label="Request progress"><li class="current" aria-current="step"><span class="number">1</span>Capture</li><li><span class="number">2</span>Clarify</li><li><span class="number">3</span>Assign</li><li><span class="number">4</span>Resolve</li></ol></div>
+<div class="scene-top"><div><span class="step-label" id="step-label">01 / Capture</span><h2 id="step-title" tabindex="-1">One request. Three places to look.</h2><p class="step-copy" id="step-copy">Start with the call. Then check what the other notes say.</p></div><button type="button" class="text-button" id="restart" hidden>Restart ↺</button></div>
+<div class="canvas" id="canvas" data-view="intro">
+<div class="source-pane"><div class="pane-label"><b id="source-label">Source notes</b><span id="source-count">3 linked messages</span></div><div class="cards" id="cards"><div class="story-card"><div class="card-label">Customer · call</div><p>Send the onboarding checklist. Do not change our live configuration yet.</p></div></div><div class="source-tail" id="source-tail"><span>Internal note</span><span>Customer reply</span></div></div>
+<div class="bridge" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></div>
+<section class="ticket" aria-label="Current task record"><div class="pane-label"><b>The request</b><span>Example account 001</span></div><h3>Send the onboarding<br>checklist</h3><div class="ticket-meta"><span class="state-chip" id="case-state" role="status" aria-live="polite">Needs review</span><span>Onboarding</span></div><div class="ticket-fields"><div class="ticket-row"><div><div class="field-name">Approved scope</div><div class="field-value pending" id="scope-value">Awaiting decision</div></div><span id="scope-icon" aria-hidden="true"></span></div><div class="ticket-row"><div class="person"><span class="avatar" id="owner-avatar" role="img" aria-label="No owner">—</span><div><div class="field-name">Owner</div><div class="field-value pending" id="owner-name">Not assigned</div></div></div></div></div><div class="ticket-note" id="ticket-note">No live configuration changes</div><div class="ticket-foot" id="ticket-foot">Connected to the original conversation</div></section>
+</div>
+<div class="decision"><div class="action-caption"><b id="action-context">The problem</b><span id="step-note">Important details live in different places.</span></div><button type="button" class="primary" id="next" disabled>Connect the notes</button></div>
+<div class="branch-row"><details class="scene-help" id="late-option" hidden><summary>What if Alex never responds?</summary><p>The task stays unaccepted. After the deadline, the coordinator must follow up.</p><button type="button" class="secondary" id="wait">Show the missed deadline</button></details><details class="scene-help" id="reopen-option" hidden><summary>What if the instructions change?</summary><p>Keep the completed case. Open a fresh review of the new instruction.</p><button type="button" class="secondary" id="reopen">Add a conflicting note</button></details><button type="button" class="text-button" id="previous" hidden>← Review previous step</button></div>
+<p class="error" id="guide-error" role="alert" hidden></p><noscript><p class="error">JavaScript is needed to try the example. The project notes below are still available.</p></noscript>
+</section>
+<div class="below-bench"><p class="simulation">Fictional case · Clicks simulate the team's actions. No AI or CRM is connected.</p><details class="scene-help" id="explain"><summary>Why this step?</summary><p id="step-detail"></p></details></div>
+<div class="depth">
+<details id="connections"><summary id="connections-title"><span>Built from related work<span class="summary-note">Customer requirements, client review, ownership, and coordination.</span></span></summary><div class="depth-content"><p class="depth-intro">Different systems, related problems. These projects inform the approach; they are not services running behind this example.</p><div class="evidence-grid"><details class="evidence"><summary><span class="code">E01</span><strong>Client requirements case</strong><span class="stage">Reconcile evolving requirements</span></summary><div class="inside"><p>Conversation sources became individually identified wants with source references, evolution, scope and implementation status. The record exposed a mismatch between the governing experience and a nested product funnel.</p><p><b>Applied here.</b> Connect the customer statement, its interpretation and the authorized implementation; preserve disagreement.</p><p class="boundary">Private client-delivery evidence. Not proof of automated extraction accuracy or customer-scale throughput; correspondence is not published.</p></div></details><details class="evidence"><summary><span class="code">E02</span><strong>Client review studio</strong><span class="stage">Focus the human decision</span></summary><div class="inside"><p>Parallel editorial, archive, commerce and platform lanes feed one client-review item. Preparation is distinct from rights, voice, editorial and publication approval.</p><p><b>Applied here.</b> Present one actionable review while specialist work proceeds behind it. Preserve the existing public platform until cutover is authorized.</p><p class="boundary">Private operating model and prototype. Publication and migration remain human-gated; not autonomous customer operation.</p></div></details><details class="evidence"><summary><span class="code">E07</span><strong>Limen</strong><span class="stage">Bind execution to authority</span></summary><div class="inside"><p>Bounded work packets carry authority, limits, deadlines and verification predicates. A deterministic keeper manages leases and generations; receipts record executor identity, revisions, checks and outcomes.</p><p><b>Applied here.</b> Distinguish assignment, acceptance, execution and completion evidence.</p><p class="boundary">An agent lease is not a person's acceptance and does not prove exactly-once effects in an external CRM.</p><a href="https://github.com/4444J99/limen/blob/main/docs/architecture/peer-conductor-protocol.md" rel="noopener noreferrer" target="_blank">Inspect public protocol</a></div></details><details class="evidence"><summary><span class="code">E08</span><strong>ORGANVM Engine</strong><span class="stage">Coordinate varied workflows</span></summary><div class="inside"><p>Registry, governance, dependency, promotion, dispatch and context-synchronization mechanisms coordinate distributed work.</p><p><b>Applied here.</b> Share identities and lifecycle rules while keeping each business workflow's own acceptance criteria.</p><p class="boundary">Cross-repository governance is not a customer-operation capacity benchmark. Repository count is not throughput.</p><a href="https://github.com/organvm/organvm-engine/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div><details id="more-projects"><summary>Explore eight more connections</summary><div class="evidence-grid"><details class="evidence"><summary><span class="code">E03</span><strong>AI Chat Exporter</strong><span class="stage">Preserve source conversations</span></summary><div class="inside"><p>The ChatGPT path normalizes a message tree and supports Markdown, HTML, JSON, PNG and text exports, separating provider, request queue and renderers.</p><p><b>Applied here.</b> Preserve structured evidence before summarizing; put source-specific adapters behind a shared contract.</p><p class="boundary">Substantially transformed fork of Pionxzh's project. Other provider paths are scaffolds; compatibility with changing host interfaces is not guaranteed.</p><a href="https://github.com/organvm-iii-ergon/a-i-chat--exporter/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E04</span><strong>Private knowledge pipeline</strong><span class="stage">Turn chats into typed records</span></summary><div class="inside"><p>A knowledge atomizer separates messages and code blocks, retains conversation identity, and applies redaction and format-specific chunking strategies.</p><p><b>Applied here.</b> Make retrievable units without losing their source context.</p><p class="boundary">The inspected message pass skips content under 20 characters and uses random unit IDs. A sales adaptation needs short-approval preservation and replay-safe identity; those limitations are not hidden.</p></div></details><details class="evidence"><summary><span class="code">E05</span><strong>LingFrame</strong><span class="stage">Preserve context across levels</span></summary><div class="inside"><p>The atomization model retains hierarchical relationships between theme, paragraph, sentence, word and letter.</p><p><b>Applied here.</b> Pair a small, inspectable evidence span with the larger context needed to distinguish a request, condition or commitment.</p><p class="boundary">Research framework and heuristic rhetorical analysis, not a validated business-intent classifier.</p><a href="https://github.com/organvm/linguistic-atomization-framework/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E06</span><strong>Public Record Data Scraper / UCC</strong><span class="stage">Normalize and deliver into CRM</span></summary><div class="inside"><p>Inspected HubSpot adapters map prospect data to CRM properties, submit authenticated requests and expose success, failure and remote object identifiers.</p><p><b>Applied here.</b> Translate a shared record into the destination schema and reconcile its returned object instead of adding an isolated store.</p><p class="boundary">Private integration code, not a live customer test, owner-acceptance system or proof of idempotent remote creation.</p></div></details><details class="evidence"><summary><span class="code">E09</span><strong>Testament / governance corpus</strong><span class="stage">Keep a durable evidence history</span></summary><div class="inside"><p>Testament catalogs rendered artifacts with source module, format, time and metadata. The governance corpus preserves the history from source conversations through plans, evaluations and later revisions.</p><p><b>Applied here.</b> Keep the evidence behind a decision inspectable after a status or interpretation changes.</p><p class="boundary">An append-only artifact catalog is not, by itself, a tamper-proof transaction log or a complete customer decision system.</p><a href="https://github.com/organvm/organvm-engine/blob/main/src/organvm_engine/testament/catalog.py" rel="noopener noreferrer" target="_blank">Inspect public catalog</a></div></details><details class="evidence"><summary><span class="code">E10</span><strong>Universal Mail Automation</strong><span class="stage">Triage and route incoming work</span></summary><div class="inside"><p>Mail-processing mechanisms distinguish incoming material, triage, routing, escalation, approval and delivery evidence.</p><p><b>Applied here.</b> Route a customer signal toward a bounded next action without treating draft or approval as confirmed delivery.</p><p class="boundary">Mail automation is a related implementation pattern, not proof that this demonstration sends or receives messages.</p><a href="https://github.com/4444J99/universal-mail--automation/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details><details class="evidence"><summary><span class="code">E11</span><strong>HOSPES</strong><span class="stage">Make the next action visible</span></summary><div class="inside"><p>A human-gated operating workflow links intake, approvals, drafts, routing and commitments. A stale-projection defect showed why a saved decision must also reach the operator's next view.</p><p><b>Applied here.</b> Keep the visible work queue aligned with the authoritative decision and expose the next allowed action.</p><p class="boundary">Private workflow and bounded synthetic evidence; not a production-scale customer-success deployment.</p></div></details><details class="evidence"><summary><span class="code">E12</span><strong>Agentic Titan</strong><span class="stage">Bound experiments and automation</span></summary><div class="inside"><p>Agent specification, model-provider policy, coordination, memory, tool execution and human approval remain separate concerns.</p><p><b>Applied here.</b> Compare alternatives during development, then deliver a constrained workflow with explicit authority and limits.</p><p class="boundary">Framework implementation and local verification, not proof that open-ended multi-agent exploration improves customer outcomes.</p><a href="https://github.com/organvm-iii-ergon/agentic-titan/blob/main/README.md" rel="noopener noreferrer" target="_blank">Inspect public source</a></div></details></div></details></div></details>
+<details id="technical"><summary><span>Under the hood<span class="summary-note">What is real, what is simulated, and how to inspect it.</span></span></summary><div class="depth-content"><p>This page runs a real, local set of workflow rules against prepared fictional messages. It does not extract a transcript, authenticate staff, write to HubSpot, or send email. Reloading starts over.</p><p>In a real team, routine routing and updates would happen through existing tools. People would handle approvals and exceptions—not click through this presentation for every task.</p><p class="small">The code checks behavior, not usability, business results, or production capacity. <a href="verification.json">Read the verification record</a>.</p><details class="technical-section" id="situations"><summary>Try a different situation</summary><label for="scenario">Example</label><select id="scenario"><option value="conflict">Conflicting instructions</option><option value="happy">An agreed request</option><option value="ambiguous">The account is unclear</option><option value="unaccepted">Nobody accepts the task</option></select><button type="button" class="secondary" id="load-scenario">Start this example</button></details><details class="technical-section" id="record-tools"><summary>Inspect the case and safeguards</summary><p class="small">These tests use a copy. They do not change your walkthrough.</p><button type="button" class="secondary" id="test-close">Test premature closure</button><button type="button" class="secondary" id="test-replay">Test duplicate notes</button><button type="button" class="secondary" id="export">Export this case</button><p id="test-message" role="status" aria-live="polite"></p><pre id="record"></pre></details></div></details>
+</div>
+<footer><span>Anthony James Padavano · Systems &amp; automation</span><a href="/portfolio/">Portfolio ↗</a></footer>
+</main>
+<script src="workflow-engine.js"></script>
+<script id="walkthrough-guide">/* Guided presentation of the existing synthetic engine. No services or AI are called. */
+((root) => {
+	'use strict';
+	const Engine = root.WorkflowDemo || (typeof require === 'function' && require('./workflow-engine.js').WorkflowDemo);
+	const copy = (value) => JSON.parse(JSON.stringify(value));
+	const owner = 'Alex (Customer Success)';
+	const card = (label, text, tone = '') => ({ label, text, tone });
+
+	class GuidedDemo {
+		constructor(scenario = 'conflict') {
+			this.reset(scenario);
+		}
+		reset(scenario = 'conflict') {
+			this.engine = new Engine(scenario);
+			this.started = false;
+			this.history = [];
+			this.reviewIndex = null;
+		}
+		current() {
+			const s = this.engine.state;
+			if (!this.started) return {
+				key: 'intro', phase: 0, title: 'A customer asks for a checklist.',
+				text: 'After the call, how do we make sure the right thing actually happens?',
+				cards: [card('Customer · call excerpt', s.sources[0].text)],
+				primary: 'Follow this request',
+				note: 'You are walking through the handoff, not connecting to a real customer account.',
+				detail: 'This example starts with written, fictional source records. It does not record a call or extract meaning with AI. The next screens show how a team could review and act on the information.',
+			};
+			if (!s.accountResolved) return {
+				key: 'account', phase: 1, title: 'Which customer is this?',
+				text: 'A similar name is not enough. Nothing should be assigned until the account is confirmed.',
+				cards: [card('Account awaiting review', 'Example account 001'), card('What stays on hold', 'Task approval and delivery', 'warning')],
+				primary: 'Confirm the example account',
+				note: 'Here the match is supplied by the example. In a real workflow, someone must check reliable account identifiers.',
+				detail: 'The engine refuses approval while accountResolved is false. Clicking confirms the known fixture identity; it does not perform identity matching or look up a CRM.',
+			};
+			if (s.status === 'unreviewed' && s.conflictPending) return {
+				key: 'conflict', phase: 1, title: 'The notes disagree.',
+				text: 'The customer asked for a checklist, but an internal note says to change the live configuration. Those are different instructions.',
+				cards: [card('Customer', s.sources[0].text), card('Internal note', s.priorCases.length ? s.sources[s.sources.length - 1].text : s.sources[1].text, 'warning'), card('Customer confirmation · replying to the request', s.sources[2].text)],
+				primary: 'Approve checklist only',
+				note: 'You are making the review decision. The system keeps both sources and does not authorize a live change.',
+				detail: 'This click records a simulated human resolution and then approves the checklist-only task. Both events remain separate in the history. An unresolved disagreement in a real account would require clarification, not a model choosing the most confident-sounding statement.',
+			};
+			if (s.status === 'unreviewed') return {
+				key: 'review', phase: 1, title: 'Make the request specific.',
+				text: 'A conversation becomes a proposed task, with a clear limit on what is allowed.',
+				cards: [card('Task to approve', 'Send the onboarding checklist.'), card('Not authorized', 'Changing the live configuration.', 'warning'), card('Customer confirmation', s.sources[2].text)],
+				primary: 'Approve this task',
+				note: 'This task is prepared in advance for the example; no AI extraction is happening.',
+				detail: 'The original source stays attached to the proposed task. Approval is a separate event, so a suggestion is not silently promoted into permission to act.',
+			};
+			if (s.status === 'ready') return {
+				key: 'owner', phase: 2, title: 'Give the task a named owner.',
+				text: 'The request is clear. Now someone needs to take responsibility for it.',
+				cards: [card('Approved task', 'Send the onboarding checklist. No live changes.'), card('Suggested owner', 'Alex · Customer Success')],
+				primary: 'Ask Alex to take it',
+				note: 'This example routes onboarding work to Customer Success. An assignment request is not acceptance.',
+				detail: 'The engine records the proposed owner and an acceptance deadline. It does not assume that appearing in a queue means someone has agreed to do the work.',
+			};
+			if (s.status === 'proposed') return {
+				key: s.escalated ? 'escalated' : 'waiting', phase: 2,
+				title: s.escalated ? 'No reply. The task stays open.' : 'Asked is not accepted.',
+				text: s.escalated ? 'The acceptance deadline passed. An escalation is recorded for the coordinator; the system does not invent an owner.' : 'Alex has been asked. The handoff is not complete until Alex accepts.',
+				cards: [card('Task', 'Send the onboarding checklist.'), card('Responsibility', s.escalated ? 'Still unaccepted · coordinator escalation recorded' : 'Waiting for Alex to accept', s.escalated ? 'warning' : '')],
+				primary: s.scenario === 'unaccepted' && !s.escalated ? 'Show the missed deadline' : 'Show Alex accepting',
+				note: 'You are advancing a simulation. There is no real notification, person, or background timer.',
+				detail: 'The deadline is 60 simulated minutes. A missed deadline makes the gap visible. In this bounded example the original proposed owner can still accept after escalation.',
+			};
+			if (s.status === 'accepted') return {
+				key: 'delivery', phase: 3, title: 'Alex now owns the request.',
+				text: 'There is a clear task, an accepted owner, and a limit on what may be changed.',
+				cards: [card('Owner', 'Alex · accepted'), card('Work to complete', 'Send the onboarding checklist. Leave the live configuration alone.')],
+				primary: 'Show the delivery record',
+				note: 'The next click creates a fictional result record. It does not send an actual checklist.',
+				detail: 'Execution is allowed only after owner acceptance and scope approval. The existing engine checks those conditions before recording a result.',
+			};
+			if (s.status === 'executed') return {
+				key: 'verify', phase: 3, title: 'Check the result—not just the claim.',
+				text: 'A delivery record exists. A separate verifier must check that it belongs to this task before the case can close.',
+				cards: [card('Example delivery record', 'Onboarding checklist · example account 001'), card('Authorized scope', 'Checklist only. No live configuration changes.')],
+				primary: 'Check the example result',
+				note: 'This checks the fictional record, not a real inbox or external delivery service.',
+				detail: 'The verifier identity must differ from the executor. Verification is bound to this result identifier; an unrelated result cannot satisfy the completion check.',
+			};
+			if (s.status === 'verified') return {
+				key: 'close', phase: 3, title: 'Tell the customer what happened.',
+				text: 'The result has been checked. The final step records the customer update and closes the task.',
+				cards: [card('Example customer update', 'Your onboarding checklist is ready. No live configuration was changed.')],
+				primary: 'Record the update and close',
+				note: 'No email is sent. The example records communication before allowing closure.',
+				detail: 'This click performs two ordered operations: record the simulated customer update, then close the case. Without verified results and a communication record, closure is rejected.',
+			};
+			return {
+				key: 'done', phase: 4, title: 'One request. A traceable result.',
+				text: 'The conversation stayed connected to the decision, the person responsible, and the checked outcome.',
+				cards: [card('What was requested', 'An onboarding checklist. No live changes.'), card('Who took responsibility', 'Alex · Customer Success'), card('How it finished', 'Result checked. Customer update recorded. Case closed.')],
+				primary: 'See the project connections',
+				note: 'That is the idea: the next person should not have to reconstruct the conversation to know what happens next.',
+				detail: 'The demonstration is complete. The source records, review, accepted owner, result, verification and update remain inspectable below. This is not proof of production integration or customer-scale capacity.',
+			};
+		}
+		screen() {
+			if (this.reviewIndex === null) return this.current();
+			return { ...copy(this.history[this.reviewIndex]), reviewing: true, primary: 'Return to the current step' };
+		}
+		apply(action, payload = {}) {
+			const result = this.engine.dispatch(action, payload);
+			if (!result.ok) throw new Error(result.detail);
+		}
+		advance() {
+			if (this.reviewIndex !== null) { this.reviewIndex = null; return; }
+			const screen = this.current();
+			if (screen.key === 'done') return;
+			this.history.push(copy(screen));
+			switch (screen.key) {
+				case 'intro': this.started = true; break;
+				case 'account': this.apply('resolveAccount', { actor: 'reviewer', account: this.engine.state.account }); break;
+				case 'conflict':
+					this.apply('resolveConflict', { actor: 'reviewer' });
+					this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
+				case 'review': this.apply('approve', { actor: 'reviewer', scope: 'checklist-only' }); break;
+				case 'owner': this.apply('propose', { owner }); break;
+				case 'waiting':
+					if (this.engine.state.scenario === 'unaccepted') this.apply('wait');
+					else this.apply('accept', { actor: owner }); break;
+				case 'escalated': this.apply('accept', { actor: owner }); break;
+				case 'delivery': this.apply('execute', { actor: owner }); break;
+				case 'verify': this.apply('verify', { actor: 'verifier', passed: true, resultId: this.engine.state.result.id }); break;
+				case 'close': this.apply('notify', { actor: 'coordinator' }); this.apply('close'); break;
+				default: throw new Error('Unknown guide step');
+			}
+		}
+		back() {
+			if (!this.history.length) return;
+			this.reviewIndex = this.reviewIndex === null ? this.history.length - 1 : Math.max(0, this.reviewIndex - 1);
+		}
+		wait() {
+			if (this.reviewIndex !== null || this.engine.state.status !== 'proposed' || this.engine.state.escalated) return;
+			this.history.push(copy(this.current())); this.apply('wait');
+		}
+		reopen() {
+			if (this.reviewIndex !== null || this.engine.state.status !== 'closed') return;
+			this.history.push(copy(this.current())); this.apply('reopen');
+		}
+	}
+
+	root.GuidedDemo = GuidedDemo;
+	if (typeof module !== 'undefined' && module.exports) module.exports = { GuidedDemo };
+	if (typeof document === 'undefined') return;
+	const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+	const guide = new GuidedDemo();
+	root.proofGuide = guide;
+	const byId = (id) => document.getElementById(id);
+	const icons = {
+		message: '<path d="M5 5h14v11H9l-4 4V5Z"/>',
+		note: '<path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h7M9 16h5"/>',
+		check: '<path d="m5 12 4 4L19 6"/>',
+		lock: '<rect x="6" y="10" width="12" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+		arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+		clock: '<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',
+		link: '<path d="m10 14 4-4M9 16l-1 1a4 4 0 0 1-5-5l4-4a4 4 0 0 1 5 0m0 8a4 4 0 0 0 5 0l4-4a4 4 0 0 0-5-5l-1 1"/>'
+	};
+	const icon = (name, size = 15) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.note}</svg>`;
+	const copybook = {
+		intro: ['One request. Three places to look.', 'Start with the call. Then check what the other notes say.', 'Connect the notes', 'The problem', 'Important details live in different places.'],
+		account: ['First, the right customer.', 'A similar name is not enough to attach work to an account.', 'Confirm this account', 'Identity check', 'The example provides the account match.'],
+		conflict: ['Same customer. Different instructions.', 'The call says checklist only. The internal note says change the setup.', 'Keep it checklist-only', 'Your decision', 'Keep both notes. Approve only the agreed work.'],
+		review: ['Turn the request into a clear task.', 'Send the checklist. Keep the live setup unchanged.', 'Approve this task', 'Your decision', 'A request is not permission to change everything.'],
+		owner: ['Clear task. Now, a clear owner.', 'Onboarding goes to Customer Success in this example.', 'Ask Alex to take it', 'The handoff', 'A name on a task is not acceptance.'],
+		waiting: ['An assignment is not an acceptance.', 'The task stays open until Alex takes responsibility.', 'Show Alex accepting', 'Waiting on Alex', 'No response? The coordinator gets the exception.'],
+		escalated: ['No reply. Not forgotten.', 'The deadline passed. The coordinator is now responsible for following up.', 'Show Alex accepting', 'Exception recorded', 'Alex can still accept after the missed deadline.'],
+		delivery: ['Alex has it from here.', 'The task, the original request, and its limits travel together.', 'Record the delivery', 'Work in progress', 'This click creates an example delivery record.'],
+		verify: ['Did the right thing get done?', 'Check the delivery against the task—not just a “done” message.', 'Check the result', 'Verify the work', 'The check belongs to this specific delivery.'],
+		close: ['One last thing: tell the customer.', 'The checklist is ready. The live setup was left alone.', 'Update and close', 'Close the loop', 'Record the customer update before closing.'],
+		done: ['Nothing left between the cracks.', 'The request, decision, owner, and result are connected.', 'Explore the related work', 'Handoff complete', 'The whole history stays attached to the case.']
+	};
+	function render(focus = true) {
+		const view = guide.screen();
+		const state = guide.engine.state;
+		const words = copybook[view.key];
+		const phase = Math.min(view.phase, 3);
+		const names = ['Capture', 'Clarify', 'Assign', 'Resolve'];
+		byId('step-label').textContent = view.reviewing ? 'Earlier step · current task unchanged' : `${String(phase + 1).padStart(2, '0')} / ${names[phase]}`;
+		byId('step-title').textContent = words[0];
+		byId('step-copy').textContent = words[1];
+		byId('cards').innerHTML = view.cards.map((item, index) => `<div class="story-card ${escapeHtml(item.tone)}"><div class="card-label">${icon(item.tone === 'warning' ? 'note' : index === 2 ? 'check' : 'message')}${escapeHtml(item.label.replace(' · call excerpt', ' · call'))}</div><p>${escapeHtml(item.text)}</p></div>`).join('');
+		byId('source-label').textContent = view.phase < 2 ? 'Source notes' : view.phase < 4 ? 'The handoff' : 'The outcome';
+		byId('source-count').textContent = view.phase < 2 ? `${state.sourceCount} linked messages` : 'One shared history';
+		byId('source-tail').innerHTML = view.key === 'intro' ? `<span class="source-stub">${icon('note')}Internal note<span>Ready to compare</span></span><span class="source-stub">${icon('message')}Customer reply<span>Linked to the call</span></span>` : `<span>${icon('link')}Original sources stay attached</span>`;
+		byId('next').textContent = view.reviewing ? 'Return to the current step' : (view.key === 'waiting' && state.scenario === 'unaccepted' ? 'Show the missed deadline' : words[2]);
+		byId('next').disabled = false;
+		byId('action-context').textContent = view.reviewing ? 'Read-only view' : words[3];
+		byId('step-note').textContent = view.reviewing ? 'Reviewing does not undo completed work.' : words[4];
+		byId('step-detail').textContent = view.detail;
+		byId('explain').open = false;
+		byId('previous').hidden = guide.history.length === 0;
+		byId('restart').hidden = !guide.started;
+		byId('late-option').hidden = !!view.reviewing || state.status !== 'proposed' || state.escalated;
+		byId('late-option').open = false;
+		byId('reopen-option').hidden = !!view.reviewing || state.status !== 'closed';
+		byId('reopen-option').open = false;
+		byId('record').textContent = JSON.stringify(state, null, 2);
+		byId('test-message').textContent = '';
+		byId('guide-error').hidden = true;
+		const statusText = { unreviewed: 'Needs review', ready: 'Ready to assign', proposed: state.escalated ? 'Needs follow-up' : 'Awaiting acceptance', accepted: 'In progress', executed: 'Check delivery', verified: 'Result verified', closed: 'Resolved' }[state.status];
+		byId('case-state').textContent = statusText;
+		byId('case-state').classList.toggle('good', ['ready', 'accepted', 'verified', 'closed'].includes(state.status));
+		byId('owner-name').textContent = state.acceptedOwner ? 'Alex · accepted' : state.proposedOwner ? 'Alex · invited' : 'Not assigned';
+		byId('owner-name').classList.toggle('pending', !state.acceptedOwner);
+		byId('owner-avatar').textContent = state.proposedOwner ? 'AL' : '—';
+		byId('owner-avatar').setAttribute('aria-label', state.proposedOwner ? 'Alex, Customer Success' : 'No owner');
+		byId('scope-value').textContent = state.scope ? 'Checklist only' : 'Awaiting decision';
+		byId('scope-value').classList.toggle('pending', !state.scope);
+		byId('scope-icon').innerHTML = icon(state.scope ? 'check' : 'clock');
+		byId('ticket-note').innerHTML = `${icon('lock', 13)}No live configuration changes`;
+		byId('ticket-foot').innerHTML = `${icon(state.status === 'closed' ? 'check' : 'link', 13)}${state.status === 'closed' ? 'Delivery checked · customer updated' : state.result ? 'Delivery recorded · linked to this task' : 'Connected to the original conversation'}`;
+		const canvas = byId('canvas');
+		canvas.dataset.view = view.key;
+		canvas.classList.remove('refresh');
+		if (focus) requestAnimationFrame(() => canvas.classList.add('refresh'));
+		for (const [index, element] of [...document.querySelectorAll('#progress li')].entries()) {
+			element.classList.toggle('current', index === phase);
+			element.classList.toggle('complete', index < phase || state.status === 'closed');
+			if (index === phase) element.setAttribute('aria-current', 'step'); else element.removeAttribute('aria-current');
+		}
+		if (focus) byId('step-title').focus({ preventScroll: false });
+	}
+	function act(callback) {
+		try { callback(); render(); }
+		catch (error) { byId('guide-error').hidden = false; byId('guide-error').textContent = `The step could not continue: ${error.message}`; }
+	}
+	byId('next').addEventListener('click', () => {
+		if (guide.reviewIndex === null && guide.current().key === 'done') {
+			byId('connections').open = true; byId('connections-title').focus(); return;
+		}
+		act(() => guide.advance());
+	});
+	byId('previous').addEventListener('click', () => act(() => guide.back()));
+	byId('restart').addEventListener('click', () => act(() => guide.reset(guide.engine.state.scenario)));
+	byId('wait').addEventListener('click', () => act(() => guide.wait()));
+	byId('reopen').addEventListener('click', () => act(() => guide.reopen()));
+	byId('load-scenario').addEventListener('click', () => act(() => guide.reset(byId('scenario').value)));
+	byId('test-close').addEventListener('click', () => {
+		const snapshot = new Engine(); snapshot.state = copy(guide.engine.state);
+		const result = snapshot.dispatch('close');
+		byId('test-message').textContent = result.ok ? 'This case meets the closure conditions. The test did not change the walkthrough.' : `Blocked as expected: ${result.detail} The walkthrough is unchanged.`;
+	});
+	byId('test-replay').addEventListener('click', () => {
+		const snapshot = new Engine(guide.engine.state.scenario); snapshot.state = copy(guide.engine.state);
+		const result = snapshot.dispatch('replay'); byId('test-message').textContent = `${result.detail} The walkthrough is unchanged.`;
+	});
+	byId('export').addEventListener('click', () => {
+		const url = URL.createObjectURL(new Blob([JSON.stringify(guide.engine.state, null, 2)], { type: 'application/json' }));
+		const link = document.createElement('a'); link.href = url; link.download = 'example-request-record.json';
+		document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+	});
+	render(false);
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
+</body>
+</html>
